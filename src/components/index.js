@@ -1,5 +1,5 @@
 import Vue from 'vue';
 
-import HelloWorld from './HelloWorld';
+import Alert from './Alert.vue';
 
-Vue.component('hello-world', HelloWorld);
+Vue.component('our-alert', Alert);
