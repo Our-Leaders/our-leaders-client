@@ -38,14 +38,16 @@
             </label>
             <div class="input-fields">
               <input class="w-11/12 py-2"
-                type="password"
+                :type="!displayPassword ? 'password' : 'text'"
                 id="password"
                 name="password"
                 v-model="data.password"
                 placeholder="Enter password"
                 required>
               <div class="inline-block w-1/12">
-                <img class="inline-block cursor-pointer" src="../../assets/img/password-eye.svg"/>
+                <img class="inline-block cursor-pointer"
+                  src="../../assets/img/password-eye.svg"
+                  @click="togglePassword"/>
               </div>
             </div>
           </div>
@@ -78,6 +80,7 @@ export default {
         password: null,
       },
       displayInfo: false,
+      displayPassword: false,
       info: {
         header: null,
         details: null,
@@ -105,6 +108,9 @@ export default {
       this.info.details = msg;
       this.info.type = type;
       this.displayInfo = true;
+    },
+    togglePassword() {
+      this.displayPassword = !this.displayPassword;
     },
   },
 };

@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import { authGetters, authMutations } from './authStore';
-import { userGetters, userMutations } from './authStore';
+import { userGetters, userMutations } from './userStore';
 
 Vue.use(Vuex);
 
