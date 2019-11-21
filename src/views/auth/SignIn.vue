@@ -93,7 +93,9 @@ export default {
         this.hasError = false;
         const response = await this.authServices.login(this.data);
 
-        console.log(response);
+        this.$store.commit('setCurrentUser', response.data.user);
+        this.$store.commit('setJWT', response.data.token);
+        this.showInfo('Success', 'Welcome back! Find everything just as you left it.', 'success');
       } catch (err) {
         this.showInfo('Uh Oh', 'Email or password is incorrect.', 'error');
       }
