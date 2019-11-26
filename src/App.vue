@@ -1,12 +1,18 @@
 <template>
   <div id="app">
+    <Navbar v-if="!$route.meta.hideNavbar"/>
     <router-view/>
   </div>
 </template>
 
 <script>
+import Navbar from '@/components/layout/Navbar.vue';
+
 export default {
   name: 'App',
+  components: {
+    Navbar,
+  },
 };
 </script>
 
@@ -18,6 +24,14 @@ body, html, #app {
   -moz-osx-font-smoothing: grayscale;
 }
 
+@font-face {
+  font-family: "Circular Std";
+  src: url("assets/fonts/CircularStd-Book.eot");
+  src: url("assets/fonts/CircularStd-Book.woff") format("woff"),
+       url("assets/fonts/CircularStd-Book.otf") format("opentype"),
+       url("assets/fonts/CircularStd-Book.svg#filename") format("svg");
+}
+
 .field {
   border-bottom: 1px solid black;
   outline: none;
@@ -27,7 +41,8 @@ body, html, #app {
 .btn-primary:focus,
 .btn-primary:active {
   outline: none;
-  @apply bg-primary font-semibold p-3 text-white;
+  font-family: 'Circular Std';
+  @apply bg-primary p-3 text-white;
 
   &.loading {
     animation: loading 1.5s linear infinite;
@@ -36,6 +51,18 @@ body, html, #app {
 
 .btn-primary:hover {
   background: rgba(206, 152, 51, 0.9);
+}
+
+.btn-primary-outline,
+.btn-primary-outline:focus,
+.btn-primary-outline:active {
+  outline: none;
+  font-family: 'Circular Std';
+  @apply bg-transparent py-3 border border-primary;
+}
+
+.btn-primary-outline:hover {
+  @apply bg-primary text-white;
 }
 
 .input-fields {
