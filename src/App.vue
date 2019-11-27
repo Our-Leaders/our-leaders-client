@@ -42,7 +42,7 @@ body, html, #app {
 .btn-primary:active {
   outline: none;
   font-family: 'Circular Std';
-  @apply bg-primary p-3 text-white;
+  @apply bg-primary text-white border border-primary;
 
   &.loading {
     animation: loading 1.5s linear infinite;
@@ -58,11 +58,16 @@ body, html, #app {
 .btn-primary-outline:active {
   outline: none;
   font-family: 'Circular Std';
-  @apply bg-transparent py-3 border border-primary;
+  @apply bg-transparent border border-primary;
 }
 
 .btn-primary-outline:hover {
   @apply bg-primary text-white;
+}
+
+.btn-primary,
+.btn-primary-outline {
+  @apply p-3;
 }
 
 .input-fields {

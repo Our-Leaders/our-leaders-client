@@ -15,7 +15,10 @@ module.exports = {
       }),
       margin: {
         '9': '2.25rem',
-      }
+      },
+      fontFamily: {
+        'circular': 'Circular Std, sans-serif, serif',
+      },
     },
   },
   variants: {},
