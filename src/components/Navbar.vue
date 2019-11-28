@@ -1,7 +1,7 @@
 <template>
 <nav class="flex items-center justify-between flex-wrap border-nav xl:border-b xl:m-0 px-6 py-4 xl:p-0 shadow-md xl:shadow-none">
   <a href="/" class="nav-icon">
-    <img class="xl:absolute fill-current mr-2 w-12" src="../../assets/img/logo.svg"/>
+    <img class="xl:absolute fill-current mr-2 w-12" src="../assets/img/logo.svg"/>
   </a>
   <div class="block lg:hidden">
     <button @click="toggle" :class="menuToggleClass" class="nav-menu flex items-center outline-none">
@@ -12,34 +12,34 @@
   </div>
   <div :class="navToggleClass" class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
     <div class="text-base lg:flex-grow">
-      <a href="#" class="block mt-4 lg:inline-block lg:mt-0 mr-4">Leaders</a>
-      <a href="#" class="block mt-4 lg:inline-block lg:mt-0 mr-4">Political parties</a>
+      <router-link :to="{ name: '' }" class="block mt-4 lg:inline-block lg:mt-0 mr-4">Leaders</router-link>
+      <router-link :to="{ name: '' }" class="block mt-4 lg:inline-block lg:mt-0 mr-4">Political parties</router-link>
     </div>
     <div>
       <ul class="list-reset lg:flex lg:items-center">
         <li>
-          <a href="#" class="block lg:px-4 lg:py-2 lg:border-b border-transparent hover:border-primary mt-4 lg:mt-0">About</a>
+          <router-link :to="{ name: '' }" class="block lg:px-4 lg:py-2 lg:border-b border-transparent hover:border-primary mt-4 lg:mt-0">About</router-link>
         </li>
         <li>
-          <a href="#" class="block lg:px-4 lg:py-2 lg:border-b border-transparent hover:border-primary mt-4 lg:mt-0">Contact</a>
+          <router-link :to="{ name: '' }" class="block lg:px-4 lg:py-2 lg:border-b border-transparent hover:border-primary mt-4 lg:mt-0">Contact</router-link>
         </li>
         <li>
-          <a href="#" class="px-4 py-2 mt-4 lg:ml-4 lg:mt-0 btn-primary-outline block leading-tight">Donate</a>
+          <router-link :to="{ name: '' }" class="px-4 py-2 mt-4 lg:ml-4 lg:mt-0 btn-primary-outline block leading-tight">Donate</router-link>
         </li>
         <li class="lg:mr-9">
-          <a href="#" class="inline-block lg:px-8 px-3 py-2 mt-4 lg:mt-0 align-bottom lg:border-r lg:border-l-0 lg:border-t-0 lg:border-b-0 border w-full">
-            <img src="../../assets/img/search.svg"/>
-          </a>
+          <router-link :to="{ name: '' }" class="inline-block lg:px-8 px-3 py-2 mt-4 lg:mt-0 align-bottom lg:border-r lg:border-l-0 lg:border-t-0 lg:border-b-0 border w-full">
+            <img src="../assets/img/search.svg"/>
+          </router-link>
         <li>
-          <a href="#" class="mt-4 px-4 py-2 lg:mt-0 btn-primary block leading-tight">Sign up</a>
+          <router-link :to="{ name: 'sign-up' }" class="mt-4 px-4 py-2 lg:mt-0 btn-primary block leading-tight">Sign up</router-link>
         </li>
         <li>
-          <a href="#" class="mt-4 px-4 py-2 lg:mt-0 border border-primary lg:border-b lg:border-transparent hover:border-primary w-full block leading-tight font-circular">Log in</a>
+          <router-link :to="{ name: 'sign-in' }" class="mt-4 px-4 py-2 lg:mt-0 border border-primary lg:border-b lg:border-transparent hover:border-primary w-full block leading-tight font-circular">Log in</router-link>
         </li>
         <li>
           <a href="#" class="flex lg:py-2 mt-4 lg:ml-9 lg:mt-0 align-bottom border lg:border-0 py-3 px-2 justify-between">
-            <img class="pr-4" src="../../assets/img/flags/nigeria.svg"/>
-            <img src="../../assets/img/chevron-down.svg"/>
+            <img class="pr-4" src="../assets/img/flags/nigeria.svg"/>
+            <img src="../assets/img/chevron-down.svg"/>
           </a>
         </li>
       </ul>
@@ -50,7 +50,7 @@
 
 <script>
 export default {
-  name: 'Navbar',
+  name: 'our-navbar',
   data() {
     return {
       open: false,

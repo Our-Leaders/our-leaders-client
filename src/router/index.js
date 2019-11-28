@@ -15,7 +15,7 @@ const routes = [
     path: '/auth/sign-in',
     name: 'sign-in',
     component: Pages.SignIn,
-    meta: { hideNavbar: true },
+    meta: { layout: 'no-navbar' },
   },
 ];
 

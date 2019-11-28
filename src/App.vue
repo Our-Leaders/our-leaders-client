@@ -1,17 +1,18 @@
 <template>
   <div id="app">
-    <Navbar v-if="!$route.meta.hideNavbar"/>
-    <router-view/>
+    <component :is="layout">
+      <router-view/>
+    </component>
   </div>
 </template>
 
 <script>
-import Navbar from '@/components/layout/Navbar.vue';
-
 export default {
   name: 'App',
-  components: {
-    Navbar,
+  computed: {
+    layout() {
+      return `${this.$route.meta.layout || 'default'}-layout`;
+    },
   },
 };
 </script>
