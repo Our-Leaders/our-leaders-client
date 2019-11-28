@@ -1,10 +1,8 @@
 <template>
 <nav class="flex items-center justify-between flex-wrap border-nav xl:border-b xl:m-0 px-6 py-4 xl:p-0 shadow-md xl:shadow-none">
-  <a href="/" class="nav-icon">
-    <img class="xl:absolute fill-current mr-2 w-12" src="../assets/img/logo.svg"/>
-  </a>
+  <router-link :to="{ name: 'home' }" class="nav-icon"><img class="xl:absolute mr-2 w-12" src="@/assets/img/logo.svg"/></router-link>
   <div class="block lg:hidden">
-    <button @click="toggle" :class="menuToggleClass" class="nav-menu flex items-center outline-none">
+    <button @click="toggleNav" :class="menuToggleClass" class="nav-menu flex items-center focus:outline-none">
       <span></span>
       <span></span>
       <span></span>
@@ -16,30 +14,35 @@
       <router-link :to="{ name: '' }" class="block mt-4 lg:inline-block lg:mt-0 mr-4">Political parties</router-link>
     </div>
     <div>
-      <ul class="list-reset lg:flex lg:items-center">
+      <ul class="relative lg:inline-flex lg:items-center">
         <li>
           <router-link :to="{ name: '' }" class="block lg:px-4 lg:py-2 lg:border-b border-transparent hover:border-primary mt-4 lg:mt-0">About</router-link>
         </li>
         <li>
           <router-link :to="{ name: '' }" class="block lg:px-4 lg:py-2 lg:border-b border-transparent hover:border-primary mt-4 lg:mt-0">Contact</router-link>
         </li>
-        <li>
+        <li class="donate-wrapper">
           <router-link :to="{ name: '' }" class="px-4 py-2 mt-4 lg:ml-4 lg:mt-0 btn-primary-outline block leading-tight">Donate</router-link>
         </li>
-        <li class="lg:mr-9">
-          <router-link :to="{ name: '' }" class="inline-block lg:px-8 px-3 py-2 mt-4 lg:mt-0 align-bottom lg:border-r lg:border-l-0 lg:border-t-0 lg:border-b-0 border w-full">
-            <img src="../assets/img/search.svg"/>
-          </router-link>
-        <li>
-          <router-link :to="{ name: 'sign-up' }" class="mt-4 px-4 py-2 lg:mt-0 btn-primary block leading-tight">Sign up</router-link>
+        <li class="xl:absolute lg:ml-4 lg:border-r lg:border-l-0 lg:border-t-0 lg:border-b-0 border right-0 w-full mt-4 lg:mt-0">
+          <div class="search-wrapper relative mr-2 xl:mr-8">
+            <input v-model="searchQuery" type="text" ref="search" class="search-input w-full xl:w-6 xl:opacity-0 pr-6 xl:pl-0 pl-4 py-2" placeholder="Search" />
+            <img class="search-img" src="@/assets/img/search.svg"/>
+            <img @click="clearSearch" class="search-clear" src="@/assets/img/close.svg"/>
+          </div>
+        </li>
+      </ul>
+      <ul class="lg:inline-flex lg:items-center">
+        <li class="lg:ml-9">
+          <router-link :to="{ name: '' }" class="mt-4 px-4 py-2 lg:mt-0 btn-primary block leading-tight">Sign up</router-link>
         </li>
         <li>
           <router-link :to="{ name: 'sign-in' }" class="mt-4 px-4 py-2 lg:mt-0 border border-primary lg:border-b lg:border-transparent hover:border-primary w-full block leading-tight font-circular">Log in</router-link>
         </li>
         <li>
-          <a href="#" class="flex lg:py-2 mt-4 lg:ml-9 lg:mt-0 align-bottom border lg:border-0 py-3 px-2 justify-between">
-            <img class="pr-4" src="../assets/img/flags/nigeria.svg"/>
-            <img src="../assets/img/chevron-down.svg"/>
+          <a href="#" class="flex lg:py-2 mt-4 lg:ml-9 lg:mt-0 border lg:border-0 py-3 px-2 justify-between">
+            <img class="pr-4" src="@/assets/img/flags/nigeria.svg"/>
+            <img src="@/assets/img/chevron-down.svg"/>
           </a>
         </li>
       </ul>
@@ -53,22 +56,27 @@ export default {
   name: 'our-navbar',
   data() {
     return {
-      open: false,
+      openNav: false,
+      searchQuery: '',
     };
   },
   computed: {
     navToggleClass() {
-      if (this.open) return 'block';
+      if (this.openNav) return 'block';
       return 'hidden';
     },
     menuToggleClass() {
-      if (this.open) return 'open';
+      if (this.openNav) return 'open';
       return '';
     },
   },
   methods: {
-    toggle() {
-      this.open = !this.open;
+    toggleNav() {
+      this.openNav = !this.openNav;
+    },
+    clearSearch() {
+      this.$refs.search.focus();
+      this.searchQuery = '';
     },
   },
 };
@@ -80,36 +88,39 @@ export default {
       margin-left: 13.65rem;
       margin-right: 4.25rem;
       min-height: 6.25rem;
-    }
 
-    .nav-icon img {
-      @screen xl {
-        width: 6.875rem;
-        top: 1.315rem;
+      .nav-icon img {
         left: 3.95rem;
+        top: 1.315rem;
+        width: 6.875rem;
+      }
+
+      .donate-wrapper {
+        margin-right: 5.25rem;
       }
     }
 
+
     .nav-menu {
-      width: 30px;
+      cursor: pointer;
       height: 16px;
       position: relative;
       transform: rotate(0deg);
       transition: .5s ease-in-out;
-      cursor: pointer;
+      width: 30px;
 
       span {
-        display: block;
-        position: absolute;
-        height: 1px;
-        width: 100%;
         background: black;
         border-radius: 4px;
-        opacity: 1;
+        display: block;
+        height: 1px;
         left: 0;
+        opacity: 1;
+        position: absolute;
+        transform-origin: left center;
         transform: rotate(0deg);
         transition: .25s ease-in-out;
-        transform-origin: left center;
+        width: 100%;
 
         &:nth-child(1) {
           top: 0px;
@@ -126,20 +137,71 @@ export default {
 
       &.open {
         span:nth-child(1) {
-          transform: rotate(45deg);
-          top: -3px;
           left: 5px;
+          top: -3px;
+          transform: rotate(45deg);
         }
 
         span:nth-child(2) {
-          width: 0%;
           opacity: 0;
+          width: 0%;
         }
 
         span:nth-child(3) {
-          transform: rotate(-45deg);
-          top: 18px;
           left: 5px;
+          top: 18px;
+          transform: rotate(-45deg);
+        }
+      }
+    }
+
+    .search-wrapper {
+      padding: 20px;
+
+      .search-img,
+      .search-clear {
+        background: white;
+        cursor: pointer;
+        height: calc(100% - 1px);
+        padding: 0.4375rem 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 1;
+      }
+
+      .search-clear {
+        display: none;
+      }
+
+      .search-input {
+        cursor: pointer;
+        background: transparent;
+        outline: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 2;
+        transition: all .5s;
+
+        &:focus,
+        &:not(:placeholder-shown) {
+          @apply border-b;
+          cursor: auto;
+          opacity: 1;
+          width: 100%;
+          background: white;
+          z-index: 1;
+        }
+
+        &:not(:placeholder-shown) {
+          & + .search-img {
+            display: none;
+          }
+
+          & ~ .search-clear {
+            display: inline-block;
+          }
         }
       }
     }
