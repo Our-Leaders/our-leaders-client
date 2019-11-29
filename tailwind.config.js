@@ -4,11 +4,20 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#CE9833',
+        primary: '#C79947',
         gray: {
           ...colors.gray,
         },
         white: '#FFFFFF'
+      },
+      borderColor: theme => ({
+        'nav': '#dbdbdb',
+      }),
+      margin: {
+        '9': '2.25rem',
+      },
+      fontFamily: {
+        'circular': 'Circular Std, sans-serif, serif',
       },
     },
   },
