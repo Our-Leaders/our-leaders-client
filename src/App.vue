@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <transition name="fade" mode="out-in">
-      <router-view/>
+      <component :is="layout">
+        <router-view/>
+      </component>
     </transition>
   </div>
 </template>
@@ -9,6 +11,11 @@
 <script>
 export default {
   name: 'App',
+  computed: {
+    layout() {
+      return `${this.$route.meta.layout || 'default'}-layout`;
+    },
+  },
 };
 </script>
 
@@ -20,6 +27,14 @@ body, html, #app {
   -moz-osx-font-smoothing: grayscale;
 }
 
+@font-face {
+  font-family: "Circular Std";
+  src: url("assets/fonts/CircularStd-Book.eot");
+  src: url("assets/fonts/CircularStd-Book.woff") format("woff"),
+       url("assets/fonts/CircularStd-Book.otf") format("opentype"),
+       url("assets/fonts/CircularStd-Book.svg#filename") format("svg");
+}
+
 .field {
   border-bottom: 1px solid black;
   outline: none;
@@ -29,7 +44,8 @@ body, html, #app {
 .btn-primary:focus,
 .btn-primary:active {
   outline: none;
-  @apply bg-primary font-semibold p-3 text-white;
+  font-family: 'Circular Std';
+  @apply bg-primary text-white border border-primary;
 
   &.loading {
     animation: loading 1.5s linear infinite;
@@ -62,6 +78,23 @@ body, html, #app {
     background: #ffffff;
     padding: 0 10px;
   }
+}
+
+.btn-primary-outline,
+.btn-primary-outline:focus,
+.btn-primary-outline:active {
+  outline: none;
+  font-family: 'Circular Std';
+  @apply bg-transparent border border-primary;
+}
+
+.btn-primary-outline:hover {
+  @apply bg-primary text-white;
+}
+
+.btn-primary,
+.btn-primary-outline {
+  @apply p-3;
 }
 
 .input-fields {

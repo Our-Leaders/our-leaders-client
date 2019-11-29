@@ -5,6 +5,7 @@ import serviceFactory from './services/factory';
 import store from './store';
 
 import './components/index';
+import './layouts/index';
 import './main.css';
 
 Vue.config.productionTip = false;

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-wrap h-full">
+  <div class="flex flex-wrap h-screen">
     <our-alert :alert-type="info.type" :display="displayInfo">
       <p class="font-bold">{{info.header}}</p>
       <p class="text-sm">{{info.details}}</p>
