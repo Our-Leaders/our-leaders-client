@@ -61,7 +61,9 @@
           </button>
           <p>
             Don't have an account?
-            <a class="cursor-pointer text-primary font-semibold">sign up</a>
+            <router-link to="/auth/sign-up">
+              <a class="cursor-pointer text-primary font-semibold">sign up</a>
+            </router-link>
           </p>
         </form>
       </div>

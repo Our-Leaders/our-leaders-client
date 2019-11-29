@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view/>
+    <transition name="fade" mode="out-in">
+      <router-view/>
+    </transition>
   </div>
 </template>
 
@@ -36,6 +38,30 @@ body, html, #app {
 
 .btn-primary:hover {
   background: rgba(206, 152, 51, 0.9);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity .5s
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0
+}
+
+.horizontal-divide {
+  border-bottom: 1px solid #DBDBDB;
+  color: #969696;
+  font-size: 16px;
+  line-height: 0.1em;
+  text-align: center;
+  width: 100%;
+
+  span {
+    background: #ffffff;
+    padding: 0 10px;
+  }
 }
 
 .input-fields {
