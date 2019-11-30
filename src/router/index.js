@@ -40,8 +40,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.meta.isAuth && Store.getters.isLoggedIn) {
-    // next(from.path);
-    next();
+    next(from.path);
   } else {
     next();
   }
