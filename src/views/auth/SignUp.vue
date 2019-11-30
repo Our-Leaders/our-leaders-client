@@ -198,7 +198,7 @@ export default {
         type: 'info',
       },
       loading: false,
-      page: 1,
+      page: 0,
       sending: false,
     };
   },
