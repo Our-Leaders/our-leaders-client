@@ -61,7 +61,9 @@
           </button>
           <p>
             Don't have an account?
-            <a class="cursor-pointer text-primary font-semibold">sign up</a>
+            <router-link to="/auth/sign-up">
+              <a class="cursor-pointer text-primary font-semibold">sign up</a>
+            </router-link>
           </p>
         </form>
       </div>
@@ -96,10 +98,17 @@ export default {
         this.hasError = false;
         const response = await this.authServices.login(this.data);
 
+        this.showInfo('Success', 'Welcome back! Find everything just as you left it.', 'success');
         this.$store.commit('setCurrentUser', response.data.user);
         this.$store.commit('setJWT', response.data.token);
-        this.showInfo('Success', 'Welcome back! Find everything just as you left it.', 'success');
+
+        if (response.data.user.isPhoneVerified) {
+          this.$router.push('/');
+        } else {
+          this.$router.push('/auth/sign-up?signedIn=true');
+        }
       } catch (err) {
+        this.loading = false;
         this.showInfo('Uh Oh', 'Email or password is incorrect.', 'error');
       }
     },

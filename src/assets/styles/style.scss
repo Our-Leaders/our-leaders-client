@@ -1,0 +1,137 @@
+@font-face {
+  font-family: "Circular Std";
+  src: url("../fonts/CircularStd-Book.eot");
+  src: url("../fonts/CircularStd-Book.woff") format("woff"),
+       url("../fonts/CircularStd-Book.otf") format("opentype"),
+       url("../fonts/CircularStd-Book.svg#filename") format("svg");
+}
+
+body, html, #app {
+  font-family: 'PT Serif', serif;
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+input:disabled {
+  background: white;
+  @apply text-gray-500;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.bg-overlay {
+  background-image: url('../../assets/img/auth-bg-pattern.svg');
+  background-size: cover;
+}
+
+.btn-primary,
+.btn-primary:focus,
+.btn-primary:active {
+  outline: none;
+  font-family: 'Circular Std';
+  @apply bg-primary text-white border border-primary p-3;
+
+  &.loading {
+    animation: loading 1.5s linear infinite;
+  }
+}
+
+.btn-primary:hover {
+  background: rgba(206, 152, 51, 0.9);
+}
+
+.btn-primary-outline,
+.btn-primary-outline:focus,
+.btn-primary-outline:active {
+  outline: none;
+  font-family: 'Circular Std';
+  @apply bg-transparent border border-primary p-3;
+}
+
+.field,
+input:-webkit-autofill,
+input:-internal-autofill-selected {
+  background: white;
+  border-bottom: 1px solid black;
+  outline: none;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity .5s
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0
+}
+
+.horizontal-divide {
+  border-bottom: 1px solid #DBDBDB;
+  color: #969696;
+  font-size: 16px;
+  line-height: 0.1em;
+  text-align: center;
+  width: 100%;
+
+  span {
+    background: #ffffff;
+    padding: 0 10px;
+  }
+}
+
+.input-fields {
+  border-bottom: 1px solid black;
+
+  input {
+    outline: none;
+  }
+
+  .loading {
+    animation: rotate 2s infinite;
+    border: 3px dashed #CE9833;
+    border-radius: 10px;
+    display: block;
+    height: 20px;
+    width: 20px;
+  }
+}
+
+.verification {
+  letter-spacing: 1em;
+}
+
+// This is just an idea for an animation, it can change
+@keyframes loading {
+  0% {
+    background: #CE9833;
+  }
+
+  25% {
+    background: #D6A853;
+  }
+
+  50% {
+    background: #DDB872;
+  }
+
+  75% {
+    background: #D6A853;
+  }
+
+  100% {
+    background: #CE9833;
+  }
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
