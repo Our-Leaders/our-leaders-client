@@ -8,6 +8,9 @@ module.exports = {
         gray: {
           ...colors.gray,
         },
+        red: {
+          ...colors.red,
+        },
         white: '#FFFFFF'
       },
       borderColor: theme => ({

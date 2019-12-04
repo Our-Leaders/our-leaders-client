@@ -33,11 +33,22 @@
         </li>
       </ul>
       <ul class="lg:inline-flex lg:items-center">
-        <li class="lg:ml-9 lg:mr-2">
+        <li class="lg:ml-9 lg:mr-2" v-if="!isLoggedIn">
           <router-link :to="{ name: 'sign-up' }" class="mt-4 px-4 py-2 lg:mt-0 btn-primary block leading-tight">Sign up</router-link>
         </li>
-        <li>
+        <li v-if="!isLoggedIn">
           <router-link :to="{ name: 'sign-in' }" class="mt-4 px-4 py-2 lg:mt-0 border border-primary lg:border-b lg:border-transparent hover:border-primary w-full block leading-tight font-circular">Log in</router-link>
+        </li>
+        <li class="lg:ml-9 lg:mr-2" v-if="isLoggedIn">
+          <div class="flex justify-center h-8 w-8 p-2 relative rounded-full bg-gray-300 text-xs">
+            <span class="absolute top-0 right-0 bg-red-600 h-3 w-3 rounded-full"></span>
+            <span class="inline-block align-middle">12</span>
+          </div>
+        </li>
+        <li class="lg:ml-2" v-if="isLoggedIn">
+          <div class="flex justify-center h-8 w-8 overflow-hidden rounded-full bg-gray-100 text-xs">
+            <img class="object-cover object-center" src="../assets/img/user.svg"/>
+          </div>
         </li>
         <li>
           <a href="#" class="flex lg:py-2 mt-4 lg:ml-9 lg:mt-0 border lg:border-0 py-3 px-2 justify-between">
@@ -52,6 +63,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'our-navbar',
   data() {
@@ -61,6 +74,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters([
+      'isLoggedIn',
+    ]),
     navToggleClass() {
       if (this.openNav) return 'block';
       return 'hidden';
