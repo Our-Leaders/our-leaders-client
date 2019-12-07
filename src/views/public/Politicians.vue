@@ -8,11 +8,11 @@
     <!-- Header -->
     <div class="flex mb-4">
       <div class="w-4/5 relative mx-auto h-auto bg-primary bg-overlay-header">
-        <div id="main-header" class="flex px-6 py-24 text-white text-center">
-          <div class="w-1/2">
+        <div id="main-header" class="flex flex-wrap px-6 py-24 text-white text-center">
+          <div class="ww-full md:-1/2">
             <span class="text-6xl">Current leaders</span>
           </div>
-          <div class="w-1/2">
+          <div class="w-full md:w-1/2">
             <p class="text-left px-6">These are leaders who currently hold a political position in this government.
               The leaders in this category also have extensive experience in politics.</p>
           </div>
@@ -24,8 +24,8 @@
     <!-- Search Body -->
     <div class="flex">
       <div class="w-4/5 relative mx-auto h-auto">
-        <div class="flex">
-          <div class="w-2/3 pr-4">
+        <div class="flex flex-wrap flex-col-reverse lg:flex-row">
+          <div class="w-full lg:w-2/3 pr-4">
           <!-- Secondary Tab -->
             <our-tabs class="mb-6" v-on:change="setSecondary" :tabs='secondaryTabs' :tab-type="'secondary'"></our-tabs>
             <!-- Loading div -->
@@ -37,7 +37,7 @@
             <!-- Main div -->
             <!-- Might turn this into a component later -->
             <div class="flex flex-wrap mb-4 min-h-64" v-if="!loading">
-              <div class="w-2/6 my-6 px-2" v-for="(politician, i) in politicians" :key="i">
+              <div class="w-1/2 md:w-2/6 my-6 px-2" v-for="(politician, i) in politicians" :key="i">
                 <our-politician :politician="politician" :total="politicians.length"></our-politician>
               </div>
             </div>
@@ -50,7 +50,7 @@
               :current="filter.page"></our-pagination>
             </div>
           </div>
-          <div class="w-1/3">
+          <div class="w-full lg:w-1/3">
             <h3>Side Bar</h3>
           </div>
         </div>

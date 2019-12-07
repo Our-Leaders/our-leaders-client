@@ -7,14 +7,14 @@
       </button>
     </div>
   </div>
-  <div class="w-full overflow-hidden h-40">
+  <div class="w-full overflow-hidden h-20 md:h-32 lg:h-40">
     <img :src="politician.profileImage" class="w-full object-cover"/>
   </div>
-  <div class="w-full my-2">
-    <img class="inline-block mr-2 h-4" src="../assets/img/thumbs-up.svg"/>
-    <span class="inline-block mr-4 h-4 align-middle text-sm">{{politician.vote.up}}</span>
-    <img class="inline-block mr-2 h-4" src="../assets/img/thumbs-down.svg"/>
-    <span class="inline-block mr-2 h-4 align-middle text-sm">{{politician.vote.down}}</span>
+  <div class="w-full my-1 md:my-2">
+    <img class="inline-block mr-1 md:mr-2 h-3 md:h-4" src="../assets/img/thumbs-up.svg"/>
+    <span class="inline-block mr-2 md:mr-4 h-3 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.up}}</span>
+    <img class="inline-block mr-1 md:mr-2 h-3 md:h-4" src="../assets/img/thumbs-down.svg"/>
+    <span class="inline-block mr-1 md:mr-2 h-3 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.down}}</span>
   </div>
   <h4 class="font-semibold text-lg">{{politician.name}}</h4>
   <h4 class="capitalize overflow-ellipse text-base">{{position}}</h4>

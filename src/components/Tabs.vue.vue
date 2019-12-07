@@ -1,12 +1,12 @@
 <template>
 <div>
-  <div v-if="tabType === 'primary'" id="tabs" class="flex absolute bottom-0 w-full h-10 bg-white border-t-2 border-white text-center">
+  <div v-if="tabType === 'primary'" id="tabs" class="flex flex-wrap absolute bottom-0 w-full h-10 bg-white border-t-2 border-white text-center">
     <div v-for="(tab, i) in tabs" :key="i" :class="{
       'w-1/3 cursor-pointer': true,
       'active-tab': isActive(tab.value)}"
       @click="setTab(tab.value);$emit('change', tab.value);">
       <span class="triangle" v-if="isActive(tab.value)"></span>
-      <span class="align-middle text-base">{{tab.label}}</span>
+      <span class="align-middle text-sm md:text-base">{{tab.label}}</span>
     </div>
   </div>
   <div v-if="tabType === 'secondary'" class="flex w-full border-b-2 border-primary">
