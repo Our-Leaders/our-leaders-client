@@ -8,18 +8,18 @@
       @click="goBack">
       <span class="left-arrow"></span>
     </li>
+    <!-- More logic to be done on what numbers to display -->
     <li :class="{
       'p-box': true,
-      'active': page == i
+      'active': current == page
       }"
-      v-for="(item, i) in number"
+      v-for="(page, i) in pages"
       :key="i"
-      @click="$emit('change', i)">
+      @click="$emit('change', page)">
       <span :class="{
         'number font-semibold': true,
-        'active': page == i
         }">
-        {{item}}
+        {{page + 1}}
       </span>
     </li>
     <li class="p-box"
@@ -37,6 +37,10 @@ export default {
       type: Number,
       required: true,
     },
+    total: {
+      type: Number,
+      required: true,
+    },
   },
   data() {
     return {
@@ -47,6 +51,17 @@ export default {
   computed: {
     atBeginning() {
       return this.current === 0;
+    },
+    pages() {
+      if (this.current < 2) {
+        return [0, 1, 2];
+      }
+
+      if (this.current === this.total) {
+        return [this.total - 2, this.total - 1, this.total];
+      }
+
+      return [this.current - 1, this.current, this.current + 1];
     },
   },
   methods: {

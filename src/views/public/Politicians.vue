@@ -1,5 +1,10 @@
 <template>
   <div>
+    <our-alert :alert-type="info.type" :display="displayInfo">
+      <p class="font-bold">{{info.header}}</p>
+      <p class="text-sm">{{info.details}}</p>
+    </our-alert>
+
     <!-- Header -->
     <div class="flex mb-4">
       <div class="w-4/5 relative mx-auto h-auto bg-primary bg-overlay-header">
@@ -30,9 +35,10 @@
               </div>
             </div>
             <!-- Main div -->
-            <div class="flex flex-wrap mb-4" v-if="!loading">
+            <!-- Might turn this into a component later -->
+            <div class="flex flex-wrap mb-4 min-h-64" v-if="!loading">
               <div class="w-2/6 my-6 px-2" v-for="(politician, i) in politicians" :key="i">
-                <our-politician :politician="politician"></our-politician>
+                <our-politician :politician="politician" :total="politicians.length"></our-politician>
               </div>
             </div>
             <!-- Pagination -->
@@ -61,11 +67,17 @@ export default {
   name: 'politicians',
   data() {
     return {
+      displayInfo: false,
       filter: {
         status: 'current',
         politicalPosition: null,
         page: 0,
         limit: 10,
+      },
+      info: {
+        header: null,
+        details: null,
+        type: 'info',
       },
       loading: true,
       mainTabs: [{ label: 'Current Leaders', value: 'current' }, { label: 'Aspirants', value: 'upcoming' }, { label: 'Past Leaders', value: 'past' }],
@@ -90,9 +102,8 @@ export default {
         this.politicians = this.politicians.concat(politiciansMock);
         this.loading = false;
       } catch (error) {
-        console.log(error);
-        console.log(StringUtil.getErrorText(error));
         this.loading = false;
+        this.showInfo('Uh Oh', StringUtil.getErrorText(error), 'error');
       }
     },
     changePage(page) {
@@ -114,6 +125,13 @@ export default {
     setSecondary(value) {
       this.filter.politicalPosition = value;
       this.getPoliticians();
+    },
+    showInfo(header, msg, type) {
+      this.info.header = header;
+      this.info.details = msg;
+      this.info.type = type;
+      this.displayInfo = true;
+      setTimeout(() => { this.displayInfo = false; }, 3000);
     },
   },
 };

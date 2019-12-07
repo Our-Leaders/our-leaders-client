@@ -119,6 +119,7 @@ export default {
       this.info.details = msg;
       this.info.type = type;
       this.displayInfo = true;
+      setTimeout(() => { this.displayInfo = false; }, 3000);
     },
     togglePassword() {
       this.displayPassword = !this.displayPassword;
