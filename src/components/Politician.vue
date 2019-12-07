@@ -16,8 +16,8 @@
     <img class="inline-block mr-1 md:mr-2 h-3 md:h-4" src="../assets/img/thumbs-down.svg"/>
     <span class="inline-block mr-1 md:mr-2 h-3 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.down}}</span>
   </div>
-  <h4 class="font-semibold text-lg">{{politician.name}}</h4>
-  <h4 class="capitalize overflow-ellipse text-base">{{position}}</h4>
+  <h4 class="font-semibold text-base md:text-lg">{{politician.name}}</h4>
+  <h4 class="capitalize overflow-ellipse text-sm md:text-base">{{position}}</h4>
 </div>
 </template>
 
