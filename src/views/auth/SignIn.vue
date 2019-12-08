@@ -13,6 +13,8 @@
         <hr class="text-white w-20"/>
       </div>
     </div>
+
+    <!-- Right Side -->
     <div class="w-2/3 flex flex-col justify-center">
       <div class="mx-auto w-6/12">
         <span class="block text-5xl mb-10">Log in</span>
@@ -117,6 +119,7 @@ export default {
       this.info.details = msg;
       this.info.type = type;
       this.displayInfo = true;
+      setTimeout(() => { this.displayInfo = false; }, 3000);
     },
     togglePassword() {
       this.displayPassword = !this.displayPassword;
@@ -126,8 +129,4 @@ export default {
 </script>
 
 <style lang="scss">
-  .bg-overlay {
-    background-image: url('../../assets/img/auth-bg-pattern.svg');
-    background-size: cover;
-  }
 </style>
