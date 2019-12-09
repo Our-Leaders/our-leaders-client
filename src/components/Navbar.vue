@@ -24,7 +24,7 @@
         <li class="donate-wrapper">
           <router-link :to="{ name: '' }" class="px-4 py-2 mt-4 lg:ml-4 lg:mt-0 btn-primary-outline block leading-tight">Donate</router-link>
         </li>
-        <li class="xl:absolute lg:ml-4 h-16 lg:border-r lg:border-l-0 lg:border-t-0 lg:border-b-0 border right-0 w-full mt-4 lg:mt-0">
+        <li class="xl:absolute lg:ml-4 h-12 lg:border-r lg:border-l-0 lg:border-t-0 lg:border-b-0 border right-0 w-full mt-4 lg:mt-0">
           <div class="search-wrapper h-full relative mr-2 xl:mr-8">
             <input v-model="searchQuery" type="text" ref="search" class="search-input h-full w-full xl:w-6 xl:opacity-0 pr-6 xl:pl-0 pl-4 py-2" placeholder="Search" />
             <img class="search-img" src="@/assets/img/search.svg"/>
@@ -160,11 +160,10 @@ export default {
       .search-clear {
         background: white;
         cursor: pointer;
-        height: calc(80% - 1px);
-        padding: 0.4375rem 0;
+        height: calc(65% - 1px);
         position: absolute;
         right: 0;
-        top: 10%;
+        top: 17.5%;
         z-index: 1;
       }
 

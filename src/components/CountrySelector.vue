@@ -1,12 +1,16 @@
 <template>
   <div class="selector-container relative">
-    <div @click="toggleCountryList" class="flex lg:p-0 lg:ml-8 mt-4 lg:mt-0 border lg:border-0 py-3 px-2 font-circular flex justify-end">
+    <div @click="toggleCountryList" class="flex lg:p-0 lg:ml-8 mt-4 lg:mt-0 border lg:border-0 py-3 px-4 font-circular flex justify-between lg:justify-end">
       <img class="mr-5" :src="countryFlag(selectedCountry.flag)"/>
       <img src="@/assets/img/chevron-down.svg"/>
     </div>
-    <div class="absolute w-64 country-list px-4 py-3 shadow right-0 bg-white" v-if="countryListOpen">
+    <div class="fixed lg:absolute w-full lg:w-64 country-list p-6 lg:px-4 lg:py-3 shadow right-0 bg-white" v-if="countryListOpen">
+      <div class="lg:hidden flex justify-between items-center font-circular mb-4">
+        <p>Choose country</p>
+        <img @click="toggleCountryList" src="@/assets/img/close.svg"/>
+      </div>
       <ul>
-        <li v-for="(countryObject, key) in countryList" :key="key" class="flex relative p-1 items-center" :class="selectedCountryClass(key)" @click="countrySelect(key)">
+        <li v-for="(countryObject, key) in countryList" :key="key" class="flex relative py-1 items-center" :class="selectedCountryClass(key)" @click="countrySelect(key)">
           <input type="radio" name="country" :value="key" :v-model="value" class="absolute invisible">
           <div class="flag-container mr-3">
             <img :src="countryFlag(countryObject.flag)"/>
@@ -66,13 +70,19 @@ export default {
   }
 
   .country-list {
-    top: 3rem;
-    max-height: 20rem;
-    height: auto;
+    top: 0;
+    height: 100vh;
+    z-index: 100;
     overflow-y: scroll;
 
     ul li:not(:last-child) {
       @apply mb-3;
+    }
+
+    @screen lg {
+      top: 3rem;
+      max-height: 20rem;
+      height: auto;
     }
   }
 
