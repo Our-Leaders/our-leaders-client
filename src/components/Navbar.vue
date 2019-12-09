@@ -37,13 +37,10 @@
           <router-link :to="{ name: 'sign-up' }" class="mt-4 px-4 py-2 lg:mt-0 btn-primary block leading-tight">Sign up</router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'sign-in' }" class="mt-4 px-4 py-2 lg:mt-0 border border-primary lg:border-b lg:border-transparent hover:border-primary w-full block leading-tight font-circular">Log in</router-link>
+          <router-link :to="{ name: 'sign-in' }" class="mt-4 px-4 py-3 lg:mt-0 border border-primary lg:border-b lg:border-transparent hover:border-primary w-full block leading-tight font-circular">Log in</router-link>
         </li>
         <li>
-          <a href="#" class="flex lg:py-2 mt-4 lg:ml-9 lg:mt-0 border lg:border-0 py-3 px-2 justify-between">
-            <img class="pr-4" src="@/assets/img/flags/nigeria.svg"/>
-            <img src="@/assets/img/chevron-down.svg"/>
-          </a>
+          <our-country-selector v-model="country" />
         </li>
       </ul>
     </div>
@@ -58,6 +55,7 @@ export default {
     return {
       openNav: false,
       searchQuery: '',
+      country: 'ngr',
     };
   },
   computed: {
