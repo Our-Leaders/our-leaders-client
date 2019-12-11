@@ -4,7 +4,7 @@
       <img class="mr-5" :src="countryFlag(selectedCountry.flag)"/>
       <img src="@/assets/img/chevron-down.svg"/>
     </div>
-    <div class="fixed lg:absolute w-full lg:w-64 country-list p-6 lg:px-4 lg:py-3 shadow right-0 bg-white" v-if="countryListOpen">
+    <div class="fixed lg:absolute w-full lg:w-64 country-list p-6 lg:px-4 lg:py-3 right-0 bg-white" v-if="countryListOpen">
       <div class="lg:hidden flex justify-between items-center font-circular mb-4">
         <p>Choose country</p>
         <img @click="toggleCountryList" src="@/assets/img/close.svg"/>
@@ -83,6 +83,7 @@ export default {
       top: 3rem;
       max-height: 20rem;
       height: auto;
+      box-shadow: 0px 12px 52px rgba(0, 0, 0, 0.1);
     }
   }
 
