@@ -3,9 +3,9 @@
 </template>
 
 <script>
-  export default {
-    name: "Footer"
-  }
+export default {
+  name: 'our-footer',
+};
 </script>
 
 <style scoped>
