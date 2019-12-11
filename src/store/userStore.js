@@ -8,5 +8,5 @@ export const userMutations = {
 };
 
 export const userGetters = {
-  user: state => state.currentUser,
+  user: state => state.currentUser || {},
 };
