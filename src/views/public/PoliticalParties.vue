@@ -82,7 +82,6 @@ export default {
 
         this.politicalParties = response.data.politicalParties;
         // For now
-        console.log(politicalPartiesMock);
         this.politicalParties = politicalPartiesMock;
         this.politicalParties = this.politicalParties.concat(politicalPartiesMock);
         this.loading = false;
