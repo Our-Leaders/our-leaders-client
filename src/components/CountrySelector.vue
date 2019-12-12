@@ -1,6 +1,6 @@
 <template>
   <div class="selector-container relative">
-    <div @click="toggleCountryList" class="flex lg:p-0 lg:ml-8 mt-4 lg:mt-0 border lg:border-0 py-3 px-4 font-circular flex justify-between lg:justify-end">
+    <div @click="toggleCountryList" class="flex lg:p-0 lg:ml-2 mt-4 lg:mt-0 border lg:border-0 py-3 px-4 font-circular flex justify-between lg:justify-end">
       <img class="mr-5" :src="countryFlag(selectedCountry.flag)"/>
       <img src="@/assets/img/chevron-down.svg"/>
     </div>
@@ -64,7 +64,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .selector-container {
     cursor: pointer;
   }
