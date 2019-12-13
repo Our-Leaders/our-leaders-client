@@ -14,10 +14,10 @@
         <li :class="isLoggedIn ? 'lg:mr-20' : ''">
           <router-link :to="{ name: '' }" class="block lg:px-4 lg:py-2 lg:border-b border-transparent hover:border-primary mt-4 lg:mt-0">Contact</router-link>
         </li>
-        <li v-if="!isLoggedIn">
+        <li v-if="!isLoggedIn" class="donate-wrapper">
           <router-link :to="{ name: '' }" class="px-4 py-2 mt-4 lg:ml-4 lg:mt-0 btn-primary-outline block leading-tight">Donate</router-link>
         </li>
-        <li class="lg:absolute lg:ml-4 h-12 lg:border-r lg:border-l-0 lg:border-t-0 lg:border-b-0 border right-0 w-full mt-4 lg:mt-0">
+        <li class="lg:absolute lg:ml-4 h-12 lg:border-r lg:border-l-0 lg:border-t-0 lg:border-b-0 border right-0 mt-4 lg:mt-0">
           <div class="search-wrapper h-full relative mr-2 lg:mr-8">
             <input v-model="searchQuery" type="text" ref="search" class="search-input h-full w-full lg:w-6 lg:opacity-0 pr-6 lg:pl-0 pl-4 py-2" placeholder="Search" />
             <img class="search-img" src="@/assets/img/search.svg"/>
@@ -30,24 +30,30 @@
           <router-link :to="{ name: 'sign-up' }" class="mt-4 px-4 py-2 lg:mt-0 btn-primary block leading-tight">Sign up</router-link>
         </li>
         <li v-if="!isLoggedIn">
-          <router-link :to="{ name: 'sign-in' }" class="mt-4 px-4 py-3 lg:mt-0 border border-primary lg:border-b lg:border-transparent hover:border-primary w-full block leading-tight font-circular">Log in</router-link>
+          <router-link :to="{ name: 'sign-in' }" class="mt-4 px-4 py-3 lg:mt-0 border border-primary lg:border-b lg:border-transparent hover:border-primary block leading-tight font-circular">Log in</router-link>
         </li>
       </ul>
     </div>
   </div>
-  <ul class="w-full lg:w-auto lg:flex items-center ">
+  <ul class="w-full lg:w-auto lg:flex items-center" :class="openNav ? 'h-auto' : 'h-0'">
     <li class="profile-wrapper lg:top-0 lg:relative fixed right-0 w-auto pl-8 pr-4 h-14 flex items-center font-circular">
       <div
         class="notifications h-8 w-8 bg-gray-200 rounded-full text-xs flex lg:visible items-center justify-center mr-5 relative"
         :class="profileShowClass">
         <div class="new-notification-indication rounded-full absolute"></div>12
       </div>
-      <div class="avatar h-10 w-10 rounded-full bg-gray-200 mr-4 lg:visible" :class="profileShowClass"></div>
-      <div class="admin-info leading-tight hidden lg:block">
-        <div class="admin-name text-sm">{{user.firstName || 'John Doe'}}</div>
-        <div class="admin-info text-xs text-gray-96">{{user.email}}</div>
-      </div>
-      <div class="block lg:hidden">
+      <our-dropdown class="mr-4 lg:visible" :class="profileShowClass" width="w-56">
+        <our-dropdown-item>
+          <p>Signed in as {{ user.email }}</p>
+          <p v-if="user.joinedBy" class="text-gray-500 text-xs pt-2">via google</p>
+        </our-dropdown-item>
+        <our-dropdown-divider />
+        <our-dropdown-item isLink>Account preferences</our-dropdown-item>
+        <our-dropdown-item isLink>Manage subscriptions</our-dropdown-item>
+        <our-dropdown-divider />
+        <our-dropdown-item isLink>Sign out</our-dropdown-item>
+      </our-dropdown>
+      <div class="block lg:hidden mr-3">
         <button @click="toggleNav" :class="menuToggleClass" class="nav-menu flex items-center focus:outline-none">
           <span></span>
           <span></span>
@@ -118,7 +124,6 @@ export default {
       }
     }
 
-
     .nav-menu {
       cursor: pointer;
       height: 16px;
@@ -170,6 +175,12 @@ export default {
           top: 18px;
           transform: rotate(-45deg);
         }
+      }
+    }
+
+    .donate-wrapper {
+      @screen lg {
+        margin-right: 5.7rem;
       }
     }
 
