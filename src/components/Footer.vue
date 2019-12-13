@@ -65,10 +65,10 @@
          <div class="footer-col">
            <h3>Socials</h3>
            <div class="footer-social-elements">
-             <a href="#"><img class="social-icon" src="@/assets/img/facebook_gray.svg"/></a>
-             <a href="#"><img class="social-icon" src="@/assets/img/twitter-black.svg"/></a>
-             <a href="#"><img class="social-icon" src="@/assets/img/linkedin-black.svg"/></a>
-             <a href="#"><img class="social-icon" src="@/assets/img/instagram-black.svg"/></a>
+             <a href="#"><img class="social-icon" src="@/assets/img/facebook-white.svg"/></a>
+             <a href="#"><img class="social-icon" src="@/assets/img/twitter-white.svg"/></a>
+             <a href="#"><img class="social-icon" src="@/assets/img/linkedin-white.svg"/></a>
+             <a href="#"><img class="social-icon" src="@/assets/img/instagram-white.svg"/></a>
            </div>
          </div>
        </div>
