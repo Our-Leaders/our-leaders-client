@@ -41,7 +41,7 @@ export const accomplishments = [{
   createdOn: '10/12/2019',
 }];
 
-export const politicalPartyMock = [{
+export const politicalPartiesMock = [{
   id: 'PP1',
   name: 'People\'s Democratic Party',
   acronym: 'PDP',
@@ -51,6 +51,10 @@ export const politicalPartyMock = [{
   partyBackground: 'We started from the bottom, now we\'re here!',
   partyDescription: 'A body of individuals with individual thoughts.',
   createdAt: '10/10/2001',
+  vote: {
+    up: 12358,
+    down: 4367,
+  },
 }, {
   id: 'PP2',
   name: 'All Progressive Congress',
@@ -61,6 +65,10 @@ export const politicalPartyMock = [{
   partyBackground: 'We started from the bottom, now we\'re here!',
   partyDescription: 'A body of individuals with collective thoughts.',
   createdAt: '10/10/2005',
+  vote: {
+    up: 17358,
+    down: 9067,
+  },
 }];
 
 
@@ -71,7 +79,7 @@ export const politiciansMock = [{
   religion: 'muslim',
   manifesto: 'I was once a manifesto...now! I am just..a man.',
   stateOfOrigin: 'Oyo',
-  politicalParty: politicalPartyMock[0],
+  politicalParty: politicalPartiesMock[0],
   profileImage: 'https://res.cloudinary.com/saintlawal/image/upload/v1575589072/coupin/buhari_xe8iet.png',
   status: 'current',
   vote: {
@@ -90,7 +98,7 @@ export const politiciansMock = [{
   religion: 'christian',
   manifesto: 'I was once a manifesto...now! I am just..a man.',
   stateOfOrigin: 'Osun',
-  politicalParty: politicalPartyMock[1],
+  politicalParty: politicalPartiesMock[1],
   profileImage: 'https://res.cloudinary.com/saintlawal/image/upload/v1575589072/coupin/osibanjo_hzaxej.png',
   status: 'current',
   vote: {

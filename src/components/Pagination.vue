@@ -5,7 +5,7 @@
         'p-box': true,
         'inactive': atBeginning
       }"
-      @click="goBack">
+      @click="previous">
       <span class="left-arrow"></span>
     </li>
     <!-- More logic to be done on what numbers to display -->
@@ -22,8 +22,11 @@
         {{page + 1}}
       </span>
     </li>
-    <li class="p-box"
-      @click="$emit('next')">
+    <li :class="{
+      'p-box': true,
+      'inactive': atEnd
+      }"
+      @click="next">
       <span class="right-arrow"></span>
     </li>
   </ul>
@@ -52,22 +55,30 @@ export default {
     atBeginning() {
       return this.current === 0;
     },
+    atEnd() {
+      return this.current === this.total - 1;
+    },
     pages() {
       if (this.current < 2) {
         return [0, 1, 2];
       }
 
-      if (this.current === this.total) {
-        return [this.total - 2, this.total - 1, this.total];
+      if (this.current === this.total - 1) {
+        return [this.total - 3, this.total - 2, this.total - 1];
       }
 
       return [this.current - 1, this.current, this.current + 1];
     },
   },
   methods: {
-    goBack() {
+    previous() {
       if (!this.atBeginning) {
         this.$emit('previous');
+      }
+    },
+    next() {
+      if (!this.atEnd) {
+        this.$emit('next');
       }
     },
   },
@@ -88,6 +99,16 @@ export default {
     &.inactive {
       border: 1px solid #c8c8c8;
       cursor: inherit;
+
+      .left-arrow {
+        border-bottom: 1px solid #c8c8c8;
+        border-left: 1px solid #c8c8c8;
+      }
+
+      .right-arrow {
+        border-right: 1px solid #c8c8c8;
+        border-top: 1px solid #c8c8c8;
+      }
     }
 
     &.active {
@@ -105,11 +126,6 @@ export default {
       margin-top: 10px;
       transform: rotate(45deg);
       width: 12px;
-
-      &.inactive {
-        border-bottom: 1px solid #c8c8c8;
-        border-left: 1px solid #c8c8c8;
-      }
     }
 
     .number {
@@ -132,11 +148,6 @@ export default {
       margin-top: 10px;
       transform: rotate(45deg);
       width: 12px;
-
-      &.inactive {
-        border-bottom: 1px solid #c8c8c8;
-        border-left: 1px solid #c8c8c8;
-      }
     }
   }
 </style>

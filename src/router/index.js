@@ -36,6 +36,11 @@ const routes = [
     component: Pages.Politicians,
   },
   {
+    path: '/political-parties',
+    name: 'political-parties',
+    component: Pages.PoliticalParties,
+  },
+  {
     path: '*',
     redirect: { name: 'home' },
   },

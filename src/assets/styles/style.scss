@@ -45,10 +45,10 @@ input[type=number]::-webkit-outer-spin-button {
   &.loading {
     animation: loading 1.5s linear infinite;
   }
-}
 
-.btn-primary:hover {
-  background: rgba(206, 152, 51, 0.9);
+  &:hover {
+    background: rgba(206, 152, 51, 0.9);
+  }
 }
 
 .btn-primary-outline,
@@ -75,6 +75,25 @@ input:-internal-autofill-selected {
 .fade-enter,
 .fade-leave-to {
     opacity: 0
+}
+
+.hidden-overflow {
+  background-color: rgba(0, 0, 0, .5);
+  border: 2px solid black;
+  opacity: 0%;
+  cursor: pointer;
+
+  .inner {
+    border: 4px solid white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &:hover {
+    opacity: 100%;
+    transition: opacity 300ms linear;
+  }
 }
 
 .horizontal-divide {
