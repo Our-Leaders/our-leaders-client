@@ -1,0 +1,65 @@
+export const politicalPositions = [Object({
+  label: 'President',
+  value: 'president',
+}), Object({
+  label: 'Vice Precident',
+  value: 'vice',
+}), Object({
+  label: 'Governor',
+  value: 'governor',
+}), Object({
+  label: 'Deputy Governor',
+  value: 'deputy',
+}), Object({
+  label: 'Senator',
+  value: 'senator',
+}), Object({
+  label: 'Minister',
+  value: 'minister',
+}), Object({
+  label: 'Commissioner',
+  value: 'commissioner',
+}), Object({
+  label: 'Local Government Chairman',
+  value: 'local',
+})];
+
+export const states = [
+  'Abia',
+  'Adamawa',
+  'Anambra',
+  'Akwa Ibom',
+  'Bauchi',
+  'Bayelsa',
+  'Benue',
+  'Borno',
+  'Cross River',
+  'Delta',
+  'Ebonyi',
+  'Enugu',
+  'Edo',
+  'Ekiti',
+  'FCT - Abuja',
+  'Gombe',
+  'Imo',
+  'Jigawa',
+  'Kaduna',
+  'Kano',
+  'Katsina',
+  'Kebbi',
+  'Kogi',
+  'Kwara',
+  'Lagos',
+  'Nasarawa',
+  'Niger',
+  'Ogun',
+  'Ondo',
+  'Osun',
+  'Oyo',
+  'Plateau',
+  'Rivers',
+  'Sokoto',
+  'Taraba',
+  'Yobe',
+  'Zamfara',
+];
