@@ -31,7 +31,7 @@
 
 <script>
 export default {
-  name: 'dropdown',
+  name: 'select-dropdown',
   props: {
     field: {
       required: true,

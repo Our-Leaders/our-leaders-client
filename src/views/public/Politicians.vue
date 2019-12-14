@@ -78,18 +78,18 @@
                 </div>
               </div>
               <div class="w-full mb-5">
-                <our-dropdown
+                <our-select-dropdown
                   label="Political party"
                   :options="politicalParties"
                   field="politicalPartyId"
-                  @change="setFilter"></our-dropdown>
+                  @change="setFilter"></our-select-dropdown>
               </div>
               <div class="w-full mb-8">
-                <our-dropdown
+                <our-select-dropdown
                   label="State"
                   :options="states"
                   field="state"
-                  @change="setFilter"></our-dropdown>
+                  @change="setFilter"></our-select-dropdown>
               </div>
               <div class="w-full">
                 <button
