@@ -43,11 +43,7 @@
   </div>
   <ul class="w-full lg:w-auto lg:flex items-center" :class="openNav ? 'h-auto' : 'h-0'">
     <li class="profile-wrapper lg:top-0 lg:relative fixed right-0 w-auto pl-8 pr-4 h-14 flex items-center font-circular">
-      <div
-        class="notifications h-8 w-8 bg-gray-200 rounded-full text-xs flex lg:visible items-center justify-center mr-5 relative"
-        :class="profileShowClass">
-        <div class="new-notification-indication rounded-full absolute"></div>12
-      </div>
+      <div class="notification bg-gray-200 rounded-full text-xs flex lg:visible items-center justify-center mr-5 relative leading-tight" :class="profileShowClass">12</div>
       <our-dropdown class="mr-4 lg:visible" :class="profileShowClass" width="w-56" heading="Profile" imageSrc="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=256&q=80">
         <our-dropdown-item>
           <p>Signed in as {{ user.email }}</p>
@@ -198,6 +194,23 @@ export default {
 
     .profile-wrapper {
       top: 1.25rem;
+
+      .notification {
+        position: relative;
+        width: 1.875rem;
+        height: 1.875rem;
+
+        &:after {
+          content: '';
+          position: absolute;
+          border-radius: 50%;
+          background-color: #f14336;
+          height: 0.6875rem;
+          width: 0.6875rem;
+          top: -0.025rem;
+          right: -0.025rem;
+        }
+      }
 
       @screen lg {
         top: 0;
