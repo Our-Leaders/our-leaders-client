@@ -8,7 +8,7 @@
       <div class="fixed lg:absolute w-full lg:w-64 country-list p-6 lg:px-4 lg:py-3 right-0 bg-white" v-if="countryListOpen">
         <div class="lg:hidden flex justify-between items-center font-circular mb-4">
           <p>Choose country</p>
-          <img @click="toggleCountryList" src="@/assets/img/close.svg"/>
+          <img class="close-button" @click="toggleCountryList" src="@/assets/img/close.svg"/>
         </div>
         <ul>
           <li v-for="(countryObject, key) in countryList" :key="key" class="flex relative py-1 items-center" :class="selectedCountryClass(key)" @click="countrySelect(key)">
@@ -79,6 +79,11 @@ export default {
     height: 100vh;
     z-index: 100;
     overflow-y: scroll;
+
+    .close-button {
+      margin-right: -6px;
+      margin-top: -2px;
+    }
 
     ul li:not(:last-child) {
       @apply mb-3;

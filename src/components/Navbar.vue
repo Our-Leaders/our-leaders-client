@@ -5,9 +5,9 @@
     <div class="text-base lg:flex-grow">
       <router-link :to="{ name: '' }" class="block mt-4 lg:inline-block lg:mt-0 mr-4">
         <our-dropdown class="mr-4 lg:visible" width="w-40" heading="Leaders" alignRight listClass="leaders-dropdown-list">
-          <our-dropdown-item isLink>Current leaders</our-dropdown-item>
-          <our-dropdown-item isLink>Upcoming leaders</our-dropdown-item>
-          <our-dropdown-item isLink>Past leaders</our-dropdown-item>
+          <our-dropdown-item isLink :to="{ name: '' }">Current leaders</our-dropdown-item>
+          <our-dropdown-item isLink :to="{ name: '' }">Upcoming leaders</our-dropdown-item>
+          <our-dropdown-item isLink :to="{ name: '' }">Past leaders</our-dropdown-item>
         </our-dropdown>
       </router-link>
       <router-link :to="{ name: '' }" class="block mt-4 lg:inline-block lg:mt-0 mr-4">Political parties</router-link>
@@ -54,10 +54,10 @@
           <p v-if="user.joinedBy" class="text-gray-500 text-xs pt-2">via google</p>
         </our-dropdown-item>
         <our-dropdown-divider />
-        <our-dropdown-item isLink>Account preferences</our-dropdown-item>
-        <our-dropdown-item isLink>Manage subscriptions</our-dropdown-item>
+        <our-dropdown-item isLink :to="{ name: '' }">Account preferences</our-dropdown-item>
+        <our-dropdown-item isLink :to="{ name: '' }">Manage subscriptions</our-dropdown-item>
         <our-dropdown-divider />
-        <our-dropdown-item isLink>Sign out</our-dropdown-item>
+        <our-dropdown-item isLink :to="{ name: '' }">Sign out</our-dropdown-item>
       </our-dropdown>
       <div class="block lg:hidden mr-2">
         <button @click="toggleNav" :class="menuToggleClass" class="nav-menu flex items-center focus:outline-none">
