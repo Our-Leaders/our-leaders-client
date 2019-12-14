@@ -1,68 +1,73 @@
 <template>
-<div>
-  <nav class="flex items-center justify-between flex-wrap border-nav xl:border-b xl:m-0 px-6 py-4 xl:p-0 shadow-md xl:shadow-none">
-    <router-link :to="{ name: 'home' }" class="nav-icon"><img class="xl:absolute w-12 p-2 bg-white z-10" src="@/assets/img/logo.svg"/></router-link>
-    <div class="block lg:hidden">
-      <button @click="toggleNav" :class="menuToggleClass" class="nav-menu flex items-center focus:outline-none">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+<nav class="flex items-center justify-between flex-wrap border-nav xl:border-b xl:m-0 px-6 py-4 xl:p-0 shadow-md xl:shadow-none">
+  <router-link :to="{ name: 'home' }" class="nav-icon"><img class="xl:absolute mr-2 w-12" src="@/assets/img/logo.svg"/></router-link>
+  <div :class="navToggleClass" class="w-full block flex-grow lg:flex lg:items-center lg:w-auto mt-2 lg:mt-0">
+    <div class="text-base lg:flex-grow">
+      <a class="block mt-4 lg:inline-block lg:mt-0 mr-4">
+        <our-dropdown class="mr-4 lg:visible" width="w-40" heading="Leaders" alignRight listClass="leaders-dropdown-list">
+          <our-dropdown-item isLink :to="{ name: 'politicians' }">Current leaders</our-dropdown-item>
+          <our-dropdown-item isLink :to="{ name: '' }">Upcoming leaders</our-dropdown-item>
+          <our-dropdown-item isLink :to="{ name: '' }">Past leaders</our-dropdown-item>
+        </our-dropdown>
+      </a>
+      <router-link :to="{ name: 'political-parties' }" class="block mt-4 lg:inline-block lg:mt-0 mr-4">Political parties</router-link>
     </div>
-    <div :class="navToggleClass" class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-      <div class="text-base lg:flex-grow">
-        <router-link :to="{ name: '' }" class="block mt-4 lg:inline-block lg:mt-0 mr-4">Leaders</router-link>
-        <router-link :to="{ name: '' }" class="block mt-4 lg:inline-block lg:mt-0 mr-4">Political parties</router-link>
-      </div>
-      <div>
-        <ul class="relative lg:inline-flex lg:items-center">
-          <li>
-            <router-link :to="{ name: '' }" class="block lg:px-4 lg:py-2 lg:border-b border-transparent hover:border-primary mt-4 lg:mt-0">About</router-link>
-          </li>
-          <li>
-            <router-link :to="{ name: '' }" class="block lg:px-4 lg:py-2 lg:border-b border-transparent hover:border-primary mt-4 lg:mt-0">Contact</router-link>
-          </li>
-          <li class="donate-wrapper">
-            <router-link :to="{ name: '' }" class="px-4 py-2 mt-4 lg:ml-4 lg:mt-0 btn-primary-outline block leading-tight">Donate</router-link>
-          </li>
-          <li class="xl:absolute lg:ml-4 h-16 lg:border-r lg:border-l-0 lg:border-t-0 lg:border-b-0 border right-0 w-full mt-4 lg:mt-0">
-            <div class="search-wrapper h-full relative mr-2 xl:mr-8">
-              <input v-model="searchQuery" type="text" ref="search" class="search-input h-full w-full xl:w-6 xl:opacity-0 pr-6 xl:pl-0 pl-4 py-2" placeholder="Search" />
-              <img class="search-img" src="@/assets/img/search.svg"/>
-              <img @click="clearSearch" class="search-clear" src="@/assets/img/close.svg"/>
-            </div>
-          </li>
-        </ul>
-        <ul class="lg:inline-flex lg:items-center">
-          <li class="lg:ml-9 lg:mr-2" v-if="!isLoggedIn">
-            <router-link :to="{ name: 'sign-up' }" class="mt-4 px-4 py-2 lg:mt-0 btn-primary block leading-tight">Sign up</router-link>
-          </li>
-          <li v-if="!isLoggedIn">
-            <router-link :to="{ name: 'sign-in' }" class="mt-4 px-4 py-2 lg:mt-0 border border-primary lg:border-b lg:border-transparent hover:border-primary w-full block leading-tight font-circular">Log in</router-link>
-          </li>
-          <li class="lg:ml-9 lg:mr-2" v-if="isLoggedIn">
-            <div class="flex justify-center h-8 w-8 p-2 relative rounded-full bg-gray-300 text-xs cursor-pointer">
-              <span class="absolute top-0 right-0 bg-red-600 h-3 w-3 rounded-full"></span>
-              <span class="inline-block align-middle">12</span>
-            </div>
-          </li>
-          <li class="lg:ml-2" v-if="isLoggedIn">
-            <div class="flex justify-center h-8 w-8 overflow-hidden rounded-full bg-gray-100 text-xs cursor-pointer">
-              <img class="object-cover object-center" src="../assets/img/user.svg"/>
-            </div>
-          </li>
-          <li>
-            <a href="#" class="flex lg:py-2 mt-4 lg:ml-6 lg:mt-0 border lg:border-0 py-3 px-2 justify-between">
-              <img class="pr-4" src="@/assets/img/flags/nigeria.svg"/>
-              <img src="@/assets/img/chevron-down.svg"/>
-            </a>
-          </li>
-        </ul>
-      </div>
+    <div>
+      <ul class="relative lg:inline-flex lg:items-center">
+        <li>
+          <router-link :to="{ name: '' }" class="block lg:px-4 lg:py-2 lg:border-b border-transparent hover:border-primary mt-4 lg:mt-0">About</router-link>
+        </li>
+        <li>
+          <router-link :to="{ name: '' }" class="block lg:px-4 lg:py-2 lg:border-b border-transparent hover:border-primary mt-4 lg:mt-0">Contact</router-link>
+        </li>
+        <li class="donate-wrapper">
+          <router-link :to="{ name: '' }" class="px-4 py-2 mt-4 lg:ml-4 lg:mt-0 btn-primary-outline block leading-tight">Donate</router-link>
+        </li>
+        <li class="lg:absolute lg:ml-4 h-12 lg:border-r lg:border-l-0 lg:border-t-0 lg:border-b-0 border right-0 mt-4 lg:mt-0">
+          <div class="search-wrapper h-full relative mr-2 lg:mr-8">
+            <input v-model="searchQuery" type="text" ref="search" class="search-input h-full w-full lg:w-6 lg:opacity-0 pr-6 lg:pl-0 pl-4 py-2" placeholder="Search" />
+            <img class="search-img" src="@/assets/img/search.svg"/>
+            <img @click="clearSearch" class="search-clear" src="@/assets/img/close.svg"/>
+          </div>
+        </li>
+      </ul>
+      <ul class="lg:inline-flex lg:items-center">
+        <li class="lg:ml-9 lg:mr-2" v-if="!isLoggedIn">
+          <router-link :to="{ name: 'sign-up' }" class="mt-4 px-4 py-2 lg:mt-0 btn-primary block leading-tight">Sign up</router-link>
+        </li>
+        <li v-if="!isLoggedIn">
+          <router-link :to="{ name: 'sign-in' }" class="mt-4 px-4 py-3 lg:mt-0 border border-primary lg:border-b lg:border-transparent hover:border-primary block leading-tight font-circular">Log in</router-link>
+        </li>
+      </ul>
     </div>
-  </nav>
-  <slot/>
-</div>
+  </div>
+  <ul class="w-full lg:w-auto lg:flex items-center" :class="openNav ? 'h-auto' : 'h-0'">
+    <li class="profile-wrapper lg:top-0 lg:relative fixed right-0 w-auto pl-8 pr-4 h-14 flex items-center font-circular">
+      <div class="notification bg-gray-200 rounded-full text-xs flex lg:visible items-center justify-center mr-5 relative leading-tight" :class="profileShowClass">12</div>
+      <our-dropdown class="mr-4 lg:visible" :class="profileShowClass" width="w-56" heading="Profile" :imageSrc="require('@/assets/img/user.svg')">
+        <our-dropdown-item>
+          <p>Signed in as {{ user.email }}</p>
+          <p v-if="user.joinedBy" class="text-gray-500 text-xs pt-2">via google</p>
+        </our-dropdown-item>
+        <our-dropdown-divider />
+        <our-dropdown-item isLink :to="{ name: '' }">Account preferences</our-dropdown-item>
+        <our-dropdown-item isLink :to="{ name: '' }">Manage subscriptions</our-dropdown-item>
+        <our-dropdown-divider />
+        <our-dropdown-item isLink :to="{ name: '' }">Sign out</our-dropdown-item>
+      </our-dropdown>
+      <div class="block lg:hidden mr-2">
+        <button @click="toggleNav" :class="menuToggleClass" class="nav-menu flex items-center focus:outline-none">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </li>
+    <li class="lg:visible" :class="profileShowClass">
+      <our-country-selector v-model="country" />
+    </li>
+  </ul>
+</nav>
 </template>
 
 <script>
@@ -74,20 +79,8 @@ export default {
     return {
       openNav: false,
       searchQuery: '',
+      country: 'ngr',
     };
-  },
-  computed: {
-    ...mapGetters([
-      'isLoggedIn',
-    ]),
-    navToggleClass() {
-      if (this.openNav) return 'block';
-      return 'hidden';
-    },
-    menuToggleClass() {
-      if (this.openNav) return 'open';
-      return '';
-    },
   },
   methods: {
     toggleNav() {
@@ -96,6 +89,24 @@ export default {
     clearSearch() {
       this.$refs.search.focus();
       this.searchQuery = '';
+    },
+  },
+  computed: {
+    ...mapGetters([
+      'isLoggedIn',
+      'user',
+    ]),
+    navToggleClass() {
+      if (this.openNav) return 'block';
+      return 'hidden';
+    },
+    profileShowClass() {
+      if (this.openNav) return 'visible';
+      return 'invisible';
+    },
+    menuToggleClass() {
+      if (this.openNav) return 'open';
+      return '';
     },
   },
 };
@@ -113,12 +124,7 @@ export default {
         top: 1.315rem;
         width: 6.875rem;
       }
-
-      .donate-wrapper {
-        margin-right: 5.25rem;
-      }
     }
-
 
     .nav-menu {
       cursor: pointer;
@@ -126,7 +132,7 @@ export default {
       position: relative;
       transform: rotate(0deg);
       transition: .5s ease-in-out;
-      width: 30px;
+      width: 24px;
 
       span {
         background: black;
@@ -157,7 +163,7 @@ export default {
       &.open {
         span:nth-child(1) {
           left: 5px;
-          top: -3px;
+          top: -2px;
           transform: rotate(45deg);
         }
 
@@ -168,9 +174,46 @@ export default {
 
         span:nth-child(3) {
           left: 5px;
-          top: 18px;
+          top: 15px;
           transform: rotate(-45deg);
         }
+      }
+    }
+
+    /deep/.leaders-dropdown-list {
+      @screen lg {
+        margin-left: -1rem;
+      }
+    }
+
+    .donate-wrapper {
+      @screen lg {
+        margin-right: 5.7rem;
+      }
+    }
+
+    .profile-wrapper {
+      top: 1.25rem;
+
+      .notification {
+        position: relative;
+        width: 1.875rem;
+        height: 1.875rem;
+
+        &:after {
+          content: '';
+          position: absolute;
+          border-radius: 50%;
+          background-color: #f14336;
+          height: 0.6875rem;
+          width: 0.6875rem;
+          top: -0.025rem;
+          right: -0.025rem;
+        }
+      }
+
+      @screen lg {
+        top: 0;
       }
     }
 
@@ -181,11 +224,10 @@ export default {
       .search-clear {
         background: white;
         cursor: pointer;
-        height: calc(80% - 1px);
-        padding: 0.4375rem 0;
+        height: calc(65% - 1px);
         position: absolute;
         right: 0;
-        top: 10%;
+        top: 17.5%;
         z-index: 1;
       }
 
@@ -205,12 +247,21 @@ export default {
 
         &:focus,
         &:not(:placeholder-shown) {
-          @apply border-b;
           cursor: auto;
           opacity: 1;
           width: 100%;
+          min-width: 100%;
           background: white;
           z-index: 1;
+
+          @screen lg {
+            @apply border-b;
+            width: 300px;
+          }
+
+          @screen xl {
+            width: 500px;
+          }
         }
 
         &:not(:placeholder-shown) {
