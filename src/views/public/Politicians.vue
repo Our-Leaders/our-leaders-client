@@ -48,8 +48,13 @@
           </div>
 
           <!-- Side Bar -->
-          <div class="w-full lg:w-1/3">
-            <div class="flex flex-wrap mt-3">
+          <div class="w-full lg:w-1/3 relative">
+            <button class="lg:hidden xl:hidden py-1 px-2" @click="toggleMenu">
+              <img class="h-4 inline-block mr-1" src="../../assets/img/filter.svg"/>
+              <span class="align-middle">Filter</span>
+            </button>
+            <div class="hidden lg:flex xl:flex flex-wrap mt-3"
+              :class="{ 'flex md:flex': displayMenu }">
               <div class="w-9/12">
                   <input class="field w-full mt-1 py-2 pl-2"
                     :class="{ 'inactive': isEmpty(filter.name) }"
@@ -112,6 +117,7 @@ export default {
   name: 'politicians',
   data() {
     return {
+      displayMenu: false,
       filter: {
         limit: 10,
         name: null,
@@ -193,6 +199,9 @@ export default {
     setSecondary(value) {
       this.filter.politicalPosition = value;
       this.getPoliticians();
+    },
+    toggleMenu() {
+      this.displayMenu = !this.displayMenu;
     },
   },
   computed: {
