@@ -1,25 +1,27 @@
 <template>
-  <div class="selector-container relative">
-    <div @click="toggleCountryList" class="flex lg:p-0 lg:ml-2 mt-4 lg:mt-0 border lg:border-0 py-3 px-4 font-circular flex justify-between lg:justify-end">
+  <button @focusout="closeCountryList" class="selector-container relative text-left focus:outline-none w-full">
+    <div @click="toggleCountryList" class="flex mt-4 lg:mt-0 lg:ml-2 border lg:border-0 p-4 font-circular flex justify-between lg:justify-end">
       <img class="mr-5" :src="countryFlag(selectedCountry.flag)"/>
       <img src="@/assets/img/chevron-down.svg"/>
     </div>
-    <div class="fixed lg:absolute w-full lg:w-64 country-list p-6 lg:px-4 lg:py-3 right-0 bg-white" v-if="countryListOpen">
-      <div class="lg:hidden flex justify-between items-center font-circular mb-4">
-        <p>Choose country</p>
-        <img @click="toggleCountryList" src="@/assets/img/close.svg"/>
+    <transition name="fade" mode="out-in">
+      <div class="fixed lg:absolute w-full lg:w-64 country-list p-6 lg:px-4 lg:py-3 right-0 bg-white" v-if="countryListOpen">
+        <div class="lg:hidden flex justify-between items-center font-circular mb-4">
+          <p>Choose country</p>
+          <img @click="toggleCountryList" src="@/assets/img/close.svg"/>
+        </div>
+        <ul>
+          <li v-for="(countryObject, key) in countryList" :key="key" class="flex relative py-1 items-center" :class="selectedCountryClass(key)" @click="countrySelect(key)">
+            <input type="radio" name="country" :value="key" :v-model="value" class="absolute invisible">
+            <div class="flag-container mr-3">
+              <img :src="countryFlag(countryObject.flag)"/>
+            </div>
+            <span class="font-circular text-sm">{{countryObject.name}}</span>
+          </li>
+        </ul>
       </div>
-      <ul>
-        <li v-for="(countryObject, key) in countryList" :key="key" class="flex relative py-1 items-center" :class="selectedCountryClass(key)" @click="countrySelect(key)">
-          <input type="radio" name="country" :value="key" :v-model="value" class="absolute invisible">
-          <div class="flag-container mr-3">
-            <img :src="countryFlag(countryObject.flag)"/>
-          </div>
-          <span class="font-circular text-sm">{{countryObject.name}}</span>
-        </li>
-      </ul>
-    </div>
-  </div>
+    </transition>
+  </button>
 </template>
 
 <script>
@@ -42,7 +44,7 @@ export default {
   methods: {
     countrySelect(country) {
       this.$emit('input', country);
-      this.countryListOpen = false;
+      this.closeCountryList();
     },
     countryFlag(flag) {
       const images = require.context('@/assets/img/flags', false, /\.svg$/);
@@ -50,6 +52,9 @@ export default {
     },
     toggleCountryList() {
       this.countryListOpen = !this.countryListOpen;
+    },
+    closeCountryList() {
+      this.countryListOpen = false;
     },
     selectedCountryClass(country) {
       if (country === this.value) return 'country-selected';
@@ -80,7 +85,7 @@ export default {
     }
 
     @screen lg {
-      top: 3rem;
+      top: 3.1rem;
       max-height: 20rem;
       height: auto;
       box-shadow: 0px 12px 52px rgba(0, 0, 0, 0.1);

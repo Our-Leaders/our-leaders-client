@@ -1,6 +1,6 @@
 <template>
-  <li class="m-1">
-    <span v-if="!isLink" href="#" class="block text-sm py-1 leading-snug"><slot /></span>
+  <li class="my-2 font-circular">
+    <span v-if="!isLink" class="block text-sm py-1 leading-snug"><slot /></span>
     <a v-if="isLink" href="#" class="block hover:bg-gray-100 text-sm py-1"><slot /></a>
   </li>
 </template>

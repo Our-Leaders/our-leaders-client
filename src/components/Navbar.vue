@@ -1,9 +1,15 @@
 <template>
 <nav class="flex items-center justify-between flex-wrap border-nav xl:border-b xl:m-0 px-6 py-4 xl:p-0 shadow-md xl:shadow-none">
   <router-link :to="{ name: 'home' }" class="nav-icon"><img class="xl:absolute mr-2 w-12" src="@/assets/img/logo.svg"/></router-link>
-  <div :class="navToggleClass" class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+  <div :class="navToggleClass" class="w-full block flex-grow lg:flex lg:items-center lg:w-auto mt-2 lg:mt-0">
     <div class="text-base lg:flex-grow">
-      <router-link :to="{ name: '' }" class="block mt-4 lg:inline-block lg:mt-0 mr-4">Leaders</router-link>
+      <router-link :to="{ name: '' }" class="block mt-4 lg:inline-block lg:mt-0 mr-4">
+        <our-dropdown class="mr-4 lg:visible" width="w-40" heading="Leaders" alignRight listClass="leaders-dropdown-list">
+          <our-dropdown-item isLink>Current leaders</our-dropdown-item>
+          <our-dropdown-item isLink>Upcoming leaders</our-dropdown-item>
+          <our-dropdown-item isLink>Past leaders</our-dropdown-item>
+        </our-dropdown>
+      </router-link>
       <router-link :to="{ name: '' }" class="block mt-4 lg:inline-block lg:mt-0 mr-4">Political parties</router-link>
     </div>
     <div>
@@ -42,7 +48,7 @@
         :class="profileShowClass">
         <div class="new-notification-indication rounded-full absolute"></div>12
       </div>
-      <our-dropdown class="mr-4 lg:visible" :class="profileShowClass" width="w-56">
+      <our-dropdown class="mr-4 lg:visible" :class="profileShowClass" width="w-56" heading="Profile" imageSrc="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=256&q=80">
         <our-dropdown-item>
           <p>Signed in as {{ user.email }}</p>
           <p v-if="user.joinedBy" class="text-gray-500 text-xs pt-2">via google</p>
@@ -53,7 +59,7 @@
         <our-dropdown-divider />
         <our-dropdown-item isLink>Sign out</our-dropdown-item>
       </our-dropdown>
-      <div class="block lg:hidden mr-3">
+      <div class="block lg:hidden mr-2">
         <button @click="toggleNav" :class="menuToggleClass" class="nav-menu flex items-center focus:outline-none">
           <span></span>
           <span></span>
@@ -130,7 +136,7 @@ export default {
       position: relative;
       transform: rotate(0deg);
       transition: .5s ease-in-out;
-      width: 30px;
+      width: 24px;
 
       span {
         background: black;
@@ -161,7 +167,7 @@ export default {
       &.open {
         span:nth-child(1) {
           left: 5px;
-          top: -3px;
+          top: -2px;
           transform: rotate(45deg);
         }
 
@@ -172,9 +178,15 @@ export default {
 
         span:nth-child(3) {
           left: 5px;
-          top: 18px;
+          top: 15px;
           transform: rotate(-45deg);
         }
+      }
+    }
+
+    /deep/.leaders-dropdown-list {
+      @screen lg {
+        margin-left: -1rem;
       }
     }
 
