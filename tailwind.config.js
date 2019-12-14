@@ -9,6 +9,9 @@ module.exports = {
           ...colors.gray,
           db: '#DBDBDB',
         },
+        red: {
+          ...colors.red,
+        },
         white: '#FFFFFF'
       },
       borderColor: theme => ({

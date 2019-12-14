@@ -44,7 +44,7 @@
   <ul class="w-full lg:w-auto lg:flex items-center" :class="openNav ? 'h-auto' : 'h-0'">
     <li class="profile-wrapper lg:top-0 lg:relative fixed right-0 w-auto pl-8 pr-4 h-14 flex items-center font-circular">
       <div class="notification bg-gray-200 rounded-full text-xs flex lg:visible items-center justify-center mr-5 relative leading-tight" :class="profileShowClass">12</div>
-      <our-dropdown class="mr-4 lg:visible" :class="profileShowClass" width="w-56" heading="Profile" imageSrc="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=256&q=80">
+      <our-dropdown class="mr-4 lg:visible" :class="profileShowClass" width="w-56" heading="Profile" :imageSrc="require('@/assets/img/user.svg')">
         <our-dropdown-item>
           <p>Signed in as {{ user.email }}</p>
           <p v-if="user.joinedBy" class="text-gray-500 text-xs pt-2">via google</p>
@@ -92,6 +92,9 @@ export default {
     },
   },
   computed: {
+    ...mapGetters([
+      'isLoggedIn',
+    ]),
     navToggleClass() {
       if (this.openNav) return 'block';
       return 'hidden';

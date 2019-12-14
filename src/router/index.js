@@ -30,6 +30,20 @@ const routes = [
       layout: 'no-navbar',
     },
   },
+  {
+    path: '/politicians',
+    name: 'politicians',
+    component: Pages.Politicians,
+  },
+  {
+    path: '/political-parties',
+    name: 'political-parties',
+    component: Pages.PoliticalParties,
+  },
+  {
+    path: '*',
+    redirect: { name: 'home' },
+  },
 ];
 
 const router = new VueRouter({
