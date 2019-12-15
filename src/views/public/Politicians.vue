@@ -5,11 +5,15 @@
       <div class="w-4/5 relative mx-auto h-auto bg-primary bg-overlay-header">
         <div id="main-header" class="flex flex-wrap px-6 py-24 text-white text-center">
           <div class="ww-full md:w-1/2 lg:w-1/2 xl:w-1/2">
-            <span class="text-6xl">Current leaders</span>
+            <span class="text-6xl" v-if="filter.status === 'current'">Current leaders</span>
+            <span class="text-6xl" v-if="filter.status === 'upcoming'">Aspirants</span>
+            <span class="text-6xl" v-if="filter.status === 'past'">Past Leaders</span>
           </div>
           <div class="w-full md:w-1/2 lg:w-1/2 xl:w-1/2">
-            <p class="text-left px-6">These are leaders who currently hold a political position in this government.
+            <p class="text-left px-6" v-if="filter.status === 'current'">These are leaders who currently hold a political position in this government.
               The leaders in this category also have extensive experience in politics.</p>
+            <p class="text-left px-6" v-if="filter.status === 'upcoming'">These are leaders who currently hold a political position in this government. The leaders in this category also have extensive experience in politics.</p>
+            <p class="text-left px-6" v-if="filter.status === 'past'">These are leaders who currently hold a political position in this government. The leaders in this category also have extensive experience in politics.</p>
           </div>
         </div>
         <our-tabs class="mb-6" v-on:change="setPrimary" :tabs='mainTabs' :tab-type="'primary'"></our-tabs>
