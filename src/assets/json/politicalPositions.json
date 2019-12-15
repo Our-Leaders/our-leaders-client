@@ -1,0 +1,27 @@
+{
+  "politicalPositions": [{
+    "label": "President",
+    "value": "president"
+  }, {
+    "label": "Vice Precident",
+    "value": "vice"
+  }, {
+    "label": "Governor",
+    "value": "governor"
+  }, {
+    "label": "Deputy Governor",
+    "value": "deputy"
+  }, {
+    "label": "Senator",
+    "value": "senator"
+  }, {
+    "label": "Minister",
+    "value": "minister"
+  }, {
+    "label": "Commissioner",
+    "value": "commissioner"
+  }, {
+    "label": "Local Government Chairman",
+    "value": "local"
+  }]
+}
