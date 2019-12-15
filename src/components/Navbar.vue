@@ -1,10 +1,10 @@
 <template>
 <nav class="flex items-center justify-between flex-wrap border-nav xl:border-b xl:m-0 px-6 py-4 xl:p-0 shadow-md xl:shadow-none">
-  <router-link :to="{ name: 'home' }" class="nav-icon"><img class="xl:absolute mr-2 w-12" src="@/assets/img/logo.svg"/></router-link>
+  <router-link :to="{ name: 'home' }" class="nav-icon"><img class="xl:absolute mr-2 w-12 bg-white z-10" src="@/assets/img/logo.svg"/></router-link>
   <div :class="navToggleClass" class="w-full block flex-grow lg:flex lg:items-center lg:w-auto mt-2 lg:mt-0">
     <div class="text-base lg:flex-grow">
       <a class="block mt-4 lg:inline-block lg:mt-0 mr-4">
-        <our-dropdown class="mr-4 lg:visible" width="w-40" heading="Leaders" alignRight listClass="leaders-dropdown-list">
+        <our-dropdown class="mr-4 lg:visible" width="w-40" heading="Leaders" alignRight listClass="leaders-dropdown-list" parent-width="w-full">
           <our-dropdown-item isLink :to="{ name: 'politicians' }">Current leaders</our-dropdown-item>
           <our-dropdown-item isLink :to="{ name: '' }">Upcoming leaders</our-dropdown-item>
           <our-dropdown-item isLink :to="{ name: '' }">Past leaders</our-dropdown-item>

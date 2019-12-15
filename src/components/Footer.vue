@@ -139,8 +139,8 @@ export default {
   }
 
   .footer-logo {
-    width: 100px;
     height: 100px;
+    width: 100px;
   }
 
   .footer-copy {
@@ -210,6 +210,7 @@ export default {
 
       .footer-logo {
         margin: auto;
+        margin-bottom: 30px;
       }
     }
   }

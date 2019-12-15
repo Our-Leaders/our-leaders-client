@@ -53,53 +53,55 @@
               <img class="h-4 inline-block mr-1" src="../../assets/img/filter.svg"/>
               <span class="align-middle">Filter</span>
             </button>
-            <div class="hidden lg:flex xl:flex flex-wrap mt-3"
-              :class="{ 'flex md:flex': displayMenu }">
-              <div class="w-9/12">
-                  <input class="field w-full mt-1 py-2 pl-2"
-                    :class="{ 'inactive': isEmpty(filter.name) }"
-                    type="text"
-                    id="query"
-                    name="query"
-                    placeholder="Search by name"
-                    v-model="filter.name"/>
-              </div>
-              <div class="w-3/12 pl-4">
-                <button
-                  class="btn-grey-outline w-full h-full"
-                  :disabled="loading"
-                  @click="getPoliticians">
-                  Search
-                </button>
-              </div>
-              <div class="w-full my-10">
-                <div class="w-full horizontal-divide">
-                  <span>Or search by</span>
+            <transition name="fade" mode="out-in">
+              <div class="hidden lg:flex xl:flex flex-wrap mt-3"
+                :class="{ 'flex md:flex': displayMenu }">
+                <div class="w-9/12 inline-block">
+                    <input class="field w-full mt-1 py-2 pl-2"
+                      :class="{ 'inactive': isEmpty(filter.name) }"
+                      type="text"
+                      id="query"
+                      name="query"
+                      placeholder="Search by name"
+                      v-model="filter.name"/>
+                </div>
+                <div class="w-3/12 inline-block pl-4">
+                  <button
+                    class="btn-grey-outline py-2 lg:py-0 xl:py-0 w-full h-full"
+                    :disabled="loading"
+                    @click="getPoliticians">
+                    Search
+                  </button>
+                </div>
+                <div class="w-full my-10">
+                  <div class="w-full horizontal-divide">
+                    <span>Or search by</span>
+                  </div>
+                </div>
+                <div class="w-full mb-5 relative">
+                  <our-select-dropdown
+                    label="Political party"
+                    :options="politicalParties"
+                    field="politicalPartyId"
+                    @change="setFilter"></our-select-dropdown>
+                </div>
+                <div class="w-full mb-8 relative">
+                  <our-select-dropdown
+                    label="State"
+                    :options="states"
+                    field="state"
+                    @change="setFilter"></our-select-dropdown>
+                </div>
+                <div class="w-full">
+                  <button
+                    class="btn-grey-outline w-full py-3"
+                    :disabled="loading"
+                    @click="getPoliticians">
+                    Search
+                  </button>
                 </div>
               </div>
-              <div class="w-full mb-5">
-                <our-select-dropdown
-                  label="Political party"
-                  :options="politicalParties"
-                  field="politicalPartyId"
-                  @change="setFilter"></our-select-dropdown>
-              </div>
-              <div class="w-full mb-8">
-                <our-select-dropdown
-                  label="State"
-                  :options="states"
-                  field="state"
-                  @change="setFilter"></our-select-dropdown>
-              </div>
-              <div class="w-full">
-                <button
-                  class="btn-grey-outline w-full py-3"
-                  :disabled="loading"
-                  @click="getPoliticians">
-                  Search
-                </button>
-              </div>
-            </div>
+            </transition>
           </div>
         </div>
       </div>
@@ -109,7 +111,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import { states } from '../../constants/constants';
+import states from '../../assets/json/states.json';
 import { politiciansMock, politicalPartiesMock } from '../../constants/examples';
 import ValidatorUtil from '../../helpers/validatorUtil';
 
@@ -132,7 +134,7 @@ export default {
       politicalPartiesServices: this.$serviceFactory.politicalParties,
       politicians: [],
       politiciansServices: this.$serviceFactory.politicians,
-      states,
+      states: states.states,
       secondaryTabs: [{ label: 'All', value: null }, { label: 'Governors', value: 'governors' }, { label: 'Presidents', value: 'presidents' }],
       tab: 'current',
     };

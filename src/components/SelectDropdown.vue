@@ -1,31 +1,18 @@
 <template>
-  <div class="w-full input-fields pb-2" :class="{
-    'inactive': value === null
+  <div class="w-full relative input-fields mb-2" :class="{
+    'inactive': selectedLabel === null
     }">
-    <label class="block font-semibold mb-2" for="politicalParty">{{label}}</label>
-    <div class="select">
-      <select
-        v-if="isObjects"
-        class="w-full inline-block"
-        name="politicalParty"
-        id="politicalParty"
-        v-model="value"
-        @change="$emit('change', field, value)">
-        <option :value="null">Select {{label}}</option>
-        <option v-for="(option, i) in options" :key="i" :value="option.value">{{option.label}}</option>
-      </select>
-      <select
-        v-if="isStrings"
-        class="w-full inline-block"
-        name="politicalParty"
-        id="politicalParty"
-        v-model="value"
-        @change="$emit('change', field, value)">
-        <option :value="null">Select {{label}}</option>
-        <option v-for="(option, i) in options" :key="i" :value="option">{{option}}</option>
-      </select>
-      <img src="../assets/img/angle-arrow-down.svg"/>
-    </div>
+    <label class="block font-semibold" for="politicalParty">{{label}}</label>
+    <our-dropdown class="visible py-2 lg:py-0 xl:py-0" width="w-full" parent-width="w-full" :show-icon="true" :heading="selectedValue" ref="ourDropdown">
+      <our-dropdown-item v-for="(option, i) in options" :key="i">
+        <span v-if="isObjects" @click="onSelect(option.value, option.label)">
+          {{option.label}}
+        </span>
+        <span v-if="isStrings" @click="onSelect(option)">
+          {{option}}
+        </span>
+      </our-dropdown-item>
+    </our-dropdown>
   </div>
 </template>
 
@@ -47,7 +34,8 @@ export default {
   },
   data() {
     return {
-      value: null,
+      openNav: true,
+      selectedLabel: null,
     };
   },
   computed: {
@@ -56,6 +44,20 @@ export default {
     },
     isStrings() {
       return this.options[0] && typeof this.options[0] === 'string';
+    },
+    profileShowClass() {
+      if (this.openNav) return 'visible';
+      return 'invisible';
+    },
+    selectedValue() {
+      return this.selectedLabel === null ? `Select ${this.label}` : this.selectedLabel;
+    },
+  },
+  methods: {
+    onSelect(value, label) {
+      this.selectedLabel = this.isObjects ? label : value;
+      this.$emit('change', this.field, value);
+      this.$refs.ourDropdown.closeDropdown();
     },
   },
 };
