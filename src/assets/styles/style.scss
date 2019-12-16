@@ -121,6 +121,7 @@ input:-internal-autofill-selected {
   border: 2px solid black;
   opacity: 0%;
   cursor: pointer;
+  transition: opacity 400ms linear;
 
   .inner {
     border: 4px solid white;
@@ -131,7 +132,6 @@ input:-internal-autofill-selected {
 
   &:hover {
     opacity: 100%;
-    transition: opacity 300ms linear;
   }
 }
 
