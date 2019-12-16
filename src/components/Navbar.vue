@@ -4,7 +4,7 @@
   <div :class="navToggleClass" class="w-full block flex-grow lg:flex lg:items-center lg:w-auto mt-2 lg:mt-0">
     <div class="text-base lg:flex-grow">
       <a class="block mt-4 lg:inline-block lg:mt-0 mr-4">
-        <our-dropdown class="mr-4 lg:visible" width="w-40" heading="Leaders" alignRight listClass="leaders-dropdown-list" parent-width="w-full">
+        <our-dropdown class="mr-4 lg:visible" width="w-40" heading="Leaders" alignRight listClass="leaders-dropdown-list">
           <our-dropdown-item isLink :to="{ name: 'politicians' }">Current leaders</our-dropdown-item>
           <our-dropdown-item isLink :to="{ name: '' }">Upcoming leaders</our-dropdown-item>
           <our-dropdown-item isLink :to="{ name: '' }">Past leaders</our-dropdown-item>
@@ -42,7 +42,7 @@
     </div>
   </div>
   <ul class="w-full lg:w-auto lg:flex items-center" :class="openNav ? 'h-auto' : 'h-0'">
-    <li class="profile-wrapper lg:top-0 lg:relative fixed right-0 w-auto pl-8 pr-4 h-14 flex items-center font-circular">
+    <li class="profile-wrapper lg:top-0 lg:relative absolute right-0 w-auto pl-8 pr-4 h-14 flex items-center font-circular">
       <div class="notification bg-gray-200 rounded-full text-xs flex lg:visible items-center justify-center mr-5 relative leading-tight" :class="profileShowClass">12</div>
       <our-dropdown class="mr-4 lg:visible" :class="profileShowClass" width="w-56" heading="Profile" :imageSrc="require('@/assets/img/user.svg')">
         <our-dropdown-item>

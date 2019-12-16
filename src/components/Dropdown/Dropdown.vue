@@ -92,8 +92,6 @@ export default {
 
 <style lang="scss" scoped>
   .dropdown {
-    height: 100vh;
-    max-height: 300px;
     overflow-y: scroll;
     top: 0;
     z-index: 100;
@@ -105,7 +103,7 @@ export default {
 
     @screen lg {
       top: 3.5rem;
-      height: auto;
+      max-height: 50vh;
       box-shadow: 0px 12px 52px rgba(0, 0, 0, 0.1);
 
       &.image-dropdown-list {
@@ -122,7 +120,10 @@ export default {
 
   @media only screen and (max-device-width: 768px) {
     .dropdown {
-      position: relative;
+      height: 100%;
+      position: fixed;
+      right: 0;
+      top: 0;
       width: 100%;
     }
 
