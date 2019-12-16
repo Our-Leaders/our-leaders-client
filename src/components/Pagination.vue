@@ -94,6 +94,10 @@ export default {
     margin-left: 4px;
     margin-right: 4px;
     position: relative;
+    transition-delay: 120ms;
+    transition-duration: 500ms;
+    transition-property: border-color color;
+    transition-timing-function: ease-in-out;
     width: 36px;
 
     &.inactive {
@@ -117,6 +121,21 @@ export default {
       color: white;
     }
 
+    &:hover:not(.active) {
+      border: 1px solid #CE9833;
+      color: #CE9833;
+
+      .left-arrow {
+        border-bottom: 1px solid #CE9833;
+        border-left: 1px solid #CE9833;
+      }
+
+      .right-arrow {
+        border-right: 1px solid #CE9833;
+        border-top: 1px solid #CE9833;
+      }
+    }
+
     .left-arrow {
       border-bottom: 1px solid black;
       border-left: 1px solid black;
@@ -125,6 +144,10 @@ export default {
       margin-left: 14px;
       margin-top: 10px;
       transform: rotate(45deg);
+      transition-delay: 120ms;
+      transition-duration: 200ms;
+      transition-property: border-color;
+      transition-timing-function: ease-in-out;
       width: 12px;
     }
 
@@ -147,6 +170,10 @@ export default {
       margin-left: 8px;
       margin-top: 10px;
       transform: rotate(45deg);
+      transition-delay: 120ms;
+      transition-duration: 500ms;
+      transition-property: border-color;
+      transition-timing-function: ease-in-out;
       width: 12px;
     }
   }

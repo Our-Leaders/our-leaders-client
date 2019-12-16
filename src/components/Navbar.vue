@@ -1,6 +1,6 @@
 <template>
 <nav class="flex items-center justify-between flex-wrap border-nav xl:border-b xl:m-0 px-6 py-4 xl:p-0 shadow-md xl:shadow-none">
-  <router-link :to="{ name: 'home' }" class="nav-icon"><img class="xl:absolute mr-2 w-12" src="@/assets/img/logo.svg"/></router-link>
+  <router-link :to="{ name: 'home' }" class="nav-icon"><img class="xl:absolute mr-2 w-12 bg-white z-10" src="@/assets/img/logo.svg"/></router-link>
   <div :class="navToggleClass" class="w-full block flex-grow lg:flex lg:items-center lg:w-auto mt-2 lg:mt-0">
     <div class="text-base lg:flex-grow">
       <a class="block mt-4 lg:inline-block lg:mt-0 mr-4">
@@ -42,7 +42,7 @@
     </div>
   </div>
   <ul class="w-full lg:w-auto lg:flex items-center" :class="openNav ? 'h-auto' : 'h-0'">
-    <li class="profile-wrapper lg:top-0 lg:relative fixed right-0 w-auto pl-8 pr-4 h-14 flex items-center font-circular">
+    <li class="profile-wrapper lg:top-0 lg:relative absolute right-0 w-auto pl-8 pr-4 h-14 flex items-center font-circular">
       <div class="notification bg-gray-200 rounded-full text-xs flex lg:visible items-center justify-center mr-5 relative leading-tight" :class="profileShowClass">12</div>
       <our-dropdown class="mr-4 lg:visible" :class="profileShowClass" width="w-56" heading="Profile" :imageSrc="require('@/assets/img/user.svg')">
         <our-dropdown-item>

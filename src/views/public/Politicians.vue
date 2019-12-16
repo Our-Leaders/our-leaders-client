@@ -5,11 +5,15 @@
       <div class="w-4/5 relative mx-auto h-auto bg-primary bg-overlay-header">
         <div id="main-header" class="flex flex-wrap px-6 py-24 text-white text-center">
           <div class="ww-full md:w-1/2 lg:w-1/2 xl:w-1/2">
-            <span class="text-6xl">Current leaders</span>
+            <span class="text-6xl" v-if="filter.status === 'current'">Current leaders</span>
+            <span class="text-6xl" v-if="filter.status === 'upcoming'">Aspirants</span>
+            <span class="text-6xl" v-if="filter.status === 'past'">Past Leaders</span>
           </div>
           <div class="w-full md:w-1/2 lg:w-1/2 xl:w-1/2">
-            <p class="text-left px-6">These are leaders who currently hold a political position in this government.
+            <p class="text-left px-6" v-if="filter.status === 'current'">These are leaders who currently hold a political position in this government.
               The leaders in this category also have extensive experience in politics.</p>
+            <p class="text-left px-6" v-if="filter.status === 'upcoming'">These are leaders who currently hold a political position in this government. The leaders in this category also have extensive experience in politics.</p>
+            <p class="text-left px-6" v-if="filter.status === 'past'">These are leaders who currently hold a political position in this government. The leaders in this category also have extensive experience in politics.</p>
           </div>
         </div>
         <our-tabs class="mb-6" v-on:change="setPrimary" :tabs='mainTabs' :tab-type="'primary'"></our-tabs>
@@ -46,8 +50,62 @@
               :current="filter.page"></our-pagination>
             </div>
           </div>
-          <div class="w-full lg:w-1/3">
-            <h3>Side Bar</h3>
+
+          <!-- Side Bar -->
+          <div class="w-full lg:w-1/3 relative">
+            <button class="lg:hidden xl:hidden py-1 px-2" @click="toggleMenu">
+              <img class="h-4 inline-block mr-1" src="../../assets/img/filter.svg"/>
+              <span class="align-middle">Filter</span>
+            </button>
+            <transition name="fade" mode="out-in">
+              <div class="hidden lg:flex xl:flex flex-wrap mt-3"
+                :class="{ 'flex md:flex': displayMenu }">
+                <div class="w-9/12 inline-block">
+                    <input class="field w-full mt-1 py-2 pl-2"
+                      :class="{ 'inactive': isEmpty(filter.name) }"
+                      type="text"
+                      id="query"
+                      name="query"
+                      placeholder="Search by name"
+                      v-model="filter.name"/>
+                </div>
+                <div class="w-3/12 inline-block pl-4">
+                  <button
+                    class="btn-grey-outline py-2 lg:py-0 xl:py-0 w-full h-full"
+                    :disabled="loading"
+                    @click="getPoliticians">
+                    Search
+                  </button>
+                </div>
+                <div class="w-full my-10">
+                  <div class="w-full horizontal-divide">
+                    <span>Or search by</span>
+                  </div>
+                </div>
+                <div class="w-full mb-5 relative">
+                  <our-select-dropdown
+                    label="Political party"
+                    :options="politicalParties"
+                    field="politicalPartyId"
+                    @change="setFilter"></our-select-dropdown>
+                </div>
+                <div class="w-full mb-8 relative">
+                  <our-select-dropdown
+                    label="State"
+                    :options="states"
+                    field="state"
+                    @change="setFilter"></our-select-dropdown>
+                </div>
+                <div class="w-full">
+                  <button
+                    class="btn-grey-outline w-full py-3"
+                    :disabled="loading"
+                    @click="getPoliticians">
+                    Search
+                  </button>
+                </div>
+              </div>
+            </transition>
           </div>
         </div>
       </div>
@@ -57,28 +115,37 @@
 
 <script>
 import { mapActions } from 'vuex';
-import { politiciansMock } from '../../constants/examples';
+import states from '../../assets/json/states.json';
+import { politiciansMock, politicalPartiesMock } from '../../constants/examples';
+import ValidatorUtil from '../../helpers/validatorUtil';
 
 export default {
   name: 'politicians',
   data() {
     return {
+      displayMenu: false,
       filter: {
-        status: 'current',
-        politicalPosition: null,
-        page: 0,
         limit: 10,
+        name: null,
+        page: 0,
+        politicalPartyId: null,
+        state: null,
+        status: 'current',
       },
       loading: true,
       mainTabs: [{ label: 'Current Leaders', value: 'current' }, { label: 'Aspirants', value: 'upcoming' }, { label: 'Past Leaders', value: 'past' }],
+      politicalParties: [],
+      politicalPartiesServices: this.$serviceFactory.politicalParties,
       politicians: [],
       politiciansServices: this.$serviceFactory.politicians,
+      states: states.states,
       secondaryTabs: [{ label: 'All', value: null }, { label: 'Governors', value: 'governors' }, { label: 'Presidents', value: 'presidents' }],
       tab: 'current',
     };
   },
   created() {
     this.getPoliticians();
+    this.getPoliticalParties();
   },
   methods: {
     ...mapActions([
@@ -99,9 +166,26 @@ export default {
         this.displayError(error);
       }
     },
+    async getPoliticalParties() {
+      try {
+        const response = await this.politicalPartiesServices.getPoliticalParties({});
+
+        this.politicalParties = response.data.politicalParties;
+        // For now
+        this.politicalParties = politicalPartiesMock.map(option => Object({
+          label: option.name,
+          value: option.id,
+        }));
+      } catch (error) {
+        this.politicalParties = [];
+      }
+    },
     changePage(page) {
       this.filter.page = page;
       this.getPoliticians();
+    },
+    isEmpty(value) {
+      return !ValidatorUtil.isDefined(value);
     },
     nextPage() {
       this.filter.page += 1;
@@ -111,6 +195,9 @@ export default {
       this.filter.page -= 1;
       this.getPoliticians();
     },
+    setFilter(key, value) {
+      this.filter[key] = value;
+    },
     setPrimary(value) {
       this.filter.status = value;
       this.getPoliticians();
@@ -118,6 +205,9 @@ export default {
     setSecondary(value) {
       this.filter.politicalPosition = value;
       this.getPoliticians();
+    },
+    toggleMenu() {
+      this.displayMenu = !this.displayMenu;
     },
   },
   computed: {
