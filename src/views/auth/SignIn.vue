@@ -1,22 +1,22 @@
 <template>
-  <div class="flex flex-wrap h-screen">
+  <div class="flex flex-wrap h-1/2 lg:h-screen xl:h-screen">
     <our-alert :alert-type="info.type" :display="displayInfo">
       <p class="font-bold">{{info.header}}</p>
       <p class="text-sm">{{info.details}}</p>
     </our-alert>
-    <div class="w-1/3 bg-primary bg-overlay relative">
-      <img class="h-16 my-6 mx-12 absolute" src="../../assets/img/logo-w.svg"/>
-      <div class="flex flex-col justify-center h-full px-12">
-        <span class="text-white text-4xl mb-6">
+    <div class="w-full lg:w-1/3 xl:w-1/3 bg-primary bg-overlay relative">
+      <img class="h-16 my-6 mx-auto lg:mx-12 xl:mx-12 relative lg:absolute xl:absolute" src="../../assets/img/logo-w.svg"/>
+      <div class="flex flex-col justify-center lg:h-full xl:h-full px-12">
+        <span class="text-white text-xl md:text-2xl lg:text-4xl xl:text-4xl mb-6 text-center lg:text-left xl:text-left">
           Get live data on the performance and activities of cuttent African Leaders.
         </span>
-        <hr class="text-white w-20"/>
+        <hr class="mx-auto mb-2 lg:mx-0 lg:mb-0 xl:mx-0 xl:mb-0 text-white w-20"/>
       </div>
     </div>
 
     <!-- Right Side -->
-    <div class="w-2/3 flex flex-col justify-center">
-      <div class="mx-auto w-6/12">
+    <div class="w-full lg:w-2/3 xl:w-2/3 flex flex-col justify-center">
+      <div class="mt-20 lg:mt-0 xl:mt-0 mx-auto w-10/12 lg:w-6/12 xl:w-6/12">
         <span class="block text-5xl mb-10">Log in</span>
         <form @submit.prevent="proceed">
           <div class="mb-6">
