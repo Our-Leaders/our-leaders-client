@@ -1,7 +1,7 @@
 <template>
-  <div class="flex h-screen relative">
-    <div class="w-1/3 inbox py-24 border-r-2 border-gray-200">
-      <div class="float-right mr-16">
+  <div class="flex flex-wrap h-screen relative">
+    <div class="w-full lg:w-1/3 xl:w-1/3 inbox lg:py-24 xl:py-24 border-r-2 border-gray-200">
+      <div class="float-right mr-16 hidden lg:block xl:block">
         <h4 class="text-2xl mb-6">Account Preference</h4>
         <ul class="side-nav">
           <li :class="{ active: isPage('basic') }" @click="setPage('basic')">
@@ -15,8 +15,12 @@
           </li>
         </ul>
       </div>
+      <div class="lg:hidden xl:hidden">
+        <h4 class="w-full text-xl text-center mt-2 font-bold">Account Preference</h4>
+        <our-tabs class="mb-1" v-on:change="setPage" :tabs='mainTabs' :tab-type="'secondary'"></our-tabs>
+      </div>
     </div>
-    <div class="w-2/3 p-section">
+    <div class="w-full lg:w-2/3 xl:w-2/3 pl-10 pt-5 lg:pt-20 xl:pt-20">
       <router-view/>
     </div>
   </div>
@@ -27,6 +31,7 @@ export default {
   name: 'accounts',
   data() {
     return {
+      mainTabs: [{ label: 'Basic Information', value: 'basic' }, { label: 'Manage Subscriptions', value: 'subscriptions' }, { label: 'Votes', value: 'votes' }],
       page: 'basic',
     };
   },
@@ -42,10 +47,6 @@ export default {
 </script>
 
 <style lang="scss">
-  .p-section {
-    padding-left: 40px;
-    padding-top: 82px;
-  }
 
   .side-nav {
     li {

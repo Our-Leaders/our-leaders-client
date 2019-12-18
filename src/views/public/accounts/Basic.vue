@@ -1,22 +1,22 @@
 <template>
-  <div class="pr-64">
+  <div class="pr-10 lg:pr-64 xl:pr-64">
     <h3 class="text-4xl mb-8">Basic Information</h3>
-    <div class="flex mb-6">
-      <div class="w-1/2">
+    <div class="flex flex-col-reverse lg:flex-row xl:flex-row flex-wrap mb-6">
+      <div class="w-full lg:w-1/2 xl:w-1/2">
         <p class="mb-4">
           <span class="text-base font-bold mr-16">Name</span>
-          <span class="text-base">{{`${this.user.firstName} ${this.user.lastName}`}}</span>
+          <span class="text-base block lg:inline-block xl:inline-block">{{`${this.user.firstName} ${this.user.lastName}`}}</span>
         </p>
         <p>
           <span class="text-base font-bold mr-16">Email</span>
-          <span class="text-base inline-block align-top">
+          <span class="text-base block lg:inline-block xl:inline-block align-top">
             {{this.user.email}}
             <Small class="text-xs text-gray-600 block break mt-2">Signed in via Email</Small>
           </span>
         </p>
       </div>
-      <div class="w-1/2">
-        <div class="avatar float-right">
+      <div class="w-full lg:w-1/2 xl:w-1/2">
+        <div class="avatar mx-auto lg:mx-0 xl:mx-0 xl:float-right lg:float-right">
           <img src="@/assets/img/no-image.svg"/>
           <!-- Will work on this in another card -->
           <div class="avatar-hover">
@@ -31,27 +31,27 @@
     <div class="flex flex-wrap mt-5 mb-6">
       <div class="w-full relative mb-8">
         <h3 class="text-xl mb-5 font-bold">Connections</h3>
-        <p class="w-1/2">
+        <p class="w-full lg:w-1/2 xl:w-1/2">
           <span class="block text-base font-bold mb-3">Facebook</span>
           <span class="block text-sm">
             This makes sharing alot easier. We will never post anything without your permission.
           </span>
         </p>
         <!-- Will work on this in another card -->
-        <button class="btn-grey-outline py-1 px-2 absolute top-0 right-0 mt-16">
+        <button class="btn-grey-outline py-1 px-2 relative lg:absolute xl:absolute top-0 right-0 mt-8 lg:mt-16 xl:mt-16">
           <img class="h-5 w-5 inline-block mr-2" src="@/assets/img/facebook-color.svg"/>
           <span class="text-sm align-middle">Connect Facebook</span>
         </button>
       </div>
       <div class="w-full relative">
-        <p class="w-1/2">
+        <p class="w-full lg:w-1/2 xl:w-1/2">
           <span class="block text-base font-bold mb-3">Twitter</span>
           <span class="block text-sm">
             This makes sharing alot easier. We will never post anything without your permission.
           </span>
         </p>
         <!-- Will work on this in another card -->
-        <button class="btn-grey-outline py-1 px-2 absolute top-0 right-0 mt-1">
+        <button class="btn-grey-outline py-1 px-2 relative lg:absolute xl:absolute top-0 right-0 mt-4">
           <img class="h-5 w-5 inline-block mr-2" src="@/assets/img/twitter-color.svg"/>
           <span class="text-sm align-middle">Connect Twitter</span>
         </button>
@@ -62,12 +62,12 @@
     <!-- Account -->
     <div class="flex flex-wrap mt-5 mb-6">
       <h3 class="block w-full text-xl mb-5 font-bold">Account</h3>
-      <div class="w-1/2">
+      <div class="w-full mb-4 lg:w-1/2 xl:w-1/2">
         <button class="btn-grey-outline w-full py-1" @click="signOut">
           Sign Out
         </button>
       </div>
-      <div class="w-1/2">
+      <div class="w-full mb-4 lg:w-1/2 xl:w-1/2">
         <button class="w-full py-1">
           Delete Account
         </button>
