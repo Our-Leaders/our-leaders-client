@@ -31,6 +31,22 @@ const routes = [
     },
   },
   {
+    path: '/accounts',
+    component: Pages.AccountsDefault,
+    meta: {
+      requiresAuth: true,
+      layout: 'no-footer',
+    },
+    children: [{
+      path: '/',
+      name: 'account-home',
+      component: Pages.AccountsBasic,
+    }, {
+      path: '*',
+      redirect: { name: 'account-home' },
+    }],
+  },
+  {
     path: '/politicians',
     name: 'politicians',
     component: Pages.Politicians,
@@ -53,8 +69,11 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  console.log(Store.getters.isLoggedIn);
   if (to.meta.isAuth && Store.getters.isLoggedIn) {
     next(from.path);
+  } else if (to.matched.some(m => m.meta.requiresAuth) && !Store.getters.isLoggedIn) {
+    next('home');
   } else {
     next();
   }
