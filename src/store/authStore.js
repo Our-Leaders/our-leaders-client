@@ -1,3 +1,5 @@
+import ValidatorUtil from '../helpers/validatorUtil';
+
 export const authMutations = {
   clearJWT(state) {
     state.jwtToken = null;
@@ -8,6 +10,6 @@ export const authMutations = {
 };
 
 export const authGetters = {
-  isLoggedIn: state => state.jwtToken !== null,
+  isLoggedIn: state => ValidatorUtil.isDefined(state.jwtToken),
   jwt: state => state.jwtToken,
 };
