@@ -14,6 +14,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import ValidatorUtil from './helpers/validatorUtil';
 
 export default {
   name: 'App',
@@ -22,6 +23,13 @@ export default {
       'info',
     ]),
     layout() {
+      if (this.$route.matched.length > 1) {
+        const index = this.$route.matched.findIndex(x => ValidatorUtil.isDefined(x.meta.layout));
+        if (index > -1) {
+          return `${this.$route.matched[index].meta.layout}-layout`;
+        }
+      }
+
       return `${this.$route.meta.layout || 'default'}-layout`;
     },
   },
