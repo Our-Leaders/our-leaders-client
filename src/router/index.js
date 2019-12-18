@@ -69,7 +69,6 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  console.log(Store.getters.isLoggedIn);
   if (to.meta.isAuth && Store.getters.isLoggedIn) {
     next(from.path);
   } else if (to.matched.some(m => m.meta.requiresAuth) && !Store.getters.isLoggedIn) {
