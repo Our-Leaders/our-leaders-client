@@ -42,7 +42,7 @@
     </div>
   </div>
   <ul class="w-full lg:w-auto lg:flex items-center" :class="openNav ? 'h-auto' : 'h-0'">
-    <li class="profile-wrapper lg:top-0 lg:relative absolute right-0 w-auto pl-8 pr-4 h-14 flex items-center font-circular">
+    <li class="profile-wrapper lg:top-0 lg:relative absolute right-0 w-auto pl-8 pr-4 h-14 flex items-center font-circular" v-if="isLoggedIn">
       <div class="notification bg-gray-200 rounded-full text-xs flex lg:visible items-center justify-center mr-5 relative leading-tight" :class="profileShowClass">12</div>
       <our-dropdown class="mr-4 lg:visible" :class="profileShowClass" width="w-56" heading="Profile" :imageSrc="require('@/assets/img/user.svg')">
         <our-dropdown-item>
@@ -50,7 +50,7 @@
           <p v-if="user.joinedBy" class="text-gray-500 text-xs pt-2">via google</p>
         </our-dropdown-item>
         <our-dropdown-divider />
-        <our-dropdown-item isLink :to="{ name: '' }">Account preferences</our-dropdown-item>
+        <our-dropdown-item isLink :to="{ name: 'account-home' }">Account preferences</our-dropdown-item>
         <our-dropdown-item isLink :to="{ name: '' }">Manage subscriptions</our-dropdown-item>
         <our-dropdown-divider />
         <our-dropdown-item isLink :to="{ name: '' }">Sign out</our-dropdown-item>
