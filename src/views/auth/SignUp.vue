@@ -7,7 +7,7 @@
 
     <!-- Left Side -->
     <div class="w-1/3 bg-gray-100 bg-overlay relative">
-      <img class="h-16 my-6 mx-12 absolute" src="../../assets/img/logo-b.svg"/>
+      <img class="h-16 my-6 mx-12 absolute" src="@/assets/img/logo-b.svg"/>
       <div class="flex flex-col justify-center h-full px-12">
         <span class="text-primary text-4xl mb-6" v-if="page === 0">
           Get live data on the performance and activities of cuttent African Leaders.
@@ -75,7 +75,7 @@
               :disabled="loading"
               type="button">
               <img class="h-6 float-left text-black inline-block"
-                src="../../assets/img/facebook_gray.svg"/>
+                src="@/assets/img/facebook-gray.svg"/>
               Sign up with Facebook
             </button>
             <button
@@ -86,7 +86,7 @@
               :disabled="loading"
               type="button">
               <img class="h-6 float-left text-black inline-block"
-                src="../../assets/img/google_gray.svg"/>
+                src="@/assets/img/google-gray.svg"/>
               Sign up with Google
             </button>
             <p>
