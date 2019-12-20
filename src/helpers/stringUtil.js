@@ -29,6 +29,10 @@ class StringUtil {
   }
 
   static getErrorText(err) {
+    if (typeof err === 'string') {
+      return err;
+    }
+
     if (!err.response || !err.response.data) {
       return 'An error occured. Please contact admin.';
     }
