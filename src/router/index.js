@@ -42,6 +42,10 @@ const routes = [
       name: 'account-home',
       component: Pages.AccountsBasic,
     }, {
+      path: '/subscriptions',
+      name: 'account-subscriptions',
+      component: Pages.AccountsSubscription,
+    }, {
       path: '*',
       redirect: { name: 'account-home' },
     }],
