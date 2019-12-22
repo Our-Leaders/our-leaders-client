@@ -2,7 +2,8 @@
 <div class="block relative">
   <div class="absolute h-full w-full hidden-overflow">
     <div class="inner h-full w-full">
-      <button class="w-1/2 mx-auto border-2 leading border-white p-2 text-white hover:bg-white hover:text-black">
+      <button class="w-1/2 mx-auto border-2 leading border-white p-2 text-white hover:bg-white hover:text-black"
+        @click="$emit('click', politician.id)">
         See More
       </button>
     </div>
@@ -13,7 +14,7 @@
   <div class="w-full my-1 md:my-2">
     <img class="inline-block mr-1 md:mr-2 h-3 md:h-4" src="../assets/img/thumbs-up.svg"/>
     <span class="inline-block mr-2 md:mr-4 h-3 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.up}}</span>
-    <img class="inline-block mr-1 md:mr-2 h-3 md:h-4" src="../assets/img/thumbs-down.svg"/>
+    <img class="inline-block mr-1 md:mr-2 mt-2 h-3 md:h-4" src="../assets/img/thumbs-down.svg"/>
     <span class="inline-block mr-1 md:mr-2 h-3 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.down}}</span>
   </div>
   <h4 class="font-semibold text-base md:text-lg">{{politician.name}}</h4>

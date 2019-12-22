@@ -23,6 +23,10 @@ module.exports = {
       fontFamily: {
         'circular': 'Circular Std, sans-serif, serif',
       },
+      margin: {
+        '17': '4.25rem',
+        '18': '4.5rem',
+      },
     },
   },
   variants: {},
