@@ -47,6 +47,12 @@ const routes = [
     }],
   },
   {
+    path: '/politicians/:politicianId',
+    name: 'politician',
+    component: Pages.Politician,
+    props: true,
+  },
+  {
     path: '/politicians',
     name: 'politicians',
     component: Pages.Politicians,

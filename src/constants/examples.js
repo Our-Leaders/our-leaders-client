@@ -74,7 +74,7 @@ export const politicalPartiesMock = [{
 
 export const politiciansMock = [{
   id: 'P1',
-  name: 'Mohamadu Buhari',
+  name: 'Muhammadu Buhari',
   dob: '12/12/1964',
   religion: 'muslim',
   manifesto: 'I was once a manifesto...now! I am just..a man.',

@@ -21,7 +21,7 @@ export const notificationMutations = {
   },
   showError(state, data) {
     state.info.header = 'Uh Oh!';
-    state.info.details = StringUtil.getErrorText(data.message);
+    state.info.details = StringUtil.getErrorText(data);
     state.info.type = 'error';
     state.info.display = true;
   },

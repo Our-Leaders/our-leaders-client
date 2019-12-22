@@ -63,6 +63,7 @@ input[type=number]::-webkit-outer-spin-button {
 .btn-grey-outline:focus,
 .btn-grey-outline:active,
 .btn-grey-outline:enabled {
+.btn-subscribe {
   border: 1px solid #969696;
   outline: none;
   font-family: 'Circular Std';
@@ -70,6 +71,7 @@ input[type=number]::-webkit-outer-spin-button {
 
   &:hover {
     background-color: black;
+    border: 1px solid black;
     color: white;
   }
 }
@@ -96,6 +98,29 @@ input[type=number]::-webkit-outer-spin-button {
   outline: none;
   font-family: 'Circular Std';
   @apply bg-transparent border border-primary p-3;
+}
+
+.btn-subscribe,
+.btn-subscribe:focus,
+.btn-subscribe:active {
+  outline: none;
+
+  img {
+    display: none;
+  }
+
+  &.active {
+    border: 1px solid #00C543;
+
+    &:hover {
+      background-color: white;
+      color: black;
+    }
+
+    img {
+      display: inline-block;
+    }
+  }
 }
 
 .field,
