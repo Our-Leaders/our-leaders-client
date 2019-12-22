@@ -8,6 +8,7 @@ module.exports = {
         gray: {
           ...colors.gray,
           db: '#DBDBDB',
+          fa: '#FAFAFA',
         },
         red: {
           ...colors.red,
@@ -15,7 +16,7 @@ module.exports = {
         white: '#FFFFFF'
       },
       borderColor: theme => ({
-        'nav': '#dbdbdb',
+        'nav': '#DBDBDB',
       }),
       margin: {
         '9': '2.25rem',
@@ -26,6 +27,9 @@ module.exports = {
       margin: {
         '17': '4.25rem',
         '18': '4.5rem',
+      },
+      fontSize: {
+        'xxs': '.625rem',
       },
     },
   },
