@@ -42,8 +42,33 @@
               :current="filter.page"></our-pagination>
             </div>
           </div>
-          <div class="w-full lg:w-1/3">
-            <h3>Side Bar</h3>
+          <div class="w-full lg:w-1/3 relative">
+            <button class="lg:hidden xl:hidden py-1 px-2" @click="toggleMenu">
+              <img class="h-4 inline-block mr-1" src="../../assets/img/filter.svg"/>
+              <span class="align-middle">Filter</span>
+            </button>
+            <transition name="fade" mode="out-in">
+              <div class="hidden lg:flex xl:flex flex-wrap mt-3"
+                :class="{ 'flex md:flex': displayMenu }">
+                <div class="w-9/12 inline-block">
+                    <input class="field w-full mt-1 py-2 pl-2"
+                      :class="{ 'inactive': isEmpty(filter.name) }"
+                      type="text"
+                      id="query"
+                      name="query"
+                      placeholder="Search party name"
+                      v-model="filter.name"/>
+                </div>
+                <div class="w-3/12 inline-block pl-4">
+                  <button
+                    class="btn-grey-outline py-2 lg:py-0 xl:py-0 w-full h-full"
+                    :disabled="loading"
+                    @click="getPoliticalParties">
+                    Search
+                  </button>
+                </div>
+              </div>
+            </transition>
           </div>
         </div>
       </div>
@@ -54,12 +79,15 @@
 <script>
 import { mapActions } from 'vuex';
 import { politicalPartiesMock } from '../../constants/examples';
+import ValidatorUtil from '../../helpers/validatorUtil';
 
 export default {
   name: 'political-parties',
   data() {
     return {
+      displayMenu: false,
       filter: {
+        name: null,
         page: 0,
         limit: 10,
       },
@@ -94,6 +122,9 @@ export default {
       this.filter.page = page;
       this.getPoliticalParties();
     },
+    isEmpty(value) {
+      return !ValidatorUtil.isDefined(value);
+    },
     nextPage() {
       this.filter.page += 1;
       this.getPoliticalParties();
@@ -101,6 +132,9 @@ export default {
     previousPage() {
       this.filter.page -= 1;
       this.getPoliticalParties();
+    },
+    toggleMenu() {
+      this.displayMenu = !this.displayMenu;
     },
   },
   computed: {
