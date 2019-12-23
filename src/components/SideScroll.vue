@@ -2,8 +2,9 @@
   <div class="w-full">
     <div class="scroll-wrapper hidden lg:block xl:block">
       <div class="scrollbar">
-        <span class="text-xs"
+        <span class="text-xs cursor-pointer"
           v-for="(option, i) of options" :key="i"
+          :class="{ 'text-gray-500' : !isPage(i)}"
           @click="$emit('scroll', option.value);setPage(i)">{{option.label}}</span>
       </div>
       <div class="thumb" :style="customStyle"></div>
@@ -42,6 +43,9 @@ export default {
     };
   },
   methods: {
+    isPage(index) {
+      return this.page === index;
+    },
     next() {
       this.page += 1;
     },
