@@ -66,6 +66,7 @@
             </transition-group>
           </div>
           <div class="w-full lg:w-3/12 xl:w-3/12 block lg:inline-block xl:inline-block">
+            <!-- For Now -->
             <our-side-scroll :options="mainTabs"></our-side-scroll>
           </div>
         </div>
