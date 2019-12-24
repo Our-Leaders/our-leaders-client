@@ -59,13 +59,16 @@
         <div class="w-9/12 mt-6 pr-4">
           <our-tabs class="mb-1" v-on:change="setPage" :tabs='mainTabs' :tab-type="'secondary'"></our-tabs>
         </div>
-        <div class="w-9/12 inline-block relative">
-          <transition-group name="fade" mode="out-in">
-            <div class="absolute top-0 left-0" v-for="tab of mainTabs" :key="tab.value" v-show="isPage(tab.value)">{{tab.label}}</div>
-          </transition-group>
-        </div>
-        <div class="w-3/12 inline-block">
-          <h3>Side Scroll</h3>
+        <div class="flex flex-col-reverse lg:flex-row xl:flex-row">
+          <div class="w-full lg:w-9/12 xl:w-9/12 align-top block lg:inline-block xl:inline-block relative">
+            <transition-group name="fade" mode="out-in">
+              <div class="absolute top-0 left-0" v-for="tab of mainTabs" :key="tab.value" v-show="isPage(tab.value)">{{tab.label}}</div>
+            </transition-group>
+          </div>
+          <div class="w-full lg:w-3/12 xl:w-3/12 block lg:inline-block xl:inline-block">
+            <!-- For Now -->
+            <our-side-scroll :options="mainTabs"></our-side-scroll>
+          </div>
         </div>
       </div>
     </div>
