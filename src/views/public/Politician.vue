@@ -217,36 +217,4 @@ export default {
 </script>
 
 <style lang="scss">
-  .passport-wrapper {
-    height: 320px;
-    max-width: 384px;
-    overflow: hidden;
-    width: 100%;
-
-    img {
-      height: 100%;
-      width: 100%;
-    }
-  }
-
-  .timeline-wrapper {
-    height: 500px;
-    overflow-y: scroll;
-  }
-
-  .twitter-button {
-    border: 1px solid #2AA3EF;
-    color: #2AA3EF;
-    letter-spacing: .1em;
-    margin-top: 1%;
-
-    &:hover {
-      background-color: #2AA3EF;
-      color: white;
-    }
-  }
-
-  .twitter-link {
-    color: #18A4F6;
-  }
 </style>
