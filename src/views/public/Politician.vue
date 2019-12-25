@@ -33,9 +33,12 @@
       </div>
       <div class="w-2/3 px-10 py-4 relative">
         <h3 class="text-6xl mt-8">{{politician.name}}</h3>
-        <button class="btn-subscribe px-4 py-2 absolute top-0 right-0 my-5 mr-17" :class="{ 'active': hasSubscribed }">
-          <span class="align-middle" v-if="!hasSubscribed" @click="subscribe(true)">Subscribe to {{lastName}}</span>
-          <span class="align-middle" v-if="hasSubscribed" @click="subscribe(false)">Subscribed</span>
+        <button class="btn-subscribe px-4 py-2 absolute top-0 right-0 my-5 mr-17"
+          :class="{ 'active': hasSubscribed }"
+          @click="toggleSubscription">
+          <span class="align-middle loading sm" v-if="processing"></span>
+          <span class="align-middle" v-if="!hasSubscribed && !processing">Subscribe to {{lastName}}</span>
+          <span class="align-middle" v-if="hasSubscribed && !processing">Subscribed</span>
           <img class="ml-2" src="@/assets/img/green-tick.svg"/>
         </button>
         <div class="w-full mb-4">
@@ -76,7 +79,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import { politiciansMock } from '../../constants/examples';
 import ValidatorUtil from '../../helpers/validatorUtil';
 
@@ -90,11 +93,17 @@ export default {
   created() {
     if (this.politicianId) {
       this.getPolitician(this.politicianId);
+      if (this.isLoggedIn) {
+        this.checkSubscriptions();
+      }
     } else {
       this.$router.back();
     }
   },
   computed: {
+    ...mapGetters([
+      'isLoggedIn',
+    ]),
     hasSubscribed() {
       return this.subscribed;
     },
@@ -119,13 +128,44 @@ export default {
       // For now
       politician: politiciansMock[0],
       politiciansServices: this.$serviceFactory.politicians,
+      processing: false,
       subscribed: false,
+      subscriptionId: null,
+      subscriptionsServices: this.$serviceFactory.subscriptions,
     };
   },
   methods: {
     ...mapActions([
       'displayError',
     ]),
+    async addSubscription() {
+      try {
+        this.processing = true;
+        const response = await this.subscriptionsServices.addSubscription({
+          politicianId: this.politicianId,
+        });
+        this.subscribed = true;
+        this.subscriptionId = response.data.subscription.id;
+        this.processing = false;
+      } catch (error) {
+        this.subscribed = false;
+        this.processing = false;
+        this.displayError(error);
+      }
+    },
+    async checkSubscriptions() {
+      try {
+        this.processing = true;
+        const response = await this.subscriptionsServices.checkSubscription(this.politicianId);
+        this.subscribed = true;
+        this.subscriptionId = response.data.subscription.id;
+        this.processing = false;
+      } catch (error) {
+        this.subscribed = false;
+        this.processing = false;
+        this.displayError(error);
+      }
+    },
     async getPolitician(id) {
       try {
         this.loading = true;
@@ -140,6 +180,20 @@ export default {
         // this.$router.back();
       }
     },
+    async removeSubscription() {
+      try {
+        this.processing = true;
+        await this.subscriptionsServices.removeSubscription({
+          politicianId: this.politicianId,
+        });
+        this.subscribed = true;
+        this.processing = false;
+      } catch (error) {
+        this.subscribed = false;
+        this.processing = false;
+        this.displayError(error);
+      }
+    },
     isPage(page) {
       return this.page === page;
     },
@@ -148,6 +202,15 @@ export default {
     },
     subscribe(subscribed) {
       this.subscribed = subscribed;
+    },
+    toggleSubscription() {
+      if (this.processing) { return; }
+
+      if (this.subscribed) {
+        this.removeSubscription();
+      } else {
+        this.addSubscription();
+      }
     },
   },
 };
