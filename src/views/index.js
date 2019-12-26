@@ -1,3 +1,4 @@
+import AboutUs from './public/static/AboutUs.vue';
 import AccountsBasic from './public/accounts/Basic.vue';
 import AccountsDefault from './public/accounts/Default.vue';
 import Home from './public/Home.vue';
@@ -9,6 +10,7 @@ import SignIn from './auth/SignIn.vue';
 import SignUp from './auth/SignUp.vue';
 
 export default {
+  AboutUs,
   AccountsBasic,
   AccountsDefault,
   Home,
