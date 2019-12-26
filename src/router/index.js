@@ -31,6 +31,11 @@ const routes = [
     },
   },
   {
+    path: '/about-us',
+    name: 'about-us',
+    component: Pages.AboutUs,
+  },
+  {
     path: '/accounts',
     component: Pages.AccountsDefault,
     meta: {
