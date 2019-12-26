@@ -11,14 +11,18 @@
       </div>
     </div>
 
-    <div class="flex mt-16 mb-32 mx-38">
-      <div class="w-1/2 leading-relaxed text-base" v-html="page.aboutUs"></div>
-      <div class="w-1/2 relative">
-        <div class="about-us-1">
-          <img src="@/assets/img/about-us-1.png"/>
-        </div>
-        <div class="about-us-2">
-          <img src="@/assets/img/about-us-2.svg"/>
+    <div class="flex mt-16 mb-32">
+      <div class="w-4/5 relative mx-auto h-auto">
+        <div class="flex">
+          <div class="w-1/2 leading-relaxed text-base" v-html="page.aboutUs"></div>
+          <div class="w-1/2 relative">
+            <div class="about-us-1">
+              <img src="@/assets/img/about-us-1.png"/>
+            </div>
+            <div class="about-us-2">
+              <img src="@/assets/img/about-us-2.svg"/>
+            </div>
+          </div>
         </div>
       </div>
     </div>
