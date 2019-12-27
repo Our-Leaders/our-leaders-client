@@ -9,7 +9,7 @@
       <span class="align-middle text-sm md:text-base">{{tab.label}}</span>
     </div>
   </div>
-  <div v-if="tabType === 'secondary'" class="flex w-full border-b-2 border-primary">
+  <div v-if="tabType === 'secondary'" class="flex w-full border-b border-primary">
     <div class="py-4 mx-4 text-center relative cursor-pointer"
       v-for="(tab, i) in tabs"
       :key="i"
@@ -69,8 +69,8 @@ export default {
     display: block;
     margin: auto;
     border-bottom: 10px solid #C79947;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
     border-top: 10px solid transparent;
     position: absolute;
     bottom: 0;
@@ -83,13 +83,13 @@ export default {
     width: 0;
     display: block;
     content: "";
-    border-bottom: 9px solid white;
-    border-left: 9px solid transparent;
-    border-right: 9px solid transparent;
-    border-top: 9px solid transparent;
+    border-bottom: 10px solid white;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 10px solid transparent;
     position: absolute;
-    left: -9px;
-    top: -5px;
+    left: -12px;
+    top: -9px;
   }
 
   .triangle {
