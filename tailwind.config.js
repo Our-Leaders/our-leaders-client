@@ -18,13 +18,11 @@ module.exports = {
       borderColor: theme => ({
         'nav': '#DBDBDB',
       }),
-      margin: {
-        '9': '2.25rem',
-      },
       fontFamily: {
         'circular': 'Circular Std, sans-serif, serif',
       },
       margin: {
+        '9': '2.25rem',
         '17': '4.25rem',
         '18': '4.5rem',
       },
