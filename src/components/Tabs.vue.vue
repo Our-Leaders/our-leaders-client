@@ -89,7 +89,7 @@ export default {
     border-top: 10px solid transparent;
     position: absolute;
     left: -12px;
-    top: -9px;
+    top: -8px;
   }
 
   .triangle {
