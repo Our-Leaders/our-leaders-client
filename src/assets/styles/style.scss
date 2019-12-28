@@ -49,9 +49,20 @@ input[type=number]::-webkit-outer-spin-button {
   }
 }
 
+.bg-overlay {
+  background-image: url('../../assets/img/bg-pattern-auth.svg');
+  background-size: cover;
+}
+
+.bg-overlay-header {
+  background-image: url('../../assets/img/bg-pattern-header.svg');
+  background-size: cover;
+}
+
 .btn-grey-outline,
 .btn-grey-outline:focus,
 .btn-grey-outline:active,
+.btn-grey-outline:enabled,
 .btn-subscribe {
   border: 1px solid #969696;
   outline: none;
@@ -63,16 +74,6 @@ input[type=number]::-webkit-outer-spin-button {
     border: 1px solid black;
     color: white;
   }
-}
-
-.bg-overlay {
-  background-image: url('../../assets/img/bg-pattern-auth.svg');
-  background-size: cover;
-}
-
-.bg-overlay-header {
-  background-image: url('../../assets/img/bg-pattern-header.svg');
-  background-size: cover;
 }
 
 .btn-primary,
@@ -230,6 +231,39 @@ input:-internal-autofill-selected {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.passport-wrapper {
+  height: 320px;
+  max-width: 384px;
+  overflow: hidden;
+  width: 100%;
+
+  img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.timeline-wrapper {
+  height: 500px;
+  overflow-y: scroll;
+}
+
+.twitter-button {
+  border: 1px solid #2AA3EF;
+  color: #2AA3EF;
+  letter-spacing: .1em;
+  margin-top: 1%;
+
+  &:hover {
+    background-color: #2AA3EF;
+    color: white;
+  }
+}
+
+.twitter-link {
+  color: #18A4F6;
 }
 
 .verification {

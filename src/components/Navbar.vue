@@ -15,7 +15,7 @@
     <div>
       <ul class="relative lg:inline-flex lg:items-center">
         <li>
-          <router-link :to="{ name: '' }" class="block lg:px-4 lg:py-2 lg:border-b border-transparent hover:border-primary mt-4 lg:mt-0">About</router-link>
+          <router-link :to="{ name: 'about-us' }" class="block lg:px-4 lg:py-2 lg:border-b border-transparent hover:border-primary mt-4 lg:mt-0">About</router-link>
         </li>
         <li>
           <router-link :to="{ name: '' }" class="block lg:px-4 lg:py-2 lg:border-b border-transparent hover:border-primary mt-4 lg:mt-0">Contact</router-link>

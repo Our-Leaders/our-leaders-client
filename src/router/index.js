@@ -31,6 +31,11 @@ const routes = [
     },
   },
   {
+    path: '/about-us',
+    name: 'about-us',
+    component: Pages.AboutUs,
+  },
+  {
     path: '/accounts',
     component: Pages.AccountsDefault,
     meta: {
@@ -61,6 +66,12 @@ const routes = [
     path: '/political-parties',
     name: 'political-parties',
     component: Pages.PoliticalParties,
+  },
+  {
+    path: '/political-parties/:politicalPartyId',
+    name: 'political-party',
+    component: Pages.PoliticalParty,
+    props: true,
   },
   {
     path: '*',

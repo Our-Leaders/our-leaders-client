@@ -33,9 +33,12 @@
       </div>
       <div class="w-2/3 px-10 py-4 relative">
         <h3 class="text-6xl mt-8">{{politician.name}}</h3>
-        <button class="btn-subscribe px-4 py-2 absolute top-0 right-0 my-5 mr-17" :class="{ 'active': hasSubscribed }">
-          <span class="align-middle" v-if="!hasSubscribed" @click="subscribe(true)">Subscribe to {{lastName}}</span>
-          <span class="align-middle" v-if="hasSubscribed" @click="subscribe(false)">Subscribed</span>
+        <button class="btn-subscribe px-4 py-2 absolute top-0 right-0 my-5 mr-17"
+          :class="{ 'active': hasSubscribed }"
+          @click="toggleSubscription">
+          <span class="align-middle loading sm" v-if="processing"></span>
+          <span class="align-middle" v-if="!hasSubscribed && !processing">Subscribe to {{lastName}}</span>
+          <span class="align-middle" v-if="hasSubscribed && !processing">Subscribed</span>
           <img class="ml-2" src="@/assets/img/green-tick.svg"/>
         </button>
         <div class="w-full mb-4">
@@ -59,13 +62,16 @@
         <div class="w-9/12 mt-6 pr-4">
           <our-tabs class="mb-1" v-on:change="setPage" :tabs='mainTabs' :tab-type="'secondary'"></our-tabs>
         </div>
-        <div class="w-9/12 inline-block relative">
-          <transition-group name="fade" mode="out-in">
-            <div class="absolute top-0 left-0" v-for="tab of mainTabs" :key="tab.value" v-show="isPage(tab.value)">{{tab.label}}</div>
-          </transition-group>
-        </div>
-        <div class="w-3/12 inline-block">
-          <h3>Side Scroll</h3>
+        <div class="flex flex-col-reverse lg:flex-row xl:flex-row">
+          <div class="w-full lg:w-9/12 xl:w-9/12 align-top block lg:inline-block xl:inline-block relative">
+            <transition-group name="fade" mode="out-in">
+              <div class="absolute top-0 left-0" v-for="tab of mainTabs" :key="tab.value" v-show="isPage(tab.value)">{{tab.label}}</div>
+            </transition-group>
+          </div>
+          <div class="w-full lg:w-3/12 xl:w-3/12 block lg:inline-block xl:inline-block">
+            <!-- For Now -->
+            <our-side-scroll :options="mainTabs"></our-side-scroll>
+          </div>
         </div>
       </div>
     </div>
@@ -73,7 +79,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import { politiciansMock } from '../../constants/examples';
 import ValidatorUtil from '../../helpers/validatorUtil';
 
@@ -87,11 +93,17 @@ export default {
   created() {
     if (this.politicianId) {
       this.getPolitician(this.politicianId);
+      if (this.isLoggedIn) {
+        this.checkSubscriptions();
+      }
     } else {
       this.$router.back();
     }
   },
   computed: {
+    ...mapGetters([
+      'isLoggedIn',
+    ]),
     hasSubscribed() {
       return this.subscribed;
     },
@@ -116,13 +128,44 @@ export default {
       // For now
       politician: politiciansMock[0],
       politiciansServices: this.$serviceFactory.politicians,
+      processing: false,
       subscribed: false,
+      subscriptionId: null,
+      subscriptionsServices: this.$serviceFactory.subscriptions,
     };
   },
   methods: {
     ...mapActions([
       'displayError',
     ]),
+    async addSubscription() {
+      try {
+        this.processing = true;
+        const response = await this.subscriptionsServices.addSubscription({
+          politicianId: this.politicianId,
+        });
+        this.subscribed = true;
+        this.subscriptionId = response.data.subscription.id;
+        this.processing = false;
+      } catch (error) {
+        this.subscribed = false;
+        this.processing = false;
+        this.displayError(error);
+      }
+    },
+    async checkSubscriptions() {
+      try {
+        this.processing = true;
+        const response = await this.subscriptionsServices.checkSubscription(this.politicianId);
+        this.subscribed = true;
+        this.subscriptionId = response.data.subscription.id;
+        this.processing = false;
+      } catch (error) {
+        this.subscribed = false;
+        this.processing = false;
+        this.displayError(error);
+      }
+    },
     async getPolitician(id) {
       try {
         this.loading = true;
@@ -137,6 +180,20 @@ export default {
         // this.$router.back();
       }
     },
+    async removeSubscription() {
+      try {
+        this.processing = true;
+        await this.subscriptionsServices.removeSubscription({
+          politicianId: this.politicianId,
+        });
+        this.subscribed = true;
+        this.processing = false;
+      } catch (error) {
+        this.subscribed = false;
+        this.processing = false;
+        this.displayError(error);
+      }
+    },
     isPage(page) {
       return this.page === page;
     },
@@ -146,41 +203,18 @@ export default {
     subscribe(subscribed) {
       this.subscribed = subscribed;
     },
+    toggleSubscription() {
+      if (this.processing) { return; }
+
+      if (this.subscribed) {
+        this.removeSubscription();
+      } else {
+        this.addSubscription();
+      }
+    },
   },
 };
 </script>
 
 <style lang="scss">
-  .passport-wrapper {
-    height: 320px;
-    max-width: 384px;
-    overflow: hidden;
-    width: 100%;
-
-    img {
-      height: 100%;
-      width: 100%;
-    }
-  }
-
-  .timeline-wrapper {
-    height: 500px;
-    overflow-y: scroll;
-  }
-
-  .twitter-button {
-    border: 1px solid #2AA3EF;
-    color: #2AA3EF;
-    letter-spacing: .1em;
-    margin-top: 1%;
-
-    &:hover {
-      background-color: #2AA3EF;
-      color: white;
-    }
-  }
-
-  .twitter-link {
-    color: #18A4F6;
-  }
 </style>
