@@ -123,6 +123,7 @@ export default {
         left: 3.95rem;
         top: 1.315rem;
         width: 6.875rem;
+        z-index: 0;
       }
     }
 
