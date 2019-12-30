@@ -90,6 +90,12 @@
               </div>
               <div class="collage-image image-3">
                 <img class="absolute" src="@/assets/img/leaders/nnamdi-azikiwe.svg"/>
+                <div class="rect right-rect absolute"></div>
+                <div class="dots right-dots absolute">
+                  <div class="block w-40 h-40 mx-auto">
+                    <span v-for="n in 25" :key="n" class="dot"></span>
+                  </div>
+                </div>
               </div>
             </div>
             <div>
@@ -102,6 +108,12 @@
             </div>
             <div>
               <div class="collage-image image-4">
+                <div class="rect left-rect absolute"></div>
+                <div class="dots left-dots absolute">
+                  <div class="block w-40 h-40 mx-auto">
+                    <span v-for="n in 25" :key="n" class="dot"></span>
+                  </div>
+                </div>
                 <img class="absolute" src="@/assets/img/leaders/jomo-kenyatta.svg"/>
               </div>
               <div class="collage-image image-5">
@@ -110,7 +122,7 @@
             </div>
           </div>
         </div>
-        <div>
+        <div class="mt-32 flex justify-center text-center">
           <our-subscription></our-subscription>
         </div>
       </div>
@@ -150,7 +162,11 @@ export default {
   .bg-overlay {
     background-image: url('../../assets/img/bg-pattern-home.svg');
     background-size: 135% 100%;
-    margin-top: -100px;
+    margin-top: 30px;
+
+    @screen xl {
+      margin-top: -100px;
+    }
   }
 
   .body {
@@ -158,8 +174,16 @@ export default {
   }
 
   .header {
+    margin: auto;
+    width: 100%;
+
     @screen xl {
       padding: 8rem 10rem;
+      width: 77%;
+    }
+
+    @screen lg {
+      width: 90%;
     }
 
     .header-left-section {
@@ -311,35 +335,99 @@ export default {
     .collage-image {
       display: inline-block;
       position: relative;
-      min-width: 20rem;
+      min-width: 15rem;
+
+      @screen xl {
+        min-width: 20rem;
+      }
+
+      .dots {
+        &.left-dots {
+          left: -12.5rem;
+          bottom: -7rem;
+        }
+
+        &.right-dots {
+          right: -10rem;
+          top: 13rem;
+        }
+
+        .dot {
+          @apply inline-block mx-3 my-2 bg-primary;
+          height: 0.375rem;
+          width: 0.375rem;
+        }
+      }
+
+      .rect {
+        &.left-rect {
+          @apply bg-primary;
+          height: 6.375rem;
+          left: -13.125rem;
+          top: -11.5rem;
+          width: 5rem;
+        }
+
+        &.right-rect {
+          @apply bg-primary;
+          height: 2.5rem;
+          right: -0.925rem;
+          top: 9rem;
+          width: 2.5rem;
+        }
+      }
 
       &.image-1 img {
-        left: 0.875rem;
+        left: -1.275rem;
         top: -0.3rem;
+
+        @screen xl {
+          left: 0.725rem;
+        }
       }
 
       &.image-2 img {
         left: -0.25rem;
         top: -5rem;
+
+        @screen xl {
+          left: -0.25rem;
+        }
       }
 
       &.image-3 img {
-        left: -0.5rem;
+        left: 0.5rem;
         top: 2rem;
+
+        @screen xl {
+          left: -0.5rem;
+        }
       }
 
       &.image-4 img {
         left: -6.7rem;
         top: -16rem;
+
+        @screen xl {
+          left: -6.7rem;
+        }
       }
 
       &.image-5 {
-        width: 22.5rem;
+        width: 20rem;
 
         img {
-          left: -6.25rem;
+          left: -5.25rem;
           top: -8rem;
           z-index: -1;
+        }
+
+        @screen xl {
+          width: 22.5rem;
+
+          img {
+            left: -6.25rem;
+          }
         }
       }
     }
