@@ -19,7 +19,7 @@
             <router-link :to="{ name: 'about-us' }" @click.native="closeNav" class="block xl:px-4 xl:py-2 xl:border-b border-transparent hover:border-primary mt-4 xl:mt-0">About</router-link>
           </li>
           <li>
-            <router-link :to="{ name: '' }" @click.native="closeNav" class="block xl:px-4 xl:py-2 xl:border-b border-transparent hover:border-primary mt-4 xl:mt-0">Contact</router-link>
+            <router-link :to="{ name: 'contact-us' }" @click.native="closeNav" class="block xl:px-4 xl:py-2 xl:border-b border-transparent hover:border-primary mt-4 xl:mt-0">Contact</router-link>
           </li>
           <li class="donate-wrapper">
             <router-link :to="{ name: '' }" @click.native="closeNav" class="px-4 py-2 mt-4 xl:ml-4 xl:mt-0 btn-primary-outline block leading-tight">Donate</router-link>
