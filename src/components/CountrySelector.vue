@@ -1,12 +1,12 @@
 <template>
   <button @focusout="closeCountryList" class="selector-container relative text-left focus:outline-none w-full">
-    <div @click="toggleCountryList" class="flex mt-4 lg:mt-0 lg:ml-2 border lg:border-0 p-4 font-circular flex justify-between lg:justify-end">
+    <div @click="toggleCountryList" class="flex mt-4 xl:mt-0 xl:ml-2 border xl:border-0 p-4 font-circular flex justify-between xl:justify-end">
       <img class="mr-5" :src="countryFlag(selectedCountry.flag)"/>
       <img src="@/assets/img/chevron-down.svg"/>
     </div>
     <transition name="fade" mode="out-in">
-      <div class="fixed lg:absolute w-full lg:w-64 country-list p-6 lg:px-4 lg:py-3 right-0 bg-white" v-if="countryListOpen">
-        <div class="lg:hidden flex justify-between items-center font-circular mb-4">
+      <div class="fixed xl:absolute w-full xl:w-64 country-list p-6 xl:px-4 xl:py-3 right-0 bg-white" v-if="countryListOpen">
+        <div class="xl:hidden flex justify-between items-center font-circular mb-4">
           <p>Choose country</p>
           <img class="close-button" @click="toggleCountryList" src="@/assets/img/close.svg"/>
         </div>
@@ -89,11 +89,10 @@ export default {
       @apply mb-3;
     }
 
-    @screen lg {
+    @screen xl {
+      @apply shadow-primary h-auto;
       top: 3.1rem;
       max-height: 20rem;
-      height: auto;
-      box-shadow: 0px 12px 52px rgba(0, 0, 0, 0.1);
     }
   }
 

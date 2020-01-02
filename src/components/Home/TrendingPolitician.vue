@@ -1,7 +1,7 @@
 <template>
 <div class="trending-slide block relative">
   <p class="text-2xl -mt-3 mb-4">Trending today</p>
-  <div class="relative w-full h-20 md:h-32 lg:h-40">
+  <div class="relative w-full h-20 md:h-40">
     <a @click="toggle(-1)" class="toggle-arrow toggle-arrow-left">
       <img src="@/assets/img/chevron-left.svg"/>
     </a>
@@ -52,7 +52,11 @@ export default {
 <style lang="scss" scoped>
   .trending-slide {
     width: 15rem;
-    margin: 0 2rem;
+    margin: 0 1.5rem;
+
+    @screen lg {
+      margin: 0 2rem;
+    }
 
     .trending-image-overlay {
       position: absolute;
@@ -103,13 +107,21 @@ export default {
       }
 
       &.toggle-arrow-left {
-        left: -3.5rem;
+        left: -2.5rem;
         bottom: calc(50% - 0.5rem);
+
+        @screen lg {
+          left: -3.5rem;
+        }
       }
 
       &.toggle-arrow-right {
-        right: -3.5rem;
+        right: -2.5rem;
         bottom: calc(50% - 0.5rem);
+
+        @screen lg {
+          right: -3.5rem;
+        }
       }
     }
 
