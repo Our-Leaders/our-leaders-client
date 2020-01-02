@@ -10,6 +10,7 @@ module.exports = {
           db: '#DBDBDB',
           fa: '#FAFAFA',
           c4: '#C4C4C4',
+          '96': '#969696',
         },
         red: {
           ...colors.red,
