@@ -37,11 +37,7 @@
             <!-- Might turn this into a component later -->
             <div class="flex flex-wrap mb-4 min-h-64" v-if="!loading">
               <div class="w-1/2 md:w-2/6 my-6 px-2" v-for="(politician, i) in politicians" :key="i">
-<<<<<<< HEAD
-                <our-politician :politician="politician"></our-politician>
-=======
                 <our-politician :politician="politician" :total="politicians.length" @click="navigateTo"></our-politician>
->>>>>>> develop
               </div>
             </div>
             <!-- Pagination -->
