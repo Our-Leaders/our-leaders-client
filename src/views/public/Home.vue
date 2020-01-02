@@ -1,73 +1,78 @@
 <template>
   <div class="home bg-overlay">
-    <div class="header">
-      <div class="flex mb-8">
+    <div class="home-page-content">
+      <div class="flex mb-8 lg:mb-12">
         <div class="relative w-full mx-auto h-auto">
-          <div class="flex justify-between bg-gray-fa px-12 py-16">
-            <div class="header-left-section">
+          <div class="flex justify-between flex-col lg:flex-row bg-gray-fa px-6 py-6 lg:px-12 md:py-16">
+            <div class="header-left-section pr-6 md:pr-0">
               <span class="text-primary">Monitor</span> the progress and performance of <router-link :to="{ name: 'politicians' }" class="border-b-4 border-primary">{{ totalPoliticians }}</router-link> African leaders
             </div>
-            <div class="trending-slide-section">
-              <our-trending-politician :politician="politicians[0]" :total="politicians.length"></our-trending-politician>
+            <div v-if="trendingPoliticians.length > 0" class="lg:mx-12 xl:ml-4">
+              <our-trending-politicians :politicians="trendingPoliticians"></our-trending-politicians>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="flex mb-24">
+      <div class="flex mb-16 lg:mb-24">
         <div class="relative w-full mx-auto h-auto">
-          <div class="flex flex-wrap flex-col-reverse lg:flex-row">
-            <div class="w-full pr-4">
-              <our-tabs class="mb-6" v-on:change="setSecondary" :tabs='secondaryTabs' :tab-type="'secondary'"></our-tabs>
-              <div class="flex justify-between">
-                <h3 class="text-4xl">Highest Voted Leaders</h3>
-                <router-link :to="{ name: 'politicians' }">View all leaders</router-link>
+          <div class="flex flex-wrap flex-col-reverse lg:flex-row mx-6 lg:mx-0">
+            <div class="w-full">
+              <our-tabs class="mb-6 whitespace-pre overflow-y-hidden -mr-6 md:mr-0" v-on:change="setSecondary" :tabs='secondaryTabs' :tab-type="'secondary'"></our-tabs>
+              <div class="flex justify-between items-center">
+                <h3 v-if="filter.status === 'current'" class="text-2xl lg:text-4xl">Highest Voted Leaders</h3>
+                <h3 v-if="filter.status === 'upcoming'" class="text-2xl lg:text-4xl">Upcoming Leaders</h3>
+                <h3 v-if="filter.status === 'past'" class="text-2xl lg:text-4xl">Past Leaders</h3>
+                <router-link :to="{ name: 'politicians' }" class="hidden md:inline-block hover:text-primary">View all leaders</router-link>
               </div>
-              <div class="flex mb-4">
-                <div class="w-full" v-if="loading">
+              <div class="flex mb-6">
+                <div class="w-full my-16" v-if="loading">
                   <span class="loading lg mx-auto"></span>
                 </div>
               </div>
-              <div v-if="!loading">
-                <our-home-politicians :politicians="politicians" ></our-home-politicians>
+              <div v-if="!loading" class="-mr-6 md:mr-0">
+                <our-home-politicians :politicians="politicians" :isCard="true"></our-home-politicians>
+              </div>
+              <div class="md:hidden mt-8 py-2 border border-gray-96 md:inline-block w-full text-center">
+                <router-link :to="{ name: 'politicians' }">View all leaders</router-link>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="flex mb-40">
+      <div class="flex mb-12 lg:mb-40">
         <div class="relative w-full mx-auto h-auto">
-          <div class="bg-gray-fa px-12 py-32">
-            <div class="flex justify-start flex-col lg:flex-row what-to-do-section">
-              <div class="what-to-do-left-section">
+          <div class="bg-gray-fa py-16 lg:py-32">
+            <div class="flex justify-start flex-col lg:flex-row what-to-do-section md:mx-6 lg:mx-0">
+              <div class="what-to-do-left-section px-6 md:px-0 lg:px-12 xl:w-full">
                 <h1>What <span class="text-primary">you</span> <span class="whitespace-pre">can do here</span></h1>
-                <p class="mb-10 mt-6">Get instant updates on your favourite African leaders.</p>
+                <p class="mb-6 mt-2 lg:mb-10 lg:mt-6 hidden md:block">Get instant updates on your favourite African leaders.</p>
                 <router-link :to="{ name: 'politicians' }" class="px-4 py-2 mt-0 btn-primary inline-block w-40 text-center hidden lg:block">View leaders</router-link>
               </div>
               <div class="what-to-do-right-section w-full xl:ml-16 relative">
                 <div class="what-to-do-right-container">
                   <div class="what-to-do-right-content what-to-do-subscribe flex justify-between items-center bg-white relative lg:absolute">
-                    <p class="what-to-do-subscribe-text text-2xl py-6">Subscribe to your favourite leaders</p>
+                    <p class="what-to-do-subscribe-text md:text-2xl py-4 md:py-6">Subscribe to your favourite leaders</p>
                     <div class="relative subscribe-hand">
                       <span class="absolute"><img src="@/assets/img/subscribe-hand.svg"/></span>
                     </div>
                   </div>
                   <div class="what-to-do-right-content what-to-do-vote flex justify-between items-center bg-white relative lg:absolute">
-                    <p class="what-to-do-vote-text text-2xl py-6">Upvote or downvote leaders on the platform</p>
+                    <p class="what-to-do-vote-text md:text-2xl py-4 md:py-6">Upvote or downvote leaders on the platform</p>
                     <div class="relative vote-thumb">
                       <span class="absolute"><img src="@/assets/img/thumbs-up-with-shards.svg"/></span>
                     </div>
                   </div>
                   <div class="what-to-do-right-content what-to-do-view flex justify-between items-center bg-white relative lg:absolute">
-                    <p class="what-to-do-view-text text-2xl py-6">See up-to-date accomplishments of leaders</p>
+                    <p class="what-to-do-view-text md:text-2xl py-4 md:py-6">See up-to-date accomplishments of leaders</p>
                     <div class="relative view-note">
                       <span class="absolute"><img src="@/assets/img/note.svg"/></span>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="lg:hidden">
+              <div class="lg:hidden mx-6 md:mx-0">
                 <router-link :to="{ name: 'politicians' }" class="mt-8 px-4 py-2 lg:mt-0 btn-primary inline-block w-40 text-center">View leaders</router-link>
               </div>
             </div>
@@ -78,7 +83,7 @@
       <div class="flex flex-col mb-4">
         <div class="w-full mx-auto h-auto">
           <div class="collage-section relative">
-            <div>
+            <div class="whitespace-no-wrap">
               <div class="collage-image image-1">
                 <img class="absolute" src="@/assets/img/leaders/amadu-bello.svg"/>
               </div>
@@ -113,7 +118,7 @@
                 </div>
               </div>
             </div>
-            <div>
+            <div class="whitespace-no-wrap">
               <div class="collage-image image-4">
                 <img class="absolute" src="@/assets/img/leaders/jomo-kenyatta.svg"/>
               </div>
@@ -132,6 +137,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import { politiciansMock } from '@/constants/examples';
 
 export default {
@@ -140,17 +146,57 @@ export default {
     return {
       loading: false,
       politicians: [],
-      secondaryTabs: [{ label: 'Current Leaders', value: null }, { label: 'Upcoming Leaders', value: 'upcoming-leaders' }, { label: 'Parties', value: 'parties' }],
+      trendingPoliticians: [],
+      politiciansServices: this.$serviceFactory.politicians,
+      secondaryTabs: [
+        { label: 'Current Leaders', value: 'current' },
+        { label: 'Upcoming Leaders', value: 'upcoming' },
+        { label: 'Past Leaders', value: 'past' },
+      ],
+      filter: {
+        name: null,
+        politicalPartyId: null,
+        status: 'current',
+      },
     };
   },
   created() {
     this.getPoliticians();
+    this.getTrendingPoliticians();
   },
   methods: {
+    ...mapActions([
+      'displayError',
+    ]),
     async getPoliticians() {
-      this.politicians = politiciansMock;
+      try {
+        this.loading = true;
+        const response = await this.politiciansServices.getPoliticians(this.filter);
+
+        this.politicians = response.data.politicians;
+        // For now
+        this.politicians = politiciansMock;
+        this.politicians = this.politicians.concat(politiciansMock);
+        this.loading = false;
+      } catch (error) {
+        this.loading = false;
+        this.displayError(error);
+      }
     },
-    setSecondary() {
+    async getTrendingPoliticians() {
+      try {
+        const response = await this.politiciansServices.getTrendingPoliticians();
+
+        this.trendingPoliticians = response.data.politicians;
+        // For now
+        this.trendingPoliticians = politiciansMock;
+        this.trendingPoliticians = this.trendingPoliticians.concat(politiciansMock);
+      } catch (error) {
+        this.displayError(error);
+      }
+    },
+    setSecondary(value) {
+      this.filter.status = value;
       this.getPoliticians();
     },
   },
@@ -165,44 +211,76 @@ export default {
 <style lang="scss" scoped>
   .bg-overlay {
     background-image: url('../../assets/img/bg-pattern-home.svg');
-    background-size: 135% 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 70%;
+
+    @screen md {
+      background-size: 135% 48%;
+    }
 
     @screen xl {
       margin-top: -100px;
     }
   }
 
-  .header {
+  .home-page-content {
     margin: auto;
-    padding: 0 0 5rem 0;
-    width: calc(100% - 3rem);
-
-    @screen xl {
-      padding: 8rem 10rem;
-      width: 77%;
-    }
+    padding: 0 0 10rem 0;
+    width: 100%;
 
     @screen lg {
       width: 90%;
     }
 
+    @screen xl {
+      padding: 8rem 10rem;
+      width: 80%;
+    }
+
     .header-left-section {
       display: block;
-      font-size: 2.5rem;
-      line-height: 3.75rem;
+      font-size: 3rem;
+      line-height: 4rem;
+      margin-bottom: 5.5rem;
       max-width: 41.75rem;
+      padding-top: 1rem;
+      position: relative;
 
-       @screen xl {
+      &::after {
+        background: theme('colors.gray.c4');
+        bottom: -2.5rem;
+        content: '';
+        height: 0.133rem;
+        left: 0;
+        width: 3.1875rem;
+        position: absolute;
+      }
+
+      @screen md {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+
+        &::after {
+          content: none;
+        }
+      }
+
+      @screen xl {
         font-size: 3.75rem;
         line-height: 4.875rem;
+        margin-bottom: initial;
       }
     }
 
     .what-to-do-section {
       .what-to-do-left-section {
         h1 {
-          font-size: 2.5rem;
+          font-size: 3rem;
           line-height: 3.75rem;
+
+          @screen md {
+            font-size: 2.5rem;
+          }
 
           @screen xl {
             font-size: 3.75rem;
@@ -225,9 +303,14 @@ export default {
 
         .what-to-do-right-content {
           @apply shadow-primary;
-          padding: 1.8rem 2rem;
-          width: 31.25rem;
+          padding: 1.2rem 1.6rem;
+          width: calc(100% - 1.5rem);
           z-index: 1;
+
+          @screen md {
+            padding: 1.8rem 2rem;
+            width: 31.25rem;
+          }
 
           &.what-to-do-subscribe {
             left: 0;
@@ -239,58 +322,93 @@ export default {
             }
 
             .what-to-do-subscribe-text {
-              width: 12rem;
+              width: 8rem;
+
+               @screen md {
+                width: 12rem;
+              }
             }
 
             .subscribe-hand > span {
               height: auto;
-              right: 0;
-              top: -2.3rem;
-              width: 11rem;
+              right: 0.5rem;
+              top: -2.5rem;
+              width: 6.5rem;
+
+              @screen md {
+                top: -2.3rem;
+                width: 11rem;
+              }
             }
           }
 
           &.what-to-do-vote {
             @apply shadow-primary float-right;
-            padding: 1.8rem 2rem;
             margin: 1.375rem 0;
 
             @screen lg {
               float: none;
               margin-top: 0;
-              right: -5.5rem;
+              right: -2.5rem;
               top: 13rem;
             }
 
+            @screen xl {
+              right: -5.5rem;
+            }
+
             .what-to-do-vote-text {
-              width: 15.8125rem;
+              width: 11rem;
+
+              @screen md {
+                width: 15.8125rem;
+              }
             }
 
             .vote-thumb > span {
               height: auto;
-              right: -1rem;
-              top: -4.5rem;
-              width: 10.5rem;
+              right: 0;
+              top: -3.5rem;
+              width: 8rem;
+
+              @screen md {
+                right: -1rem;
+                top: -4.5rem;
+                width: 10.5rem;
+              }
             }
           }
 
           &.what-to-do-view {
-            width: 33rem;
+            @screen md {
+              width: 31.25rem;
+            }
 
             @screen lg {
               right: 1.125rem;
               top: 26rem;
+              width: 33rem;
             }
 
             .what-to-do-view-text {
-              width: 19rem;
+              width: 11rem;
+
+              @screen md {
+                width: 19rem;
+              }
             }
 
             .view-note > span {
               height: auto;
-              right: -4rem;
-              top: -6.6rem;
-              width: 16rem;
+              right: -1.5rem;
+              top: -4.5rem;
+              width: 9rem;
+
+              @screen md {
+                right: -4rem;
+                top: -6.6rem;
+                width: 16rem;
+              }
             }
           }
         }
@@ -299,10 +417,6 @@ export default {
 
     .trending-slide-section {
       margin: 0 3rem 0 3rem;
-
-      @screen xl {
-        margin: 0 0 0 4rem;
-      }
     }
   }
 
@@ -336,9 +450,13 @@ export default {
     z-index: 1;
 
     .quote-content {
-      padding: 2.9375rem 2rem;
+      padding: 2rem;
       text-align: center;
-      width: 33.5rem;
+
+      @screen md {
+        padding: 2.9375rem 2rem;
+        width: 33.5rem;
+      }
 
       @screen lg {
         background: rgba(255, 255, 255, 0.6);
@@ -453,9 +571,7 @@ export default {
     }
 
     .collage-shape {
-      @apply absolute top-0 inline-block w-full;
-      height: 20rem;
-      overflow: hidden;
+      @apply absolute top-0 inline-block w-full h-full overflow-hidden;
 
       &.left {
         @apply left-0 bottom-0;
@@ -475,7 +591,7 @@ export default {
         display: none;
 
         &.left-dots {
-          left: 8.8rem;
+          left: 2.975rem;
           top: calc(100% + 5.5rem);
 
           @screen lg {
@@ -486,11 +602,11 @@ export default {
         &.right-dots {
           display: inline-block;
           right: -7rem;
-          top: 9.8rem;
+          bottom: 0;
           z-index: 1;
 
           @screen lg {
-            right: 2.2rem;
+            right: -3.3rem;
             top: 5.5rem;
           }
         }
@@ -508,7 +624,7 @@ export default {
         &.left-rect {
           @apply bg-primary;
           height: 6.375rem;
-          left: 8.325rem;
+          left: 2.5rem;
           bottom: -3.2rem;
           width: 5rem;
 
@@ -527,7 +643,7 @@ export default {
           z-index: 1;
 
           @screen lg {
-            right: 11.5rem;
+            right: 6rem;
             top: 1rem;
             left: initial;
           }

@@ -1,15 +1,15 @@
 <template>
 <div class="politicians-container font-circular">
-  <a v-if="canScrollLeft" @click="swipeLeft" class="swipe-arrow swipe-arrow-left invisible md:visible">
+  <a v-if="canScrollLeft" @click="swipeLeft" class="swipe-arrow swipe-arrow-left hidden md:inline-block">
     <img src="@/assets/img/chevron-left.svg"/>
   </a>
-  <div class="flex flex-no-wrap mb-4 min-h-64 overflow-x-auto lg:overflow-hidden" ref="slider">
-    <div class="politician-container flex-none w-1/2 md:w-2/6 my-6 px-4" v-for="(politician, i) in politicians" :key="i">
-      <div class="block relative hover:shadow-primary cursor-pointer bg-gray-fa">
-        <div class="w-full overflow-hidden h-32 lg:h-48">
+  <div class="flex flex-no-wrap mb-4 min-h-64 overflow-x-auto md:overflow-hidden" ref="slider">
+    <div class="politician flex-none w-7/8 md:w-2/6" v-for="(politician, i) in politicians" :key="i">
+      <div class="block relative lg:hover:shadow-primary cursor-pointer bg-gray-fa">
+        <div class="w-full overflow-hidden md:h-40 lg:h-48" :class="isCard ? 'h-56' : 'h-48'">
           <img :src="politician.profileImage" class="w-full object-cover"/>
         </div>
-        <div class="p-4">
+        <div :class="isCard ? 'p-4' : 'py-4'">
           <div class="w-full mb-4">
             <img class="inline-block mr-1 md:mr-2 h-3 md:h-4" src="@/assets/img/thumbs-up.svg"/>
             <span class="inline-block mr-2 md:mr-4 h-3 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.up}}</span>
@@ -22,7 +22,7 @@
       </div>
     </div>
   </div>
-  <a v-if="canScrollRight" @click="swipeRight" class="swipe-arrow swipe-arrow-right invisible md:visible">
+  <a v-if="canScrollRight" @click="swipeRight" class="swipe-arrow swipe-arrow-right hidden md:inline-block">
     <img src="@/assets/img/chevron-right.svg"/>
   </a>
 </div>
@@ -34,6 +34,9 @@ export default {
   props: {
     politicians: {
       type: Array,
+    },
+    isCard: {
+      type: Boolean,
     },
   },
   data() {
@@ -69,12 +72,12 @@ export default {
     swipeLeft() {
       const { slider } = this.$refs;
       const position = slider.offsetWidth;
-      this.scrollTo(slider, -position, 800);
+      this.scrollTo(slider, -position, 300);
     },
     swipeRight() {
       const { slider } = this.$refs;
       const position = slider.offsetWidth;
-      this.scrollTo(slider, position, 800);
+      this.scrollTo(slider, position, 300);
     },
   },
 };
@@ -82,14 +85,25 @@ export default {
 
 <style lang="scss">
   .politicians-container {
-    width: calc(100% + 2rem);
-    margin-left: -1rem;
+    @screen md {
+      margin-left: -1rem;
+      width: calc(100% + 2rem);
+      position: relative;
+    }
+
+    .politician {
+      padding-right: 1rem;
+
+      @screen md {
+        padding: 0 1rem;
+      }
+    }
   }
 
   .swipe-arrow {
     @apply absolute cursor-pointer;
     background: rgba(0, 0, 0, 0.3);
-    bottom: calc(50% - 2rem);
+    top: 3.5rem;
     padding: 0.6rem;
     z-index: 1;
 
@@ -97,18 +111,26 @@ export default {
       width: 1rem;
     }
 
+    @screen md {
+      top: 6.5rem;
+    }
+
     @screen lg {
       background: none;
-      bottom: calc(50% - 0.5rem);
+      top: 5.5rem;
       padding: 0;
     }
 
     &.swipe-arrow-left {
-      left: 0;
+      left: 1rem;
       z-index: 1;
 
       @screen lg {
-        left: -3.875rem;
+        left: -0.875rem;
+      }
+
+      @screen xl {
+        left: -2.875rem;
       }
     }
 
@@ -116,6 +138,10 @@ export default {
       right: 1rem;
 
       @screen lg {
+        right: -0.875rem;
+      }
+
+      @screen xl {
         right: -2.875rem;
       }
     }

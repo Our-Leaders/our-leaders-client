@@ -10,4 +10,9 @@ export default {
   getPoliticians(filter) {
     return instance.get(stringUtil.buildQuery(resource, filter));
   },
+  getTrendingPoliticians() {
+    return instance.get(resource);
+    // use instead
+    // return instance.get(`${resource}/trending`);
+  },
 };
