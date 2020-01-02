@@ -51,7 +51,7 @@
         </our-dropdown-item>
         <our-dropdown-divider />
         <our-dropdown-item isLink :to="{ name: 'account-home' }">Account preferences</our-dropdown-item>
-        <our-dropdown-item isLink :to="{ name: '' }">Manage subscriptions</our-dropdown-item>
+        <our-dropdown-item isLink :to="{ name: 'account-subscriptions' }">Manage subscriptions</our-dropdown-item>
         <our-dropdown-divider />
         <our-dropdown-item isLink :to="{ name: '' }">Sign out</our-dropdown-item>
       </our-dropdown>
