@@ -3,7 +3,7 @@
     <span class="inline-block label border-2 border-nav mr-2 mb-2 px-2 py-1"
       v-for="(option, i) of options"
       :class="{'active': isLabel(option.value)}"
-      @click="setLabel(option.value)"
+      @click="setLabel(option.value);$emit('changed', option.value)"
       :key="i">
       {{option.label}}
     </span>
