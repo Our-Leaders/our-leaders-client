@@ -8,6 +8,9 @@ module.exports = {
         gray: {
           ...colors.gray,
           db: '#DBDBDB',
+          fa: '#FAFAFA',
+          c4: '#C4C4C4',
+          '96': '#969696',
         },
         red: {
           ...colors.red,
@@ -15,19 +18,18 @@ module.exports = {
         white: '#FFFFFF'
       },
       borderColor: theme => ({
-        'nav': '#dbdbdb',
+        'nav': '#DBDBDB',
       }),
-      margin: {
-        '9': '2.25rem',
-      },
       fontFamily: {
-        'circular': 'Circular Std, sans-serif, serif',
+        'circular': 'Circular Std, sans-serif',
+        'pt': 'PT Serif, serif',
       },
       height: {
         '28': '7rem',
         '30': '7.5rem',
       },
       margin: {
+        '9': '2.25rem',
         '17': '4.25rem',
         '18': '4.5rem',
         '19': '4.75rem',
@@ -48,6 +50,12 @@ module.exports = {
         '7/8': '87.5%',
         '8/8': '100%',
       },
+      fontSize: {
+        'xxs': '.625rem',
+      },
+      boxShadow: {
+        primary: '0px 12px 52px rgba(0, 0, 0, 0.1)',
+      }
     },
   },
   variants: {},

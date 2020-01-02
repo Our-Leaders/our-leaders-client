@@ -9,12 +9,12 @@
       <span class="align-middle text-sm md:text-base">{{tab.label}}</span>
     </div>
   </div>
-  <div v-if="tabType === 'secondary'" class="flex w-full border-b-2 border-primary">
-    <div class="py-4 mx-4 text-center relative cursor-pointer"
+  <div v-if="tabType === 'secondary'" class="secondary-tabs flex w-full border-b border-primary">
+    <div class="secondary-tab py-4 text-center relative cursor-pointer"
       v-for="(tab, i) in tabs"
       :key="i"
       @click="setTab(tab.value);$emit('change', tab.value);">
-      <span>{{tab.label}}</span>
+      <span :class="{'font-semibold': isActive(tab.value)}">{{tab.label}}</span>
         <span v-if="isActive(tab.value)" class="bottom-triangle"></span>
     </div>
   </div>
@@ -50,10 +50,23 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   #tabs {
     div {
       @apply flex flex-col justify-center;
+    }
+  }
+
+  .secondary-tabs {
+    min-width: fit-content;
+
+    .secondary-tab {
+      margin-right: 2rem;
+      min-width: 2rem;
+
+      &:last-child {
+        margin-right: 1.5rem;
+      }
     }
   }
 
@@ -69,8 +82,8 @@ export default {
     display: block;
     margin: auto;
     border-bottom: 10px solid #C79947;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
     border-top: 10px solid transparent;
     position: absolute;
     bottom: 0;
@@ -83,13 +96,13 @@ export default {
     width: 0;
     display: block;
     content: "";
-    border-bottom: 9px solid white;
-    border-left: 9px solid transparent;
-    border-right: 9px solid transparent;
-    border-top: 9px solid transparent;
+    border-bottom: 10px solid white;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 10px solid transparent;
     position: absolute;
-    left: -9px;
-    top: -5px;
+    left: -12px;
+    top: -8px;
   }
 
   .triangle {

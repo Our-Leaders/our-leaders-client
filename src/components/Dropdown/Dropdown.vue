@@ -3,8 +3,8 @@
     <div v-if="imageSrc" @click="toggleDropdown" class="relative z-10 block h-10 w-10 bg-gray-200 rounded-full overflow-hidden">
       <img class="h-full w-full object-cover" :src="imageSrc" alt="avatar">
     </div>
-    <div v-if="!imageSrc" @click="toggleDropdown" class="relative block lg:py-4">
-      <span class="h-full w-full object-cover">{{ heading }}</span>
+    <div v-if="!imageSrc" @click="toggleDropdown" class="relative block xl:py-4">
+      <span class="h-full w-full object-cover font-pt">{{ heading }}</span>
       <img v-if="showIcon" class="side-arrow" src="../../assets/img/angle-arrow-down.svg"/>
     </div>
     <transition name="fade" mode="out-in">
@@ -102,13 +102,17 @@ export default {
     }
 
     @screen lg {
-      top: 3.5rem;
+      @apply shadow-primary;
+      top: 2rem;
       max-height: 50vh;
-      box-shadow: 0px 12px 52px rgba(0, 0, 0, 0.1);
 
       &.image-dropdown-list {
         top: 2.9rem;
       }
+    }
+
+    @screen xl {
+      top: 3.5rem;
     }
   }
 

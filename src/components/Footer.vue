@@ -94,9 +94,6 @@ export default {
       width: 87%;
       margin-left: auto;
       margin-right: auto;
-      border-style: solid;
-      border-color: white;
-      border-top-width: 1px;
       padding: 50px 40px;
       display: flex;
       flex-direction: row;

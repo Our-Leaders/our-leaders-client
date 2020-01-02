@@ -1,6 +1,7 @@
 import Vue from 'vue';
 
 import '@/components/Dropdown/index';
+import '@/components/Home/index';
 import Alert from '@/components/Alert.vue';
 import SelectDropdown from '@/components/SelectDropdown.vue';
 import Navbar from '@/components/Navbar.vue';
