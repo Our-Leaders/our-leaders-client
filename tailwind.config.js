@@ -9,6 +9,7 @@ module.exports = {
           ...colors.gray,
           db: '#DBDBDB',
           fa: '#FAFAFA',
+          c4: '#C4C4C4',
         },
         red: {
           ...colors.red,
@@ -19,7 +20,8 @@ module.exports = {
         'nav': '#DBDBDB',
       }),
       fontFamily: {
-        'circular': 'Circular Std, sans-serif, serif',
+        'circular': 'Circular Std, sans-serif',
+        'pt': 'PT Serif, serif',
       },
       height: {
         '28': '7rem',
@@ -50,6 +52,9 @@ module.exports = {
       fontSize: {
         'xxs': '.625rem',
       },
+      boxShadow: {
+        primary: '0px 12px 52px rgba(0, 0, 0, 0.1)',
+      }
     },
   },
   variants: {},
