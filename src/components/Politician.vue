@@ -1,12 +1,11 @@
 <template>
-<div>
-  <div class="block relative" v-if="viewType === 'primary'">
-    <div class="absolute h-full w-full hidden-overflow">
-      <div class="inner h-full w-full">
-        <button class="w-1/2 mx-auto border-2 leading border-white p-2 text-white hover:bg-white hover:text-black">
-          See More
-        </button>
-      </div>
+<div class="block relative" v-if="viewType === 'primary'">
+  <div class="absolute h-full w-full hidden-overflow">
+    <div class="inner h-full w-full">
+      <button class="w-1/2 mx-auto border-2 leading border-white p-2 text-white hover:bg-white hover:text-black"
+        @click="$emit('click', politician.id)">
+        See More
+      </button>
     </div>
     <div class="w-full overflow-hidden h-20 md:h-32 lg:h-40">
       <img :src="politician.profileImage" class="w-full object-cover"/>
