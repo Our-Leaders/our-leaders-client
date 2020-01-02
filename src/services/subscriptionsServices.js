@@ -1,4 +1,5 @@
 import instance from './services';
+import StringUtil from '../helpers/stringUtil';
 
 const resource = '/subscriptions';
 
@@ -9,8 +10,8 @@ export default {
   checkSubscription(id) {
     return instance.get(`${resource}/check/${id}`);
   },
-  getSubscriptions() {
-    return instance.get(`${resource}`);
+  getSubscriptions(filter) {
+    return instance.get(`${StringUtil.buildQuery(resource, filter)}`);
   },
   removeSubscription(id) {
     return instance.delete(`${resource}/${id}`);

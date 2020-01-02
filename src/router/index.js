@@ -43,11 +43,11 @@ const routes = [
       layout: 'no-footer',
     },
     children: [{
-      path: '/',
+      path: 'basic',
       name: 'account-home',
       component: Pages.AccountsBasic,
     }, {
-      path: '/subscriptions',
+      path: 'subscriptions',
       name: 'account-subscriptions',
       component: Pages.AccountsSubscription,
     }, {
