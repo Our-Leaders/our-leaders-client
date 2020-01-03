@@ -164,6 +164,20 @@ input:-internal-autofill-selected {
   }
 }
 
+.hidden-overflow-transparent {
+  opacity: 0%;
+  cursor: pointer;
+  transition: opacity 400ms linear;
+
+  .inner {
+    vertical-align: middle;
+  }
+
+  &:hover {
+    opacity: 100%;
+  }
+}
+
 .horizontal-divide {
   border-bottom: 1px solid #DBDBDB;
   color: #969696;

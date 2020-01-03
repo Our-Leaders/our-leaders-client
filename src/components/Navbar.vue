@@ -52,7 +52,7 @@
           </our-dropdown-item>
           <our-dropdown-divider />
           <our-dropdown-item isLink :to="{ name: 'account-home' }" @click.native="closeNav">Account preferences</our-dropdown-item>
-          <our-dropdown-item isLink :to="{ name: '' }" @click.native="closeNav">Manage subscriptions</our-dropdown-item>
+          <our-dropdown-item isLink :to="{ name: 'account-subscriptions' }" @click.native="closeNav">Manage subscriptions</our-dropdown-item>
           <our-dropdown-divider />
           <our-dropdown-item isLink :to="{ name: '' }" @click.native="closeNav">Sign out</our-dropdown-item>
         </our-dropdown>

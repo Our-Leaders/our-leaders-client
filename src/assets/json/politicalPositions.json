@@ -1,5 +1,8 @@
 {
   "politicalPositions": [{
+    "label": "All",
+    "value": null
+  }, {
     "label": "President",
     "value": "president"
   }, {
