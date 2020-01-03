@@ -4,12 +4,12 @@
       <div class="float-right mr-16 hidden lg:block xl:block">
         <h4 class="text-2xl mb-6">Account Preference</h4>
         <ul class="side-nav">
-          <li :class="{ active: isPage('basic') }" @click="setPage('basic')">
+          <router-link class="side-nav-li" :to="{ name: 'account-home' }" active-class="active">
             <span>Basic Information</span>
-          </li>
-          <li :class="{ active: isPage('subscriptions') }" @click="setPage('subscriptions')">
+          </router-link>
+          <router-link class="side-nav-li" :to="{ name: 'account-subscriptions' }" active-class="active">
             <span>Manage Subscriptions</span>
-          </li>
+          </router-link>
           <li :class="{ active: isPage('votes') }" @click="setPage('votes')">
             <span>Votes</span>
           </li>
@@ -49,8 +49,9 @@ export default {
 <style lang="scss">
 
   .side-nav {
-    li {
+    .side-nav-li, li {
       cursor: pointer;
+      display: block;
       margin-bottom: 30px;
       margin-top: 30px;
 
