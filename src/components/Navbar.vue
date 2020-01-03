@@ -1,6 +1,6 @@
 <template>
 <nav class="xl:m-0 px-6 xl:p-0">
-  <div class="nav-content py-4 px-0 border-nav border-b w-full flex items-center flex-wrap" :class="menuToggleClass">
+  <div class="nav-content py-4 px-0 border-gray-200 border-b w-full flex items-center flex-wrap" :class="menuToggleClass">
     <router-link :to="{ name: 'home' }" @click.native="closeNav" class="nav-icon"><img class="xl:absolute mr-2 w-12 bg-white z-10" src="@/assets/img/logo.svg"/></router-link>
     <div :class="navToggleClass" class="w-full block flex-grow xl:flex xl:items-center xl:w-auto mt-2 xl:mt-0">
       <div class="text-base xl:flex-grow">
@@ -43,7 +43,7 @@
       </div>
     </div>
     <ul class="w-full xl:w-auto xl:flex items-center" :class="openNav ? 'h-auto' : 'h-0'">
-      <li class="profile-wrapper xl:top-0 xl:relative absolute right-0 w-auto pl-8 pr-4 h-14 flex items-center font-circular" v-if="!isLoggedIn">
+      <li class="profile-wrapper xl:top-0 xl:relative absolute right-0 w-auto pl-8 pr-4 h-14 flex items-center font-circular" v-if="isLoggedIn">
         <div class="notification bg-gray-200 rounded-full text-xs flex xl:visible items-center justify-center mr-5 relative leading-tight" :class="profileShowClass">12</div>
         <our-dropdown class="mr-4 xl:visible" :class="profileShowClass" width="w-56" heading="Profile" :imageSrc="require('@/assets/img/user.svg')">
           <our-dropdown-item>
