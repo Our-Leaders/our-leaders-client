@@ -149,6 +149,7 @@ input:-internal-autofill-selected {
   background-color: rgba(0, 0, 0, .5);
   border: 2px solid black;
   opacity: 0%;
+  position: absolute;
   cursor: pointer;
   transition: opacity 400ms linear;
 
@@ -157,6 +158,8 @@ input:-internal-autofill-selected {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    height: 100%;
+    width: 100%;
   }
 
   &:hover {

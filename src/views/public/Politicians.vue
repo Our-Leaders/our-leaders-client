@@ -40,6 +40,9 @@
                 <our-politician :politician="politician" :total="politicians.length" @click="navigateTo"></our-politician>
               </div>
             </div>
+            <div class="w-full text-center mt-4 mb-8" v-if="noMatch">
+              <span>Sorry, there are no politicians matching your search.</span>
+            </div>
             <!-- Pagination -->
             <div class="block mb-2" v-if="!loading">
               <our-pagination
@@ -214,6 +217,9 @@ export default {
     },
   },
   computed: {
+    noMatch() {
+      return !this.loading && this.total === 0;
+    },
     total() {
       return this.politicians.length;
     },
