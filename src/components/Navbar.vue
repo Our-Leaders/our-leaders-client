@@ -43,7 +43,7 @@
       </div>
     </div>
     <ul class="w-full xl:w-auto xl:flex items-center" :class="openNav ? 'h-auto' : 'h-0'">
-      <li class="profile-wrapper xl:top-0 xl:relative absolute right-0 w-auto pl-8 pr-4 h-14 flex items-center font-circular" v-if="!isLoggedIn">
+      <li class="profile-wrapper xl:top-0 xl:relative absolute right-0 w-auto pl-8 pr-4 h-14 flex items-center font-circular" v-if="isLoggedIn">
         <div class="notification bg-gray-200 rounded-full text-xs flex xl:visible items-center justify-center mr-5 relative leading-tight" :class="profileShowClass">12</div>
         <our-dropdown class="mr-4 xl:visible" :class="profileShowClass" width="w-56" heading="Profile" :imageSrc="require('@/assets/img/user.svg')">
           <our-dropdown-item>
