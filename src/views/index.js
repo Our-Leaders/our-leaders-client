@@ -2,6 +2,7 @@ import AboutUs from './public/static/AboutUs.vue';
 import AccountsBasic from './public/accounts/Basic.vue';
 import AccountsDefault from './public/accounts/Default.vue';
 import AccountsSubscription from './public/accounts/Subscriptions.vue';
+import ContactUs from './public/static/ContactUs.vue';
 import Home from './public/Home.vue';
 import PoliticalParty from './public/PoliticalParty.vue';
 import PoliticalParties from './public/PoliticalParties.vue';
@@ -15,6 +16,7 @@ export default {
   AccountsBasic,
   AccountsDefault,
   AccountsSubscription,
+  ContactUs,
   Home,
   PoliticalParty,
   PoliticalParties,

@@ -36,6 +36,14 @@ const routes = [
     component: Pages.AboutUs,
   },
   {
+    path: '/contact-us',
+    name: 'contact-us',
+    component: Pages.ContactUs,
+    meta: {
+      layout: 'no-footer',
+    },
+  },
+  {
     path: '/accounts',
     component: Pages.AccountsDefault,
     meta: {
