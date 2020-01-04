@@ -1,11 +1,17 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import VuexPersist from 'vuex-persist';
 
 import { authGetters, authMutations } from './authStore';
 import { notificationActions, notificationMutations } from './notificationStore';
 import { userGetters, userMutations } from './userStore';
 
 Vue.use(Vuex);
+
+const vuexPersist = new VuexPersist({
+  key: 'our-leaders',
+  storage: window.localStorage,
+});
 
 export default new Vuex.Store({
   state: {
@@ -21,6 +27,7 @@ export default new Vuex.Store({
   actions: Object.assign({}, notificationActions),
   getters: Object.assign({}, authGetters, userGetters),
   mutations: Object.assign({}, authMutations, notificationMutations, userMutations),
+  plugins: [vuexPersist.plugin],
   modules: {
   },
 });
