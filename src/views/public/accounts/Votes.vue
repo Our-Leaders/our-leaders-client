@@ -78,7 +78,7 @@ export default {
     async voteForPolitician(position, isUpvote) {
       try {
         this.processing = true;
-        await this.politiciansServices.voteForPolitician(this.votes[position].id, { isUpvote });
+        await this.politiciansServices.voteForPolitician(this.votes[position].politicianId, { isUpvote });
 
         this.votes[position].voted.isUpvote = isUpvote;
         this.processing = false;
