@@ -27,7 +27,6 @@
 <script>
 import { mapActions } from 'vuex';
 import labels from '../../../assets/json/politicalPositions.json';
-import { politiciansMock } from '../../../constants/examples';
 
 export default {
   name: 'manage-subscriptions',
@@ -46,7 +45,6 @@ export default {
       },
       labels: labels.politicalPositions,
       loading: true,
-      politicians: politiciansMock,
       subscriptions: [],
       subscriptionsServices: this.$serviceFactory.subscriptions,
     };

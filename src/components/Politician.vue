@@ -1,8 +1,8 @@
 <template>
 <div>
-  <div class="block relative" v-show="viewType === 'primary'">
-    <div class="absolute h-full w-full hidden-overflow">
-      <div class="inner h-full w-full">
+  <div class="block" v-show="viewType === 'primary'">
+    <div class="h-full w-full">
+      <div class="inner h-full w-full hidden-overflow">
         <button class="w-1/2 mx-auto border-2 leading border-white p-2 text-white hover:bg-white hover:text-black"
           @click="$emit('click', politician.id)">
           See More

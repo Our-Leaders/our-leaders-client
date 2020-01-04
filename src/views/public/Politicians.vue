@@ -1,7 +1,7 @@
 <template>
   <div class="h-full">
     <!-- Header -->
-    <div class="flex mb-4">
+    <div class="flex mb-4 z-10">
       <div class="w-4/5 relative mx-auto h-auto bg-primary bg-overlay-header">
         <div id="main-header" class="flex flex-wrap px-6 py-24 text-white text-center">
           <div class="ww-full md:w-1/2 lg:w-1/2 xl:w-1/2">

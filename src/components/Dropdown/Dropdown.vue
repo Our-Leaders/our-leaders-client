@@ -1,6 +1,6 @@
 <template>
   <button class="relative text-left focus:outline-none" :class="parentWidth || 'w-auto'" @focusout="closeDropdown">
-    <div v-if="imageSrc" @click="toggleDropdown" class="relative z-10 block h-10 w-10 bg-gray-200 rounded-full overflow-hidden">
+    <div v-if="imageSrc" @click="toggleDropdown" class="relative z-20 block h-10 w-10 bg-gray-200 rounded-full overflow-hidden">
       <img class="h-full w-full object-cover" :src="imageSrc" alt="avatar">
     </div>
     <div v-if="!imageSrc" @click="toggleDropdown" class="relative block xl:py-4">
