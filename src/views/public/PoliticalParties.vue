@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Header -->
-    <div class="flex mb-4">
+    <div class="flex mb-4 z-10">
       <div class="w-4/5 relative mx-auto h-auto bg-primary bg-overlay-header">
         <div id="main-header" class="flex flex-wrap px-6 py-24 text-white text-center">
           <div class="w-full md:w-1/2 lg:w-1/2 xl:w-1/2">
@@ -31,6 +31,9 @@
               <div class="w-1/2 md:w-2/6 my-6 px-2" v-for="(politicalParty, i) in politicalParties" :key="i">
                 <our-political-party :party="politicalParty" @click="navigateTo"></our-political-party>
               </div>
+            </div>
+            <div class="w-full text-center mt-4 mb-8" v-if="noMatch">
+              <span>Sorry, there are no political parties matching your search.</span>
             </div>
             <!-- Pagination -->
             <div class="block mb-2" v-if="!loading">
@@ -141,6 +144,9 @@ export default {
     },
   },
   computed: {
+    noMatch() {
+      return !this.loading && this.total === 0;
+    },
     total() {
       return this.politicalParties.length;
     },

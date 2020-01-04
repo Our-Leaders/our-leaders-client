@@ -1,7 +1,7 @@
 <template>
 <nav class="xl:m-0 px-6 xl:p-0">
   <div class="nav-content py-4 px-0 border-gray-200 border-b w-full flex items-center flex-wrap" :class="menuToggleClass">
-    <router-link :to="{ name: 'home' }" @click.native="closeNav" class="nav-icon"><img class="xl:absolute mr-2 w-12 bg-white z-10" src="@/assets/img/logo.svg"/></router-link>
+    <router-link :to="{ name: 'home' }" @click.native="closeNav" class="nav-icon"><img class="xl:absolute mr-2 w-12 bg-white z-20" src="@/assets/img/logo.svg"/></router-link>
     <div :class="navToggleClass" class="w-full block flex-grow xl:flex xl:items-center xl:w-auto mt-2 xl:mt-0">
       <div class="text-base xl:flex-grow">
         <a class="block mt-4 xl:inline-block xl:mt-0 mr-4">
@@ -135,7 +135,7 @@ export default {
         left: 3.95rem;
         top: 1.315rem;
         width: 6.875rem;
-        z-index: 0;
+        padding: 5px;
       }
     }
 
