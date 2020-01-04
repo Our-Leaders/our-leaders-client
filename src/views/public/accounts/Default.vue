@@ -10,9 +10,9 @@
           <router-link class="side-nav-li" :to="{ name: 'account-subscriptions' }" active-class="active">
             <span>Manage Subscriptions</span>
           </router-link>
-          <li :class="{ active: isPage('votes') }" @click="setPage('votes')">
+          <router-link class="side-nav-li" :to="{ name: 'account-votes' }" active-class="active">
             <span>Votes</span>
-          </li>
+          </router-link>
         </ul>
       </div>
       <div class="lg:hidden xl:hidden">
@@ -36,9 +36,6 @@ export default {
     };
   },
   methods: {
-    isPage(page) {
-      return this.page === page;
-    },
     setPage(page) {
       this.page = page;
     },

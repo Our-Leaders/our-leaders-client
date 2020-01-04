@@ -59,6 +59,10 @@ const routes = [
       name: 'account-subscriptions',
       component: Pages.AccountsSubscription,
     }, {
+      path: 'votes',
+      name: 'account-votes',
+      component: Pages.AccountsVotes,
+    }, {
       path: '*',
       redirect: { name: 'account-home' },
     }],
