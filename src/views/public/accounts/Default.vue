@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-wrap h-screen relative">
+  <div class="flex flex-wrap lg:h-screen xl:h-screen relative">
     <div class="w-full lg:w-1/3 xl:w-1/3 inbox lg:py-24 xl:py-24 border-r-2 border-gray-200">
       <div class="float-right mr-16 hidden lg:block xl:block">
         <h4 class="text-2xl mb-6">Account Preference</h4>
@@ -31,13 +31,14 @@ export default {
   name: 'accounts',
   data() {
     return {
-      mainTabs: [{ label: 'Basic Information', value: 'basic' }, { label: 'Manage Subscriptions', value: 'subscriptions' }, { label: 'Votes', value: 'votes' }],
+      mainTabs: [{ label: 'Basic Information', value: 'account-home' }, { label: 'Manage Subscriptions', value: 'account-subscriptions' }, { label: 'Votes', value: 'account-votes' }],
       page: 'basic',
     };
   },
   methods: {
     setPage(page) {
       this.page = page;
+      this.$router.push({ name: page });
     },
   },
 };
