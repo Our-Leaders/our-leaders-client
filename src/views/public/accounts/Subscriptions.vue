@@ -17,6 +17,10 @@
           :subscribed="isSubscribed(subscription.politician.id)"></our-politician>
       </div>
     </div>
+
+    <div class="w-full text-center my-4" v-if="isEmpty">
+      <span>You are currently not subscribed to any politicians.</span>
+    </div>
   </div>
 </template>
 
@@ -29,6 +33,11 @@ export default {
   name: 'manage-subscriptions',
   created() {
     this.getSubscriptions();
+  },
+  computed: {
+    isEmpty() {
+      return !this.loading && this.subscriptions.length === 0;
+    },
   },
   data() {
     return {
