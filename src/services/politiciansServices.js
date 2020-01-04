@@ -15,4 +15,7 @@ export default {
     // use instead
     // return instance.get(`${resource}/trending`);
   },
+  voteForPolitician(id, data) {
+    return instance.post(`${resource}/${id}/vote`, data);
+  },
 };

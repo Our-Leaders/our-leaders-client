@@ -19,10 +19,10 @@
           <span>{{politician.position}}</span>
         </div>
         <div class="w-full lg:w-1/3 xl:w-1/3 my-1 lg:my-4 xl:my-4 pr-3 lg:text-right xl:text-right">
-          <img class="inline-block mr-1 md:mr-2 h-4 md:h-4" :src="getUpvoteImage(politician)"/>
-          <span class="inline-block mr-2 md:mr-4 h-4 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.up}}</span>
-          <img class="inline-block mt-2 mr-1 md:mr-2 h-4 md:h-4" :src="getDownvoteImage(politician)"/>
-          <span class="inline-block mr-1 md:mr-2 h-4 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.down}}</span>
+          <button class="vote-btn inline-block outline-none" @click="voteForPolitician(index, true)" :disabled="processing"><img class="mr-1 md:mr-2 h-4 md:h-4" :src="getUpvoteImage(politician)"/></button>
+          <span class="inline-block align-baseline mr-2 md:mr-4 h-4 md:h-4 text-xs md:text-sm">{{politician.vote.up}}</span>
+          <button class="vote-btn inline-block outline-none" @click="voteForPolitician(index, false)" :disabled="processing"><img class="mr-1 md:mr-2 h-4 md:h-4 thumb-down" :src="getDownvoteImage(politician)"/></button>
+          <span class="inline-block align-baseline mr-1 md:mr-2 h-4 md:h-4 text-xs md:text-sm">{{politician.vote.down}}</span>
         </div>
       </div>
     </div>
@@ -51,7 +51,9 @@ export default {
   },
   data() {
     return {
-      loading: false,
+      loading: true,
+      politiciansServices: this.$serviceFactory.politicians,
+      processing: false,
       usersServices: this.$serviceFactory.users,
       votes: [],
     };
@@ -59,6 +61,7 @@ export default {
   methods: {
     ...mapActions([
       'displayError',
+      'displaySuccess',
     ]),
     async getVotes() {
       try {
@@ -69,6 +72,19 @@ export default {
         this.loading = false;
       } catch (error) {
         this.loading = false;
+        this.displayError(error);
+      }
+    },
+    async voteForPolitician(position, isUpvote) {
+      try {
+        this.processing = true;
+        await this.politiciansServices.voteForPolitician(position.id, isUpvote);
+
+        this.votes[position].voted.isUpvote = isUpvote;
+        this.processing = false;
+        this.displaySuccess({ message: 'Vote Successfully Saved.' });
+      } catch (error) {
+        this.processing = false;
         this.displayError(error);
       }
     },

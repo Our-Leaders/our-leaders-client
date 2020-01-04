@@ -13,8 +13,12 @@ body, html, #app {
   -moz-osx-font-smoothing: grayscale;
 }
 
-button {
+button,
+button:active,
+button:focus,
+button:hover {
   font-family: 'Circular Std';
+  outline: none;
 }
 
 input:disabled {
@@ -262,6 +266,10 @@ input:-internal-autofill-selected {
   }
 }
 
+.thumb-down {
+  transform: translateY(5px);
+}
+
 .timeline-wrapper {
   height: 500px;
   overflow-y: scroll;
@@ -281,6 +289,12 @@ input:-internal-autofill-selected {
 
 .twitter-link {
   color: #18A4F6;
+}
+
+.vote-btn {
+  &:hover {
+    transform: scale(1.2);
+  }
 }
 
 .verification {
