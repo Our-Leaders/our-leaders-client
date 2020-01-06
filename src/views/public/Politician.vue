@@ -39,7 +39,7 @@
           <span class="align-middle loading sm" v-if="processing"></span>
           <span class="align-middle" v-if="!hasSubscribed && !processing">Subscribe to {{lastName}}</span>
           <span class="align-middle" v-if="hasSubscribed && !processing">Subscribed</span>
-          <img class="ml-2" src="@/assets/img/green-tick.svg"/>
+          <img class="ml-2" v-if="hasSubscribed" src="@/assets/img/green-tick.svg"/>
         </button>
         <div class="w-full mb-4">
           <div id="votes" class="inline-block pr-5 border-r-2 border-gray-300">
@@ -65,12 +65,69 @@
         <div class="flex flex-col-reverse lg:flex-row xl:flex-row">
           <div class="w-full lg:w-9/12 xl:w-9/12 align-top block lg:inline-block xl:inline-block relative">
             <transition-group name="fade" mode="out-in">
-              <div class="absolute top-0 left-0" v-for="tab of mainTabs" :key="tab.value" v-show="isPage(tab.value)">{{tab.label}}</div>
+
+              <!-- Background -->
+              <div class="absolute top-0 left-0 w-full" key="background" v-show="isPage('background')">
+                <div class="w-full py-2">
+                  <h3 class="font-bold mb-3 text-xl">Personal background</h3>
+                  <div class="flex flex-wrap mb-4">
+                    <span class="w-1/3 my-1 inline-block">Political Party</span>
+                    <span class="w-2/3 my-1 inline-block">{{politician.politicalParty.name}}</span>
+                    <span class="w-1/3 my-1 inline-block">DOB (Age)</span>
+                    <span class="w-2/3 my-1 inline-block">{{getBirthString(politician.dob)}}</span>
+                    <span class="w-1/3 my-1 inline-block">State of origin</span>
+                    <span class="w-2/3 my-1 inline-block">{{politician.stateOfOrigin}}</span>
+                  </div>
+
+                  <h3 class="font-bold mb-3 text-xl">Political background</h3>
+                  <div class="flex flex-wrap mb-4" v-for="(pBackground, index) of politician.politicalBackground" :key="`pBackground_${index}`">
+                    <span class="w-1/3 my-1 inline-block capitalize">{{pBackground.position}}</span>
+                    <span class="w-2/3 my-1 inline-block">
+                      <span class="block capitalize">{{pBackground.institution}}</span>
+                      <span class="block">{{getPeriodString(pBackground.startDate, pBackground.endDate)}}</span>
+                    </span>
+                  </div>
+
+                  <h3 class="font-bold mb-3 text-xl">Educational background</h3>
+                  <div class="flex flex-wrap mb-4" v-for="(eduBackground, index) of politician.educationalBackground" :key="`eduBackground_${index}`">
+                    <span class="w-1/3 my-1 inline-block capitalize">{{eduBackground.degree}}</span>
+                    <span class="w-2/3 my-1 inline-block">
+                      <span class="capitalize">{{`${eduBackground.institution}. ${(new Date(eduBackground.startDate)).getFullYear()}`}}</span>
+                    </span>
+                  </div>
+
+                  <h3 class="font-bold mb-3 text-xl">Professional background</h3>
+                  <div class="flex flex-wrap mb-4" v-for="(proBackground, index) of politician.professionalBackground" :key="`proBackground_${index}`">
+                    <span class="w-1/3 my-1 inline-block capitalize">{{proBackground.title}}</span>
+                    <span class="w-2/3 my-1 inline-block">
+                      <span class="block capitalize">{{proBackground.description}}</span>
+                      <span class="block">{{getPeriodString(proBackground.startDate, proBackground.endDate)}}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Accomplishments -->
+              <div class="absolute top-0 left-0"  key="accomplishments" v-show="isPage('accomplishments')">
+                <h3>Accomplishments</h3>
+              </div>
+
+              <!-- Manifesto -->
+              <div class="absolute top-0 left-0"  key="manifesto" v-show="isPage('manifesto')">
+                <h3>Manifesto</h3>
+              </div>
+
+              <!-- Recent Updates -->
+              <div class="absolute top-0 left-0"  key="recent" v-show="isPage('recent')">
+                <h3>Recent Updates</h3>
+              </div>
+
+              <!-- <div class="absolute top-0 left-0" v-for="tab of mainTabs" :key="tab.value" v-show="isPage(tab.value)">{{tab.label + ' is here'}}</div> -->
             </transition-group>
           </div>
           <div class="w-full lg:w-3/12 xl:w-3/12 block lg:inline-block xl:inline-block">
             <!-- For Now -->
-            <our-side-scroll :options="mainTabs"></our-side-scroll>
+            <our-side-scroll :options="sideTabs"></our-side-scroll>
           </div>
         </div>
       </div>
@@ -81,6 +138,8 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import { politiciansMock } from '../../constants/examples';
+import tabsList from '../../assets/json/tabsList.json';
+import DateUtil from '../../helpers/dateUtil';
 import ValidatorUtil from '../../helpers/validatorUtil';
 
 export default {
@@ -123,12 +182,13 @@ export default {
   data() {
     return {
       loading: true,
-      mainTabs: [{ label: 'Background', value: 'background' }, { label: 'Accomplishments', value: 'accomplishments' }, { label: 'Manifesto', value: 'manifesto' }, { label: 'Recent updates', value: 'recent' }],
+      mainTabs: tabsList.politician,
       page: 'background',
       // For now
       politician: politiciansMock[0],
       politiciansServices: this.$serviceFactory.politicians,
       processing: false,
+      sideTabs: tabsList.politician[0].side,
       subscribed: false,
       subscriptionId: null,
       subscriptionsServices: this.$serviceFactory.subscriptions,
@@ -194,11 +254,19 @@ export default {
         this.displayError(error);
       }
     },
+    getBirthString(dob) {
+      const dobDate = new Date(dob);
+      return `${dobDate.toLocaleDateString()} (${DateUtil.getAge(dob)})`;
+    },
+    getPeriodString(startDate, endDate) {
+      return DateUtil.getPeriodString(startDate, endDate);
+    },
     isPage(page) {
       return this.page === page;
     },
-    setPage(page) {
+    setPage(page, index) {
       this.page = page;
+      this.sideTabs = tabsList.politician[index].side;
     },
     subscribe(subscribed) {
       this.subscribed = subscribed;
