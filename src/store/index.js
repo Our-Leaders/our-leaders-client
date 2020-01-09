@@ -5,6 +5,7 @@ import VuexPersist from 'vuex-persist';
 import { authGetters, authMutations } from './authStore';
 import { notificationActions, notificationMutations } from './notificationStore';
 import { userGetters, userMutations } from './userStore';
+import { politicianGetters, politicianMutations } from './politicianStore';
 
 Vue.use(Vuex);
 
@@ -16,6 +17,7 @@ const vuexPersist = new VuexPersist({
 export default new Vuex.Store({
   state: {
     currentUser: null,
+    viewedPoliticians: [],
     info: {
       header: null,
       details: null,
@@ -25,8 +27,12 @@ export default new Vuex.Store({
     jwtToken: '',
   },
   actions: Object.assign({}, notificationActions),
-  getters: Object.assign({}, authGetters, userGetters),
-  mutations: Object.assign({}, authMutations, notificationMutations, userMutations),
+  getters: Object.assign({}, authGetters, userGetters, politicianGetters),
+  mutations: Object.assign({},
+    authMutations,
+    notificationMutations,
+    userMutations,
+    politicianMutations),
   plugins: [vuexPersist.plugin],
   modules: {
   },
