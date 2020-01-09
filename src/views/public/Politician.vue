@@ -31,7 +31,7 @@
           </div>
         </div>
       </div>
-      <div class="w-2/3 px-10 py-4 relative">
+      <div class="w-2/3 px-10 py-4 max-h-screen overflow-y-scroll relative">
         <h3 class="text-6xl mt-8">{{politician.name}}</h3>
         <button class="btn-subscribe px-4 py-2 absolute top-0 right-0 my-5 mr-17"
           :class="{ 'active': hasSubscribed }"
@@ -67,7 +67,7 @@
             <transition-group name="fade" mode="out-in">
 
               <!-- Background -->
-              <div class="absolute top-0 left-0 w-full" key="background" v-show="isPage('background')">
+              <div class="relative top-0 left-0 w-full" key="background" v-show="isPage('background')">
                 <div class="w-full py-2">
                   <h3 class="font-bold mb-3 text-xl">Personal background</h3>
                   <div class="flex flex-wrap mb-4">
@@ -108,17 +108,17 @@
               </div>
 
               <!-- Accomplishments -->
-              <div class="absolute top-0 left-0"  key="accomplishments" v-show="isPage('accomplishments')">
-                <h3>Accomplishments</h3>
+              <div class="relative top-0 left-0"  key="accomplishments" v-show="isPage('accomplishments')">
+                <our-quarterly-view :data="quarterData" :keys="sideTabs" @setSideTabs="setSideTabs"></our-quarterly-view>
               </div>
 
               <!-- Manifesto -->
-              <div class="absolute top-0 left-0"  key="manifesto" v-show="isPage('manifesto')">
+              <div class="relative top-0 left-0"  key="manifesto" v-show="isPage('manifesto')">
                 <h3>Manifesto</h3>
               </div>
 
               <!-- Recent Updates -->
-              <div class="absolute top-0 left-0"  key="recent" v-show="isPage('recent')">
+              <div class="relative top-0 left-0"  key="recent" v-show="isPage('recent')">
                 <h3>Recent Updates</h3>
               </div>
 
@@ -139,6 +139,7 @@
 import { mapActions, mapGetters } from 'vuex';
 import { politiciansMock } from '../../constants/examples';
 import tabsList from '../../assets/json/tabsList.json';
+import DataUtil from '../../helpers/dataUtil';
 import DateUtil from '../../helpers/dateUtil';
 import ValidatorUtil from '../../helpers/validatorUtil';
 
@@ -178,6 +179,9 @@ export default {
       const duration = `${(new Date(background.startDate)).getFullYear()} - ${(new Date(background.endDate)).getFullYear()}`;
       return { name: `${background.position}, ${background.institution}`, duration, inOffice: true };
     },
+    quarterData() {
+      return ValidatorUtil.isDefined(this.politician) && this.page === 'accomplishments' ? this.parseQuarterlyData(this.politician.accomplishments) : {};
+    },
   },
   data() {
     return {
@@ -187,6 +191,7 @@ export default {
       // For now
       politician: politiciansMock[0],
       politiciansServices: this.$serviceFactory.politicians,
+      previousTabs: null,
       processing: false,
       sideTabs: tabsList.politician[0].side,
       subscribed: false,
@@ -264,9 +269,40 @@ export default {
     isPage(page) {
       return this.page === page;
     },
+    parseQuarterlyData(data) {
+      const parsedData = {};
+      const keys = [];
+
+      data.forEach((x) => {
+        if (keys.findIndex(z => z.label === x.year) === -1) {
+          keys.push({ label: x.year, value: x.year });
+        }
+
+        if (!parsedData[x.year]) {
+          parsedData[x.year] = {};
+        }
+
+        if (!parsedData[x.year][x.quarter]) {
+          parsedData[x.year][x.quarter] = [];
+        }
+        parsedData[x.year][x.quarter].push(x);
+      });
+
+      this.sideTabs = DataUtil.sortArray(keys, true, 'label');
+
+      return parsedData;
+    },
     setPage(page, index) {
       this.page = page;
       this.sideTabs = tabsList.politician[index].side;
+    },
+    setSideTabs(sideTabs) {
+      if (sideTabs) {
+        this.previousTabs = this.sideTabs;
+        this.sideTabs = sideTabs;
+      } else {
+        this.sideTabs = this.previousTabs;
+      }
     },
     subscribe(subscribed) {
       this.subscribed = subscribed;

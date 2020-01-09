@@ -224,6 +224,10 @@ input:-internal-autofill-selected {
   }
 }
 
+.font-label {
+  font-family: 'Circular Std';
+}
+
 .loading {
   animation: rotate 2s infinite;
   border: 3px dashed #CE9833;

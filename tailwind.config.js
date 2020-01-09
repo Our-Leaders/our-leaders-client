@@ -28,6 +28,9 @@ module.exports = {
         '28': '7rem',
         '30': '7.5rem',
       },
+      lineHeight: {
+        full: '100%',
+      },
       margin: {
         '9': '2.25rem',
         '17': '4.25rem',
