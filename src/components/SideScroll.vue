@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <div class="scroll-wrapper hidden lg:block xl:block">
+    <div class="scroll-wrapper hidden lg:block xl:block" v-show="options.length > 0">
       <div class="scrollbar">
         <span class="text-xs font-label cursor-pointer capitalize"
           v-for="(option, i) of options" :key="i"
