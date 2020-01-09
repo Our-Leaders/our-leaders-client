@@ -113,7 +113,10 @@ export const politiciansMock = [{
   name: 'Muhammadu Buhari',
   dob: '12/12/1964',
   religion: 'muslim',
-  manifesto: 'I was once a manifesto...now! I am just..a man.',
+  manifesto: {
+    summary: '<h2>Testing</h2><p>I was once a manifesto...now! I am just..a man.</p>',
+    url: 'http://www.example.com',
+  },
   stateOfOrigin: 'Oyo',
   politicalParty: politicalPartiesMock[0],
   profileImage: 'https://res.cloudinary.com/saintlawal/image/upload/v1575589072/coupin/buhari_xe8iet.png',
@@ -132,7 +135,10 @@ export const politiciansMock = [{
   name: 'Yemi Osigbanjo',
   dob: '12/12/1978',
   religion: 'christian',
-  manifesto: 'I was once a manifesto...now! I am just..a man.',
+  manifesto: {
+    summary: '<h2>Testing</h2> <p>I was once a manifesto...now! I am just..a man.</p>',
+    url: 'http://www.example.com',
+  },
   stateOfOrigin: 'Osun',
   politicalParty: politicalPartiesMock[1],
   profileImage: 'https://res.cloudinary.com/saintlawal/image/upload/v1575589072/coupin/osibanjo_hzaxej.png',
