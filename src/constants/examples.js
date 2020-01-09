@@ -33,11 +33,47 @@ export const socialsPoliticalParty = {
 };
 
 export const accomplishments = [{
+  title: 'Abuja Subway Station',
+  description: 'Something was built by him in a way that was not expected.',
+  year: 2020,
+  quarter: 'q1',
+  tags: ['built', 'transportation'],
+  createdOn: '10/12/2020',
+}, {
+  title: 'Minimum Wage Increase',
+  description: 'Something was built by him in a way that was not expected.',
+  year: 2018,
+  quarter: 'q2',
+  tags: ['built', 'finance'],
+  createdOn: '10/12/2019',
+}, {
+  title: 'Lagos Railway',
+  description: 'Something was built by him in a way that was not expected.',
+  year: 2019,
+  quarter: 'q3',
+  image: {},
+  tags: ['built', 'transportation'],
+  createdOn: '10/12/2019',
+}, {
   title: 'Built Something',
   description: 'Something was built by him in a way that was not expected.',
-  year: 2010,
+  year: 2019,
   quarter: 'q1',
   tags: ['built', 'something'],
+  createdOn: '10/12/2019',
+}, {
+  title: 'Lagos Railway',
+  description: 'Something was built by him in a way that was not expected.',
+  year: 2020,
+  quarter: 'q1',
+  tags: ['built', 'transport'],
+  createdOn: '10/12/2019',
+}, {
+  title: 'Introduced E-Cards for Tolls',
+  description: 'Something was built by him in a way that was not expected.',
+  year: 2020,
+  quarter: 'q1',
+  tags: ['built', 'technology', 'transportation'],
   createdOn: '10/12/2019',
 }];
 
