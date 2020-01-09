@@ -122,6 +122,7 @@
 </template>
 
 <script>
+import DataUtil from '../helpers/dataUtil';
 import ValidatorUtil from '../helpers/validatorUtil';
 
 export default {
@@ -166,12 +167,7 @@ export default {
         });
       });
 
-      tags.sort((a, b) => {
-        if (a < b) {
-          return -1;
-        }
-        return 1;
-      });
+      tags = DataUtil.sortArray(tags, true);
 
       return { tags, total };
     },

@@ -139,6 +139,7 @@
 import { mapActions, mapGetters } from 'vuex';
 import { politiciansMock } from '../../constants/examples';
 import tabsList from '../../assets/json/tabsList.json';
+import DataUtil from '../../helpers/dataUtil';
 import DateUtil from '../../helpers/dateUtil';
 import ValidatorUtil from '../../helpers/validatorUtil';
 
@@ -287,13 +288,7 @@ export default {
         parsedData[x.year][x.quarter].push(x);
       });
 
-      keys.sort((a, b) => {
-        if (a.label < b.label) {
-          return 1;
-        }
-        return -1;
-      });
-      this.sideTabs = keys;
+      this.sideTabs = DataUtil.sortArray(keys, true, 'label');
 
       return parsedData;
     },
