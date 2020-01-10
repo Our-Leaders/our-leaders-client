@@ -31,9 +31,9 @@
           </div>
         </div>
       </div>
-      <div class="w-2/3 px-10 py-4 max-h-screen overflow-y-scroll relative">
+      <div class="w-2/3 px-10 py-4 max-h-screen overflow-y-scroll relative" sticky-container>
         <h3 class="text-6xl mt-8">{{politician.name}}</h3>
-        <button class="btn-subscribe px-4 py-2 absolute top-0 right-0 my-5 mr-17"
+        <button class="btn-subscribe absolute top-0 right-0 px-4 py-2 my-5 mr-17"
           :class="{ 'active': hasSubscribed }"
           @click="toggleSubscription">
           <span class="align-middle loading sm" v-if="processing"></span>
@@ -59,15 +59,17 @@
           <span class="block text-base capitalize">{{position.name}}</span>
           <span class="block text-base">{{position.duration}}</span>
         </div>
-        <div class="w-9/12 mt-6 pr-4">
-          <our-tabs class="mb-1" v-on:change="setPage" :tabs='mainTabs' :tab-type="'secondary'"></our-tabs>
+        <div v-sticky sticky-offset="offset" sticky-side="top" ref="stickyTop">
+          <div class="w-9/12 mt-6 pr-4">
+            <our-tabs class="mb-1" v-on:change="setPage" :tabs='mainTabs' :tab-type="'secondary'"></our-tabs>
+          </div>
         </div>
         <div class="flex flex-col-reverse lg:flex-row xl:flex-row">
           <div class="w-full lg:w-9/12 xl:w-9/12 align-top block lg:inline-block xl:inline-block relative">
             <transition-group name="fade" mode="out-in">
 
               <!-- Background -->
-              <div class="relative top-0 left-0 w-full" key="background" v-show="isPage('background')">
+              <div class="absolute top-0 left-0 w-full" key="background" v-show="isPage('background')">
                 <div class="w-full py-2">
                   <h3 class="font-bold mb-3 text-xl">Personal background</h3>
                   <div class="flex flex-wrap mb-4">
@@ -113,8 +115,15 @@
               </div>
 
               <!-- Manifesto -->
-              <div class="relative top-0 left-0"  key="manifesto" v-show="isPage('manifesto')">
-                <h3>Manifesto</h3>
+              <div class="absolute top-0 left-0"  key="manifesto" v-show="isPage('manifesto')">
+                <h3 class="font-bold mb-3 text-xl">Manifesto</h3>
+                <div class="mb-6" v-if="politician.manifesto.summary" v-html="politician.manifesto.summary"></div>
+                <div class="w-full text-center mt-4 mb-8" v-else>
+                  <span>Sorry, there are no politicians matching your search.</span>
+                </div>
+                <div v-if="politician.manifesto.url">
+                  <a target="_blank" :href="politician.manifesto.url" class="text-xs block text-gray-500">View full manifesto</a>
+                </div>
               </div>
 
               <!-- Recent Updates -->

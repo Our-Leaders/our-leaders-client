@@ -151,7 +151,7 @@ export default {
       return this.view === 'yearly';
     },
     yearInfo() {
-      const tags = [];
+      let tags = [];
       let total = 0;
       this.keys.forEach((x) => {
         const tempKeys = Object.keys(this.data[x.label]);
