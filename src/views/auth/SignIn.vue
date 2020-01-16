@@ -61,13 +61,17 @@
             :disabled="loading">
             Log In
           </button>
-          <p>
-            Don't have an account?
-            <router-link to="/auth/sign-up">
-              <a class="cursor-pointer text-primary font-semibold">sign up</a>
-            </router-link>
-          </p>
         </form>
+        <div class="w-full mb-8 horizontal-divide">
+          <span>OR</span>
+        </div>
+        <our-social-login @successful="persistSocialLogin" @error="showInfo"></our-social-login>
+        <p>
+          Don't have an account?
+          <router-link to="/auth/sign-up">
+            <a class="cursor-pointer text-primary font-semibold">sign up</a>
+          </router-link>
+        </p>
       </div>
     </div>
   </div>
@@ -113,6 +117,10 @@ export default {
         this.loading = false;
         this.showInfo('Uh Oh', 'Email or password is incorrect.', 'error');
       }
+    },
+    persistSocialLogin(data) {
+      this.data = data;
+      this.proceed();
     },
     showInfo(header, msg, type) {
       this.info.header = header;
