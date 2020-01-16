@@ -80,6 +80,10 @@ input[type=number]::-webkit-outer-spin-button {
   }
 }
 
+.btn-loading {
+  animation: loading-btn 1.5s linear infinite;
+}
+
 .btn-primary,
 .btn-primary:focus,
 .btn-primary:active {
@@ -325,6 +329,28 @@ input:-internal-autofill-selected {
 
   100% {
     background: #CE9833;
+  }
+}
+
+@keyframes loading-btn {
+  0% {
+    opacity: 1;
+  }
+
+  25% {
+    opacity: 0.75;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  75% {
+    opacity: 0.75;
+  }
+
+  100% {
+    opacity: 1;
   }
 }
 
