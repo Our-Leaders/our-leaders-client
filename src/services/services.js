@@ -15,7 +15,7 @@ instance.interceptors.request.use((req) => {
   const request = req;
   const token = store.getters.jwt;
 
-  if (token) {
+  if (token && !req.url.includes('jobs')) {
     request.headers.Authorization = token;
   }
 
