@@ -1,0 +1,15 @@
+{
+  "types": [{
+    "label": "Full Time",
+    "value": "full"
+  }, {
+    "label": "Contract",
+    "value": "contract"
+  }, {
+    "label": "Part Time",
+    "value": "part"
+  }, {
+    "label": "Remote",
+    "value": "remote"
+  }]
+}
