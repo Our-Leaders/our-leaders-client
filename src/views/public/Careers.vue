@@ -18,10 +18,10 @@
     <!-- Body -->
     <div class="flex flex-wrap flex-col-reverse lg:flex-row xl:flex-row px-32 mb-64">
       <div class="w-full lg:w-2/3 xl:w-2/3">
-        <h3 class="text-4xl mb-6">Current Openings</h3>
-        <div class="flex flex-wrap mb-8" v-for="(category, i) in categories" :key="i">
+        <h3 class="text-4xl mb-6" ref="opening">Current Openings</h3>
+        <div class="flex flex-wrap mb-8 lg:mb-12 xl:mb-12" v-for="(category, i) in categories" :key="i">
           <h3 class="w-full font-circular font-bold text-2xl capitalize mb-1">{{category}}</h3>
-          <div class="w-1/3 jobs" v-for="(job, index) in jobs[category]" :key="index">
+          <div class="w-1/2 lg:w-1/3 xl:w-1/3 jobs" v-for="(job, index) in jobs[category]" :key="index">
             <div class="image-holder cursor-pointer" @click="setJob(category, index, job)">
               <img :src="job.image.url"/>
             </div>
@@ -29,10 +29,10 @@
             <span class="capitalize mr-4 cursor-pointer" @click="setJob(category, index, job)">{{job.location}}</span>
             <span class="inline font-circular cursor-pointer capitalize text-xs border border-nav px-1" @click="setJob(category, index, job)">{{getDisplayType(job.type)}}</span>
             <transition-group name="fade">
-              <div class="z-20 secondary-tab text-center relative mt-2" v-if="isSelected(category, index)"  key="job-triangle">
+              <div class="z-20 secondary-tab text-center relative mt-6 lg:mt-3 xl:mt-3" v-if="isSelected(category, index)"  key="job-triangle">
                 <span class="bottom-triangle"></span>
               </div>
-              <div class="z-10 w-job bg-white absolute left-0 ml-32 py-8 border-t border-primary"
+              <div class="z-10 w-job-sm lg:w-job xl:w-job bg-white absolute left-0 ml-32 py-8 border-t border-primary"
                 v-if="isSelected(category, index)" key="job-body">
                 <img class="float-right h-6 w-6 cursor-pointer" @click="clearJob" src="@/assets/img/close.svg"/>
                 <p class="mb-5">
@@ -57,7 +57,7 @@
           <span>Sorry, there are no jobs matching your search.</span>
         </div>
       </div>
-      <div class="w-full lg:w-1/3 xl:w-1/3 pl-6 relative">
+      <div class="w-full lg:w-1/3 xl:w-1/3 pl-0 lg:pl-6 xl:pl-6 relative">
         <button class="lg:hidden xl:hidden py-1 px-2" @click="toggleMenu">
           <img class="h-4 inline-block mr-1" src="../../assets/img/filter.svg"/>
           <span class="align-middle">Filter</span>
@@ -129,7 +129,7 @@ export default {
   },
   computed: {
     noMatch() {
-      return !this.loading && this.jobs.length === 0;
+      return !this.loading && this.categories.length === 0;
     },
   },
   methods: {
@@ -139,11 +139,16 @@ export default {
     async getCareers() {
       try {
         this.loading = true;
+        this.categories = [];
+        this.jobs = [];
 
         const response = await this.careersServices.getJobs(this.filters);
         this.categories = Object.keys(response.data.jobs);
         this.jobs = response.data.jobs;
         this.$store.commit('setJobs', response.data.jobs);
+        this.$nextTick(() => {
+          this.$refs.opening.focus();
+        });
 
         this.loading = false;
       } catch (error) {

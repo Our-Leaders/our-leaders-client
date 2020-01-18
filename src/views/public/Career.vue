@@ -1,6 +1,6 @@
 <template>
   <div class="flex min-h-screen">
-    <div class="w-1/2 mx-auto py-10">
+    <div class="w-10/12 lg:w-1/2 xl:w-1/2 mx-auto py-10">
       <h3 class="text-4xl mb-3">
         {{data.title}}
       </h3>
@@ -17,7 +17,7 @@
         <div class="w-full" key="job-application" v-else>
           <form @submit.prevent="proceed" class="flex flex-wrap">
             <span class="w-full capitalize mr-4 font-circular cursor-pointer text-xl font-bold mb-4">Personal Information</span>
-            <div class="w-1/2 mb-6 pr-4">
+            <div class="w-full lg:w-1/2 xl:w-1/2 mb-6 lg:pr-4 xl:pr-4">
               <label class="block" for="first">First Name</label>
               <input class="field w-full py-2"
                 type="text"
@@ -27,7 +27,7 @@
                 placeholder="Enter first name"
                 required/>
             </div>
-            <div class="w-1/2 mb-6 pl-4">
+            <div class="w-full lg:w-1/2 xl:w-1/2 mb-6 lg:pl-4 xl:pl-4">
               <label class="block" for="last">Last Name</label>
               <input class="field w-full py-2"
                 type="text"
@@ -59,7 +59,7 @@
             </div>
 
             <span class="w-full capitalize mr-4 font-circular cursor-pointer text-xl font-bold my-4">Credentials</span>
-            <div class="w-1/2 mb-6 pr-4">
+            <div class="w-full lg:w-1/2 xl:w-1/2 mb-6 lg:pr-4 xl:pr-4">
               <label class="block" for="cv">CV</label>
               <input class="field w-full py-2"
                 type="text"
@@ -69,7 +69,7 @@
                 placeholder="Enter CV link"
                 required/>
             </div>
-            <div class="w-1/2 mb-6 pl-4">
+            <div class="w-full lg:w-1/2 xl:w-1/2 mb-6 lg:pl-4 xl:pl-4">
               <label class="block" for="portfolio">Portfolio</label>
               <input class="field w-full py-2"
                 type="text"
@@ -93,7 +93,7 @@
               v-model="application.strengths"
               placeholder="Enter response here"
               required></textarea>
-            <button class="bg-primary text-white leading py-3 px-10 mb-10" type="submit">Submit Application</button>
+            <button class="bg-primary text-white leading py-3 px-10 mb-10 w-full lg:w-auto xl:w-auto" type="submit">Submit Application</button>
           </form>
         </div>
       </transition-group>

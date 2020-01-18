@@ -1,5 +1,8 @@
 {
   "types": [{
+    "label": "All",
+    "value": null
+  }, {
     "label": "Full Time",
     "value": "full"
   }, {
