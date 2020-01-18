@@ -3,6 +3,8 @@ import AccountsBasic from './public/accounts/Basic.vue';
 import AccountsDefault from './public/accounts/Default.vue';
 import AccountsSubscription from './public/accounts/Subscriptions.vue';
 import AccountsVotes from './public/accounts/Votes.vue';
+import Career from './public/Career.vue';
+import Careers from './public/Careers.vue';
 import ContactUs from './public/static/ContactUs.vue';
 import Home from './public/Home.vue';
 import PoliticalParty from './public/PoliticalParty.vue';
@@ -18,6 +20,8 @@ export default {
   AccountsDefault,
   AccountsSubscription,
   AccountsVotes,
+  Career,
+  Careers,
   ContactUs,
   Home,
   PoliticalParty,
