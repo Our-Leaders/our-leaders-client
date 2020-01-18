@@ -23,6 +23,8 @@ export default new Vuex.Store({
       display: false,
       type: 'info',
     },
+    job: null,
+    jobs: null,
     jwtToken: '',
   },
   actions: Object.assign({}, notificationActions),
