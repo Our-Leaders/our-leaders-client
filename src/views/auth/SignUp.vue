@@ -7,7 +7,7 @@
 
     <!-- Left Side -->
     <div class="w-1/3 bg-gray-100 bg-overlay relative">
-      <img class="h-16 my-6 mx-12 absolute" src="@/assets/img/logo-b.svg"/>
+      <router-link :to="{ name: 'home' }"><img class="h-16 my-6 mx-12 absolute" src="@/assets/img/logo-b.svg"/></router-link>
       <div class="flex flex-col justify-center h-full px-12">
         <span class="text-primary text-4xl mb-6" v-if="page === 0">
           Get live data on the performance and activities of cuttent African Leaders.
