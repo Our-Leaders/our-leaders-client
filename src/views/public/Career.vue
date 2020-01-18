@@ -137,7 +137,7 @@ export default {
       return this.labels[index].label;
     },
     proceed() {
-      // Send the application
+      // TODO: Send the application
     },
     setSecondary(value) {
       this.page = value;
