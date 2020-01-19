@@ -50,7 +50,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   #tabs {
     div {
       @apply flex flex-col justify-center;

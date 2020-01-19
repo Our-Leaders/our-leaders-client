@@ -55,7 +55,7 @@
           </div>
 
           <!-- Side Bar -->
-          <div class="w-full lg:w-1/3 relative">
+          <div class="w-full lg:w-1/3 xl:w-1/3 relative">
             <button class="lg:hidden xl:hidden py-1 px-2" @click="toggleMenu">
               <img class="h-4 inline-block mr-1" src="../../assets/img/filter.svg"/>
               <span class="align-middle">Filter</span>

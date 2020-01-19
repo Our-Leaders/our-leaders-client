@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import VuexPersist from 'vuex-persist';
 
 import { authGetters, authMutations } from './authStore';
+import { jobGetters, jobMutations } from './jobStore';
 import { notificationActions, notificationMutations } from './notificationStore';
 import { userGetters, userMutations } from './userStore';
 
@@ -22,11 +23,13 @@ export default new Vuex.Store({
       display: false,
       type: 'info',
     },
+    job: null,
+    jobs: null,
     jwtToken: '',
   },
   actions: Object.assign({}, notificationActions),
-  getters: Object.assign({}, authGetters, userGetters),
-  mutations: Object.assign({}, authMutations, notificationMutations, userMutations),
+  getters: Object.assign({}, authGetters, jobGetters, userGetters),
+  mutations: Object.assign({}, authMutations, jobMutations, notificationMutations, userMutations),
   plugins: [vuexPersist.plugin],
   modules: {
   },
