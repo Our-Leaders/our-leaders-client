@@ -54,6 +54,11 @@ const routes = [
     },
   },
   {
+    path: '/donate',
+    name: 'donate',
+    component: Pages.Donate,
+  },
+  {
     path: '/accounts',
     component: Pages.AccountsDefault,
     meta: {
