@@ -1,8 +1,8 @@
 <template>
-  <div class="w-full relative input-fields mb-2" :class="{
+  <div class="w-full relative input-fields no-bottom mb-2" :class="{
     'inactive': selectedLabel === null
     }">
-    <label class="block font-semibold" for="politicalParty">{{label}}</label>
+    <label class="block font-semibold" v-if="!noLabel">{{label}}</label>
     <our-dropdown class="visible py-2 lg:py-0 xl:py-0" width="w-full" parent-width="w-full" :show-icon="true" :heading="selectedValue" ref="ourDropdown">
       <our-dropdown-item v-for="(option, i) in options" :key="i">
         <span v-if="isObjects" @click="onSelect(option.value, option.label)">
@@ -20,6 +20,9 @@
 export default {
   name: 'select-dropdown',
   props: {
+    initialValue: {
+      type: Object,
+    },
     field: {
       required: true,
       type: String,
@@ -31,6 +34,11 @@ export default {
       required: true,
       type: Array,
     },
+  },
+  mounted() {
+    if (this.initialValue) {
+      this.selectedLabel = this.initialValue.label;
+    }
   },
   data() {
     return {
@@ -44,6 +52,9 @@ export default {
     },
     isStrings() {
       return this.options[0] && typeof this.options[0] === 'string';
+    },
+    noLabel() {
+      return !this.label || this.label.length === 0;
     },
     profileShowClass() {
       if (this.openNav) return 'visible';

@@ -27,8 +27,11 @@ module.exports = {
       height: {
         '28': '7rem',
         '30': '7.5rem',
+        '72': '18rem',
+        '84': '20rem',
       },
       lineHeight: {
+        'letter-lg': '40px',
         full: '100%',
       },
       margin: {
@@ -57,6 +60,8 @@ module.exports = {
       },
       fontSize: {
         'xxs': '.625rem',
+        '7xl': '5rem',
+        '8xl': '6rem',
       },
       boxShadow: {
         primary: '0px 12px 52px rgba(0, 0, 0, 0.1)',
