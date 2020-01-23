@@ -22,7 +22,8 @@ button:hover {
 }
 
 input:disabled {
-  background: white;
+  background: transparent;
+  background-color: transparent;
   @apply text-gray-500;
 }
 
@@ -37,7 +38,7 @@ input[type=number]::-webkit-outer-spin-button {
 
   select {
     appearance: none;
-    background-color: #ffffff;
+    background-color: transparent;
     font-family: 'Circular Std';
     outline: none;
     padding-bottom: 2px;
@@ -134,7 +135,7 @@ input[type=number]::-webkit-outer-spin-button {
 .field,
 input:-webkit-autofill,
 input:-internal-autofill-selected {
-  background: white;
+  background: transparent;
   border-bottom: 1px solid black;
   outline: none;
 
@@ -205,6 +206,10 @@ input:-internal-autofill-selected {
 
 .input-fields {
   border-bottom: 1px solid black;
+
+  &.no-bottom {
+    border-bottom: none;
+  }
 
   &.inactive {
     border-bottom: 1px solid #DBDBDB;

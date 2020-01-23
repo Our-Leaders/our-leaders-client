@@ -6,6 +6,7 @@ import AccountsVotes from './public/accounts/Votes.vue';
 import Career from './public/Career.vue';
 import Careers from './public/Careers.vue';
 import ContactUs from './public/static/ContactUs.vue';
+import Donate from './public/static/Donate.vue';
 import Home from './public/Home.vue';
 import PoliticalParty from './public/PoliticalParty.vue';
 import PoliticalParties from './public/PoliticalParties.vue';
@@ -23,6 +24,7 @@ export default {
   Career,
   Careers,
   ContactUs,
+  Donate,
   Home,
   PoliticalParty,
   PoliticalParties,
