@@ -9,7 +9,7 @@
           We aim to educate The People on how to properly get involved with policies and decisions being made on their behalf and how these decisions may affect The People. We also aim to create a platform where The Leaders can learn directly from The People. Their perspectives, opinions, and ideas, and utilize this information when making decisions on behalf of The People.
         </p>
       </div>
-      <div class="w-full lg:w-1/2 xl:w-1/2 lg:pt-20 xl:pt-20 lg:pb-3 xl:pb-3 lg:pr-2 xl:pr-2 hidden lg:visible xl:visible">
+      <div class="w-full lg:w-1/2 xl:w-1/2 lg:pt-20 xl:pt-20 lg:pb-3 xl:pb-3 lg:pr-2 xl:pr-2 hidden lg:block xl:block">
         <h3 class="text-6xl mb-8"><span class="text-primary">Help</span> us do more</h3>
         <p>
           <span class="text-7xl float-left text-gray-300 leading-letter-lg">W</span>
@@ -24,7 +24,7 @@
           </span>
         </p>
       </div>
-      <div class="w-1/2 relative hidden lg:visible xl:visible">
+      <div class="w-1/2 relative hidden lg:block xl:block">
         <img class="h-84 absolute bottom-0 left-0 right-0 mx-auto" src="@/assets/img/donate-1.png"/>
       </div>
     </div>
