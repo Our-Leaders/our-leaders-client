@@ -5,7 +5,7 @@
       <p class="text-sm">{{info.details}}</p>
     </our-alert>
     <div class="w-full lg:w-1/3 xl:w-1/3 bg-primary bg-overlay relative">
-      <img class="h-16 my-6 mx-auto lg:mx-12 xl:mx-12 relative lg:absolute xl:absolute" src="@/assets/img/logo-w.svg"/>
+      <router-link :to="{ name: 'home' }"><img class="h-16 my-6 mx-auto lg:mx-12 xl:mx-12 relative lg:absolute xl:absolute" src="@/assets/img/logo-w.svg"/></router-link>
       <div class="flex flex-col justify-center lg:h-full xl:h-full px-12">
         <span class="text-white text-xl md:text-2xl lg:text-4xl xl:text-4xl mb-6 text-center lg:text-left xl:text-left">
           Get live data on the performance and activities of cuttent African Leaders.
@@ -61,13 +61,17 @@
             :disabled="loading">
             Log In
           </button>
-          <p>
-            Don't have an account?
-            <router-link to="/auth/sign-up">
-              <a class="cursor-pointer text-primary font-semibold">sign up</a>
-            </router-link>
-          </p>
         </form>
+        <div class="w-full mb-8 horizontal-divide">
+          <span>OR</span>
+        </div>
+        <our-social-login @successful="persistSocialLogin" @error="showInfo"></our-social-login>
+        <p>
+          Don't have an account?
+          <router-link to="/auth/sign-up">
+            <a class="cursor-pointer text-primary font-semibold">sign up</a>
+          </router-link>
+        </p>
       </div>
     </div>
   </div>
@@ -113,6 +117,10 @@ export default {
         this.loading = false;
         this.showInfo('Uh Oh', 'Email or password is incorrect.', 'error');
       }
+    },
+    persistSocialLogin(data) {
+      this.data = data;
+      this.proceed();
     },
     showInfo(header, msg, type) {
       this.info.header = header;

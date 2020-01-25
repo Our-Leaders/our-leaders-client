@@ -7,7 +7,7 @@
 
     <!-- Left Side -->
     <div class="w-1/3 bg-gray-100 bg-overlay relative">
-      <img class="h-16 my-6 mx-12 absolute" src="@/assets/img/logo-b.svg"/>
+      <router-link :to="{ name: 'home' }"><img class="h-16 my-6 mx-12 absolute" src="@/assets/img/logo-b.svg"/></router-link>
       <div class="flex flex-col justify-center h-full px-12">
         <span class="text-primary text-4xl mb-6" v-if="page === 0">
           Get live data on the performance and activities of cuttent African Leaders.
@@ -67,28 +67,7 @@
             <div class="w-full mb-8 horizontal-divide">
               <span>OR</span>
             </div>
-            <button
-              :class="{
-                'bg-transparent border-2 border-gray-300 w-full p-2 mb-2': true,
-                'loading': loading,
-              }"
-              :disabled="loading"
-              type="button">
-              <img class="h-6 float-left text-black inline-block"
-                src="@/assets/img/facebook-gray.svg"/>
-              Sign up with Facebook
-            </button>
-            <button
-              :class="{
-                'bg-transparent border-2 border-gray-300 w-full p-2 mb-8': true,
-                'loading': loading,
-              }"
-              :disabled="loading"
-              type="button">
-              <img class="h-6 float-left text-black inline-block"
-                src="@/assets/img/google-gray.svg"/>
-              Sign up with Google
-            </button>
+            <our-social-login isSignUp @successful="persistSocialLogin" @error="showInfo"></our-social-login>
             <p>
               Have an account already?
               <router-link to="/auth/sign-in">
@@ -267,6 +246,10 @@ export default {
     editNumber() {
       this.codeSent = false;
     },
+    persistSocialLogin(data) {
+      this.data = data;
+      this.signUp();
+    },
     proceed() {
       if (this.page === 0) {
         this.signUp();
@@ -279,6 +262,7 @@ export default {
       this.info.details = msg;
       this.info.type = type;
       this.displayInfo = true;
+      setTimeout(() => { this.displayInfo = false; }, 3000);
     },
     togglePassword() {
       this.displayPassword = !this.displayPassword;

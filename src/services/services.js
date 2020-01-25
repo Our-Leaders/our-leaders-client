@@ -15,7 +15,7 @@ instance.interceptors.request.use((req) => {
   const request = req;
   const token = store.getters.jwt;
 
-  if (token) {
+  if (token && !req.url.includes('jobs')) {
     request.headers.Authorization = token;
   }
 
@@ -23,7 +23,9 @@ instance.interceptors.request.use((req) => {
 });
 
 instance.interceptors.response.use(response => response, (error) => {
-  const reroute = error.response.status === 401;
+  const reroute = error.response.status === 401 || error.response.data.message === 'jwt expired';
+
+  // Reroute to reauthentication from here if we choose to have a reauthentication endpoint
 
   if (reroute) {
     store.commit('clearJWT');

@@ -13,7 +13,7 @@
     <div class="secondary-tab py-4 text-center relative cursor-pointer"
       v-for="(tab, i) in tabs"
       :key="i"
-      @click="setTab(tab.value);$emit('change', tab.value);">
+      @click="setTab(tab.value);$emit('change', tab.value, i);">
       <span :class="{'font-semibold': isActive(tab.value)}">{{tab.label}}</span>
         <span v-if="isActive(tab.value)" class="bottom-triangle"></span>
     </div>
@@ -50,7 +50,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   #tabs {
     div {
       @apply flex flex-col justify-center;

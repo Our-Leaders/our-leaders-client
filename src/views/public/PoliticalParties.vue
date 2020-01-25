@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="min-h-screen">
     <!-- Header -->
     <div class="flex mb-4 z-10">
       <div class="w-4/5 relative mx-auto h-auto bg-primary bg-overlay-header">

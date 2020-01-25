@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-wrap">
-    <span class="inline-block label border-2 border-nav mr-2 mb-2 px-2 py-1"
+    <span class="inline-block label border border-nav mr-2 mb-2 px-2 py-1"
       v-for="(option, i) of options"
       :class="{'active': isLabel(option.value)}"
       @click="setLabel(option.value);$emit('changed', option.value)"
@@ -43,7 +43,7 @@ export default {
 
     &:hover,
     &.active {
-      border: 2px solid #CE9833;
+      border: 1px solid #CE9833;
       color: #CE9833;
     }
   }

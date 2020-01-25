@@ -27,6 +27,12 @@ module.exports = {
       height: {
         '28': '7rem',
         '30': '7.5rem',
+        '72': '18rem',
+        '84': '20rem',
+      },
+      lineHeight: {
+        'letter-lg': '40px',
+        full: '100%',
       },
       margin: {
         '9': '2.25rem',
@@ -49,9 +55,13 @@ module.exports = {
         '6/8': '75%',
         '7/8': '87.5%',
         '8/8': '100%',
+        'job': '54.5%',
+        'job-sm': '64.5%',
       },
       fontSize: {
         'xxs': '.625rem',
+        '7xl': '5rem',
+        '8xl': '6rem',
       },
       boxShadow: {
         primary: '0px 12px 52px rgba(0, 0, 0, 0.1)',

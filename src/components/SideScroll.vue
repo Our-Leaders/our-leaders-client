@@ -1,8 +1,8 @@
 <template>
   <div class="w-full">
-    <div class="scroll-wrapper hidden lg:block xl:block">
+    <div class="scroll-wrapper hidden lg:block xl:block" v-show="options.length > 0">
       <div class="scrollbar">
-        <span class="text-xs cursor-pointer"
+        <span class="text-xs font-label cursor-pointer capitalize"
           v-for="(option, i) of options" :key="i"
           :class="{ 'text-gray-500' : !isPage(i)}"
           @click="$emit('scroll', option.value);setPage(i)">{{option.label}}</span>
@@ -51,6 +51,11 @@ export default {
     },
     setPage(index) {
       this.page = index;
+    },
+  },
+  watch: {
+    options() {
+      this.page = 0;
     },
   },
 };

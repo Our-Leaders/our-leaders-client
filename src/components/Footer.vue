@@ -11,8 +11,8 @@
          <h3>Company</h3>
          <router-link :to="{ name: 'about-us' }"><a href="#">About us</a></router-link>
          <a href="#">Blog</a>
-         <a href="#">Careers</a>
-         <a href="#">Donate</a>
+         <router-link :to="{ name: 'careers' }"><a href="#">Careers</a></router-link>
+         <router-link :to="{ name: 'donate' }"><a href="#">Donate</a></router-link>
        </div>
        <div class="footer-col">
          <h3>Help</h3>
@@ -48,8 +48,8 @@
            <h3>Company</h3>
            <router-link :to="{ name: 'about-us' }"><a href="#">About us</a></router-link>
            <a href="#">Blog</a>
-           <a href="#">Careers</a>
-           <a href="#">Donate</a>
+           <router-link :to="{ name: 'careers' }"><a href="#">Careers</a></router-link>
+           <router-link :to="{ name: 'donate' }"><a href="#">Donate</a></router-link>
          </div>
          <div class="footer-col">
            <h3>Links</h3>

@@ -36,12 +36,27 @@ const routes = [
     component: Pages.AboutUs,
   },
   {
+    path: '/careers',
+    name: 'careers',
+    component: Pages.Careers,
+  },
+  {
+    path: '/careers/apply',
+    name: 'careers-apply',
+    component: Pages.Career,
+  },
+  {
     path: '/contact-us',
     name: 'contact-us',
     component: Pages.ContactUs,
     meta: {
       layout: 'no-footer',
     },
+  },
+  {
+    path: '/donate',
+    name: 'donate',
+    component: Pages.Donate,
   },
   {
     path: '/accounts',

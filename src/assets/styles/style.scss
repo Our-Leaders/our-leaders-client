@@ -22,7 +22,8 @@ button:hover {
 }
 
 input:disabled {
-  background: white;
+  background: transparent;
+  background-color: transparent;
   @apply text-gray-500;
 }
 
@@ -37,7 +38,7 @@ input[type=number]::-webkit-outer-spin-button {
 
   select {
     appearance: none;
-    background-color: #ffffff;
+    background-color: transparent;
     font-family: 'Circular Std';
     outline: none;
     padding-bottom: 2px;
@@ -78,6 +79,10 @@ input[type=number]::-webkit-outer-spin-button {
     border: 1px solid black;
     color: white;
   }
+}
+
+.btn-loading {
+  animation: loading-btn 1.5s linear infinite;
 }
 
 .btn-primary,
@@ -130,7 +135,7 @@ input[type=number]::-webkit-outer-spin-button {
 .field,
 input:-webkit-autofill,
 input:-internal-autofill-selected {
-  background: white;
+  background: transparent;
   border-bottom: 1px solid black;
   outline: none;
 
@@ -141,12 +146,12 @@ input:-internal-autofill-selected {
 
 .fade-enter-active,
 .fade-leave-active {
-    transition: opacity .5s
+    transition: opacity .5s;
 }
 
 .fade-enter,
 .fade-leave-to {
-    opacity: 0
+  opacity: 0;
 }
 
 .hidden-overflow {
@@ -202,6 +207,10 @@ input:-internal-autofill-selected {
 .input-fields {
   border-bottom: 1px solid black;
 
+  &.no-bottom {
+    border-bottom: none;
+  }
+
   &.inactive {
     border-bottom: 1px solid #DBDBDB;
     
@@ -222,6 +231,10 @@ input:-internal-autofill-selected {
     height: 20px;
     width: 20px;
   }
+}
+
+.font-label {
+  font-family: 'Circular Std';
 }
 
 .loading {
@@ -321,6 +334,28 @@ input:-internal-autofill-selected {
 
   100% {
     background: #CE9833;
+  }
+}
+
+@keyframes loading-btn {
+  0% {
+    opacity: 1;
+  }
+
+  25% {
+    opacity: 0.75;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  75% {
+    opacity: 0.75;
+  }
+
+  100% {
+    opacity: 1;
   }
 }
 
