@@ -1,15 +1,11 @@
 {
   "currencies": [{
     "label": "NGN",
-    "value": "naira"
+    "value": "naira",
+    "code": "&#8358;"
   }, {
     "label": "USD",
-    "value": "dollar"
-  }, {
-    "label": "EUR",
-    "value": "euro"
-  }, {
-    "label": "GBP",
-    "value": "POUND"
+    "value": "dollar",
+    "code": "&#36;"
   }]
 }
