@@ -109,12 +109,13 @@
                   field="currencies"></our-select-dropdown>
               </span>
               <input class="w-9/12 lg:w-10/12 xl:w-10/12 mb-1 pl-2 bg-transparent"
-                type="number"
+                type="text"
                 id="amount"
                 name="amount"
                 v-model="donation.amount"
+                v-money="money"
                 placeholder="Enter donation amount. E.g. 10,000"
-                required>
+                required/>
             </div>
             <button class="btn-primary w-full" @click="toggleModal" :disabled="isDisabled">Donate</button>
           </div>
@@ -159,7 +160,7 @@
         <h3 class="font-bold text-lg font-circular mb-6">Donate to the cause</h3>
       </template>
       <template v-slot:body>
-        <p class="mb-6">You are about to donate <span v-html="donation.type.code"></span>{{donation.amount}}. We are glad to have you be a part of this cause.</p>
+        <p class="mb-6">You are about to donate {{donation.amount | getValue('money')}}. We are glad to have you be a part of this cause.</p>
         <p class="mb-6" v-if="donation.isAnonymous">We see that you would like to be anonymous, we are grateful and will ensure your details are not stored.</p>
         <form @submit.prevent="donate" v-if="page === 0">
           <div class="mb-6" v-if="!donation.isAnonymous">
@@ -214,6 +215,7 @@
 import { mapActions } from 'vuex';
 import paystack from 'vue-paystack';
 import currencies from '../../../assets/json/currencies.json';
+import ValidatorUtil from '../../../helpers/validatorUtil';
 
 export default {
   name: 'donate',
@@ -223,6 +225,9 @@ export default {
   computed: {
     isDisabled() {
       return this.donation.amount === null || !this.donation.amount;
+    },
+    money() {
+      return ValidatorUtil.isDefined(this.donation.type) ? this.donation.type.mask : this.currencies[0].mask;
     },
     paymentCurrency() {
       const index = this.currencies.findIndex(x => x.value === this.transaction.currency);

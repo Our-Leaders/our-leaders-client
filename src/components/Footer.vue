@@ -16,7 +16,7 @@
        </div>
        <div class="footer-col">
          <h3>Help</h3>
-         <a href="#">Contact us</a>
+         <router-link :to="{ name: 'contact-us' }"><a href="#">Contact us</a></router-link>
          <a href="#">FAQs</a>
        </div>
        <div class="footer-col">
@@ -60,7 +60,7 @@
        <div class="footer-group">
          <div class="footer-col">
            <h3>Help</h3>
-           <a href="#">Contact us</a>
+           <router-link :to="{ name: 'contact-us' }"><a href="#">Contact us</a></router-link>
            <a href="#">FAQs</a>
          </div>
          <div class="footer-col">
