@@ -5,10 +5,10 @@
     <label class="block font-semibold" v-if="!noLabel">{{label}}</label>
     <our-dropdown class="visible py-2 lg:py-0 xl:py-0" width="w-full" parent-width="w-full" :show-icon="true" :heading="selectedValue" ref="ourDropdown">
       <our-dropdown-item v-for="(option, i) in options" :key="i">
-        <span v-if="isObjects" @click="onSelect(option.value, option.label)">
+        <span v-if="isObjects" @click.prevent="onSelect(option.value, option.label)">
           {{option.label}}
         </span>
-        <span v-if="isStrings" @click="onSelect(option)">
+        <span v-if="isStrings" @click.prevent="onSelect(option)">
           {{option}}
         </span>
       </our-dropdown-item>
@@ -37,7 +37,13 @@ export default {
   },
   mounted() {
     if (this.initialValue) {
-      this.selectedLabel = this.initialValue.label;
+      if (this.isObjects) {
+        this.selectedLabel = this.initialValue.label;
+        this.$emit('change', this.field, this.initialValue.value);
+      } else {
+        this.selectedLabel = this.initialValue;
+        this.$emit('change', this.field, this.initialValue);
+      }
     }
   },
   data() {

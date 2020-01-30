@@ -85,6 +85,11 @@ input[type=number]::-webkit-outer-spin-button {
   animation: loading-btn 1.5s linear infinite;
 }
 
+.btn-loading-2 {
+  animation: loading-btn-2 1.5s linear infinite;
+  // Still working on it
+}
+
 .btn-primary,
 .btn-primary:focus,
 .btn-primary:active {
@@ -134,7 +139,8 @@ input[type=number]::-webkit-outer-spin-button {
 
 .field,
 input:-webkit-autofill,
-input:-internal-autofill-selected {
+input:-internal-autofill-selected,
+input:-internal-autofill-previewed {
   background: transparent;
   border-bottom: 1px solid black;
   outline: none;
@@ -219,7 +225,9 @@ input:-internal-autofill-selected {
     }
   }
 
-  input {
+  input,
+  input::after {
+    border-bottom: transparent;
     outline: none;
   }
 
@@ -356,6 +364,178 @@ input:-internal-autofill-selected {
 
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes loading-btn-2 {
+  0% {
+    background-image: linear-gradient(to right, #CE9833 0%, white 0% 5%, #D6A853 5%);
+  }
+
+  5% {
+    background-image: linear-gradient(to right, #CE9833 5%, white 5% 10%, #D6A853 10%);
+  }
+
+  10% {
+    background-image: linear-gradient(to right, #CE9833 10%, white 10% 15%, #D6A853 15%);
+  }
+
+  15% {
+    background-image: linear-gradient(to right, #CE9833 15%, white 15% 20%, #D6A853 20%);
+  }
+
+  20% {
+    background-image: linear-gradient(to right, #CE9833 20%, white 20% 25%, #D6A853 25%);
+  }
+
+  25% {
+    background-image: linear-gradient(to right, #CE9833 25%, white 25% 30%, #D6A853 30%);
+  }
+
+  30% {
+    background-image: linear-gradient(to right, #CE9833 30%, white 30% 35%, #D6A853 35%);
+  }
+
+  35% {
+    background-image: linear-gradient(to right, #CE9833 35%, white 35% 40%, #D6A853 40%);
+  }
+
+  40% {
+    background-image: linear-gradient(to right, #CE9833 40%, white 40% 45%, #D6A853 45%);
+  }
+
+  45% {
+    background-image: linear-gradient(to right, #CE9833 45%, white 45% 50%, #D6A853 50%);
+  }
+
+  50% {
+    background-image: linear-gradient(to right, #CE9833 50%, white 50% 55%, #D6A853 55%);
+  }
+
+  55% {
+    background-image: linear-gradient(to right, #CE9833 55%, white 55% 60%, #D6A853 60%);
+  }
+
+  60% {
+    background-image: linear-gradient(to right, #CE9833 60%, white 60% 65%, #D6A853 65%);
+  }
+
+  65% {
+    background-image: linear-gradient(to right, #CE9833 65%, white 65% 70%, #D6A853 70%);
+  }
+
+  70% {
+    background-image: linear-gradient(to right, #CE9833 70%, white 70% 75%, #D6A853 75%);
+  }
+
+  75% {
+    background-image: linear-gradient(to right, #CE9833 75%, white 75% 80%, #D6A853 80%);
+  }
+
+  80% {
+    background-image: linear-gradient(to right, #CE9833 80%, white 80% 85%, #D6A853 85%);
+  }
+
+  85% {
+    background-image: linear-gradient(to right, #CE9833 85%, white 85% 90%, #D6A853 90%);
+  }
+
+  90% {
+    background-image: linear-gradient(to right, #CE9833 90%, white 90% 95%, #D6A853 95%);
+  }
+
+  95% {
+    background-image: linear-gradient(to right, #CE9833 95%, white 95% 100%, #D6A853 100%);
+  }
+
+  100% {
+    background-image: linear-gradient(to right, #CE9833 100%, white 100% 100%, #D6A853 100%);
+  }
+}
+
+@keyframes loading-btn-3 {
+  0% {
+    background-image: linear-gradient(to right, #CE9833 0%, #D6A853 5%);
+  }
+
+  5% {
+    background-image: linear-gradient(to right, #CE9833 5%, #D6A853 10%);
+  }
+
+  10% {
+    background-image: linear-gradient(to right, #CE9833 10%, #D6A853 15%);
+  }
+
+  15% {
+    background-image: linear-gradient(to right, #CE9833 15%, #D6A853 20%);
+  }
+
+  20% {
+    background-image: linear-gradient(to right, #CE9833 20%, #D6A853 25%);
+  }
+
+  25% {
+    background-image: linear-gradient(to right, #CE9833 25%, #D6A853 30%);
+  }
+
+  30% {
+    background-image: linear-gradient(to right, #CE9833 30%, #D6A853 35%);
+  }
+
+  35% {
+    background-image: linear-gradient(to right, #CE9833 35%, #D6A853 40%);
+  }
+
+  40% {
+    background-image: linear-gradient(to right, #CE9833 40%, #D6A853 45%);
+  }
+
+  45% {
+    background-image: linear-gradient(to right, #CE9833 45%, #D6A853 50%);
+  }
+
+  50% {
+    background-image: linear-gradient(to right, #CE9833 50%, #D6A853 55%);
+  }
+
+  55% {
+    background-image: linear-gradient(to right, #CE9833 55%, #D6A853 60%);
+  }
+
+  60% {
+    background-image: linear-gradient(to right, #CE9833 60%, #D6A853 65%);
+  }
+
+  65% {
+    background-image: linear-gradient(to right, #CE9833 65%, #D6A853 70%);
+  }
+
+  70% {
+    background-image: linear-gradient(to right, #CE9833 70%, #D6A853 75%);
+  }
+
+  75% {
+    background-image: linear-gradient(to right, #CE9833 75%, #D6A853 80%);
+  }
+
+  80% {
+    background-image: linear-gradient(to right, #CE9833 80%, #D6A853 85%);
+  }
+
+  85% {
+    background-image: linear-gradient(to right, #CE9833 85%, #D6A853 90%);
+  }
+
+  90% {
+    background-image: linear-gradient(to right, #CE9833 90%, #D6A853 95%);
+  }
+
+  95% {
+    background-image: linear-gradient(to right, #CE9833 95%, #D6A853 100%);
+  }
+
+  100% {
+    background-image: linear-gradient(to right, #CE9833 100%, #D6A853 100%);
   }
 }
 
