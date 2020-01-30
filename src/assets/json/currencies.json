@@ -2,10 +2,26 @@
   "currencies": [{
     "label": "NGN",
     "value": "naira",
-    "code": "&#8358;"
+    "code": "&#8358;",
+    "mask": {
+      "decimal": ".",
+      "thousands": ",",
+      "prefix": "₦",
+      "suffix": "",
+      "precision": 0,
+      "masked": false
+    }
   }, {
     "label": "USD",
     "value": "dollar",
-    "code": "&#36;"
+    "code": "&#36;",
+    "mask": {
+      "decimal": ".",
+      "thousands": ",",
+      "prefix": "$",
+      "suffix": "",
+      "precision": 0,
+      "masked": false
+    }
   }]
 }
