@@ -1,6 +1,7 @@
 import authServices from './authServices';
 import careersServices from './careersServices';
 import donationsService from './donationsService';
+import feedsService from './feedsServices';
 import pagesServices from './pagesServices';
 import politiciansServices from './politiciansServices';
 import politicalPartiesServices from './politicalPartiesServices';
@@ -11,6 +12,7 @@ const services = {
   auth: authServices,
   careers: careersServices,
   donations: donationsService,
+  feeds: feedsService,
   pages: pagesServices,
   politicalParties: politicalPartiesServices,
   politicians: politiciansServices,

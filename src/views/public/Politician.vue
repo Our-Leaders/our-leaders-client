@@ -9,7 +9,7 @@
     <div class="flex pb-2" v-if="!loading">
       <div class="w-1/3 py-8 px-16 border-r-2 border-gray-200">
         <div class="passport-wrapper mb-3">
-          <img class="object-cover" :src="politician.profileImage"/>
+          <img class="object-cover" :src="politician.profileImage.url"/>
         </div>
         <div class="block mb-10">
           <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/>
@@ -82,6 +82,9 @@
                   </div>
 
                   <h3 class="font-bold mb-3 text-xl">Political background</h3>
+                  <div v-if="politician.politicalBackground.length === 0" class="text-center mb-4">
+                    <span>No current political background.</span>
+                  </div>
                   <div class="flex flex-wrap mb-4" v-for="(pBackground, index) of politician.politicalBackground" :key="`pBackground_${index}`">
                     <span class="w-1/3 my-1 inline-block capitalize">{{pBackground.position}}</span>
                     <span class="w-2/3 my-1 inline-block">
@@ -91,6 +94,9 @@
                   </div>
 
                   <h3 class="font-bold mb-3 text-xl">Educational background</h3>
+                  <div v-if="politician.educationalBackground.length === 0" class="text-center mb-4">
+                    <span>No current educational background.</span>
+                  </div>
                   <div class="flex flex-wrap mb-4" v-for="(eduBackground, index) of politician.educationalBackground" :key="`eduBackground_${index}`">
                     <span class="w-1/3 my-1 inline-block capitalize">{{eduBackground.degree}}</span>
                     <span class="w-2/3 my-1 inline-block">
@@ -99,6 +105,9 @@
                   </div>
 
                   <h3 class="font-bold mb-3 text-xl">Professional background</h3>
+                  <div v-if="politician.professionalBackground.length === 0" class="text-center mb-4">
+                    <span>No current professional background.</span>
+                  </div>
                   <div class="flex flex-wrap mb-4" v-for="(proBackground, index) of politician.professionalBackground" :key="`proBackground_${index}`">
                     <span class="w-1/3 my-1 inline-block capitalize">{{proBackground.title}}</span>
                     <span class="w-2/3 my-1 inline-block">
@@ -111,6 +120,9 @@
 
               <!-- Accomplishments -->
               <div class="relative top-0 left-0"  key="accomplishments" v-show="isPage('accomplishments')">
+                <div v-if="politician.accomplishments.length === 0" class="text-center my-6">
+                  <span>No current accomplishments background.</span>
+                </div>
                 <our-quarterly-view :data="quarterData" :keys="sideTabs" @setSideTabs="setSideTabs"></our-quarterly-view>
               </div>
 
@@ -164,6 +176,7 @@ export default {
       this.getPolitician(this.politicianId);
       if (this.isLoggedIn) {
         this.checkSubscriptions();
+        this.getUpdates(this.politicianId);
       }
     } else {
       this.$router.back();
@@ -194,6 +207,7 @@ export default {
   },
   data() {
     return {
+      feedsServices: this.$serviceFactory.feeds,
       loading: true,
       mainTabs: tabsList.politician,
       page: 'background',
@@ -237,6 +251,15 @@ export default {
       } catch (error) {
         this.subscribed = false;
         this.processing = false;
+        this.displayError(error);
+      }
+    },
+    async getUpdates(id) {
+      try {
+        const response = await this.feedsServices.getUpdates(id);
+        console.log(response.data);
+      } catch (error) {
+        this.loading = false;
         this.displayError(error);
       }
     },
