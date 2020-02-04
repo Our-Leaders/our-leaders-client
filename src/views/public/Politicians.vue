@@ -2,7 +2,7 @@
   <div class="h-full">
     <!-- Header -->
     <div class="flex mb-4 z-10">
-      <div class="w-4/5 relative mx-auto h-auto bg-primary bg-overlay-header">
+      <div class="w-full lg:w-4/5 xl:w-4/5 relative mx-auto h-auto bg-primary bg-overlay-header">
         <div id="main-header" class="flex flex-wrap px-6 py-24 text-white text-center">
           <div class="ww-full md:w-1/2 lg:w-1/2 xl:w-1/2">
             <span class="text-6xl" v-if="filter.status === 'current'">Current leaders</span>
@@ -22,9 +22,9 @@
 
     <!-- Search Body -->
     <div class="flex">
-      <div class="w-4/5 relative mx-auto h-auto">
+      <div class="w-11/12 lg:w-4/5 xl:w-4/5 relative mx-auto h-auto">
         <div class="flex flex-wrap flex-col-reverse lg:flex-row">
-          <div class="w-full lg:w-2/3 pr-4">
+          <div class="w-full lg:w-2/3 xl:w-2/3 lg:pr-4 xl:pr-4">
           <!-- Secondary Tab -->
             <our-tabs class="mb-6" v-on:change="setSecondary" :tabs='secondaryTabs' :tab-type="'secondary'"></our-tabs>
             <!-- Loading div -->
@@ -56,30 +56,34 @@
 
           <!-- Side Bar -->
           <div class="w-full lg:w-1/3 xl:w-1/3 relative">
-            <button class="lg:hidden xl:hidden py-1 px-2" @click="toggleMenu">
-              <img class="h-4 inline-block mr-1" src="../../assets/img/filter.svg"/>
-              <span class="align-middle">Filter</span>
-            </button>
+            <div class="flex flex-wrap mt-3">
+              <div class="w-9/12 inline-block">
+                <input class="field w-full mt-1 py-2 pl-2"
+                  :class="{ 'inactive': isEmpty(filter.name) }"
+                  type="text"
+                  id="query"
+                  name="query"
+                  placeholder="Search by name"
+                  v-model="filter.name"/>
+              </div>
+              <div class="w-3/12 inline-block pl-4">
+                <button
+                  class="btn-grey-outline py-2 lg:py-0 xl:py-0 w-full h-full"
+                  :disabled="loading"
+                  @click="getPoliticians">
+                  Search
+                </button>
+              </div>
+              <div class="w-full mt-2 text-center lg:hidden xl:hidden" @click="toggleMenu">
+                <small v-if="!displayMenu">More search options</small>
+                <img v-if="!displayMenu" class="ml-2 inline" src="@/assets/img/chevron-down.svg"/>
+                <small v-if="displayMenu">Less search options</small>
+                <img v-if="displayMenu" class="ml-2 inline" src="@/assets/img/chevron-up.svg"/>
+              </div>
+            </div>
             <transition name="fade" mode="out-in">
-              <div class="hidden lg:flex xl:flex flex-wrap mt-3"
-                :class="{ 'flex md:flex': displayMenu }">
-                <div class="w-9/12 inline-block">
-                    <input class="field w-full mt-1 py-2 pl-2"
-                      :class="{ 'inactive': isEmpty(filter.name) }"
-                      type="text"
-                      id="query"
-                      name="query"
-                      placeholder="Search by name"
-                      v-model="filter.name"/>
-                </div>
-                <div class="w-3/12 inline-block pl-4">
-                  <button
-                    class="btn-grey-outline py-2 lg:py-0 xl:py-0 w-full h-full"
-                    :disabled="loading"
-                    @click="getPoliticians">
-                    Search
-                  </button>
-                </div>
+              <div class="flex lg:flex xl:flex flex-wrap mt-3"
+                :class="{ 'hidden': !displayMenu }">
                 <div class="w-full my-10">
                   <div class="w-full horizontal-divide">
                     <span>Or search by</span>
@@ -113,13 +117,30 @@
         </div>
       </div>
     </div>
+    <div class="block lg:hidden xl:hidden w-full mb-16 mt-6">
+      <div class="w-full bg-gray-100 py-10 px-6">
+        <p class="subscribe-text text-5xl leading-none">Be the <span class="text-primary">first</span><br/>to know</p>
+        <p class="text-base leading-none my-6">Get instant updates on your favourite<br/>African leaders.</p>
+        <input class="field w-full mt-1 mb-6 py-2 pl-2 bg-white"
+          :class="{ 'inactive': isEmpty(subscribeEmail) }"
+          type="text"
+          id="query"
+          name="query"
+          placeholder="Enter email"
+          v-model="subscribeEmail"/>
+        <button
+          class="btn-primary py-2 lg:py-0 xl:py-0 w-full h-full"
+          :disabled="processing">
+          Subscribe
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
 import states from '../../assets/json/states.json';
-import { politiciansMock, politicalPartiesMock } from '../../constants/examples';
 import ValidatorUtil from '../../helpers/validatorUtil';
 
 export default {
@@ -141,8 +162,10 @@ export default {
       politicalPartiesServices: this.$serviceFactory.politicalParties,
       politicians: [],
       politiciansServices: this.$serviceFactory.politicians,
+      processing: false,
       states: states.states,
       secondaryTabs: [{ label: 'All', value: null }, { label: 'Governors', value: 'governors' }, { label: 'Presidents', value: 'presidents' }],
+      subscribeEmail: null,
       tab: 'current',
     };
   },
@@ -160,9 +183,6 @@ export default {
         const response = await this.politiciansServices.getPoliticians(this.filter);
 
         this.politicians = response.data.politicians;
-        // For now
-        this.politicians = politiciansMock;
-        this.politicians = this.politicians.concat(politiciansMock);
         this.loading = false;
       } catch (error) {
         this.loading = false;
@@ -175,10 +195,10 @@ export default {
 
         this.politicalParties = response.data.politicalParties;
         // For now
-        this.politicalParties = politicalPartiesMock.map(option => Object({
-          label: option.name,
-          value: option.id,
-        }));
+        // this.politicalParties = politicalPartiesMock.map(option => Object({
+        //   label: option.name,
+        //   value: option.id,
+        // }));
       } catch (error) {
         this.politicalParties = [];
       }
