@@ -7,9 +7,15 @@
         <img src="@/assets/img/chevron-left.svg"/>
       </a>
       <div class="relative">
-        <div class="trending-image-overlay" :key="1"><img :src="selectedPolitician.profileImage" class="trending-image"/></div>
-        <div class="trending-image-overlay" :key="2"><img :src="politicians[getNextPoliticianIndex(1)].profileImage" class="trending-image"/></div>
-        <div class="trending-image-overlay" :key="3"><img :src="politicians[getNextPoliticianIndex(2)].profileImage" class="trending-image"/></div>
+        <router-link :to="{name: 'politician', params: { politicianId: selectedPolitician.id }}" class="trending-image-overlay" :key="1">
+          <img :src="profileImage(selectedPolitician)" class="trending-image"/>
+        </router-link>
+        <div class="trending-image-overlay" :key="2">
+          <img :src="profileImage(politicians[getNextPoliticianIndex(1)])" class="trending-image"/>
+        </div>
+        <div class="trending-image-overlay" :key="3">
+          <img :src="profileImage(politicians[getNextPoliticianIndex(2)])" class="trending-image"/>
+        </div>
       </div>
       <a @click="toggle(1)" class="toggle-arrow toggle-arrow-right">
         <img src="@/assets/img/chevron-right.svg"/>
@@ -69,7 +75,10 @@ export default {
     },
     position(politician) {
       const background = politician.politicalBackground.find(x => x.inOffice);
-      return `${background.position} of ${background.institution}`;
+      return `${background.position}, ${background.institution}`;
+    },
+    profileImage(politician) {
+      return politician.profileImage || require('@/assets/img/no-image.svg'); // eslint-disable-line
     },
   },
   computed: {
@@ -97,6 +106,7 @@ export default {
       height: 10rem;
       width: 100%;
       z-index: 2;
+      background: white;
 
       &:after {
         position: absolute;
