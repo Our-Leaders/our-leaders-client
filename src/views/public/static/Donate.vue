@@ -105,17 +105,19 @@
                   :options="currencies"
                   v-model="donation.type"
                   :initialValue="currencies[0]"
+                  v-on:change="setDonationType"
                   field="currencies"></our-select-dropdown>
               </span>
               <input class="w-9/12 lg:w-10/12 xl:w-10/12 mb-1 pl-2 bg-transparent"
-                type="number"
+                type="text"
                 id="amount"
                 name="amount"
                 v-model="donation.amount"
+                v-money="money"
                 placeholder="Enter donation amount. E.g. 10,000"
-                required>
+                required/>
             </div>
-            <button class="btn-primary w-full" @click="donate">Donate</button>
+            <button class="btn-primary w-full" @click="toggleModal" :disabled="isDisabled">Donate</button>
           </div>
         </div>
 
@@ -126,12 +128,12 @@
             <span class="inline-block">You can also send your donations to the following <br class="hidden lg:visible xl:visible"/>bank accounts</span>
           </div>
           <div class="w-full pt-12">
-            <div class="w-full inline-block bg-transparent border-2 border-gray-300 px-3 py-4 mb-8 mr-5">
+            <div class="w-full lg:w-1/2 xl:w-1/2 inline-block bg-transparent border-2 border-gray-300 px-3 py-4 mb-8 mr-5">
               <img class="h-12 float-left text-black inline-block mr-4 lg:mr-8 xl:mr-8"
                 src="@/assets/img/first-bank.png"/>
               <span class="inline-block lg:mr-16 xl:mr-16">Our Leaders Africa<br/>3056112345</span>
             </div>
-            <div class="w-full inline-block bg-transparent border-2 border-gray-300 px-3 py-4 mb-8">
+            <div class="w-full lg:w-1/2 xl:w-1/2 inline-block bg-transparent border-2 border-gray-300 px-3 py-4 mb-8">
               <img class="h-12 float-left text-black inline-block mr-4 lg:mr-8 xl:mr-8"
                 src="@/assets/img/access-bank.svg"/>
               <span class="inline-block lg:mr-16 xl:mr-16">Our Leaders Africa<br/>3056112345</span>
@@ -152,26 +154,165 @@
         </p>
       </div>
     </div>
+
+    <our-modal :show="showModal" v-on:dismiss="toggleModal">
+      <template v-slot:header>
+        <h3 class="font-bold text-lg font-circular mb-6">Donate to the cause</h3>
+      </template>
+      <template v-slot:body>
+        <p class="mb-6">You are about to donate {{donation.amount | getValue('money')}}. We are glad to have you be a part of this cause.</p>
+        <p class="mb-6" v-if="donation.isAnonymous">We see that you would like to be anonymous, we are grateful and will ensure your details are not stored.</p>
+        <form @submit.prevent="donate" v-if="page === 0">
+          <div class="mb-6" v-if="!donation.isAnonymous">
+            <label class="block font-semibold" for="name">Full Name</label>
+            <input class="field w-full py-2"
+              type="text"
+              id="name"
+              name="name"
+              v-model="donation.name"
+              placeholder="Enter name"
+              :required="!donation.isAnonymous"/>
+          </div>
+          <div class="mb-6" v-if="!donation.isAnonymous">
+            <label class="block font-semibold" for="email">Email</label>
+            <input class="field w-full py-2"
+              type="text"
+              id="email"
+              name="email"
+              v-model="donation.email"
+              placeholder="Enter email"
+              required/>
+          </div>
+          <div class="mb-6">
+            <input class="field py-2 mr-2"
+              type="checkbox"
+              id="anonymous"
+              name="anonymous"
+              v-model="donation.isAnonymous"/>
+            <label class="inline-block align-middle font-semibold" for="anonymous">I would like to remain anonymous.</label>
+          </div>
+          <button class="btn-primary px-6 py-2 w-full"
+            :class="{ 'btn-loading' : processing }">Initialize Payment</button>
+        </form>
+        <div v-if="page === 1">
+          <paystack
+            class="btn-primary px-6 py-2 w-full"
+            :amount="transaction.amount"
+            :email="transaction.email"
+            :currency="paymentCurrency"
+            :paystackkey="transaction.key"
+            :reference="transaction.ref"
+            :callback="transactionCallback"
+            :close="transactionClosed"
+            :embed="false"></paystack>
+        </div>
+      </template>
+    </our-modal>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+import paystack from 'vue-paystack';
 import currencies from '../../../assets/json/currencies.json';
+import ValidatorUtil from '../../../helpers/validatorUtil';
 
 export default {
   name: 'donate',
+  components: {
+    paystack,
+  },
+  computed: {
+    isDisabled() {
+      return this.donation.amount === null || !this.donation.amount;
+    },
+    money() {
+      return ValidatorUtil.isDefined(this.donation.type) ? this.donation.type.mask : this.currencies[0].mask;
+    },
+    paymentCurrency() {
+      const index = this.currencies.findIndex(x => x.value === this.transaction.currency);
+      return index === -1 ? null : this.currencies[index].label;
+    },
+  },
   data() {
     return {
       currencies: currencies.currencies,
       donation: {
+        name: null,
+        email: null,
         type: currencies[0],
         amount: null,
+        isAnonymous: false,
+      },
+      donationsService: this.$serviceFactory.donations,
+      page: 0,
+      processing: false,
+      showModal: false,
+      transaction: {
+        key: null,
+        email: null,
+        amount: null,
+        currency: null,
+        ref: null,
       },
     };
   },
   methods: {
-    donate() {
-      // TODO: Donate logic goes here
+    ...mapActions([
+      'displayError',
+      'displayInfo',
+      'displaySuccess',
+    ]),
+    async donate() {
+      try {
+        this.processing = true;
+        const data = {
+          name: this.donation.isAnonymous ? 'Anonymous Donation' : this.donation.name,
+          email: this.donation.isAnonymous ? 'anonymous@our-leaders.com' : this.donation.email,
+          currency: this.donation.type.value,
+          amount: this.donation.amount * 100,
+          isAnonymous: this.donation.isAnonymous,
+        };
+
+        const response = await this.donationsService.initiateTransaction(data);
+
+        this.transaction = response.data.transaction;
+        this.processing = false;
+        this.page = 1;
+      } catch (error) {
+        this.processing = false;
+        this.displayError(error);
+      }
+    },
+    resetData() {
+      this.donation = {
+        name: null,
+        email: null,
+        type: this.currencies[0],
+        amount: null,
+        isAnonymous: false,
+      };
+    },
+    setDonationType(field, donationType) {
+      const index = this.currencies.findIndex(x => x.value === donationType);
+      this.donation.type = this.currencies[index];
+    },
+    toggleModal() {
+      this.showModal = !this.showModal;
+      this.page = 0;
+    },
+    transactionCallback() {
+      this.toggleModal();
+      this.resetData();
+      this.displaySuccess({
+        message: 'Your payment is processing, we will send you an email once it is successful. Thank you.',
+      });
+    },
+    transactionClosed() {
+      this.toggleModal();
+      this.displayInfo({
+        message: 'Payment has been cancelled.',
+      });
     },
   },
 };

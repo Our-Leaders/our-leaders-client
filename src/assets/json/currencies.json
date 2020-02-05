@@ -1,15 +1,27 @@
 {
   "currencies": [{
     "label": "NGN",
-    "value": "naira"
+    "value": "naira",
+    "code": "&#8358;",
+    "mask": {
+      "decimal": ".",
+      "thousands": ",",
+      "prefix": "₦",
+      "suffix": "",
+      "precision": 0,
+      "masked": false
+    }
   }, {
     "label": "USD",
-    "value": "dollar"
-  }, {
-    "label": "EUR",
-    "value": "euro"
-  }, {
-    "label": "GBP",
-    "value": "POUND"
+    "value": "dollar",
+    "code": "&#36;",
+    "mask": {
+      "decimal": ".",
+      "thousands": ",",
+      "prefix": "$",
+      "suffix": "",
+      "precision": 0,
+      "masked": false
+    }
   }]
 }
