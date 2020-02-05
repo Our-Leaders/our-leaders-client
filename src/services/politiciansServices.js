@@ -11,9 +11,7 @@ export default {
     return instance.get(stringUtil.buildQuery(resource, filter));
   },
   getTrendingPoliticians() {
-    return instance.get(resource);
-    // use instead
-    // return instance.get(`${resource}/trending`);
+    return instance.get('trending-politicians');
   },
   voteForPolitician(id, data) {
     return instance.post(`${resource}/${id}/vote`, data);
