@@ -10,6 +10,9 @@ export default {
   getPoliticians(filter) {
     return instance.get(stringUtil.buildQuery(resource, filter));
   },
+  getHighestVotedPoliticians() {
+    return instance.get(`${resource}/highest-voted`);
+  },
   getTrendingPoliticians() {
     return instance.get('trending-politicians');
   },

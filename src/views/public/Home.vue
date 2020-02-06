@@ -20,9 +20,7 @@
             <div class="w-full">
               <our-tabs class="mb-6 whitespace-pre overflow-y-hidden -mr-6 md:mr-0" v-on:change="setSecondary" :tabs='secondaryTabs' :tab-type="'secondary'"></our-tabs>
               <div class="flex justify-between items-center">
-                <h3 v-if="filter.status === 'current'" class="text-2xl lg:text-4xl">Highest Voted Leaders</h3>
-                <h3 v-if="filter.status === 'upcoming'" class="text-2xl lg:text-4xl">Upcoming Leaders</h3>
-                <h3 v-if="filter.status === 'past'" class="text-2xl lg:text-4xl">Past Leaders</h3>
+                <h3 class="text-2xl lg:text-4xl">Highest Voted Leaders</h3>
                 <router-link :to="{ name: 'politicians' }" class="hidden md:inline-block hover:text-primary">View all leaders</router-link>
               </div>
               <div class="flex mb-6">
@@ -31,7 +29,7 @@
                 </div>
               </div>
               <div v-if="!loading" class="-mr-6 md:mr-0">
-                <our-home-politicians :politicians="politicians" :isCard="true"></our-home-politicians>
+                <our-home-politicians :politicians="highestVotedPoliticians[filter.status]" :isCard="true" :key="filter.status"></our-home-politicians>
               </div>
               <div class="md:hidden mt-8 py-2 border border-gray-96 md:inline-block w-full text-center">
                 <router-link :to="{ name: 'politicians' }">View all leaders</router-link>
@@ -137,7 +135,6 @@
 </template>
 
 <script>
-import Vue from 'vue';
 import { mapActions } from 'vuex';
 import { politiciansMock } from '@/constants/examples';
 
@@ -146,8 +143,8 @@ export default {
   data() {
     return {
       loading: false,
-      politicians: [],
       allPoliticians: [],
+      highestVotedPoliticians: {},
       trendingPoliticians: [],
       politiciansServices: this.$serviceFactory.politicians,
       secondaryTabs: [
@@ -162,6 +159,7 @@ export default {
   },
   created() {
     this.getPoliticians();
+    this.getHighestVotedPoliticians();
     this.getTrendingPoliticians();
   },
   methods: {
@@ -170,24 +168,31 @@ export default {
     ]),
     async getPoliticians() {
       try {
-        this.loading = true;
-
-        if (!this.allPoliticians.length) {
-          const response = await this.politiciansServices.getPoliticians();
-          this.allPoliticians = response.data.politicians;
-        }
-
-        this.politicians = this.allPoliticians.filter(politician => politician.status === this.filter.status);
+        const response = await this.politiciansServices.getPoliticians();
+        this.allPoliticians = response.data.politicians;
 
         // For now
-        this.politicians = this.politicians.concat(politiciansMock);
+        this.allPoliticians.oliticians = this.allPoliticians.concat(politiciansMock);
+      } catch (error) {
+        // Do nothing for now
+      }
+    },
+    async getHighestVotedPoliticians() {
+      try {
+        this.loading = true;
 
-        Vue.nextTick(() => {
-          this.loading = false;
-        });
+        const response = await this.politiciansServices.getHighestVotedPoliticians();
+        this.highestVotedPoliticians = response.data;
+
+        // For now
+        this.highestVotedPoliticians.current = this.highestVotedPoliticians.current.concat(politiciansMock);
+        this.highestVotedPoliticians.upcoming = this.highestVotedPoliticians.upcoming.concat(politiciansMock);
+        this.highestVotedPoliticians.past = this.highestVotedPoliticians.past.concat(politiciansMock);
+
+        this.loading = false;
       } catch (error) {
         this.loading = false;
-        this.displayError(error);
+        this.displayError('An error occurred while getting highest voted leaders');
       }
     },
     async getTrendingPoliticians() {
@@ -203,7 +208,6 @@ export default {
     },
     setSecondary(value) {
       this.filter.status = value;
-      this.getPoliticians();
     },
   },
   computed: {
