@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="w-full overflow-hidden h-30 md:h-40 lg:h-40 xl:h-40">
-        <img :src="politician.profileImage.url" class="w-full object-cover"/>
+        <img :src="politician.profileImage" class="w-full object-cover"/>
       </div>
       <div class="w-full my-1 md:my-2">
         <img class="inline-block mr-1 md:mr-2 h-3 md:h-4" src="../assets/img/thumbs-up.svg"/>
