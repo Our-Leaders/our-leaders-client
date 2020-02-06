@@ -140,6 +140,9 @@
 
               <!-- Recent Updates -->
               <div class="relative top-0 left-0"  key="recent" v-show="isPage('recent')">
+                <div v-if="feeds.length === 0" class="text-center my-6">
+                  <span>No recent updates.</span>
+                </div>
                 <our-feeds :data="feedsData" :keys="feedsKeys"></our-feeds>
               </div>
 
@@ -212,7 +215,7 @@ export default {
   },
   data() {
     return {
-      feeds: null,
+      feeds: [],
       feedsKeys: [],
       feedsServices: this.$serviceFactory.feeds,
       loading: true,
