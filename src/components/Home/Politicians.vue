@@ -1,11 +1,11 @@
 <template>
-<div class="politicians-container font-circular">
+<div class="politicians-container font-circular md:-mb-12">
   <a v-if="canScrollLeft" @click="swipeLeft" class="swipe-arrow swipe-arrow-left hidden md:inline-block">
     <img src="@/assets/img/chevron-left.svg"/>
   </a>
   <div class="flex flex-no-wrap mb-4 min-h-64 overflow-x-auto md:overflow-hidden" ref="slider">
-    <div class="politician flex-none w-7/8 md:w-2/6" v-for="(politician, i) in politicians" :key="i">
-      <div class="block relative lg:hover:shadow-primary cursor-pointer bg-gray-fa">
+    <div class="politician flex-none w-7/8 md:w-2/6 md:mb-12" v-for="(politician, i) in politicians" :key="i">
+      <router-link :to="{name: 'politician', params: { politicianId: politician.id }}" class="block relative lg:hover:shadow-primary cursor-pointer bg-gray-fa">
         <div class="w-full overflow-hidden md:h-40 lg:h-48" :class="isCard ? 'h-56' : 'h-48'">
           <img :src="politician.profileImage" class="w-full object-cover"/>
         </div>
@@ -19,7 +19,7 @@
           <h4 class="font-semibold text-base">{{politician.name}}</h4>
           <h4 class="capitalize overflow-ellipse text-base">{{position(politician)}}</h4>
         </div>
-      </div>
+      </router-link >
     </div>
   </div>
   <a v-if="canScrollRight" @click="swipeRight" class="swipe-arrow swipe-arrow-right hidden md:inline-block">
@@ -42,13 +42,13 @@ export default {
   data() {
     return {
       canScrollLeft: false,
-      canScrollRight: true,
+      canScrollRight: this.politicians.length > 3,
     };
   },
   methods: {
     position(politician) {
       const background = politician.politicalBackground.find(x => x.inOffice);
-      return `${background.position} of ${background.institution}`;
+      return `${background.position}, ${background.institution}`;
     },
     scrollTo(element, scrollPixels, duration) {
       const scrollPos = element.scrollLeft;
@@ -63,7 +63,7 @@ export default {
             window.requestAnimationFrame(scroll);
           }
           this.canScrollLeft = element.scrollLeft > 0;
-          this.canScrollRight = element.clientWidth + element.scrollLeft < element.scrollWidth;
+          this.canScrollRight = this.politicians.length > 3 && element.clientWidth + element.scrollLeft < element.scrollWidth;
         };
 
         window.requestAnimationFrame(scroll);
