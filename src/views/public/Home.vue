@@ -94,7 +94,7 @@
                 <img class="absolute" src="@/assets/img/leaders/nnamdi-azikiwe.svg"/>
               </div>
             </div>
-            <div class="w-screen lg:w-full flex justify-center relative">
+            <div class="quote-container w-screen flex justify-center relative">
               <div class="collage-shape left">
                 <div class="rect left-rect absolute"></div>
                 <div class="dots left-dots absolute">
@@ -137,6 +137,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import { mapActions } from 'vuex';
 import { politiciansMock } from '@/constants/examples';
 
@@ -146,6 +147,7 @@ export default {
     return {
       loading: false,
       politicians: [],
+      allPoliticians: [],
       trendingPoliticians: [],
       politiciansServices: this.$serviceFactory.politicians,
       secondaryTabs: [
@@ -154,8 +156,6 @@ export default {
         { label: 'Past Leaders', value: 'past' },
       ],
       filter: {
-        name: null,
-        politicalPartyId: null,
         status: 'current',
       },
     };
@@ -171,13 +171,20 @@ export default {
     async getPoliticians() {
       try {
         this.loading = true;
-        const response = await this.politiciansServices.getPoliticians(this.filter);
 
-        this.politicians = response.data.politicians;
+        if (!this.allPoliticians.length) {
+          const response = await this.politiciansServices.getPoliticians();
+          this.allPoliticians = response.data.politicians;
+        }
+
+        this.politicians = this.allPoliticians.filter(politician => politician.status === this.filter.status);
+
         // For now
-        this.politicians = politiciansMock;
         this.politicians = this.politicians.concat(politiciansMock);
-        this.loading = false;
+
+        Vue.nextTick(() => {
+          this.loading = false;
+        });
       } catch (error) {
         this.loading = false;
         this.displayError(error);
@@ -187,9 +194,8 @@ export default {
       try {
         const response = await this.politiciansServices.getTrendingPoliticians();
 
-        this.trendingPoliticians = response.data.politicians;
+        this.trendingPoliticians = response.data.trendingPoliticians;
         // For now
-        this.trendingPoliticians = politiciansMock;
         this.trendingPoliticians = this.trendingPoliticians.concat(politiciansMock);
       } catch (error) {
         this.displayError(error);
@@ -202,7 +208,7 @@ export default {
   },
   computed: {
     totalPoliticians() {
-      return this.politicians.length;
+      return this.allPoliticians.length;
     },
   },
 };
@@ -444,6 +450,16 @@ export default {
     }
   }
 
+  .quote-container {
+    @screen lg {
+      max-width: 66vw;
+    }
+
+    @screen xl {
+      max-width: 59rem;
+    }
+  }
+
   .quote-section {
     position: relative;
     display: inline-block;
@@ -579,6 +595,14 @@ export default {
 
       &.right {
         @apply right-0 top-0;
+
+        @screen lg {
+          z-index: -1;
+        }
+
+        @screen xl {
+          z-index: 1;
+        }
       }
 
       @screen lg {
@@ -591,7 +615,7 @@ export default {
         display: none;
 
         &.left-dots {
-          left: 2.975rem;
+          left: -3.975rem;
           top: calc(100% + 5.5rem);
 
           @screen lg {
@@ -606,7 +630,7 @@ export default {
           z-index: 1;
 
           @screen lg {
-            right: -3.3rem;
+            right: -10.3rem;
             top: 5.5rem;
           }
         }
@@ -624,7 +648,7 @@ export default {
         &.left-rect {
           @apply bg-primary;
           height: 6.375rem;
-          left: 2.5rem;
+          left: -4.5rem;
           bottom: -3.2rem;
           width: 5rem;
 
@@ -643,7 +667,7 @@ export default {
           z-index: 1;
 
           @screen lg {
-            right: 6rem;
+            right: -1rem;
             top: 1rem;
             left: initial;
           }
