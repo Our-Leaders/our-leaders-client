@@ -85,10 +85,17 @@ export default {
 
 <style lang="scss">
   .politicians-container {
+    min-height: 21.35rem;
+
     @screen md {
       margin-left: -1rem;
       width: calc(100% + 2rem);
       position: relative;
+      min-height: 20rem;
+    }
+
+    @screen lg {
+      min-height: 24rem;
     }
 
     .politician {
