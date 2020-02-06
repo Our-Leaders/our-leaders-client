@@ -1,9 +1,15 @@
 <template>
-  <button class="relative text-left focus:outline-none" :class="parentWidth || 'w-auto'" @focusout="closeDropdown">
-    <div v-if="imageSrc" @click="toggleDropdown" class="relative z-20 block h-10 w-10 bg-gray-200 rounded-full overflow-hidden">
+  <button
+    class="relative text-left focus:outline-none"
+    :class="parentWidth || 'w-auto'"
+    @focusout="closeDropdown"
+    @mouseenter="showOnHover && openDropdown()"
+    @mouseleave="showOnHover && closeDropdown()"
+  >
+    <div v-if="imageSrc" @click="!showOnHover && toggleDropdown()" class="relative z-20 block h-10 w-10 bg-gray-200 rounded-full overflow-hidden">
       <img class="h-full w-full object-cover" :src="imageSrc" alt="avatar">
     </div>
-    <div v-if="!imageSrc" @click="toggleDropdown" class="relative block xl:py-4">
+    <div v-if="!imageSrc" @click="!showOnHover && toggleDropdown()" class="relative block xl:py-4">
       <span class="h-full w-full object-cover font-pt">{{ heading }}</span>
       <img v-if="showIcon" class="side-arrow" src="../../assets/img/angle-arrow-down.svg"/>
     </div>
@@ -25,6 +31,10 @@
 export default {
   props: {
     showIcon: {
+      default: false,
+      type: Boolean,
+    },
+    showOnHover: {
       default: false,
       type: Boolean,
     },
@@ -71,6 +81,9 @@ export default {
     },
     closeDropdown() {
       this.isOpen = false;
+    },
+    openDropdown() {
+      this.isOpen = true;
     },
   },
   computed: {
