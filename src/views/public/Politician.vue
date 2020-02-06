@@ -186,6 +186,7 @@ export default {
   computed: {
     ...mapGetters([
       'isLoggedIn',
+      'viewedPoliticians',
     ]),
     feedsData() {
       return ValidatorUtil.isDefined(this.feeds) && this.page === 'recent' ? this.parseUpdates(this.feeds) : {};
@@ -272,9 +273,16 @@ export default {
     async getPolitician(id) {
       try {
         this.loading = true;
-        const response = await this.politiciansServices.getPolitician(id);
-        // For now
-        this.politician = response.data.politician;
+        const cachedPolitician = this.viewedPoliticians[id];
+
+        if (cachedPolitician) {
+          this.politician = cachedPolitician;
+        } else {
+          const response = await this.politiciansServices.getPolitician(id);
+          // For now
+          this.politician = response.data.politician;
+          this.$store.commit('addToViewedPoliticians', this.politician);
+        }
         this.loading = false;
       } catch (error) {
         this.loading = false;
