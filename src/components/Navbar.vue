@@ -5,7 +5,7 @@
     <div :class="navToggleClass" class="w-full block flex-grow xl:flex xl:items-center xl:w-auto mt-2 xl:mt-0">
       <div class="text-base xl:flex-grow">
         <a class="block mt-4 xl:inline-block xl:mt-0 mr-4">
-          <our-dropdown class="mr-4 xl:visible" width="w-40" heading="Leaders" alignRight listClass="leaders-dropdown-list">
+          <our-dropdown class="mr-4 xl:visible" width="w-40" heading="Leaders" alignRight showOnHover listClass="leaders-dropdown-list">
             <our-dropdown-item isLink :to="{ name: 'politicians' }" @click.native="closeNav">Current leaders</our-dropdown-item>
             <our-dropdown-item isLink :to="{ name: '' }" @click.native="closeNav">Upcoming leaders</our-dropdown-item>
             <our-dropdown-item isLink :to="{ name: '' }" @click.native="closeNav">Past leaders</our-dropdown-item>
