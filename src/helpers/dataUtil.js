@@ -14,14 +14,15 @@ class DataUtil {
           }
           return -1;
         });
-      } else {
-        array.sort((a, b) => {
-          if (a < b) {
-            return 1;
-          }
-          return -1;
-        });
+        return array;
       }
+      array.sort((a, b) => {
+        if (a < b) {
+          return 1;
+        }
+        return -1;
+      });
+      return array;
     }
 
     if (ValidatorUtil.isDefined(key)) {

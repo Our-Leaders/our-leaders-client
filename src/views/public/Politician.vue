@@ -49,7 +49,7 @@
             <span class="inline-block mr-1 md:mr-2 h-3 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.down}}</span>
           </div>
           <div id="share" class="inline-block pl-5">
-            <span class="cursor-pointer text-xs mr-6">Share Profile</span>
+            <span id="testing" class="cursor-pointer text-xs mr-6">Share Profile</span>
             <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/>
             <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/twitter-gray.svg"/>
             <img class="cursor-pointer inline-block h-4" src="@/assets/img/instagram-gray.svg"/>
@@ -82,6 +82,9 @@
                   </div>
 
                   <h3 class="font-bold mb-3 text-xl">Political background</h3>
+                  <div v-if="politician.politicalBackground.length === 0" class="mb-4">
+                    <span>No current political background.</span>
+                  </div>
                   <div class="flex flex-wrap mb-4" v-for="(pBackground, index) of politician.politicalBackground" :key="`pBackground_${index}`">
                     <span class="w-1/3 my-1 inline-block capitalize">{{pBackground.position}}</span>
                     <span class="w-2/3 my-1 inline-block">
@@ -91,6 +94,9 @@
                   </div>
 
                   <h3 class="font-bold mb-3 text-xl">Educational background</h3>
+                  <div v-if="politician.educationalBackground.length === 0" class="mb-4">
+                    <span>No current educational background.</span>
+                  </div>
                   <div class="flex flex-wrap mb-4" v-for="(eduBackground, index) of politician.educationalBackground" :key="`eduBackground_${index}`">
                     <span class="w-1/3 my-1 inline-block capitalize">{{eduBackground.degree}}</span>
                     <span class="w-2/3 my-1 inline-block">
@@ -99,6 +105,9 @@
                   </div>
 
                   <h3 class="font-bold mb-3 text-xl">Professional background</h3>
+                  <div v-if="politician.professionalBackground.length === 0" class="mb-4">
+                    <span>No current professional background.</span>
+                  </div>
                   <div class="flex flex-wrap mb-4" v-for="(proBackground, index) of politician.professionalBackground" :key="`proBackground_${index}`">
                     <span class="w-1/3 my-1 inline-block capitalize">{{proBackground.title}}</span>
                     <span class="w-2/3 my-1 inline-block">
@@ -111,6 +120,9 @@
 
               <!-- Accomplishments -->
               <div class="relative top-0 left-0"  key="accomplishments" v-show="isPage('accomplishments')">
+                <div v-if="politician.accomplishments.length === 0" class="text-center my-6">
+                  <span>No current accomplishments background.</span>
+                </div>
                 <our-quarterly-view :data="quarterData" :keys="sideTabs" @setSideTabs="setSideTabs"></our-quarterly-view>
               </div>
 
@@ -128,7 +140,10 @@
 
               <!-- Recent Updates -->
               <div class="relative top-0 left-0"  key="recent" v-show="isPage('recent')">
-                <h3>Recent Updates</h3>
+                <div v-if="feeds.length === 0" class="text-center my-6">
+                  <span>No recent updates.</span>
+                </div>
+                <our-feeds :data="feedsData" :keys="feedsKeys"></our-feeds>
               </div>
 
               <!-- <div class="absolute top-0 left-0" v-for="tab of mainTabs" :key="tab.value" v-show="isPage(tab.value)">{{tab.label + ' is here'}}</div> -->
@@ -136,7 +151,7 @@
           </div>
           <div class="w-full lg:w-3/12 xl:w-3/12 block lg:inline-block xl:inline-block">
             <!-- For Now -->
-            <our-side-scroll :options="sideTabs"></our-side-scroll>
+            <our-side-scroll :options="sideTabs" v-on:scroll="scrollTo"></our-side-scroll>
           </div>
         </div>
       </div>
@@ -147,6 +162,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import { politiciansMock } from '../../constants/examples';
+import monthsList from '../../assets/json/months.json';
 import tabsList from '../../assets/json/tabsList.json';
 import DataUtil from '../../helpers/dataUtil';
 import DateUtil from '../../helpers/dateUtil';
@@ -162,6 +178,7 @@ export default {
   created() {
     if (this.politicianId) {
       this.getPolitician(this.politicianId);
+      this.getUpdates(this.politicianId);
       if (this.isLoggedIn) {
         this.checkSubscriptions();
       }
@@ -174,6 +191,9 @@ export default {
       'isLoggedIn',
       'viewedPoliticians',
     ]),
+    feedsData() {
+      return ValidatorUtil.isDefined(this.feeds) && this.page === 'recent' ? this.parseUpdates(this.feeds) : {};
+    },
     hasSubscribed() {
       return this.subscribed;
     },
@@ -195,6 +215,9 @@ export default {
   },
   data() {
     return {
+      feeds: [],
+      feedsKeys: [],
+      feedsServices: this.$serviceFactory.feeds,
       loading: true,
       mainTabs: tabsList.politician,
       page: 'background',
@@ -238,6 +261,15 @@ export default {
       } catch (error) {
         this.subscribed = false;
         this.processing = false;
+        this.displayError(error);
+      }
+    },
+    async getUpdates(id) {
+      try {
+        const response = await this.feedsServices.getUpdates(id);
+        this.feeds = response.data.feeds;
+      } catch (error) {
+        this.loading = false;
         this.displayError(error);
       }
     },
@@ -308,6 +340,45 @@ export default {
       this.sideTabs = DataUtil.sortArray(keys, true, 'label');
 
       return parsedData;
+    },
+    parseUpdates(data) {
+      const keys = [];
+      const parsedData = {};
+
+      data.forEach((x) => {
+        const tempDate = new Date(x.publishedAt);
+        const fullYear = tempDate.getFullYear();
+        const month = tempDate.getMonth();
+
+        if (!parsedData[fullYear]) {
+          parsedData[fullYear] = {};
+        }
+
+        if (parsedData[fullYear][month]) {
+          parsedData[fullYear][month].push(x);
+        } else {
+          parsedData[fullYear][month] = [x];
+          keys.push({
+            label: `${monthsList[month]} ${fullYear}`,
+            value: `feeds${month}${fullYear}`,
+          });
+        }
+      });
+
+      this.sideTabs = DataUtil.sortArray(keys, true, 'value');
+
+      Object.keys(parsedData).forEach((year) => {
+        const tempMonths = [];
+        Object.keys(parsedData[year]).forEach((month) => {
+          tempMonths.push(month);
+        });
+        this.feedsKeys.push({ year, months: DataUtil.sortArray(tempMonths, true) });
+      });
+
+      return parsedData;
+    },
+    scrollTo(id) {
+      this.$scrollTo(`#${id}`);
     },
     setPage(page, index) {
       this.page = page;

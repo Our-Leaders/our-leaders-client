@@ -11,7 +11,7 @@
   <div class="w-full overflow-hidden h-20 md:h-32 lg:h-40">
     <img :src="party.logo" class="w-full object-cover"/>
   </div>
-  <div class="w-full my-1 md:my-2">
+  <div class="w-full my-1 md:my-2" v-if="party.vote">
     <img class="inline-block mr-1 md:mr-2 h-3 md:h-4" src="../assets/img/thumbs-up.svg"/>
     <span class="inline-block mr-2 md:mr-4 h-3 md:h-4 align-middle text-xs md:text-sm">{{party.vote.up}}</span>
     <img class="inline-block mr-1 md:mr-2 h-3 md:h-4" src="../assets/img/thumbs-down.svg"/>

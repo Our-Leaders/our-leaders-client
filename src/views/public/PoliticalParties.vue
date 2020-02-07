@@ -2,7 +2,7 @@
   <div class="min-h-screen">
     <!-- Header -->
     <div class="flex mb-4 z-10">
-      <div class="w-4/5 relative mx-auto h-auto bg-primary bg-overlay-header">
+      <div class="w-full lg:w-4/5 xl:w-4/5 relative mx-auto h-auto bg-primary bg-overlay-header">
         <div id="main-header" class="flex flex-wrap px-6 py-24 text-white text-center">
           <div class="w-full md:w-1/2 lg:w-1/2 xl:w-1/2">
             <span class="text-6xl">Political Parties</span>
@@ -16,7 +16,7 @@
 
     <!-- Search Body -->
     <div class="flex">
-      <div class="w-4/5 relative mx-auto h-auto">
+      <div class="w-11/12 lg:w-4/5 xl:w-4/5 relative mx-auto h-auto">
         <div class="flex flex-wrap flex-col-reverse lg:flex-row">
           <div class="w-full lg:w-2/3 pr-4">
             <!-- Loading div -->
@@ -46,34 +46,45 @@
             </div>
           </div>
           <div class="w-full lg:w-1/3 relative">
-            <button class="lg:hidden xl:hidden py-1 px-2" @click="toggleMenu">
-              <img class="h-4 inline-block mr-1" src="../../assets/img/filter.svg"/>
-              <span class="align-middle">Filter</span>
-            </button>
-            <transition name="fade" mode="out-in">
-              <div class="hidden lg:flex xl:flex flex-wrap mt-3"
-                :class="{ 'flex md:flex': displayMenu }">
-                <div class="w-9/12 inline-block">
-                    <input class="field w-full mt-1 py-2 pl-2"
-                      :class="{ 'inactive': isEmpty(filter.name) }"
-                      type="text"
-                      id="query"
-                      name="query"
-                      placeholder="Search party name"
-                      v-model="filter.name"/>
-                </div>
-                <div class="w-3/12 inline-block pl-4">
-                  <button
-                    class="btn-grey-outline py-2 lg:py-0 xl:py-0 w-full h-full"
-                    :disabled="loading"
-                    @click="getPoliticalParties">
-                    Search
-                  </button>
-                </div>
+            <div class="flex flex-wrap mt-3">
+              <div class="w-9/12 inline-block">
+                  <input class="field w-full mt-1 py-2 pl-2"
+                    :class="{ 'inactive': isEmpty(filter.name) }"
+                    type="text"
+                    id="query"
+                    name="query"
+                    placeholder="Search party name"
+                    v-model="filter.name"/>
               </div>
-            </transition>
+              <div class="w-3/12 inline-block pl-4">
+                <button
+                  class="btn-grey-outline py-2 lg:py-0 xl:py-0 w-full h-full"
+                  :disabled="loading"
+                  @click="getPoliticalParties">
+                  Search
+                </button>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="block lg:hidden xl:hidden w-full mb-16 mt-6">
+      <div class="w-full bg-gray-100 py-10 px-6">
+        <p class="subscribe-text text-5xl leading-none">Be the <span class="text-primary">first</span><br/>to know</p>
+        <p class="text-base leading-none my-6">Get instant updates on your favourite<br/>African leaders.</p>
+        <input class="field w-full mt-1 mb-6 py-2 pl-2 bg-white"
+          :class="{ 'inactive': isEmpty(subscribeEmail) }"
+          type="text"
+          id="query"
+          name="query"
+          placeholder="Enter email"
+          v-model="subscribeEmail"/>
+        <button
+          class="btn-primary py-2 lg:py-0 xl:py-0 w-full h-full"
+          :disabled="processing">
+          Subscribe
+        </button>
       </div>
     </div>
   </div>
@@ -81,7 +92,6 @@
 
 <script>
 import { mapActions } from 'vuex';
-import { politicalPartiesMock } from '../../constants/examples';
 import ValidatorUtil from '../../helpers/validatorUtil';
 
 export default {
@@ -97,6 +107,8 @@ export default {
       loading: true,
       politicalParties: [],
       politicalPartiesServices: this.$serviceFactory.politicalParties,
+      processing: false,
+      subscribeEmail: null,
     };
   },
   created() {
@@ -112,9 +124,6 @@ export default {
         const response = await this.politicalPartiesServices.getPoliticalParties(this.filter);
 
         this.politicalParties = response.data.politicalParties;
-        // For now
-        this.politicalParties = politicalPartiesMock;
-        this.politicalParties = this.politicalParties.concat(politicalPartiesMock);
         this.loading = false;
       } catch (error) {
         this.loading = false;

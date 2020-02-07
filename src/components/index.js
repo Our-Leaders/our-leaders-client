@@ -5,6 +5,7 @@ import '@/components/Home/index';
 import Alert from '@/components/Alert.vue';
 import SelectDropdown from '@/components/SelectDropdown.vue';
 import Navbar from '@/components/Navbar.vue';
+import Feeds from '@/components/Feeds.vue';
 import Footer from '@/components/Footer.vue';
 import Labels from '@/components/Labels.vue';
 import Modal from '@/components/Modal.vue';
@@ -19,6 +20,7 @@ import CountryList from '@/components/CountrySelector.vue';
 
 Vue.component('our-alert', Alert);
 Vue.component('our-navbar', Navbar);
+Vue.component('our-feeds', Feeds);
 Vue.component('our-footer', Footer);
 Vue.component('our-labels', Labels);
 Vue.component('our-modal', Modal);

@@ -10,7 +10,7 @@
           </button>
         </div>
       </div>
-      <div class="w-full overflow-hidden h-20 md:h-32 lg:h-40">
+      <div class="w-full overflow-hidden h-30 md:h-40 lg:h-40 xl:h-40">
         <img :src="politician.profileImage" class="w-full object-cover"/>
       </div>
       <div class="w-full my-1 md:my-2">
@@ -71,8 +71,12 @@ export default {
   },
   computed: {
     position() {
-      const background = this.politician.politicalBackground.find(x => x.inOffice);
-      return `${background.position}, ${background.institution}`;
+      if (this.politician.politicalBackground.length > 0) {
+        const background = this.politician.politicalBackground.find(x => x.inOffice);
+        if (!background) { return 'Not in Office'; }
+        return `${background.position}, ${background.institution}`;
+      }
+      return 'N/A';
     },
   },
   data() {
