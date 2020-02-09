@@ -3,6 +3,7 @@ import Vue from 'vue';
 import '@/components/Dropdown/index';
 import '@/components/Home/index';
 import Alert from '@/components/Alert.vue';
+import Auth from '@/components/Auth.vue';
 import SelectDropdown from '@/components/SelectDropdown.vue';
 import Navbar from '@/components/Navbar.vue';
 import Feeds from '@/components/Feeds.vue';
@@ -19,6 +20,7 @@ import Tabs from '@/components/Tabs.vue';
 import CountryList from '@/components/CountrySelector.vue';
 
 Vue.component('our-alert', Alert);
+Vue.component('our-auth', Auth);
 Vue.component('our-navbar', Navbar);
 Vue.component('our-feeds', Feeds);
 Vue.component('our-footer', Footer);
