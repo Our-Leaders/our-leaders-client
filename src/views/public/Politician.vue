@@ -1,5 +1,6 @@
 <template>
   <div class="min-h-screen">
+
     <div class="flex flex-col justify-center h-screen mb-4" v-if="loading">
       <div class="w-full text-center">
         <span class="loading lg mx-auto mb-2"></span>
@@ -39,7 +40,7 @@
           <span class="align-middle loading sm" v-if="processing"></span>
           <span class="align-middle" v-if="!hasSubscribed && !processing">Subscribe to {{lastName}}</span>
           <span class="align-middle" v-if="hasSubscribed && !processing">Subscribed</span>
-          <img class="ml-2" v-if="hasSubscribed" src="@/assets/img/green-tick.svg"/>
+          <img class="ml-2" v-if="hasSubscribed && !processing" src="@/assets/img/green-tick.svg"/>
         </button>
         <div class="w-full mb-4">
           <div id="votes" class="inline-block pr-5 border-r-2 border-gray-300">
@@ -189,13 +190,14 @@ export default {
   computed: {
     ...mapGetters([
       'isLoggedIn',
+      'subscription',
       'viewedPoliticians',
     ]),
     feedsData() {
       return ValidatorUtil.isDefined(this.feeds) && this.page === 'recent' ? this.parseUpdates(this.feeds) : {};
     },
     hasSubscribed() {
-      return this.subscribed;
+      return this.subscribed === true;
     },
     lastName() {
       return ValidatorUtil.isDefined(this.politician.name) ? this.politician.name.split(' ')[1] : '';
@@ -228,7 +230,6 @@ export default {
       processing: false,
       sideTabs: tabsList.politician[0].side,
       subscribed: false,
-      subscriptionId: null,
       subscriptionsServices: this.$serviceFactory.subscriptions,
     };
   },
@@ -241,14 +242,19 @@ export default {
         this.processing = true;
         const response = await this.subscriptionsServices.addSubscription({
           politicianId: this.politicianId,
+          type: 'feeds',
         });
         this.subscribed = true;
-        this.subscriptionId = response.data.subscription.id;
+        this.$store.commit('setSubscription', response.data.subscription);
         this.processing = false;
       } catch (error) {
         this.subscribed = false;
         this.processing = false;
-        this.displayError(error);
+        if (!this.isLoggedIn) {
+          this.$store.dispatch('displaySignUp');
+        } else {
+          this.displayError(error);
+        }
       }
     },
     async checkSubscriptions() {
@@ -256,12 +262,11 @@ export default {
         this.processing = true;
         const response = await this.subscriptionsServices.checkSubscription(this.politicianId);
         this.subscribed = true;
-        this.subscriptionId = response.data.subscription.id;
+        this.$store.commit('setSubscription', response.data.subscription);
         this.processing = false;
       } catch (error) {
         this.subscribed = false;
         this.processing = false;
-        this.displayError(error);
       }
     },
     async getUpdates(id) {
@@ -297,10 +302,8 @@ export default {
     async removeSubscription() {
       try {
         this.processing = true;
-        await this.subscriptionsServices.removeSubscription({
-          politicianId: this.politicianId,
-        });
-        this.subscribed = true;
+        await this.subscriptionsServices.removeSubscription(this.subscription.id);
+        this.subscribed = false;
         this.processing = false;
       } catch (error) {
         this.subscribed = false;
