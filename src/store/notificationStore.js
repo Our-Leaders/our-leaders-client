@@ -9,15 +9,24 @@ export const notificationActions = {
     context.commit('showInfo', data);
     setTimeout(() => context.commit('hideMessage'), 3000);
   },
+  displaySignUp(context) {
+    context.commit('showSignUp');
+  },
   displaySuccess(context, data) {
     context.commit('showSuccess', data);
     setTimeout(() => context.commit('hideMessage'), 3000);
+  },
+  hideSignUp(context) {
+    context.commit('hideSignUp');
   },
 };
 
 export const notificationMutations = {
   hideMessage(state) {
     state.info.display = false;
+  },
+  hideSignUp(state) {
+    state.info.displaySignUp = false;
   },
   showError(state, data) {
     state.info.header = 'Uh Oh!';
@@ -30,6 +39,9 @@ export const notificationMutations = {
     state.info.details = data.message;
     state.info.type = 'info';
     state.info.display = true;
+  },
+  showSignUp(state) {
+    state.info.displaySignUp = true;
   },
   showSuccess(state, data) {
     state.info.header = 'Success!';
