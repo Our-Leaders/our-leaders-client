@@ -1,7 +1,7 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
 
-import router from '../router/index';
+// import router from '../router/index';
 import store from '../store/index';
 
 dotenv.config();
@@ -29,8 +29,8 @@ instance.interceptors.response.use(response => response, (error) => {
 
   if (reroute) {
     store.commit('clearJWT');
-    store.commit('clearUser');
-    router.push('/auth/sign-in');
+    store.commit('clearCurrentUser');
+    store.dispatch('displaySignUp');
   }
   return Promise.reject(error);
 });

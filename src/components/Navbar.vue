@@ -54,7 +54,7 @@
           <our-dropdown-item isLink :to="{ name: 'account-home' }" @click.native="closeNav">Account preferences</our-dropdown-item>
           <our-dropdown-item isLink :to="{ name: 'account-subscriptions' }" @click.native="closeNav">Manage subscriptions</our-dropdown-item>
           <our-dropdown-divider />
-          <our-dropdown-item isLink :to="{ name: '' }" @click.native="closeNav">Sign out</our-dropdown-item>
+          <our-dropdown-item isLink :to="{ name: '' }" @click.native="signOut">Sign out</our-dropdown-item>
         </our-dropdown>
         <div class="block xl:hidden mr-2">
           <button @click="toggleNav" :class="menuToggleClass" class="nav-menu flex items-center focus:outline-none">
@@ -94,6 +94,11 @@ export default {
     clearSearch() {
       this.$refs.search.focus();
       this.searchQuery = '';
+    },
+    signOut() {
+      this.$store.commit('clearJWT');
+      this.$store.commit('clearCurrentUser');
+      this.closeNav();
     },
   },
   computed: {

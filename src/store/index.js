@@ -5,6 +5,7 @@ import VuexPersist from 'vuex-persist';
 import { authGetters, authMutations } from './authStore';
 import { jobGetters, jobMutations } from './jobStore';
 import { notificationActions, notificationMutations } from './notificationStore';
+import { subscriptionGetters, subscriptionMutations } from './subscriptionStore';
 import { userGetters, userMutations } from './userStore';
 import { politicianGetters, politicianMutations } from './politicianStore';
 
@@ -23,18 +24,26 @@ export default new Vuex.Store({
       header: null,
       details: null,
       display: false,
+      displaySignUp: false,
       type: 'info',
     },
     job: null,
     jobs: null,
     jwtToken: '',
+    subscription: null,
   },
   actions: Object.assign({}, notificationActions),
-  getters: Object.assign({}, authGetters, jobGetters, userGetters, politicianGetters),
+  getters: Object.assign({},
+    authGetters,
+    jobGetters,
+    subscriptionGetters,
+    userGetters,
+    politicianGetters),
   mutations: Object.assign({},
     authMutations,
     jobMutations,
     notificationMutations,
+    subscriptionMutations,
     userMutations,
     politicianMutations),
   plugins: [vuexPersist.plugin],

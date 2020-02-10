@@ -103,7 +103,7 @@
                     field="state"
                     @change="setFilter"></our-select-dropdown>
                 </div>
-                <div class="w-full">
+                <div class="w-full mb-4">
                   <button
                     class="btn-grey-outline w-full py-3"
                     :disabled="loading"
