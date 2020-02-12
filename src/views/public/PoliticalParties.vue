@@ -82,20 +82,10 @@
     </div>
     <div class="block lg:hidden xl:hidden w-full mb-16 mt-6">
       <div class="w-full bg-gray-100 py-10 px-6">
-        <p class="subscribe-text text-5xl leading-none">Be the <span class="text-primary">first</span><br/>to know</p>
-        <p class="text-base leading-none my-6">Get instant updates on your favourite<br/>African leaders.</p>
-        <input class="field w-full mt-1 mb-6 py-2 pl-2 bg-white"
-          :class="{ 'inactive': isEmpty(subscribeEmail) }"
-          type="text"
-          id="query"
-          name="query"
-          placeholder="Enter email"
-          v-model="subscribeEmail"/>
-        <button
-          class="btn-primary py-2 lg:py-0 xl:py-0 w-full h-full"
-          :disabled="processing">
-          Subscribe
-        </button>
+        <our-subscription :full="true">
+          <p class="subscribe-text text-5xl leading-none">Be the <span class="text-primary">first</span><br/>to know</p>
+          <p class="text-base leading-none my-6">Get instant updates on your favourite<br/>African leaders.</p>
+        </our-subscription>
       </div>
     </div>
   </div>
