@@ -127,7 +127,10 @@
           </div>
         </div>
         <div class="mt-32 flex justify-center text-center">
-          <our-subscription></our-subscription>
+          <our-subscription>
+            <p class="subscribe-text mb-4"><span class="text-primary">Subscribe</span> to our newsletter</p>
+            <p class="font-circular hidden md:block">Be the first to get updates on your favorite leaders.</p>
+          </our-subscription>
         </div>
       </div>
     </div>
@@ -142,9 +145,12 @@ export default {
   name: 'home',
   data() {
     return {
-      loading: false,
       allPoliticians: [],
+      filter: {
+        status: 'current',
+      },
       highestVotedPoliticians: {},
+      loading: false,
       trendingPoliticians: [],
       politiciansServices: this.$serviceFactory.politicians,
       secondaryTabs: [
@@ -152,9 +158,6 @@ export default {
         { label: 'Upcoming Leaders', value: 'upcoming' },
         { label: 'Past Leaders', value: 'past' },
       ],
-      filter: {
-        status: 'current',
-      },
     };
   },
   created() {

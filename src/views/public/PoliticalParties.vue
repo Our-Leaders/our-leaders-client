@@ -46,7 +46,7 @@
             </div>
           </div>
           <div class="w-full lg:w-1/3 relative">
-            <div class="flex flex-wrap mt-3">
+            <div class="flex flex-wrap mt-3 mb-20">
               <div class="w-9/12 inline-block">
                   <input class="field w-full mt-1 py-2 pl-2"
                     :class="{ 'inactive': isEmpty(filter.name) }"
@@ -65,26 +65,27 @@
                 </button>
               </div>
             </div>
+            <div class="relative hidden lg:block xl:block">
+              <div class="block w-28 h-28 absolute z-10" id="politician-block">
+                <span class="inline-block h-1 w-1 mx-2 bg-primary" v-for="index in 20" :key="index"></span>
+              </div>
+              <div class="flex flex-wrap relative bg-gray-100 py-10 px-6 mb-10 z-20">
+                <our-subscription :full="true">
+                  <p class="subscribe-text text-5xl leading-none">Be the <span class="text-primary">first</span><br/>to know</p>
+                  <p class="text-base leading-none my-6">Get instant updates on your favourite<br/>African leaders.</p>
+                </our-subscription>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div class="block lg:hidden xl:hidden w-full mb-16 mt-6">
       <div class="w-full bg-gray-100 py-10 px-6">
-        <p class="subscribe-text text-5xl leading-none">Be the <span class="text-primary">first</span><br/>to know</p>
-        <p class="text-base leading-none my-6">Get instant updates on your favourite<br/>African leaders.</p>
-        <input class="field w-full mt-1 mb-6 py-2 pl-2 bg-white"
-          :class="{ 'inactive': isEmpty(subscribeEmail) }"
-          type="text"
-          id="query"
-          name="query"
-          placeholder="Enter email"
-          v-model="subscribeEmail"/>
-        <button
-          class="btn-primary py-2 lg:py-0 xl:py-0 w-full h-full"
-          :disabled="processing">
-          Subscribe
-        </button>
+        <our-subscription :full="true">
+          <p class="subscribe-text text-5xl leading-none">Be the <span class="text-primary">first</span><br/>to know</p>
+          <p class="text-base leading-none my-6">Get instant updates on your favourite<br/>African leaders.</p>
+        </our-subscription>
       </div>
     </div>
   </div>
