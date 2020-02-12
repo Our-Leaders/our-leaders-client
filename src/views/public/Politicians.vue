@@ -82,7 +82,7 @@
               </div>
             </div>
             <transition name="fade" mode="out-in">
-              <div class="flex lg:flex xl:flex flex-wrap mt-3"
+              <div class="flex lg:flex xl:flex flex-wrap mt-3 mb-20"
                 :class="{ 'hidden': !displayMenu }">
                 <div class="w-full my-10">
                   <div class="w-full horizontal-divide">
@@ -113,6 +113,17 @@
                 </div>
               </div>
             </transition>
+            <div class="relative hidden lg:block xl:block">
+              <div class="block w-28 h-28 absolute z-10" id="politician-block">
+                <span class="inline-block h-1 w-1 mx-2 bg-primary" v-for="index in 20" :key="index"></span>
+              </div>
+              <div class="flex flex-wrap relative bg-gray-100 py-10 px-6 mb-10 z-20">
+                <our-subscription :full="true">
+                  <p class="subscribe-text text-5xl leading-none">Be the <span class="text-primary">first</span><br/>to know</p>
+                  <p class="text-base leading-none my-6">Get instant updates on your favourite<br/>African leaders.</p>
+                </our-subscription>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -248,4 +259,9 @@ export default {
 </script>
 
 <style lang="scss">
+#politician-block {
+  right: 0;
+  top: 0;
+  transform: translateX(50px) translateY(-30px);
+}
 </style>
