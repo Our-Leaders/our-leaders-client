@@ -104,7 +104,7 @@
 
               <!-- Background -->
               <div class="relative top-0 left-0 w-full" key="background" v-show="isPage('background')">
-                <div class="w-full py-2">
+                <div class="w-full py-2 pr-2">
                   <h3 class="font-bold mb-3 text-xl">Personal background</h3>
                   <div class="flex flex-wrap mb-4">
                     <span class="w-1/3 my-1 inline-block">Political Party</span>
@@ -149,6 +149,21 @@
                       <span class="block">{{getPeriodString(proBackground.startDate, proBackground.endDate)}}</span>
                     </span>
                   </div>
+
+                  <div class="block md:hidden w-full border-t-2 border-gray-200 mb-4 pt-10">
+                    <div class="w-full border-b-1 border-gray-400">
+                      <span class="text-2xl mr-2">Tweets</span>
+                      <span class="text-base mr-1">by</span>
+                      <span class="cursor-pointer twitter-link text-base">@MBuhari</span>
+                      <button class="float-right align-middle font-semibold twitter-button px-2 rounded-full">Follow</button>
+                      <hr class="mt-2"/>
+
+                      <!-- Twitter -->
+                      <div class="timeline-wrapper">
+                        <a class="twitter-timeline" href="https://twitter.com/TwitterDev/timelines/539487832448843776?ref_src=twsrc%5Etfw">National Park Tweets - Curated tweets by TwitterDev</a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -182,20 +197,6 @@
 
               <!-- <div class="absolute top-0 left-0" v-for="tab of mainTabs" :key="tab.value" v-show="isPage(tab.value)">{{tab.label + ' is here'}}</div> -->
             </transition-group>
-          </div>
-          <div class="block md:hidden w-full mb-4">
-            <div class="w-full border-b-1 border-gray-400">
-              <span class="text-2xl mr-2">Tweets</span>
-              <span class="text-base mr-1">by</span>
-              <span class="cursor-pointer twitter-link text-base">@MBuhari</span>
-              <button class="float-right align-middle font-semibold twitter-button px-2 rounded-full">Follow</button>
-              <hr class="mt-2"/>
-
-              <!-- Twitter -->
-              <div class="timeline-wrapper">
-                <a class="twitter-timeline" href="https://twitter.com/TwitterDev/timelines/539487832448843776?ref_src=twsrc%5Etfw">National Park Tweets - Curated tweets by TwitterDev</a>
-              </div>
-            </div>
           </div>
           <div class="w-full lg:w-3/12 xl:w-3/12 block md:inline-block">
             <!-- For Now -->
