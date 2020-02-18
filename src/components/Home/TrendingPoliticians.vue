@@ -74,6 +74,10 @@ export default {
       return index - 1;
     },
     position(politician) {
+      if (politician.politicalBackground.length === 0) {
+        return 'Not in Office';
+      }
+
       const background = politician.politicalBackground.find(x => x.inOffice);
       return `${background.position}, ${background.institution}`;
     },

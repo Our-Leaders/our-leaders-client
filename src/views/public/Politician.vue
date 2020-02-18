@@ -1,23 +1,53 @@
 <template>
-  <div class="min-h-screen">
-
-    <div class="flex flex-col justify-center h-screen mb-4" v-if="loading">
+  <div class="relative">
+    <div class="flex flex-col justify-center min-h-screen mb-4" v-if="loading">
       <div class="w-full text-center">
         <span class="loading lg mx-auto mb-2"></span>
         <span>Loading Details...</span>
       </div>
     </div>
-    <div class="flex pb-2" v-if="!loading">
-      <div class="w-1/3 py-8 px-16 border-r-2 border-gray-200">
-        <div class="passport-wrapper mb-3">
+    <div class="flex flex-wrap pb-2" v-if="!loading">
+      <div class="w-full md:w-1/3 py-2 md:py-8 px-2 lg:px-16 xl:px-16 lg:border-r-2 xl:border-r-2 border-gray-200">
+        <div class="md:hidden">
+          <h3 class="text-5xl leading-tight mb-3">{{politician.name}}</h3>
+          <div class="w-full" v-if="position.inOffice">
+            <span class="block text-base capitalize">{{position.name}}</span>
+            <span class="block text-base">{{position.duration}}</span>
+          </div>
+          <div class="w-full mb-2" v-else>
+            <span class="block text-base capitalize">Not in Office</span>
+          </div>
+          <button class="btn-subscribe px-4 py-2 my-3"
+            :class="{ 'active': hasSubscribed }"
+            @click="toggleSubscription">
+            <span class="align-middle loading sm" v-if="processing"></span>
+            <span class="align-middle" v-if="!hasSubscribed && !processing">Subscribe to {{lastName}}</span>
+            <span class="align-middle" v-if="hasSubscribed && !processing">Subscribed</span>
+            <img class="ml-2" v-if="hasSubscribed && !processing" src="@/assets/img/green-tick.svg"/>
+          </button>
+        </div>
+        <div class="passport-wrapper mb-3 md:max-w-passport">
           <img class="object-cover" :src="politician.profileImage"/>
         </div>
-        <div class="block mb-10">
+        <div class="flex md:hidden w-full justify-between px-3">
+          <div id="votes" class="inline-block pr-5">
+            <img class="inline-block mr-2 md:mr-2 h-4 md:h-4" src="@/assets/img/thumbs-up.svg"/>
+            <span class="inline-block mr-3 md:mr-4 h-4 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.up}}</span>
+            <img class="inline-block mr-2 mt-2 md:mr-2 h-4 md:h-4" src="@/assets/img/thumbs-down.svg"/>
+            <span class="inline-block mr-2 md:mr-2 h-4 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.down}}</span>
+          </div>
+          <div id="share" class="inline-block">
+            <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/>
+            <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/twitter-gray.svg"/>
+            <img class="cursor-pointer inline-block h-4" src="@/assets/img/instagram-gray.svg"/>
+          </div>
+        </div>
+        <div class="hidden md:block mb-10">
           <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/>
           <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/twitter-gray.svg"/>
           <img class="cursor-pointer inline-block h-4" src="@/assets/img/instagram-gray.svg"/>
         </div>
-        <div class="flex flex-wrap">
+        <div class="hidden md:flex flex-wrap">
           <div class="w-full border-b-1 border-gray-400">
             <span class="text-2xl mr-2">Tweets</span>
             <span class="text-base mr-1">by</span>
@@ -32,9 +62,9 @@
           </div>
         </div>
       </div>
-      <div class="w-2/3 px-10 py-4 max-h-screen overflow-y-scroll relative" sticky-container>
-        <h3 class="text-6xl mt-8">{{politician.name}}</h3>
-        <button class="btn-subscribe absolute top-0 right-0 px-4 py-2 my-5 mr-17"
+      <div class="w-full md:w-2/3 pl-2 md:px-10 py-1 md:py-4 md:max-h-screen md:overflow-y-scroll relative" sticky-container>
+        <h3 class="hidden md:block pr-2 text-6xl mt-8">{{politician.name}}</h3>
+        <button class="hidden btn-subscribe md:block absolute top-0 right-0 px-4 py-2 my-1 md:my-5 mr-17"
           :class="{ 'active': hasSubscribed }"
           @click="toggleSubscription">
           <span class="align-middle loading sm" v-if="processing"></span>
@@ -42,7 +72,7 @@
           <span class="align-middle" v-if="hasSubscribed && !processing">Subscribed</span>
           <img class="ml-2" v-if="hasSubscribed && !processing" src="@/assets/img/green-tick.svg"/>
         </button>
-        <div class="w-full mb-4">
+        <div class="hidden md:block pr-2 w-full mb-4">
           <div id="votes" class="inline-block pr-5 border-r-2 border-gray-300">
             <img class="inline-block mr-1 md:mr-2 h-3 md:h-4" src="@/assets/img/thumbs-up.svg"/>
             <span class="inline-block mr-2 md:mr-4 h-3 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.up}}</span>
@@ -56,22 +86,25 @@
             <img class="cursor-pointer inline-block h-4" src="@/assets/img/instagram-gray.svg"/>
           </div>
         </div>
-        <div class="w-full" v-if="position.inOffice">
+        <div class="hidden md:block pr-2 w-full" v-if="position.inOffice">
           <span class="block text-base capitalize">{{position.name}}</span>
           <span class="block text-base">{{position.duration}}</span>
         </div>
+        <div class="hidden md:block pr-2 w-full" v-else>
+          <span class="block text-base capitalize">Not in Office</span>
+        </div>
         <div v-sticky sticky-offset="offset" sticky-side="top" ref="stickyTop">
-          <div class="w-9/12 mt-6 pr-4">
-            <our-tabs class="mb-1" v-on:change="setPage" :tabs='mainTabs' :tab-type="'secondary'"></our-tabs>
+          <div class="w-full md:w-9/12 overflow-x-scroll mt-6 md:pr-4">
+            <our-tabs class="mb-1 pr-2" v-on:change="setPage" :tabs='mainTabs' :tab-type="'secondary'"></our-tabs>
           </div>
         </div>
-        <div class="flex flex-col-reverse lg:flex-row xl:flex-row">
-          <div class="w-full lg:w-9/12 xl:w-9/12 align-top block lg:inline-block xl:inline-block relative">
+        <div class="flex flex-wrap lg:flex-row xl:flex-row min-h-screen">
+          <div class="w-full lg:w-9/12 xl:w-9/12 align-top block min-h-screen lg:inline-block xl:inline-block relative">
             <transition-group name="fade" mode="out-in">
 
               <!-- Background -->
-              <div class="absolute top-0 left-0 w-full" key="background" v-show="isPage('background')">
-                <div class="w-full py-2">
+              <div class="relative top-0 left-0 w-full" key="background" v-show="isPage('background')">
+                <div class="w-full py-2 pr-2">
                   <h3 class="font-bold mb-3 text-xl">Personal background</h3>
                   <div class="flex flex-wrap mb-4">
                     <span class="w-1/3 my-1 inline-block">Political Party</span>
@@ -116,6 +149,21 @@
                       <span class="block">{{getPeriodString(proBackground.startDate, proBackground.endDate)}}</span>
                     </span>
                   </div>
+
+                  <div class="block md:hidden w-full border-t-2 border-gray-200 mb-4 pt-10">
+                    <div class="w-full border-b-1 border-gray-400">
+                      <span class="text-2xl mr-2">Tweets</span>
+                      <span class="text-base mr-1">by</span>
+                      <span class="cursor-pointer twitter-link text-base">@MBuhari</span>
+                      <button class="float-right align-middle font-semibold twitter-button px-2 rounded-full">Follow</button>
+                      <hr class="mt-2"/>
+
+                      <!-- Twitter -->
+                      <div class="timeline-wrapper">
+                        <a class="twitter-timeline" href="https://twitter.com/TwitterDev/timelines/539487832448843776?ref_src=twsrc%5Etfw">National Park Tweets - Curated tweets by TwitterDev</a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -128,7 +176,7 @@
               </div>
 
               <!-- Manifesto -->
-              <div class="absolute top-0 left-0"  key="manifesto" v-show="isPage('manifesto')">
+              <div class="relative top-0 left-0"  key="manifesto" v-show="isPage('manifesto')">
                 <h3 class="font-bold mb-3 text-xl">Manifesto</h3>
                 <div class="mb-6" v-if="politician.manifesto.summary" v-html="politician.manifesto.summary"></div>
                 <div class="w-full text-center mt-4 mb-8" v-else>
@@ -150,7 +198,7 @@
               <!-- <div class="absolute top-0 left-0" v-for="tab of mainTabs" :key="tab.value" v-show="isPage(tab.value)">{{tab.label + ' is here'}}</div> -->
             </transition-group>
           </div>
-          <div class="w-full lg:w-3/12 xl:w-3/12 block lg:inline-block xl:inline-block">
+          <div class="w-full lg:w-3/12 xl:w-3/12 block md:inline-block">
             <!-- For Now -->
             <our-side-scroll :options="sideTabs" v-on:scroll="scrollTo"></our-side-scroll>
           </div>
