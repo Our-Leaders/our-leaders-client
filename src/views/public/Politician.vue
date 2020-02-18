@@ -270,7 +270,6 @@ export default {
       loading: true,
       mainTabs: tabsList.politician,
       page: 'background',
-      // page: 'recent',
       // For now
       politician: politiciansMock[0],
       politiciansServices: this.$serviceFactory.politicians,
