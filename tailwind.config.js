@@ -52,6 +52,7 @@ module.exports = {
         'passport': '384px'
       },        
       width: {
+        '9': '2.25rem',
         '28': '7rem',
         '30': '7.5rem',
         '1/8': '12.5%',

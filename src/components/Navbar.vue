@@ -1,8 +1,15 @@
 <template>
 <nav class="xl:m-0 px-6 xl:p-0">
   <div class="nav-content py-4 px-0 border-gray-200 border-b w-full flex items-center flex-wrap" :class="menuToggleClass">
-    <router-link :to="{ name: 'home' }" @click.native="closeNav" class="nav-icon"><img class="xl:absolute mr-2 w-12 bg-white z-20" src="@/assets/img/logo.svg"/></router-link>
-    <div :class="navToggleClass" class="w-full block flex-grow xl:flex xl:items-center xl:w-auto mt-2 xl:mt-0">
+    <div class="block xl:hidden mr-4">
+      <button @click="toggleNav" :class="menuToggleClass" class="nav-menu flex items-center focus:outline-none">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <router-link :to="{ name: 'home' }" @click.native="closeNav" class="nav-icon"><img class="xl:absolute mr-2 w-9 bg-white z-20" src="@/assets/img/logo.svg"/></router-link>
+    <div :class="navToggleClass" class="w-full block flex-grow xl:flex xl:items-center xl:w-auto mt-2 xl:mt-0 order-1 xl:order-0">
       <div class="text-base xl:flex-grow">
         <a class="block mt-4 xl:inline-block xl:mt-0 mr-4">
           <our-dropdown class="mr-4 xl:visible" width="w-40" heading="Leaders" alignRight showOnHover listClass="leaders-dropdown-list">
@@ -43,9 +50,9 @@
       </div>
     </div>
     <ul class="w-full xl:w-auto xl:flex items-center" :class="openNav ? 'h-auto' : 'h-0'">
-      <li class="profile-wrapper xl:top-0 xl:relative absolute right-0 w-auto pl-8 pr-4 h-14 flex items-center font-circular" v-if="isLoggedIn">
-        <div class="notification bg-gray-200 rounded-full text-xs flex xl:visible items-center justify-center mr-5 relative leading-tight" :class="profileShowClass">12</div>
-        <our-dropdown class="mr-4 xl:visible" :class="profileShowClass" width="w-56" heading="Profile" :imageSrc="require('@/assets/img/user.svg')">
+      <li class="profile-wrapper xl:top-0 xl:relative absolute right-0 w-auto pl-8 pr-4 h-14 flex items-center font-circular">
+        <div class="notification bg-gray-200 rounded-full text-xs flex xl:visible items-center justify-center mr-5 relative leading-tight">12</div>
+        <our-dropdown class="mr-4 xl:visible" width="w-56" heading="Profile" :imageSrc="require('@/assets/img/user.svg')">
           <our-dropdown-item>
             <p>Signed in as {{ user.email }}</p>
             <p v-if="user.joinedBy" class="text-gray-500 text-xs pt-2">via {{ user.joinedBy }}</p>
@@ -56,15 +63,8 @@
           <our-dropdown-divider />
           <our-dropdown-item isLink :to="{ name: '' }" @click.native="signOut">Sign out</our-dropdown-item>
         </our-dropdown>
-        <div class="block xl:hidden mr-2">
-          <button @click="toggleNav" :class="menuToggleClass" class="nav-menu flex items-center focus:outline-none">
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-        </div>
       </li>
-      <li class="xl:visible" :class="profileShowClass">
+      <li class="xl:visible" :class="navToggleClass">
         <our-country-selector v-model="country" />
       </li>
     </ul>
@@ -109,10 +109,6 @@ export default {
     navToggleClass() {
       if (this.openNav) return 'block';
       return 'hidden';
-    },
-    profileShowClass() {
-      if (this.openNav) return 'visible';
-      return 'invisible';
     },
     menuToggleClass() {
       if (this.openNav) return 'open';
@@ -165,7 +161,7 @@ export default {
       position: relative;
       transform: rotate(0deg);
       transition: .5s ease-in-out;
-      width: 24px;
+      width: 20px;
 
       span {
         background: black;
@@ -190,25 +186,7 @@ export default {
 
         &:nth-child(3) {
           top: 16px;
-        }
-      }
-
-      &.open {
-        span:nth-child(1) {
-          left: 5px;
-          top: -2px;
-          transform: rotate(45deg);
-        }
-
-        span:nth-child(2) {
-          opacity: 0;
-          width: 0%;
-        }
-
-        span:nth-child(3) {
-          left: 5px;
-          top: 15px;
-          transform: rotate(-45deg);
+          width: 80%;
         }
       }
     }
