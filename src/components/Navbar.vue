@@ -1,73 +1,79 @@
 <template>
 <nav class="xl:m-0 px-6 xl:p-0">
-  <div class="nav-content py-4 px-0 border-gray-200 border-b w-full flex items-center flex-wrap" :class="menuToggleClass">
+  <div class="nav-content py-3 xl:py-4 px-0 border-gray-200 border-b w-full flex items-center" :class="menuToggleClass">
     <div class="block xl:hidden mr-4">
-      <button @click="toggleNav" :class="menuToggleClass" class="nav-menu flex items-center focus:outline-none">
+      <button @click="toggleNav" :class="profileShowClass" class="nav-menu flex items-center focus:outline-none">
         <span></span>
         <span></span>
         <span></span>
       </button>
     </div>
-    <router-link :to="{ name: 'home' }" @click.native="closeNav" class="nav-icon"><img class="xl:absolute mr-2 w-9 bg-white z-20" src="@/assets/img/logo.svg"/></router-link>
-    <div :class="navToggleClass" class="w-full block flex-grow xl:flex xl:items-center xl:w-auto mt-2 xl:mt-0 order-1 xl:order-0">
-      <div class="text-base xl:flex-grow">
-        <a class="block mt-4 xl:inline-block xl:mt-0 mr-4">
-          <our-dropdown class="mr-4 xl:visible" width="w-40" heading="Leaders" alignRight showOnHover listClass="leaders-dropdown-list">
-            <our-dropdown-item isLink :to="{ name: 'politicians' }" @click.native="closeNav">Current leaders</our-dropdown-item>
-            <our-dropdown-item isLink :to="{ name: '' }" @click.native="closeNav">Upcoming leaders</our-dropdown-item>
-            <our-dropdown-item isLink :to="{ name: '' }" @click.native="closeNav">Past leaders</our-dropdown-item>
-          </our-dropdown>
-        </a>
-        <router-link :to="{ name: 'political-parties' }" @click.native="closeNav" class="block mt-4 xl:inline-block xl:mt-0 mr-4">Political parties</router-link>
-      </div>
-      <div>
-        <ul class="relative xl:inline-flex xl:items-center">
-          <li>
-            <router-link :to="{ name: 'about-us' }" @click.native="closeNav" class="block xl:px-4 xl:py-2 xl:border-b border-transparent hover:border-primary mt-4 xl:mt-0">About</router-link>
-          </li>
-          <li>
-            <router-link :to="{ name: 'contact-us' }" @click.native="closeNav" class="block xl:px-4 xl:py-2 xl:border-b border-transparent hover:border-primary mt-4 xl:mt-0">Contact</router-link>
-          </li>
-          <li class="donate-wrapper">
-            <router-link :to="{ name: 'donate' }" @click.native="closeNav" class="px-4 py-2 mt-4 xl:ml-4 xl:mt-0 btn-primary-outline block leading-tight">Donate</router-link>
-          </li>
-          <li class="xl:absolute xl:ml-4 h-12 xl:border-r xl:border-l-0 xl:border-t-0 xl:border-b-0 border right-0 mt-4 xl:mt-0">
-            <div class="search-wrapper h-full relative mr-2 xl:mr-8">
-              <input v-model="searchQuery" type="text" ref="search" class="search-input h-full w-full xl:w-6 xl:opacity-0 pr-6 xl:pl-0 pl-4 py-2" placeholder="Search" />
-              <img class="search-img" src="@/assets/img/search.svg"/>
-              <img @click="clearSearch" class="search-clear" src="@/assets/img/close.svg"/>
-            </div>
-          </li>
-        </ul>
-        <ul class="xl:inline-flex xl:items-center">
-          <li class="xl:ml-9 xl:mr-2" v-if="!isLoggedIn">
-            <router-link :to="{ name: 'sign-up' }" @click.native="closeNav" class="mt-4 px-4 py-2 xl:mt-0 btn-primary block leading-tight">Sign up</router-link>
-          </li>
-          <li v-if="!isLoggedIn">
-            <router-link :to="{ name: 'sign-in' }" @click.native="closeNav" class="mt-4 px-4 py-3 xl:mt-0 border border-primary xl:border-b xl:border-transparent hover:border-primary block leading-tight font-circular">Log in</router-link>
-          </li>
-        </ul>
-      </div>
+    <router-link :class="profileShowClass" :to="{ name: 'home' }" @click.native="closeNav" class="nav-icon"><img class="xl:absolute mr-2 w-9 bg-white z-20" src="@/assets/img/logo.svg"/></router-link>
+    <div :class="navToggleClass" class="sticky w-full top-0 bg-white z-10 text-center border-gray-200 border-b xl:hidden">
+      <p class="pt-2 pb-5 uppercase font-circular text-sm">Our Leaders.Africa</p>
+      <img @click="toggleNav" class="absolute right-0 top-0" src="@/assets/img/close.svg"/>
     </div>
-    <ul class="w-full xl:w-auto xl:flex items-center" :class="openNav ? 'h-auto' : 'h-0'">
-      <li class="profile-wrapper xl:top-0 xl:relative absolute right-0 w-auto pl-8 pr-4 h-14 flex items-center font-circular">
-        <div class="notification bg-gray-200 rounded-full text-xs flex xl:visible items-center justify-center mr-5 relative leading-tight">12</div>
-        <our-dropdown class="mr-4 xl:visible" width="w-56" heading="Profile" :imageSrc="require('@/assets/img/user.svg')">
-          <our-dropdown-item>
-            <p>Signed in as {{ user.email }}</p>
-            <p v-if="user.joinedBy" class="text-gray-500 text-xs pt-2">via {{ user.joinedBy }}</p>
-          </our-dropdown-item>
-          <our-dropdown-divider />
-          <our-dropdown-item isLink :to="{ name: 'account-home' }" @click.native="closeNav">Account preferences</our-dropdown-item>
-          <our-dropdown-item isLink :to="{ name: 'account-subscriptions' }" @click.native="closeNav">Manage subscriptions</our-dropdown-item>
-          <our-dropdown-divider />
-          <our-dropdown-item isLink :to="{ name: '' }" @click.native="signOut">Sign out</our-dropdown-item>
-        </our-dropdown>
-      </li>
-      <li class="xl:visible" :class="navToggleClass">
-        <our-country-selector v-model="country" />
-      </li>
-    </ul>
+    <div class="w-full block flex-grow flex flex-col xl:flex-row xl:items-center xl:w-auto mt-2 xl:mt-0">
+      <div :class="navToggleClass" class="w-full block flex-grow xl:flex xl:items-center text-center xl:w-auto mt-2 xl:mt-0 order-1 xl:order-0">
+        <div class="text-base xl:flex-grow">
+          <a class="block mt-4 xl:inline-block xl:mt-0 xl:mr-4">
+            <our-dropdown class="xl:mr-4 xl:visible" width="w-40" heading="Leaders" alignRight showOnHover listClass="leaders-dropdown-list">
+              <our-dropdown-item isLink :to="{ name: 'politicians' }" @click.native="closeNav">Current leaders</our-dropdown-item>
+              <our-dropdown-item isLink :to="{ name: '' }" @click.native="closeNav">Upcoming leaders</our-dropdown-item>
+              <our-dropdown-item isLink :to="{ name: '' }" @click.native="closeNav">Past leaders</our-dropdown-item>
+            </our-dropdown>
+          </a>
+          <router-link :to="{ name: 'political-parties' }" @click.native="closeNav" class="block mt-4 xl:inline-block xl:mt-0 xl:mr-4">Political parties</router-link>
+        </div>
+        <div>
+          <ul class="relative xl:inline-flex xl:items-center">
+            <li>
+              <router-link :to="{ name: 'about-us' }" @click.native="closeNav" class="block xl:px-4 xl:py-2 xl:border-b border-transparent hover:border-primary mt-4 xl:mt-0">About</router-link>
+            </li>
+            <li>
+              <router-link :to="{ name: 'contact-us' }" @click.native="closeNav" class="block xl:px-4 xl:py-2 xl:border-b border-transparent hover:border-primary mt-4 xl:mt-0">Contact</router-link>
+            </li>
+            <li class="donate-wrapper">
+              <router-link :to="{ name: 'donate' }" @click.native="closeNav" class="px-4 py-2 mt-4 xl:ml-4 xl:mt-0 btn-primary-outline block leading-tight">Donate</router-link>
+            </li>
+            <li class="xl:absolute xl:ml-4 h-12 xl:border-r xl:border-l-0 xl:border-t-0 xl:border-b-0 border right-0 mt-4 xl:mt-0">
+              <div class="search-wrapper h-full relative mr-2 xl:mr-8">
+                <input v-model="searchQuery" type="text" ref="search" class="search-input h-full w-full xl:w-6 xl:opacity-0 pr-6 xl:pl-0 pl-4 py-2" placeholder="Search" />
+                <img class="search-img" src="@/assets/img/search.svg"/>
+                <img @click="clearSearch" class="search-clear" src="@/assets/img/close.svg"/>
+              </div>
+            </li>
+          </ul>
+          <ul class="xl:inline-flex xl:items-center">
+            <li class="xl:ml-9 xl:mr-2" v-if="!isLoggedIn">
+              <router-link :to="{ name: 'sign-up' }" @click.native="closeNav" class="mt-4 px-4 py-2 xl:mt-0 btn-primary block leading-tight">Sign up</router-link>
+            </li>
+            <li v-if="!isLoggedIn">
+              <router-link :to="{ name: 'sign-in' }" @click.native="closeNav" class="mt-4 px-4 py-3 xl:mt-0 border border-primary xl:border-b xl:border-transparent hover:border-primary block leading-tight font-circular">Log in</router-link>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <ul class="w-full xl:w-auto flex justify-center items-center order-0 xl:order-1" :class="openNav ? 'h-auto' : 'h-0'">
+        <li :class="profileShowClass" class="profile-wrapper xl:top-0 xl:relative absolute right-0 w-auto pl-8 pr-4 h-14 flex items-center font-circular">
+          <div class="notification bg-gray-200 rounded-full text-xs flex xl:visible items-center justify-center mr-5 relative leading-tight">12</div>
+          <our-dropdown class="mr-2 xl:mr-4 xl:visible" width="w-56" heading="Profile" :imageSrc="require('@/assets/img/user.svg')">
+            <our-dropdown-item>
+              <p>Signed in as {{ user.email }}</p>
+              <p v-if="user.joinedBy" class="text-gray-500 text-xs pt-2">via {{ user.joinedBy }}</p>
+            </our-dropdown-item>
+            <our-dropdown-divider />
+            <our-dropdown-item isLink :to="{ name: 'account-home' }" @click.native="closeNav">Account preferences</our-dropdown-item>
+            <our-dropdown-item isLink :to="{ name: 'account-subscriptions' }" @click.native="closeNav">Manage subscriptions</our-dropdown-item>
+            <our-dropdown-divider />
+            <our-dropdown-item isLink :to="{ name: '' }" @click.native="signOut">Sign out</our-dropdown-item>
+          </our-dropdown>
+        </li>
+        <li class="xl:visible -mb-4 xl:mb-0 xl:mt-0" :class="navToggleClass">
+          <our-country-selector v-model="country" />
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
 </template>
@@ -108,10 +114,14 @@ export default {
     ]),
     navToggleClass() {
       if (this.openNav) return 'block';
-      return 'hidden';
+      return 'hidden xl:block';
+    },
+    profileShowClass() {
+      if (this.openNav) return 'hidden xl:initial';
+      return '';
     },
     menuToggleClass() {
-      if (this.openNav) return 'open';
+      if (this.openNav) return 'flex-wrap open';
       return '';
     },
   },
@@ -147,7 +157,7 @@ export default {
         @apply fixed w-full min-h-screen overflow-scroll right-0 bottom-0 top-0 px-6;
 
         @screen xl {
-          @apply bg-transparent px-0 overflow-auto;
+          @apply bg-transparent px-0 overflow-visible;
 
           position: initial;
           min-height: initial;
@@ -205,6 +215,7 @@ export default {
 
     .profile-wrapper {
       top: 1.25rem;
+      top: calc(50% - 1.25rem);
 
       .notification {
         position: relative;

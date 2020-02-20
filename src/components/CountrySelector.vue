@@ -1,8 +1,9 @@
 <template>
   <button @focusout="closeCountryList" class="selector-container relative text-left focus:outline-none w-full">
-    <div @click="toggleCountryList" class="flex mt-4 xl:mt-0 xl:ml-2 border xl:border-0 p-4 font-circular flex justify-between xl:justify-end">
-      <img class="mr-5" :src="countryFlag(selectedCountry.flag)"/>
-      <img src="@/assets/img/chevron-down.svg"/>
+    <div @click="toggleCountryList" class="flex mt-4 xl:mt-0 xl:ml-2 p-4 font-circular flex justify-end">
+      <img class="mr-3" :src="countryFlag(selectedCountry.flag)"/>
+      <span class="xl:hidden">{{selectedCountry.acronym}}</span>
+      <img class="ml-2" src="@/assets/img/chevron-down.svg"/>
     </div>
     <transition name="fade" mode="out-in">
       <div class="fixed xl:absolute w-full xl:w-64 country-list p-6 xl:px-4 xl:py-3 right-0 bg-white" v-if="countryListOpen">
