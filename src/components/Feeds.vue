@@ -21,6 +21,7 @@
           <div class="mb-4 pr-12 quarter-view-accomplishment-detail">
             <!-- image here -->
             <p v-html="details.summary"></p>
+            <small class="text-gray-600">View full story at <a :href="details.feedUrl" target="_blank">{{getUrlHost(details.feedUrl)}}</a></small>
           </div>
         </div>
       </div>
@@ -47,6 +48,11 @@ export default {
     return {
       monthsList,
     };
+  },
+  methods: {
+    getUrlHost(url = '') {
+      return url.match(/(?<=^((http[s]?):\/)?\/?)([^:/\s]+)((\/\w+)*\/)/g)[0].replace('/', '');
+    },
   },
 };
 </script>
