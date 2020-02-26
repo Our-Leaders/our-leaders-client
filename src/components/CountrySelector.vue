@@ -6,10 +6,10 @@
       <img class="ml-2" src="@/assets/img/chevron-down.svg"/>
     </div>
     <transition name="fade" mode="out-in">
-      <div class="fixed xl:absolute w-full xl:w-64 country-list p-6 xl:px-4 xl:py-3 right-0 bg-white" v-if="countryListOpen">
-        <div class="xl:hidden flex justify-between items-center font-circular mb-4">
-          <p>Choose country</p>
-          <img class="close-button" @click="toggleCountryList" src="@/assets/img/close.svg"/>
+      <div class="fixed xl:absolute w-full xl:w-64 country-list p-3 xl:px-4 right-0 bg-white -mt-3" v-if="countryListOpen">
+        <div class="xl:hidden mb-4 border-gray-200 border-b sticky w-full top-0 bg-white z-10 flex justify-center items-center">
+          <p class="py-5 uppercase font-circular text-sm">Choose country</p>
+          <img @click="toggleCountryList" class="absolute right-0" src="@/assets/img/close.svg"/>
         </div>
         <ul>
           <li v-for="(countryObject, key) in countryList" :key="key" class="flex relative py-1 items-center" :class="selectedCountryClass(key)" @click="countrySelect(key)">
@@ -77,14 +77,9 @@ export default {
 
   .country-list {
     top: 0;
-    height: 100vh;
+    height: calc(100vh + 0.75rem);
     z-index: 100;
     overflow-y: scroll;
-
-    .close-button {
-      margin-right: -6px;
-      margin-top: -2px;
-    }
 
     ul li:not(:last-child) {
       @apply mb-3;
@@ -92,7 +87,7 @@ export default {
 
     @screen xl {
       @apply shadow-primary h-auto;
-      top: 3.1rem;
+      top: 3.5rem;
       max-height: 20rem;
     }
   }
