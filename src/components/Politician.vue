@@ -36,7 +36,24 @@
 
     <div class="absolute w-full h-full top-0 left-0 hidden-overflow-transparent">
       <div class="inner w-full h-full text-right">
-        <button class="btn-grey-outline inline-block px-4 py-1 ml-2 mt-6">Preferences</button>
+        <our-dropdown class="border border-black inline-block px-4 ml-2 mt-6 bg-white xl:mr-4" list-margin="-mt-8" padding="py-1" width="w-64" heading="Leaders" alignRight leaveOpen listClass="leaders-dropdown-list">
+          <our-dropdown-item>
+            <label class="flex justify-between text-xs">
+              Be notified on this platform
+              <our-checkbox></our-checkbox>
+            </label>
+          </our-dropdown-item>
+          <our-dropdown-item>
+            <label class="flex justify-between text-xs">
+              Receive email notifications
+              <our-checkbox></our-checkbox>
+            </label>
+          </our-dropdown-item>
+          <our-dropdown-divider/>
+          <our-dropdown-item>
+            <span class="text-xs text-gray-300 w-full">Unsubscribe from this leader</span>
+          </our-dropdown-item>
+        </our-dropdown>
         <button class="btn-grey-outline inline-block px-4 py-1 ml-2 mt-6"
           v-show="!this.subscribed"
           :disabled="processing"
