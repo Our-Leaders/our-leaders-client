@@ -1,73 +1,105 @@
 <template>
-<nav class="xl:m-0 px-6 xl:p-0">
-  <div class="nav-content py-4 px-0 border-gray-200 border-b w-full flex items-center flex-wrap" :class="menuToggleClass">
-    <router-link :to="{ name: 'home' }" @click.native="closeNav" class="nav-icon"><img class="xl:absolute mr-2 w-12 bg-white z-20" src="@/assets/img/logo.svg"/></router-link>
-    <div :class="navToggleClass" class="w-full block flex-grow xl:flex xl:items-center xl:w-auto mt-2 xl:mt-0">
-      <div class="text-base xl:flex-grow">
-        <a class="block mt-4 xl:inline-block xl:mt-0 mr-4">
-          <our-dropdown class="mr-4 xl:visible" width="w-40" heading="Leaders" alignRight showOnHover listClass="leaders-dropdown-list">
-            <our-dropdown-item isLink :to="{ name: 'politicians' }" @click.native="closeNav">Current leaders</our-dropdown-item>
-            <our-dropdown-item isLink :to="{ name: '' }" @click.native="closeNav">Upcoming leaders</our-dropdown-item>
-            <our-dropdown-item isLink :to="{ name: '' }" @click.native="closeNav">Past leaders</our-dropdown-item>
-          </our-dropdown>
-        </a>
-        <router-link :to="{ name: 'political-parties' }" @click.native="closeNav" class="block mt-4 xl:inline-block xl:mt-0 mr-4">Political parties</router-link>
-      </div>
-      <div>
-        <ul class="relative xl:inline-flex xl:items-center">
-          <li>
-            <router-link :to="{ name: 'about-us' }" @click.native="closeNav" class="block xl:px-4 xl:py-2 xl:border-b border-transparent hover:border-primary mt-4 xl:mt-0">About</router-link>
-          </li>
-          <li>
-            <router-link :to="{ name: 'contact-us' }" @click.native="closeNav" class="block xl:px-4 xl:py-2 xl:border-b border-transparent hover:border-primary mt-4 xl:mt-0">Contact</router-link>
-          </li>
-          <li class="donate-wrapper">
-            <router-link :to="{ name: 'donate' }" @click.native="closeNav" class="px-4 py-2 mt-4 xl:ml-4 xl:mt-0 btn-primary-outline block leading-tight">Donate</router-link>
-          </li>
-          <li class="xl:absolute xl:ml-4 h-12 xl:border-r xl:border-l-0 xl:border-t-0 xl:border-b-0 border right-0 mt-4 xl:mt-0">
-            <div class="search-wrapper h-full relative mr-2 xl:mr-8">
-              <input v-model="searchQuery" type="text" ref="search" class="search-input h-full w-full xl:w-6 xl:opacity-0 pr-6 xl:pl-0 pl-4 py-2" placeholder="Search" />
-              <img class="search-img" src="@/assets/img/search.svg"/>
-              <img @click="clearSearch" class="search-clear" src="@/assets/img/close.svg"/>
-            </div>
-          </li>
-        </ul>
-        <ul class="xl:inline-flex xl:items-center">
-          <li class="xl:ml-9 xl:mr-2" v-if="!isLoggedIn">
-            <router-link :to="{ name: 'sign-up' }" @click.native="closeNav" class="mt-4 px-4 py-2 xl:mt-0 btn-primary block leading-tight">Sign up</router-link>
-          </li>
-          <li v-if="!isLoggedIn">
-            <router-link :to="{ name: 'sign-in' }" @click.native="closeNav" class="mt-4 px-4 py-3 xl:mt-0 border border-primary xl:border-b xl:border-transparent hover:border-primary block leading-tight font-circular">Log in</router-link>
-          </li>
-        </ul>
-      </div>
+<nav class="xl:m-0 px-3 xl:p-0" :class="navClass">
+  <div class="nav-content py-3 xl:py-4 px-0 border-gray-200 border-b w-full flex items-center xl:mt-0" :class="menuToggleClass">
+    <div class="block xl:hidden mr-4">
+      <button @click="toggleNav" :class="profileShowClass" class="nav-menu flex items-center focus:outline-none">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
-    <ul class="w-full xl:w-auto xl:flex items-center" :class="openNav ? 'h-auto' : 'h-0'">
-      <li class="profile-wrapper xl:top-0 xl:relative absolute right-0 w-auto pl-8 pr-4 h-14 flex items-center font-circular" v-if="isLoggedIn">
-        <div class="notification bg-gray-200 rounded-full text-xs flex xl:visible items-center justify-center mr-5 relative leading-tight" :class="profileShowClass">12</div>
-        <our-dropdown class="mr-4 xl:visible" :class="profileShowClass" width="w-56" heading="Profile" :imageSrc="require('@/assets/img/user.svg')">
-          <our-dropdown-item>
-            <p>Signed in as {{ user.email }}</p>
-            <p v-if="user.joinedBy" class="text-gray-500 text-xs pt-2">via {{ user.joinedBy }}</p>
-          </our-dropdown-item>
-          <our-dropdown-divider />
-          <our-dropdown-item isLink :to="{ name: 'account-home' }" @click.native="closeNav">Account preferences</our-dropdown-item>
-          <our-dropdown-item isLink :to="{ name: 'account-subscriptions' }" @click.native="closeNav">Manage subscriptions</our-dropdown-item>
-          <our-dropdown-divider />
-          <our-dropdown-item isLink :to="{ name: '' }" @click.native="signOut">Sign out</our-dropdown-item>
-        </our-dropdown>
-        <div class="block xl:hidden mr-2">
-          <button @click="toggleNav" :class="menuToggleClass" class="nav-menu flex items-center focus:outline-none">
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
+    <router-link :class="profileShowClass" :to="{ name: 'home' }" @click.native="closeNav" class="nav-icon">
+      <img class="mr-2 w-9 bg-white z-20" src="@/assets/img/logo.svg"/>
+    </router-link>
+    <div :class="navToggleClass" class="sticky w-full top-0 text-center border-gray-200 border-b xl:hidden bg-white z-10 flex justify-center items-center">
+      <p class="py-5 uppercase font-circular text-sm">Our Leaders.Africa</p>
+      <img @click="toggleNav" class="absolute right-0" src="@/assets/img/close.svg"/>
+    </div>
+    <div class="w-full block flex-grow flex flex-col xl:flex-row xl:items-center xl:w-auto">
+      <div :class="navToggleClass" class="w-full block flex-grow xl:flex xl:items-center text-center xl:text-left xl:w-auto mt-2 xl:mt-0 order-1 xl:order-0">
+        <div class="text-base xl:flex-grow">
+          <a class="block mt-4 hidden xl:inline-block xl:mt-0 xl:mr-4">
+            <our-dropdown class="xl:mr-4 xl:visible" width="w-40" heading="Leaders" alignRight showOnHover listClass="leaders-dropdown-list">
+              <our-dropdown-item isLink :to="{ name: 'politicians' }" @click.native="closeNav">Current leaders</our-dropdown-item>
+              <our-dropdown-item isLink :to="{ name: '' }" @click.native="closeNav">Upcoming leaders</our-dropdown-item>
+              <our-dropdown-item isLink :to="{ name: '' }" @click.native="closeNav">Past leaders</our-dropdown-item>
+            </our-dropdown>
+          </a>
+          <div class="xl:hidden mobile-nav-divider">
+            <router-link :to="{ name: 'politicians' }" @click.native="closeNav" class="block mt-4 xl:inline-block xl:mt-0 xl:mr-4">Current leaders</router-link>
+            <router-link :to="{ name: '' }" @click.native="closeNav" class="block mt-4 xl:inline-block xl:mt-0 xl:mr-4">Upcoming leaders</router-link>
+            <router-link :to="{ name: '' }" @click.native="closeNav" class="block mt-4 xl:inline-block xl:mt-0 xl:mr-4">Past leaders</router-link>
+          </div>
+          <router-link :to="{ name: 'political-parties' }" @click.native="closeNav" class="block mt-4 xl:inline-block xl:mt-0 xl:mr-4 mobile-nav-divider">Political parties</router-link>
         </div>
-      </li>
-      <li class="xl:visible" :class="profileShowClass">
-        <our-country-selector v-model="country" />
-      </li>
-    </ul>
+        <div>
+          <ul class="relative xl:inline-flex xl:items-center">
+            <li>
+              <router-link :to="{ name: 'about-us' }" @click.native="closeNav" class="block xl:px-4 xl:py-2 xl:border-b border-transparent hover:border-primary mt-4 xl:mt-0">About</router-link>
+            </li>
+            <li class="mobile-nav-divider">
+              <router-link :to="{ name: 'contact-us' }" @click.native="closeNav" class="block xl:px-4 xl:py-2 xl:border-b border-transparent hover:border-primary mt-4 xl:mt-0">Contact</router-link>
+            </li>
+            <li class="donate-wrapper hidden">
+              <router-link :to="{ name: 'donate' }" @click.native="closeNav" class="px-4 py-2 mt-4 xl:ml-4 xl:mt-0 btn-primary-outline btn-sm block leading-tight">Donate</router-link>
+            </li>
+            <li class="xl:absolute border-r xl:ml-4 h-12 right-0 mt-4 xl:mt-0 hidden xl:inline-block">
+              <div class="search-wrapper h-full relative mr-2 xl:mr-8">
+                <input v-model="searchQuery" type="text" ref="search" class="search-input h-full w-full xl:w-6 xl:opacity-0 pr-6 xl:pl-0 pl-4 py-2" placeholder="Search" />
+                <img class="search-img" src="@/assets/img/search.svg"/>
+                <img @click="clearSearch" class="search-clear" src="@/assets/img/close.svg"/>
+              </div>
+            </li>
+          </ul>
+          <ul class="xl:inline-flex xl:items-center">
+            <li class="xl:ml-9 xl:mr-2" v-if="!isLoggedIn">
+              <router-link :to="{ name: 'sign-up' }" @click.native="closeNav" class="mt-4 px-4 py-2 xl:mt-0 btn-primary btn-sm inline-block leading-tight w-48 xl:w-auto">Sign up</router-link>
+            </li>
+            <li v-if="!isLoggedIn" class="mobile-nav-divider">
+              <router-link :to="{ name: 'sign-in' }" @click.native="closeNav" class="mt-2 px-4 py-3 xl:mt-0 border xl:border-b border-transparent hover:border-primary inline-block leading-tight font-circular w-48 xl:w-auto">Log in</router-link>
+            </li>
+            <li v-if="isLoggedIn" class="xl:hidden">
+              <a @click="signOut" class="mt-4 px-4 py-3 xl:mt-0 border border-gray-96 xl:border-b xl:border-transparent hover:border-primary inline-block leading-tight font-circular w-48 xl:w-auto">Log out</a>
+            </li>
+            <li class="xl:hidden">
+              <router-link :to="{ name: 'donate' }" @click.native="closeNav" class="px-4 py-2 mt-4 xl:ml-4 xl:mt-0 btn-primary-outline btn-sm inline-block leading-tight w-48 xl:w-auto">Donate</router-link>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <ul class="w-full xl:w-auto flex items-center order-0 xl:order-1" :class="openNav ? 'h-auto justify-center' : 'h-0 justify-end'">
+        <li :class="profileShowClass" class="profile-wrapper xl:top-0 xl:relative right-0 w-auto h-14 flex items-center font-circular xl:hidden">
+          <div class="search-wrapper h-full relative xl:mr-8">
+            <input v-model="searchQuery" type="text" ref="search" :class="searchClass" class="search-input mobile-search h-full w-full xl:w-6 xl:opacity-0 pr-6 xl:pl-0 pl-4 py-2" placeholder="Search" />
+            <img v-if="!search" @click="expandSearch" class="search-img z-10" src="@/assets/img/search.svg"/>
+            <img v-else @click="clearSearch" class="search-clear" src="@/assets/img/close.svg"/>
+          </div>
+        </li>
+        <li v-if="!isLoggedIn && !search" :class="profileShowClass" class="profile-wrapper right-0 w-auto pl-4 h-14 flex items-center font-circular xl:hidden">
+          <our-dropdown class="xl:visible" listClass="unknown-profile-dropdown" width="w-56" :imageSrc="require('@/assets/img/user-primary.svg')">
+            <our-dropdown-item isLink :to="{ name: 'sign-up' }" class="btn-primary btn-sm block leading-tight h-10 flex items-center justify-center" @click.native="closeNav">Sign up</our-dropdown-item>
+            <our-dropdown-item isLink :to="{ name: 'sign-in' }" class="py-2 hover:border-primary block leading-tight font-circular flex items-center justify-center" @click.native="closeNav">Log in</our-dropdown-item>
+          </our-dropdown>
+        </li>
+        <li v-if="isLoggedIn && !search" :class="profileShowClass" class="profile-wrapper xl:top-0 xl:relative right-0 w-auto pl-4 h-14 flex items-center font-circular">
+          <div class="notification bg-gray-200 rounded-full text-xs flex xl:visible items-center justify-center mr-5 relative leading-tight">12</div>
+          <our-dropdown class="ml-1 xl:ml-0 xl:mr-3 xl:visible" width="w-56" listClass="profile-dropdown" :imageSrc="require('@/assets/img/user-primary.svg')">
+            <our-dropdown-item>
+              <p>Signed in as {{ user.email }}</p>
+              <p v-if="user.joinedBy" class="text-gray-500 text-xs pt-2">via {{ user.joinedBy }}</p>
+            </our-dropdown-item>
+            <our-dropdown-divider />
+            <our-dropdown-item isLink :to="{ name: 'account-home' }" @click.native="closeNav">Account preferences</our-dropdown-item>
+            <our-dropdown-item isLink :to="{ name: 'account-subscriptions' }" @click.native="closeNav">Manage subscriptions</our-dropdown-item>
+            <our-dropdown-divider />
+            <our-dropdown-item isLink :to="{ name: '' }" @click.native="signOut">Sign out</our-dropdown-item>
+          </our-dropdown>
+        </li>
+        <li class="xl:visible -mb-4 xl:mb-0 xl:mt-0" :class="navToggleClass">
+          <our-country-selector v-model="country" />
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
 </template>
@@ -82,7 +114,15 @@ export default {
       openNav: false,
       searchQuery: '',
       country: 'ngr',
+      search: false,
+      shrinkIcon: false,
     };
+  },
+  created() {
+    window.addEventListener('scroll', this.handleScroll, { passive: true });
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
     toggleNav() {
@@ -94,11 +134,23 @@ export default {
     clearSearch() {
       this.$refs.search.focus();
       this.searchQuery = '';
+      this.search = false;
+    },
+    expandSearch() {
+      this.search = true;
+      this.$refs.search.focus();
     },
     signOut() {
       this.$store.commit('clearJWT');
       this.$store.commit('clearCurrentUser');
       this.closeNav();
+    },
+    handleScroll() {
+      const distanceY = window.scrollY;
+      const shouldShrink = distanceY >= 20;
+      if (this.shrinkIcon !== shouldShrink) {
+        this.shrinkIcon = shouldShrink;
+      }
     },
   },
   computed: {
@@ -108,15 +160,29 @@ export default {
     ]),
     navToggleClass() {
       if (this.openNav) return 'block';
-      return 'hidden';
+      return 'hidden xl:block';
     },
     profileShowClass() {
-      if (this.openNav) return 'visible';
-      return 'invisible';
+      if (this.openNav) return 'hidden xl:initial';
+      return '';
     },
     menuToggleClass() {
-      if (this.openNav) return 'open';
+      if (this.openNav) return 'flex-wrap open -mt-3';
       return '';
+    },
+    searchClass() {
+      if (this.search) return 'mobile-search-expanded';
+      return '';
+    },
+    navClass() {
+      let cx = 'bg-white xl:bg-transparent';
+      if (this.$route.name !== 'home') {
+        cx = 'bg-white';
+      }
+      if (this.shrinkIcon) {
+        cx = 'nav-shrinked bg-white';
+      }
+      return cx;
     },
   },
 };
@@ -127,51 +193,73 @@ export default {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: white;
+
+    &.nav-shrinked {
+      @screen xl {
+        margin: 0;
+        background: white;
+
+        .nav-content {
+          @apply shadow-primary;
+          padding: 0.25rem 4.25rem;
+        }
+
+        .nav-icon {
+          img {
+            width: 5rem;
+            margin-top: -0.5rem;
+            background: transparent;
+          }
+        }
+      }
+    }
 
     @screen xl {
-      background: transparent;
-      margin-left: 13.65rem;
-      margin-right: 4.25rem;
-      min-height: 6.25rem;
-      position: initial;
+      margin: 0 4.25rem;
 
-      .nav-icon img {
-        left: 3.95rem;
-        top: 1.315rem;
-        width: 6.875rem;
-        padding: 5px;
+      .nav-icon {
+        display: inline-block;
+        height: 2rem;
+
+        img {
+          width: 9rem;
+          padding: 0.3125rem;
+          padding-right: 2rem;
+          margin-right: -0.3125rem;
+          transition: width 0.5s, margin 0.5s ease-in-out;
+        }
       }
     }
 
     .nav-content {
-      background: white;
+      @screen xl {
+        background: transparent;
+      }
 
       &.open {
-        @apply fixed w-full min-h-screen overflow-scroll right-0 bottom-0 top-0 px-6;
+        @apply fixed w-full min-h-screen overflow-scroll right-0 bottom-0 top-0 px-3 bg-white block;
 
         @screen xl {
-          @apply bg-transparent px-0 overflow-auto;
+          @apply bg-transparent px-0 overflow-visible;
 
           position: initial;
-          min-height: initial;
         }
       }
     }
 
     .nav-menu {
       cursor: pointer;
-      height: 16px;
+      height: 1rem;
       position: relative;
       transform: rotate(0deg);
       transition: .5s ease-in-out;
-      width: 24px;
+      width: 20px;
 
       span {
         background: black;
-        border-radius: 4px;
+        border-radius: 0.25rem;
         display: block;
-        height: 1px;
+        height: 1.5px;
         left: 0;
         opacity: 1;
         position: absolute;
@@ -181,34 +269,40 @@ export default {
         width: 100%;
 
         &:nth-child(1) {
-          top: 0px;
+          top: 0;
         }
 
         &:nth-child(2) {
-          top: 8px;
+          top: 0.5rem;
         }
 
         &:nth-child(3) {
-          top: 16px;
+          top: 1rem;
+          width: 80%;
         }
       }
+    }
 
-      &.open {
-        span:nth-child(1) {
-          left: 5px;
-          top: -2px;
-          transform: rotate(45deg);
-        }
+    .mobile-nav-divider {
+      position: relative;
+      margin-bottom: 2rem;
 
-        span:nth-child(2) {
-          opacity: 0;
-          width: 0%;
-        }
+      &:after {
+        @apply bg-gray-db;
 
-        span:nth-child(3) {
-          left: 5px;
-          top: 15px;
-          transform: rotate(-45deg);
+        content: '';
+        height: 1px;
+        width: 3.125rem;
+        bottom: -1rem;
+        left: calc(50% - 1.5625rem);
+        position: absolute
+      }
+
+      @screen xl {
+        margin-bottom: 0;
+
+        &:after {
+          content: none;
         }
       }
     }
@@ -219,14 +313,31 @@ export default {
       }
     }
 
+    /deep/.unknown-profile-dropdown {
+      padding: 2rem;
+    }
+
+    /deep/.profile-dropdown,
+    /deep/.unknown-profile-dropdown {
+      top: calc(100% + 1.45rem);
+      right: -0.75rem;
+      z-index: -1;
+
+      @screen xl {
+        right: -0.5rem;
+        z-index: inherit;
+      }
+    }
+
     .donate-wrapper {
       @screen xl {
         margin-right: 5.7rem;
+        display: initial;
       }
     }
 
     .profile-wrapper {
-      top: 1.25rem;
+      top: calc(50% - 1.25rem);
 
       .notification {
         position: relative;
@@ -257,15 +368,18 @@ export default {
       .search-clear {
         background: white;
         cursor: pointer;
-        height: calc(65% - 1px);
+        height: 36px;
         position: absolute;
         right: 0;
-        top: 17.5%;
+        top: calc(50% - 18px);
         z-index: 1;
+        padding: 0.25rem;
       }
 
       .search-clear {
-        display: none;
+        @screen xl {
+          display: none;
+        }
       }
 
       .search-input {
@@ -279,17 +393,26 @@ export default {
         transition: all .5s;
 
         &:focus,
-        &:not(:placeholder-shown) {
-          cursor: auto;
-          opacity: 1;
-          width: 100%;
-          min-width: 100%;
-          background: white;
+        .search-img:focus,
+        &:not(:placeholder-shown),
+        &.mobile-search-expanded {
+          @apply cursor-auto opacity-100 w-full min-w-full bg-white;
           z-index: 1;
 
           @screen xl {
             @apply border-b;
-            width: 500px;
+            width: 31.25rem;
+          }
+        }
+
+        &.mobile-search {
+          z-index: 0;
+
+          &.mobile-search-expanded {
+            z-index: 1;
+            width: calc(100vw - 1.5rem);
+            padding-right: 2rem;
+            padding-left: 0.5rem;
           }
         }
 

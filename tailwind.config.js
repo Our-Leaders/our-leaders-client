@@ -52,6 +52,7 @@ module.exports = {
         'passport': '384px'
       },        
       width: {
+        '9': '2.25rem',
         '28': '7rem',
         '30': '7.5rem',
         '1/8': '12.5%',
@@ -72,6 +73,7 @@ module.exports = {
       },
       boxShadow: {
         primary: '0px 12px 52px rgba(0, 0, 0, 0.1)',
+        shallow: '0px 12px 16px rgba(0, 0, 0, 0.1)',
       }
     },
   },
