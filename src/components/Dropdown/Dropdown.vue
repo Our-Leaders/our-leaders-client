@@ -14,10 +14,10 @@
       <img v-if="showIcon" class="side-arrow" src="../../assets/img/angle-arrow-down.svg"/>
     </div>
     <transition name="fade" mode="out-in">
-      <div class="fixed lg:absolute w-full dropdown p-6 lg:px-4 lg:py-3 right-0 bg-white" :class="`lg:${width || 'w-64'} ${alignClass} ${listClass} ${dropdownListClass}`" v-if="isOpen">
-        <div class="lg:hidden flex justify-between items-center font-circular mb-4">
-          <p>{{ heading }}</p>
-          <img class="close-button" @click="toggleDropdown" src="@/assets/img/close.svg"/>
+      <div class="p-3 xl:px-4 right-0 bg-white -mt-3" :class="`${width || 'w-64'} ${alignClass} ${listClass} ${dropdownListClass}`" v-if="isOpen">
+        <div class="dropdown-mobile-header mb-4 border-gray-200 border-b sticky w-full top-0 bg-white z-10 flex justify-center items-center">
+          <p class="py-5 uppercase font-circular text-sm">{{ heading }}</p>
+          <img @click="closeDropdown" class="absolute right-0" src="@/assets/img/close.svg"/>
         </div>
         <ul>
           <slot />
@@ -49,7 +49,6 @@ export default {
     },
     heading: {
       type: String,
-      required: true,
     },
     alignRight: {
       type: Boolean,
@@ -57,6 +56,10 @@ export default {
     listClass: {
       type: String,
       default: '',
+    },
+    fillScreenOnMobile: {
+      default: false,
+      type: Boolean,
     },
   },
   data() {
@@ -94,10 +97,15 @@ export default {
       return 'right-0';
     },
     dropdownListClass() {
+      let cx = 'dropdown';
+
       if (this.imageSrc) {
-        return 'image-dropdown-list';
+        cx += ' image-dropdown-list';
       }
-      return '';
+      if (this.fillScreenOnMobile) {
+        cx += ' mobile-dropdown';
+      }
+      return cx;
     },
   },
 };
@@ -105,9 +113,20 @@ export default {
 
 <style lang="scss" scoped>
   .dropdown {
-    overflow-y: scroll;
-    top: 0;
+    @apply shadow-shallow;
+
+    @screen xl {
+      @apply shadow-primary;
+    }
+
+    overflow-y: auto;
+    position: absolute;
+    top: calc(100% + 0.75rem);
     z-index: 100;
+
+    .dropdown-mobile-header {
+      display: none;
+    }
 
     .close-button {
       margin-right: -6px;
@@ -115,17 +134,16 @@ export default {
     }
 
     @screen lg {
-      @apply shadow-primary;
       top: 2rem;
       max-height: 50vh;
 
       &.image-dropdown-list {
-        top: 2.9rem;
+        top: calc(100% + 1.5rem);
       }
     }
 
     @screen xl {
-      top: 3.5rem;
+      top: 4.25rem;
     }
   }
 
@@ -136,12 +154,17 @@ export default {
   }
 
   @media only screen and (max-device-width: 768px) {
-    .dropdown {
-      height: 100%;
+    .dropdown.mobile-dropdown {
+      height: calc(100vh + 0.75rem);
       position: fixed;
       right: 0;
       top: 0;
       width: 100%;
+      box-shadow: none;
+
+      .dropdown-mobile-header {
+        display: flex;
+      }
     }
 
     .side-arrow {

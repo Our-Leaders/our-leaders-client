@@ -104,6 +104,10 @@ input[type=number]::-webkit-outer-spin-button {
   &:hover {
     background: rgba(206, 152, 51, 0.9);
   }
+
+  &.btn-sm {
+    @apply py-2 px-3; 
+  }
 }
 
 .btn-primary-outline,
@@ -112,6 +116,10 @@ input[type=number]::-webkit-outer-spin-button {
   outline: none;
   font-family: 'Circular Std';
   @apply bg-transparent border border-primary p-3;
+
+  &.btn-sm {
+    @apply py-2 px-3; 
+  }
 }
 
 .btn-subscribe,
