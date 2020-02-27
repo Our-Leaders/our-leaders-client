@@ -237,7 +237,7 @@ export default {
       }
 
       &.open {
-        @apply fixed w-full min-h-screen overflow-scroll right-0 bottom-0 top-0 px-3 bg-white;
+        @apply fixed w-full min-h-screen overflow-scroll right-0 bottom-0 top-0 px-3 bg-white block;
 
         @screen xl {
           @apply bg-transparent px-0 overflow-visible;
