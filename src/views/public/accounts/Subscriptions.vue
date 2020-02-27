@@ -58,7 +58,8 @@ export default {
         this.loading = true;
         const response = await this.subscriptionsServices.getSubscriptions(this.filter);
 
-        this.subscriptions = response.data.subscriptions;
+        // Temporary till we can add type query to subscriptions
+        this.subscriptions = response.data.subscriptions.filter(x => x.type !== 'newsletter');
         this.loading = false;
       } catch (error) {
         this.loading = false;
