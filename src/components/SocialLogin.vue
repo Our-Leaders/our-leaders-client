@@ -50,7 +50,7 @@ export default {
       this.firebase.auth().signInWithPopup(provider).then((result) => {
         this.loading[option] = false;
         const data = {};
-        data[`${option}Id`] = result.credential.accessToken;
+        data[`${option}Id`] = result.credential.idToken;
         this.$emit('successful', data);
       }, (error) => {
         this.loading[option] = false;

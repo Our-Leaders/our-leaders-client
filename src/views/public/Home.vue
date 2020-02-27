@@ -43,7 +43,7 @@
         <div class="relative w-full mx-auto h-auto">
           <div class="bg-gray-fa py-16 lg:py-32">
             <div class="flex justify-start flex-col lg:flex-row what-to-do-section md:mx-6 lg:mx-0">
-              <div class="what-to-do-left-section px-6 md:px-0 lg:px-12 xl:w-full">
+              <div class="what-to-do-left-section md:mt-6 px-6 md:px-0 lg:px-12 xl:w-full">
                 <h1>What <span class="text-primary">you</span> <span class="whitespace-pre">can do here</span></h1>
                 <p class="mb-6 mt-2 lg:mb-10 lg:mt-6 hidden md:block">Get instant updates on your favourite African leaders.</p>
                 <router-link :to="{ name: 'politicians' }" class="px-4 py-2 mt-0 btn-primary inline-block w-40 text-center hidden lg:block">View leaders</router-link>

@@ -74,6 +74,10 @@ module.exports = {
       boxShadow: {
         primary: '0px 12px 52px rgba(0, 0, 0, 0.1)',
         shallow: '0px 12px 16px rgba(0, 0, 0, 0.1)',
+      },
+      zIndex: {
+        '100': 100,
+        '200': 200,
       }
     },
   },

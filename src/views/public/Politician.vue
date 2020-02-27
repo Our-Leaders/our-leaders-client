@@ -37,27 +37,29 @@
             <span class="inline-block mr-2 md:mr-2 h-4 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.down}}</span>
           </div>
           <div id="share" class="inline-block">
-            <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/>
-            <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/twitter-gray.svg"/>
-            <img class="cursor-pointer inline-block h-4" src="@/assets/img/instagram-gray.svg"/>
+            <a v-if="politician.socials.facebook" target="_blank" :href="`https://facebook.com/${politician.socials.facebook}`"><img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/></a>
+            <a v-if="politician.socials.twitter" target="_blank" :href="`https://twitter.com/${politician.socials.twitter}`"><img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/twitter-gray.svg"/></a>
+            <a v-if="politician.socials.instagram" target="_blank" :href="`https://instagram.com/${politician.socials.instagram}`"><img class="cursor-pointer inline-block h-4" src="@/assets/img/instagram-gray.svg"/></a>
           </div>
         </div>
         <div class="hidden md:block mb-10">
-          <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/>
-          <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/twitter-gray.svg"/>
-          <img class="cursor-pointer inline-block h-4" src="@/assets/img/instagram-gray.svg"/>
+          <a v-if="politician.socials.facebook" target="_blank" :href="`https://facebook.com/${politician.socials.facebook}`"><img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/></a>
+          <a v-if="politician.socials.twitter" target="_blank" :href="`https://twitter.com/${politician.socials.twitter}`"><img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/twitter-gray.svg"/></a>
+          <a v-if="politician.socials.instagram" target="_blank" :href="`https://instagram.com/${politician.socials.instagram}`"><img class="cursor-pointer inline-block h-4" src="@/assets/img/instagram-gray.svg"/></a>
         </div>
-        <div class="hidden md:flex flex-wrap">
+        <div class="hidden md:flex flex-wrap" v-if="politician.socials.twitter">
           <div class="w-full border-b-1 border-gray-400">
-            <span class="text-2xl mr-2">Tweets</span>
+            <!-- <span class="text-2xl mr-2">Tweets</span>
             <span class="text-base mr-1">by</span>
-            <span class="cursor-pointer twitter-link text-base">@MBuhari</span>
+            <span class="cursor-pointer twitter-link text-base">{{twitterHandle}}</span>
             <button class="float-right align-middle font-semibold twitter-button px-2 rounded-full">Follow</button>
-            <hr class="mt-2"/>
-
+            <hr class="mt-2"/> -->
             <!-- Twitter -->
             <div class="timeline-wrapper">
-              <a class="twitter-timeline" href="https://twitter.com/TwitterDev/timelines/539487832448843776?ref_src=twsrc%5Etfw">National Park Tweets - Curated tweets by TwitterDev</a>
+              <twitter>
+                <div slot="loading">loading .....</div>
+                <a class="twitter-timeline" :href="`https://twitter.com/${politician.socials.twitter}?ref_src=twsrc%5Etfw`"></a>
+              </twitter>
             </div>
           </div>
         </div>
@@ -81,9 +83,18 @@
           </div>
           <div id="share" class="inline-block pl-5">
             <span id="testing" class="cursor-pointer text-xs mr-6">Share Profile</span>
-            <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/>
-            <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/twitter-gray.svg"/>
-            <img class="cursor-pointer inline-block h-4" src="@/assets/img/instagram-gray.svg"/>
+              <a v-if="politician.socials.facebook" class="relative" target="_blank" :href="`https://facebook.com/${politician.socials.facebook}`">
+                <div class="absolute opacity-0 h-full w-full top-0 left-0">
+                  <ShareFacebook title="Politician Test" :url="`http://example.com/politicians/${politician.socials.twitter}`"></ShareFacebook>
+                </div>
+                <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/>
+              </a>
+              <a v-if="politician.socials.twitter" class="relative" href="#">
+                <div class="absolute opacity-0 h-full w-full top-0 left-0">
+                  <ShareTwitter :title="`Click to read more about ${politician.name}`" :url="`http://localhost:8080/politicians/${politician.socials.twitter}`"></ShareTwitter>
+                </div>
+                <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/twitter-gray.svg"/>
+              </a>
           </div>
         </div>
         <div class="hidden md:block pr-2 w-full" v-if="position.inOffice">
@@ -150,17 +161,19 @@
                     </span>
                   </div>
 
-                  <div class="block md:hidden w-full border-t-2 border-gray-200 mb-4 pt-10">
+                  <div class="block md:hidden w-full border-t-2 border-gray-200 mb-4 pt-10" v-if="politician.socials.twitter">
                     <div class="w-full border-b-1 border-gray-400">
-                      <span class="text-2xl mr-2">Tweets</span>
+                      <!-- <span class="text-2xl mr-2">Tweets</span>
                       <span class="text-base mr-1">by</span>
-                      <span class="cursor-pointer twitter-link text-base">@MBuhari</span>
-                      <button class="float-right align-middle font-semibold twitter-button px-2 rounded-full">Follow</button>
-                      <hr class="mt-2"/>
+                      <span class="cursor-pointer twitter-link text-base">{{twitterHandle}}</span>
+                      <button class="float-right align-middle font-semibold twitter-button px-2 rounded-full">Follow</button> -->
 
                       <!-- Twitter -->
                       <div class="timeline-wrapper">
-                        <a class="twitter-timeline" href="https://twitter.com/TwitterDev/timelines/539487832448843776?ref_src=twsrc%5Etfw">National Park Tweets - Curated tweets by TwitterDev</a>
+                        <twitter>
+                          <div slot="loading">loading .....</div>
+                          <a class="twitter-timeline" :href="`https://twitter.com/${politician.socials.twitter}?ref_src=twsrc%5Etfw`"></a>
+                        </twitter>
                       </div>
                     </div>
                   </div>
@@ -261,6 +274,9 @@ export default {
     },
     quarterData() {
       return ValidatorUtil.isDefined(this.politician) && this.page === 'accomplishments' ? this.parseQuarterlyData(this.politician.accomplishments) : {};
+    },
+    twitterHandle() {
+      return /^@+\w+/.test(this.politician.socials.twitter) ? this.politician.socials.twitter : `@${this.politician.socials.twitter}`;
     },
   },
   data() {

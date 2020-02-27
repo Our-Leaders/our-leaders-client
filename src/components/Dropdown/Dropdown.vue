@@ -2,19 +2,20 @@
   <button
     class="relative text-left focus:outline-none"
     :class="parentWidth || 'w-auto'"
-    @focusout="closeDropdown"
+    v-on-clickout="closeDropdown"
+    @focusout="!leaveOpen && closeDropdown()"
     @mouseenter="showOnHover && openDropdown()"
     @mouseleave="showOnHover && closeDropdown()"
   >
     <div v-if="imageSrc" @click="!showOnHover && toggleDropdown()" class="relative z-20 block h-10 w-10 bg-gray-200 rounded-full overflow-hidden">
       <img class="h-full w-full object-cover" :src="imageSrc" alt="avatar">
     </div>
-    <div v-if="!imageSrc" @click="!showOnHover && toggleDropdown()" class="relative block xl:py-4">
+    <div v-if="!imageSrc" @click="!showOnHover && toggleDropdown()" :class="`relative block xl:${padding}`">
       <span class="h-full w-full object-cover font-pt">{{ heading }}</span>
       <img v-if="showIcon" class="side-arrow" src="../../assets/img/angle-arrow-down.svg"/>
     </div>
     <transition name="fade" mode="out-in">
-      <div class="p-3 xl:px-4 right-0 bg-white -mt-3" :class="`${width || 'w-64'} ${alignClass} ${listClass} ${dropdownListClass}`" v-if="isOpen">
+      <div class="p-3 xl:px-4 right-0 bg-white" :class="`${width || 'w-64'} ${alignClass} ${listClass} ${dropdownListClass} ${listMargin}`" v-if="isOpen">
         <div class="dropdown-mobile-header mb-4 border-gray-200 border-b sticky w-full top-0 bg-white z-10 flex justify-center items-center">
           <p class="py-5 uppercase font-circular text-sm">{{ heading }}</p>
           <img @click="closeDropdown" class="absolute right-0" src="@/assets/img/close.svg"/>
@@ -28,9 +29,16 @@
 </template>
 
 <script>
+import { mixin as clickout } from 'vue-clickout';
+
 export default {
+  mixins: [clickout],
   props: {
     showIcon: {
+      default: false,
+      type: Boolean,
+    },
+    leaveOpen: {
       default: false,
       type: Boolean,
     },
@@ -40,6 +48,10 @@ export default {
     },
     parentWidth: {
       type: String,
+    },
+    padding: {
+      type: String,
+      default: 'py-4',
     },
     width: {
       type: String,
@@ -56,6 +68,10 @@ export default {
     listClass: {
       type: String,
       default: '',
+    },
+    listMargin: {
+      type: String,
+      default: '-mt-3',
     },
     fillScreenOnMobile: {
       default: false,

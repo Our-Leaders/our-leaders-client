@@ -27,38 +27,6 @@
     </div>
     <hr/>
 
-    <!-- Connections -->
-    <div class="flex flex-wrap mt-5 mb-6">
-      <div class="w-full relative mb-8">
-        <h3 class="text-xl mb-5 font-bold">Connections</h3>
-        <p class="w-full lg:w-1/2 xl:w-1/2">
-          <span class="block text-base font-bold mb-3">Facebook</span>
-          <span class="block text-sm">
-            This makes sharing alot easier. We will never post anything without your permission.
-          </span>
-        </p>
-        <!-- Will work on this in another card -->
-        <button class="btn-grey-outline py-1 px-2 relative lg:absolute xl:absolute top-0 right-0 mt-8 lg:mt-16 xl:mt-16">
-          <img class="h-5 w-5 inline-block mr-2" src="@/assets/img/facebook-color.svg"/>
-          <span class="text-sm align-middle">Connect Facebook</span>
-        </button>
-      </div>
-      <div class="w-full relative">
-        <p class="w-full lg:w-1/2 xl:w-1/2">
-          <span class="block text-base font-bold mb-3">Twitter</span>
-          <span class="block text-sm">
-            This makes sharing alot easier. We will never post anything without your permission.
-          </span>
-        </p>
-        <!-- Will work on this in another card -->
-        <button class="btn-grey-outline py-1 px-2 relative lg:absolute xl:absolute top-0 right-0 mt-4">
-          <img class="h-5 w-5 inline-block mr-2" src="@/assets/img/twitter-color.svg"/>
-          <span class="text-sm align-middle">Connect Twitter</span>
-        </button>
-      </div>
-    </div>
-    <hr/>
-
     <!-- Account -->
     <div class="flex flex-wrap mt-5 mb-6">
       <h3 class="block w-full text-xl mb-5 font-bold">Account</h3>
