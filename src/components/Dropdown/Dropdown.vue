@@ -49,7 +49,6 @@ export default {
     },
     heading: {
       type: String,
-      required: true,
     },
     alignRight: {
       type: Boolean,
@@ -114,7 +113,11 @@ export default {
 
 <style lang="scss" scoped>
   .dropdown {
-    @apply shadow-primary;
+    @apply shadow-shallow;
+
+    @screen xl {
+      @apply shadow-primary;
+    }
 
     overflow-y: auto;
     position: absolute;
@@ -140,7 +143,7 @@ export default {
     }
 
     @screen xl {
-      top: 3.75rem;
+      top: 4.25rem;
     }
   }
 

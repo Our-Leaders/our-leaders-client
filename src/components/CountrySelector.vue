@@ -87,7 +87,7 @@ export default {
 
     @screen xl {
       @apply shadow-primary h-auto;
-      top: 3.5rem;
+      top: 4.25rem;
       max-height: 20rem;
     }
   }
