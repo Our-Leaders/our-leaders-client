@@ -1,10 +1,11 @@
 <template>
   <label class="flex justify-between">
-    {{label}}
-    <span class="checkbox">
+    <span v-if="!left">{{label}}</span>
+    <span class="checkbox mt-1" :class="{'mr-2': left}">
       <img class="z-30" src="@/assets/img/checked.svg"/>
-      <input class="absolute z-20" type="checkbox" v-model="value" @click="$emit('change', value)"/>
+      <input class="absolute z-20" type="checkbox" v-model="value" @change="$emit('change', value)"/>
     </span>
+    <span v-if="left">{{label}}</span>
   </label>
 </template>
 
@@ -15,9 +16,13 @@ export default {
     label: {
       type: String,
     },
-    model: {
+    left: {
       type: Boolean,
       default: false,
+    },
+    model: {
+      type: Boolean,
+      required: true,
     },
   },
   data() {
