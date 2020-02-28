@@ -303,7 +303,7 @@ export default {
       } catch (err) {
         this.loading = false;
         this.displayError({
-          message: 'Email or password is incorrect.',
+          message: err.response.data.message,
         });
       }
     },

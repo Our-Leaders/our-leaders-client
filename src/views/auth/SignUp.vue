@@ -233,7 +233,7 @@ export default {
         this.page = 1;
       } catch (err) {
         this.loading = false;
-        this.showInfo('Uh Oh', 'Email or password is incorrect.', 'error');
+        this.showInfo('Uh Oh', err.response.data.message, 'error');
       }
     },
     async verify() {
