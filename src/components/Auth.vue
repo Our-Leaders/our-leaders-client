@@ -34,6 +34,12 @@
                 </div>
               </div>
             </div>
+            <div class="w-full mb-6">
+              <our-checkbox left
+                :model="data.subscribe"
+                v-on:change="data.subscribe = $event"
+                label="I would like to subscribe to the montly news letter."></our-checkbox>
+            </div>
             <button
               :class="{
                 'btn-primary w-full mb-8': true,
@@ -202,6 +208,7 @@ export default {
         password: null,
         phone: null,
         verificationCode: null,
+        subscribe: true,
       },
       displayPassword: false,
       isSignUp: false,
@@ -296,7 +303,7 @@ export default {
       } catch (err) {
         this.loading = false;
         this.displayError({
-          message: 'Email or password is incorrect.',
+          message: err.response.data.message,
         });
       }
     },
