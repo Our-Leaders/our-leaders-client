@@ -24,6 +24,7 @@ const firebaseConfig = {
 
 // eslint-disable-next-line no-console
 console.log(process.env);
+// eslint-disable-next-line no-console
 console.log(process.env.VUE_APP_API_KEY);
 
 firebase.initializeApp(firebaseConfig);
