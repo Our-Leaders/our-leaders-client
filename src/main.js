@@ -22,11 +22,6 @@ const firebaseConfig = {
   appId: process.env.VUE_APP_ID,
 };
 
-// eslint-disable-next-line no-console
-console.log(process.env);
-// eslint-disable-next-line no-console
-console.log(process.env.VUE_APP_API_KEY);
-
 firebase.initializeApp(firebaseConfig);
 
 Vue.config.productionTip = false;
