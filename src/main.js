@@ -21,6 +21,8 @@ const firebaseConfig = {
   messagingSenderId: process.env.VUE_APP_MESSAGING_SENDER_ID,
   appId: process.env.VUE_APP_ID,
 };
+
+// eslint-disable-next-line no-console
 console.log(process);
 
 firebase.initializeApp(firebaseConfig);
