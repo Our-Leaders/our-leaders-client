@@ -6,24 +6,24 @@
     </our-alert>
 
     <!-- Left Side -->
-    <div class="w-1/3 bg-gray-100 bg-overlay relative">
-      <router-link :to="{ name: 'home' }"><img class="h-16 my-6 mx-12 absolute" src="@/assets/img/logo-b.svg"/></router-link>
-      <div class="flex flex-col justify-center h-full px-12">
-        <span class="text-primary text-4xl mb-6" v-if="page === 0">
+    <div class="w-full lg:w-1/3 bg-gray-100 bg-overlay relative">
+      <router-link :to="{ name: 'home' }"><img class="h-16 my-6 mx-auto lg:mx-12 xl:mx-12 relative lg:absolute xl:absolute" src="@/assets/img/logo-b.svg"/></router-link>
+      <div class="flex flex-col justify-center lg:h-full xl:h-full px-12">
+        <span class="text-primary text-xl md:text-2xl lg:text-4xl mb-6 text-center lg:text-left" v-if="page === 0">
           Get live data on the performance and activities of cuttent African Leaders.
         </span>
-        <span class="text-primary text-4xl mb-6" v-if="page === 1">
+        <span class="text-primary text-xl md:text-2xl lg:text-4xl mb-6 text-center lg:text-left" v-if="page === 1">
           Now, you can join the league of responsible citizens to hold your leaders accountable.
         </span>
-        <hr class="bg-primary h-px w-20"/>
+        <hr class="mx-auto mb-2 lg:mx-0 lg:mb-0 bg-primary h-px w-20"/>
       </div>
     </div>
 
     <!-- Right Side -->
-    <div class="w-2/3 flex flex-wrap flex-col justify-center">
+    <div class="w-full lg:w-2/3 flex flex-wrap flex-col justify-center">
       <transition name="fade">
         <div id="container">
-          <div class="mx-auto w-6/12" v-if="page === 0">
+          <div class="mt-20 lg:mt-0 mx-auto w-10/12 lg:w-6/12" v-if="page === 0">
             <span class="block text-5xl mb-10">Sign Up</span>
             <form @submit.prevent="proceed">
               <div class="mb-6">
@@ -83,7 +83,7 @@
           </div>
 
           <!-- Welcome Page -->
-          <div class="mx-auto w-6/12" v-if="page === 1">
+          <div class="mt-20 lg:mt-0 mx-auto w-10/12 lg:w-6/12" v-if="page === 1">
             <span class="block text-5xl mb-4">Welcome!</span>
             <p class="mb-10">
               Hello CreativeChimdi, we're glad to have you.
