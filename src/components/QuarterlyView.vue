@@ -73,7 +73,7 @@
             <!-- image here -->
             <div class="w-full h-48 mb-4 bg-gray-db bg-cover bg-center" v-if="accomplishment.image && accomplishment.image.url" :style="{ 'background-image': 'url('+ accomplishment.image.url +')'  }"></div>
             <p class="">{{accomplishment.description}}</p>
-            <p class="text-gray-96 font-circular text-xs mt-3 hover:text-gray-500"><a :href="accomplishment.url" target="_blank">View full story at {{getUrlHost(accomplishment.url)}}</a></p>
+            <p v-if="accomplishment.url" class="text-gray-96 font-circular text-xs mt-3 hover:text-gray-500"><a :href="accomplishment.url" target="_blank">View full story at {{getUrlHost(accomplishment.url)}}</a></p>
           </div>
         </div>
       </div>
@@ -115,7 +115,7 @@
             <!-- image here -->
             <div class="w-full h-48 mb-4 bg-gray-db bg-cover bg-center" v-if="accomplishment.data.image && accomplishment.data.image.url" :style="{ 'background-image': 'url('+ accomplishment.data.image.url +')'  }"></div>
             <p class="">{{accomplishment.data.description}}</p>
-            <p class="text-gray-96 font-circular text-xs mt-3 hover:text-gray-500"><a :href="accomplishment.data.url" target="_blank">View full story at {{getUrlHost(accomplishment.data.url)}}</a></p>
+            <p v-if="accomplishment.data.url" class="text-gray-96 font-circular text-xs mt-3 hover:text-gray-500"><a :href="accomplishment.data.url" target="_blank">View full story at {{getUrlHost(accomplishment.data.url)}}</a></p>
           </div>
         </div>
       </div>
