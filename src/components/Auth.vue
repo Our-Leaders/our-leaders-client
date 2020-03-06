@@ -38,7 +38,7 @@
               <our-checkbox left
                 :model="data.subscribe"
                 v-on:change="data.subscribe = $event"
-                label="I would like to subscribe to the montly news letter."></our-checkbox>
+                label="I would like to subscribe to the monthly newsletter."></our-checkbox>
             </div>
             <button
               :class="{
