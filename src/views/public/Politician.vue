@@ -270,7 +270,7 @@ export default {
       }
 
       const duration = `${(new Date(background.startDate)).getFullYear()} - ${(new Date(background.endDate)).getFullYear()}`;
-      return { name: `${background.position}, ${background.institution}`, duration, inOffice: true };
+      return { name: `${background.position}${background.state ? `, ${background.state}` : ''}`, duration, inOffice: true };
     },
     quarterData() {
       return ValidatorUtil.isDefined(this.politician) && this.page === 'accomplishments' ? this.parseQuarterlyData(this.politician.accomplishments) : {};
@@ -351,9 +351,11 @@ export default {
           this.politician = cachedPolitician;
         } else {
           const response = await this.politiciansServices.getPolitician(id);
-          // For now
           this.politician = response.data.politician;
           this.$store.commit('addToViewedPoliticians', this.politician);
+        }
+        if (!this.politician.politicalParty) {
+          this.politician.politicalParty = {};
         }
         this.loading = false;
       } catch (error) {

@@ -30,7 +30,8 @@
 </template>
 
 <script>
-import monthsList from '../assets/json/months.json';
+import monthsList from '@/assets/json/months.json';
+import StringUtil from '@/helpers/stringUtil';
 
 export default {
   name: 'feeds',
@@ -50,8 +51,8 @@ export default {
     };
   },
   methods: {
-    getUrlHost(url = '') {
-      return url.match(/(?<=^((http[s]?):\/)?\/?)([^:/\s]+)((\/\w+)*\/)/g)[0].replace('/', '');
+    getUrlHost(url) {
+      return StringUtil.getUrlHost(url);
     },
   },
 };

@@ -48,7 +48,7 @@
                     v-model="data.password"
                     placeholder="Enter password"
                     required>
-                  <div class="inline-block w-1/12">
+                  <div class="inline-block w-1/12 text-right pr-2">
                     <img class="inline-block cursor-pointer"
                       src="../../assets/img/password-eye.svg"
                       @click="togglePassword"/>
@@ -59,7 +59,7 @@
                 <our-checkbox left
                   :model="data.subscribe"
                   v-on:change="data.subscribe = $event"
-                  label="I would like to subscribe to the montly news letter."></our-checkbox>
+                  label="I would like to subscribe to the monthly newsletter."></our-checkbox>
               </div>
               <button
                 :class="{

@@ -1,5 +1,5 @@
 <template>
-  <label class="flex justify-between">
+  <label class="flex justify-start">
     <span v-if="!left">{{label}}</span>
     <span class="checkbox mt-1" :class="{'mr-2': left}">
       <img class="z-30" src="@/assets/img/checked.svg"/>
