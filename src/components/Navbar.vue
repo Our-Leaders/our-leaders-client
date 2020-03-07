@@ -212,6 +212,12 @@ export default {
           }
         }
       }
+
+      @screen xxl {
+        .nav-content {
+          padding: 0.25rem 20rem;
+        }
+      }
     }
 
     @screen xl {
@@ -229,6 +235,10 @@ export default {
           transition: width 0.5s, margin 0.5s ease-in-out;
         }
       }
+    }
+
+    @screen xxl {
+      margin: 0 20rem;
     }
 
     .nav-content {

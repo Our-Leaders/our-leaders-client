@@ -7,7 +7,7 @@
             <div class="header-left-section pr-6 md:pr-0">
               <span class="text-primary">Monitor</span> the progress and performance of <router-link :to="{ name: 'politicians' }" class="border-b-4 border-primary">{{ totalPoliticians }}</router-link> African leaders
             </div>
-            <div v-if="trendingPoliticians.length > 0" class="lg:mx-12 xl:ml-4">
+            <div v-if="trendingPoliticians.length > 0" class="lg:mx-12">
               <our-trending-politicians :politicians="trendingPoliticians"></our-trending-politicians>
             </div>
           </div>
@@ -246,8 +246,8 @@ export default {
     }
 
     @screen xl {
-      padding: 8rem 10rem;
-      width: 80%;
+      padding: 8rem 0;
+      width: 70rem;
     }
 
     .header-left-section {
@@ -311,6 +311,10 @@ export default {
             position: absolute;
             right: 0;
             top: -9rem;
+          }
+
+          @screen xl {
+            right: 2.5rem;
           }
         }
 
