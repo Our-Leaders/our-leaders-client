@@ -82,7 +82,22 @@
           </our-dropdown>
         </li>
         <li v-if="isLoggedIn && !search" :class="profileShowClass" class="profile-wrapper xl:top-0 xl:relative right-0 w-auto pl-4 h-14 flex items-center font-circular">
-          <div class="notification bg-gray-200 rounded-full text-xs flex xl:visible items-center justify-center mr-5 relative leading-tight">12</div>
+          <our-dropdown
+            class="notification bg-gray-200 rounded-full text-xs flex xl:visible justify-center mr-5 relative leading-tight"
+            :class="{'active': hasNotifications}"
+            :heading="`${totalNotifications}`"
+            padding="py-0"
+            alignRight>
+            <our-dropdown-item v-if="!hasNotifications">
+              <p class="text-center">No new notifications.</p>
+            </our-dropdown-item>
+            <our-dropdown-item v-for="(notification, index) in notifications" :key="index" isLink :to="getUrl(notification)">
+              <p :class="{'text-gray-300': notification.read}" @click="toggleNotificationRead(index)">{{notification.message}}</p>
+            </our-dropdown-item>
+            <our-dropdown-item v-if="hasNotifications">
+              <p class="text-gray-300 text-center" @click="clearNotifications">Clear Notifications</p>
+            </our-dropdown-item>
+          </our-dropdown>
           <our-dropdown class="ml-1 xl:ml-0 xl:mr-3 xl:visible" width="w-56" listClass="profile-dropdown" :imageSrc="require('@/assets/img/user-primary.svg')">
             <our-dropdown-item>
               <p>Signed in as {{ user.email }}</p>
@@ -105,26 +120,60 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'our-navbar',
   data() {
     return {
+      country: 'ngr',
+      notificationsServices: this.$serviceFactory.notifications,
       openNav: false,
       searchQuery: '',
-      country: 'ngr',
       search: false,
       shrinkIcon: false,
     };
   },
   created() {
     window.addEventListener('scroll', this.handleScroll, { passive: true });
+    if (this.isLoggedIn) {
+      this.getNotifications();
+    }
   },
   destroyed() {
     window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
+    ...mapActions([
+      'clearNotifications',
+      'displayError',
+      'displaySuccess',
+      'setNotifications',
+      'toggleNotificationRead',
+    ]),
+    async getNotifications() {
+      try {
+        const response = await this.notificationsServices.getNotifications();
+
+        if (response.data.notifications.length > 0) {
+          this.setNotifications(response.data.notifications.map((notification) => {
+            const parsedNotification = {
+              id: notification.id,
+              url: notification.url,
+              message: notification.message,
+              entityId: notification.entityId,
+              entityType: notification.entityType,
+              read: false,
+            };
+            return parsedNotification;
+          }));
+        }
+      } catch (error) {
+        this.displayError({
+          message: 'Couldn\'t retrieve your notifications at this time.',
+        });
+      }
+    },
     toggleNav() {
       this.openNav = !this.openNav;
     },
@@ -139,6 +188,9 @@ export default {
     expandSearch() {
       this.search = true;
       this.$refs.search.focus();
+    },
+    getUrl(notification) {
+      return notification.entityType === 'politician' ? `/politicians/${notification.entityId}` : `/political-parties/${notification.entityId}`;
     },
     signOut() {
       this.$store.commit('clearJWT');
@@ -156,8 +208,12 @@ export default {
   computed: {
     ...mapGetters([
       'isLoggedIn',
+      'notifications',
       'user',
     ]),
+    hasNotifications() {
+      return this.notifications.length > 0;
+    },
     navToggleClass() {
       if (this.openNav) return 'block';
       return 'hidden xl:block';
@@ -183,6 +239,9 @@ export default {
         cx = 'nav-shrinked bg-white';
       }
       return cx;
+    },
+    totalNotifications() {
+      return this.notifications.filter(notification => !notification.read).length;
     },
   },
 };
@@ -354,15 +413,17 @@ export default {
         width: 1.875rem;
         height: 1.875rem;
 
-        &:after {
-          content: '';
-          position: absolute;
-          border-radius: 50%;
-          background-color: #f14336;
-          height: 0.6875rem;
-          width: 0.6875rem;
-          top: -0.025rem;
-          right: -0.025rem;
+        &.active{
+          &:after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background-color: #f14336;
+            height: 0.6875rem;
+            width: 0.6875rem;
+            top: -0.025rem;
+            right: -0.025rem;
+          }
         }
       }
 
