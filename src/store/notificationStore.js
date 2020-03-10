@@ -1,6 +1,9 @@
 import StringUtil from '../helpers/stringUtil';
 
 export const notificationActions = {
+  clearNotifications(context) {
+    context.commit('clearNotifications');
+  },
   displayError(context, data) {
     context.commit('showError', data);
     setTimeout(() => context.commit('hideMessage'), 3000);
@@ -19,9 +22,32 @@ export const notificationActions = {
   hideSignUp(context) {
     context.commit('hideSignUp');
   },
+  setNotifications(context, data) {
+    context.commit('addNotifications', data);
+  },
+  toggleNotificationRead(context, data) {
+    context.commit('updateNotification', data);
+  },
+};
+
+export const notificationGetters = {
+  notifications: state => state.notifications.sort((a, b) => {
+    if (a.read && !b.read) {
+      return 1;
+    }
+    return -1;
+  }),
 };
 
 export const notificationMutations = {
+  addNotifications(state, data) {
+    data.forEach((x) => {
+      state.notifications.unshift(x);
+    });
+  },
+  clearNotifications(state) {
+    state.notifications = [];
+  },
   hideMessage(state) {
     state.info.display = false;
   },
@@ -48,5 +74,8 @@ export const notificationMutations = {
     state.info.details = data.message;
     state.info.type = 'success';
     state.info.display = true;
+  },
+  updateNotification(state, index) {
+    state.notifications[index].read = true;
   },
 };
