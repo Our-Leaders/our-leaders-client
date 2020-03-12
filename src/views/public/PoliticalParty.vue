@@ -1,32 +1,35 @@
 <template>
-  <div class="h-full">
+  <div class="relative">
     <div class="flex flex-col justify-center h-screen mb-4" v-if="loading">
       <div class="w-full text-center">
         <span class="loading lg mx-auto mb-2"></span>
         <span>Loading Details...</span>
       </div>
     </div>
-    <div class="flex pb-2" v-if="!loading">
-      <div class="w-1/3 py-8 px-16 border-r-2 border-gray-200">
+    <div class="flex flex-wrap pb-2" v-if="!loading">
+      <div class="w-full md:w-1/3 md:py-8 px-2 lg:px-16 lg:border-r-2 border-gray-200">
         <div class="passport-wrapper mb-3">
           <img class="object-cover" :src="politicalParty.logo"/>
         </div>
         <div class="block mb-10">
-          <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/>
-          <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/twitter-gray.svg"/>
-          <img class="cursor-pointer inline-block h-4" src="@/assets/img/instagram-gray.svg"/>
+          <a v-if="politicalParty.socials.facebook" target="_blank" :href="`https://facebook.com/${politicalParty.socials.facebook}`"><img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/></a>
+          <a v-if="politicalParty.socials.twitter" target="_blank" :href="`https://twitter.com/${politicalParty.socials.twitter}`"><img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/twitter-gray.svg"/></a>
+          <a v-if="politicalParty.socials.instagram" target="_blank" :href="`https://instagram.com/${politicalParty.socials.instagram}`"><img class="cursor-pointer inline-block h-4" src="@/assets/img/instagram-gray.svg"/></a>
         </div>
-        <div class="flex flex-wrap">
+        <div class="hidden md:flex flex-wrap" v-if="politicalParty.socials.twitter">
           <div class="w-full border-b-1 border-gray-400">
-            <span class="text-2xl mr-2">Tweets</span>
+            <!-- <span class="text-2xl mr-2">Tweets</span>
             <span class="text-base mr-1">by</span>
             <span class="cursor-pointer twitter-link text-base">@MBuhari</span>
             <button class="float-right align-middle font-semibold twitter-button px-2 rounded-full">Follow</button>
-            <hr class="mt-2"/>
+            <hr class="mt-2"/> -->
 
             <!-- Twitter -->
             <div class="timeline-wrapper">
-              <a class="twitter-timeline" href="https://twitter.com/TwitterDev/timelines/539487832448843776?ref_src=twsrc%5Etfw">{{politicalParty.name}} Tweets - Curated tweets by TwitterDev</a>
+              <twitter>
+                <div slot="loading">loading .....</div>
+                <a class="twitter-timeline" :href="`https://twitter.com/${politicalParty.socials.twitter}?ref_src=twsrc%5Etfw`"></a>
+              </twitter>
             </div>
           </div>
         </div>
@@ -43,9 +46,18 @@
           </div>
           <div id="share" class="inline-block pl-5">
             <span class="cursor-pointer text-xs mr-6">Share Profile</span>
-            <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/>
-            <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/twitter-gray.svg"/>
-            <img class="cursor-pointer inline-block h-4" src="@/assets/img/instagram-gray.svg"/>
+            <a v-if="politicalParty.socials.facebook" class="relative" target="_blank" :href="`https://facebook.com/${politicalParty.socials.facebook}`">
+                <div class="absolute opacity-0 h-full w-full top-0 left-0">
+                  <ShareFacebook :title="`Click to read more about ${politicalParty.name}`" :url="`https://ourleaders.africa/political-parties/${politicalParty.socials.facebook}`"></ShareFacebook>
+                </div>
+                <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/>
+              </a>
+              <a v-if="politicalParty.socials.twitter" class="relative" href="#">
+                <div class="absolute opacity-0 h-full w-full top-0 left-0">
+                  <ShareTwitter :title="`Click to read more about ${politicalParty.name}`" :url="`https://ourleaders.africa/political-parties/${politicalParty.socials.twitter}`"></ShareTwitter>
+                </div>
+                <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/twitter-gray.svg"/>
+              </a>
           </div>
         </div>
         <!-- <div class="w-full">
