@@ -7,6 +7,7 @@ import { jobGetters, jobMutations } from './jobStore';
 import { notificationActions, notificationGetters, notificationMutations } from './notificationStore';
 import { subscriptionGetters, subscriptionMutations } from './subscriptionStore';
 import { userGetters, userMutations } from './userStore';
+import { politicalPartyActions, politicalPartyGetters, politicalPartyMutations } from './politicalPartyStore';
 import { politicianGetters, politicianMutations } from './politicianStore';
 
 Vue.use(Vuex);
@@ -19,7 +20,6 @@ const vuexPersist = new VuexPersist({
 export default new Vuex.Store({
   state: {
     currentUser: null,
-    viewedPoliticians: [],
     info: {
       header: null,
       details: null,
@@ -31,23 +31,27 @@ export default new Vuex.Store({
     jobs: null,
     jwtToken: '',
     notifications: [],
+    politicalParty: null,
     subscription: null,
+    viewedPoliticians: [],
   },
-  actions: Object.assign({}, notificationActions),
+  actions: Object.assign({}, politicalPartyActions, notificationActions),
   getters: Object.assign({},
     authGetters,
     jobGetters,
     notificationGetters,
     subscriptionGetters,
-    userGetters,
-    politicianGetters),
+    politicalPartyGetters,
+    politicianGetters,
+    userGetters),
   mutations: Object.assign({},
     authMutations,
     jobMutations,
     notificationMutations,
     subscriptionMutations,
-    userMutations,
-    politicianMutations),
+    politicalPartyMutations,
+    politicianMutations,
+    userMutations),
   plugins: [vuexPersist.plugin],
   modules: {
   },

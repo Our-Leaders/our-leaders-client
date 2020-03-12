@@ -3,7 +3,7 @@
   <div class="absolute h-full w-full hidden-overflow">
     <div class="inner h-full w-full">
       <button class="w-1/2 mx-auto border-2 leading border-white p-2 text-white hover:bg-white hover:text-black"
-        @click="$emit('click', party.id)">
+        @click="$emit('click', party)">
         See More
       </button>
     </div>

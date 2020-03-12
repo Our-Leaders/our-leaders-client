@@ -109,7 +109,7 @@
             <our-tabs class="mb-1 pr-2" v-on:change="setPage" :tabs='mainTabs' :tab-type="'secondary'"></our-tabs>
           </div>
         </div>
-        <div class="flex flex-wrap lg:flex-row xl:flex-row min-h-screen">
+        <div class="flex flex-wrap lg:flex-row xl:flex-row">
           <div class="w-full lg:w-9/12 xl:w-9/12 align-top block min-h-screen lg:inline-block xl:inline-block relative">
             <transition-group name="fade" mode="out-in">
 
