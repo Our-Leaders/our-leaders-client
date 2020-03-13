@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="flex flex-wrap pb-2" v-if="!loading">
-      <div class="w-full md:w-1/3 py-2 md:py-8 px-2 lg:px-16 xl:px-16 lg:border-r-2 xl:border-r-2 border-gray-200">
+      <div class="w-full lg:w-1/3 py-2 md:py-8 px-2 lg:px-16 xl:px-16 lg:border-r-2 xl:border-r-2 border-gray-200">
         <div class="md:hidden">
           <h3 class="text-5xl leading-tight mb-3">{{politician.name}}</h3>
           <div class="w-full" v-if="position.inOffice">
@@ -30,7 +30,7 @@
           <img class="object-cover" :src="politician.profileImage"/>
         </div>
         <div class="flex md:hidden w-full justify-between px-3">
-          <div id="votes" class="inline-block pr-5">
+          <div id="votes" class="inline-block pr-5" v-if="politician.vote">
             <img class="inline-block mr-2 md:mr-2 h-4 md:h-4" src="@/assets/img/thumbs-up.svg"/>
             <span class="inline-block mr-3 md:mr-4 h-4 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.up}}</span>
             <img class="inline-block mr-2 mt-2 md:mr-2 h-4 md:h-4" src="@/assets/img/thumbs-down.svg"/>
@@ -85,13 +85,13 @@
             <span id="testing" class="cursor-pointer text-xs mr-6">Share Profile</span>
               <a v-if="politician.socials.facebook" class="relative" target="_blank" :href="`https://facebook.com/${politician.socials.facebook}`">
                 <div class="absolute opacity-0 h-full w-full top-0 left-0">
-                  <ShareFacebook title="Politician Test" :url="`http://example.com/politicians/${politician.socials.twitter}`"></ShareFacebook>
+                  <ShareFacebook title="Politician Test" :url="`https://ourleaders.africa/politicians/${politician.socials.facebook}`"></ShareFacebook>
                 </div>
                 <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/>
               </a>
               <a v-if="politician.socials.twitter" class="relative" href="#">
                 <div class="absolute opacity-0 h-full w-full top-0 left-0">
-                  <ShareTwitter :title="`Click to read more about ${politician.name}`" :url="`http://localhost:8080/politicians/${politician.socials.twitter}`"></ShareTwitter>
+                  <ShareTwitter :title="`Click to read more about ${politician.name}`" :url="`https://ourleaders.africa/politicians/${politician.socials.twitter}`"></ShareTwitter>
                 </div>
                 <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/twitter-gray.svg"/>
               </a>
@@ -109,7 +109,7 @@
             <our-tabs class="mb-1 pr-2" v-on:change="setPage" :tabs='mainTabs' :tab-type="'secondary'"></our-tabs>
           </div>
         </div>
-        <div class="flex flex-wrap lg:flex-row xl:flex-row min-h-screen">
+        <div class="flex flex-wrap lg:flex-row xl:flex-row">
           <div class="w-full lg:w-9/12 xl:w-9/12 align-top block min-h-screen lg:inline-block xl:inline-block relative">
             <transition-group name="fade" mode="out-in">
 

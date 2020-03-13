@@ -118,6 +118,7 @@ export default {
   methods: {
     ...mapActions([
       'displayError',
+      'setPoliticalParty',
     ]),
     async getPoliticalParties() {
       try {
@@ -138,8 +139,9 @@ export default {
     isEmpty(value) {
       return !ValidatorUtil.isDefined(value);
     },
-    navigateTo(id) {
-      this.$router.push(`/political-parties/${id}`);
+    navigateTo(party) {
+      this.setPoliticalParty(party);
+      this.$router.push(`/political-parties/${party.id}`);
     },
     nextPage() {
       this.filter.page += 1;
