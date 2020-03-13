@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="flex flex-wrap pb-2" v-if="!loading">
-      <div class="w-full md:w-1/3 py-2 md:py-8 px-2 lg:px-16 xl:px-16 lg:border-r-2 xl:border-r-2 border-gray-200">
+      <div class="w-full lg:w-1/3 py-2 md:py-8 px-2 lg:px-16 xl:px-16 lg:border-r-2 xl:border-r-2 border-gray-200">
         <div class="md:hidden">
           <h3 class="text-5xl leading-tight mb-3">{{politician.name}}</h3>
           <div class="w-full" v-if="position.inOffice">
@@ -30,7 +30,7 @@
           <img class="object-cover" :src="politician.profileImage"/>
         </div>
         <div class="flex md:hidden w-full justify-between px-3">
-          <div id="votes" class="inline-block pr-5">
+          <div id="votes" class="inline-block pr-5" v-if="politician.vote">
             <img class="inline-block mr-2 md:mr-2 h-4 md:h-4" src="@/assets/img/thumbs-up.svg"/>
             <span class="inline-block mr-3 md:mr-4 h-4 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.up}}</span>
             <img class="inline-block mr-2 mt-2 md:mr-2 h-4 md:h-4" src="@/assets/img/thumbs-down.svg"/>
