@@ -39,6 +39,8 @@
 </template>
 
 <script>
+import StringUtil from '@/helpers/stringUtil';
+
 export default {
   name: 'trending-politician',
   data() {
@@ -79,7 +81,7 @@ export default {
       }
 
       const background = politician.politicalBackground.find(x => x.inOffice);
-      return `${background.position}, ${background.institution}`;
+      return StringUtil.getPoliticalPosition(background);
     },
     profileImage(politician) {
       return politician.profileImage || require('@/assets/img/no-image.svg'); // eslint-disable-line

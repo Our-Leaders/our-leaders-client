@@ -48,6 +48,14 @@ class StringUtil {
     }
     return url;
   }
+
+  static getPoliticalPosition(background) {
+    let { position } = background;
+    if (background.region) {
+      position += `, ${background.region}`;
+    }
+    return position;
+  }
 }
 
 export default StringUtil;

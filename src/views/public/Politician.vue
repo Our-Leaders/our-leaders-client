@@ -133,7 +133,7 @@
                   <div class="flex flex-wrap mb-4" v-for="(pBackground, index) of politician.politicalBackground" :key="`pBackground_${index}`">
                     <span class="w-1/3 my-1 inline-block capitalize">{{pBackground.position}}</span>
                     <span class="w-2/3 my-1 inline-block">
-                      <span class="block capitalize">{{pBackground.institution}}</span>
+                      <span class="block capitalize">{{pBackground.region}}</span>
                       <span class="block">{{getPeriodString(pBackground.startDate, pBackground.endDate)}}</span>
                     </span>
                   </div>
@@ -223,12 +223,13 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import { politiciansMock } from '../../constants/examples';
-import monthsList from '../../assets/json/months.json';
-import tabsList from '../../assets/json/tabsList.json';
-import DataUtil from '../../helpers/dataUtil';
-import DateUtil from '../../helpers/dateUtil';
-import ValidatorUtil from '../../helpers/validatorUtil';
+import { politiciansMock } from '@/constants/examples';
+import monthsList from '@/assets/json/months.json';
+import tabsList from '@/assets/json/tabsList.json';
+import DataUtil from '@/helpers/dataUtil';
+import DateUtil from '@/helpers/dateUtil';
+import StringUtil from '@/helpers/stringUtil';
+import ValidatorUtil from '@/helpers/validatorUtil';
 
 export default {
   name: 'politician',
@@ -269,8 +270,8 @@ export default {
         return { inOffice: false };
       }
 
-      const duration = `${(new Date(background.startDate)).getFullYear()} - ${(new Date(background.endDate)).getFullYear()}`;
-      return { name: `${background.position}${background.state ? `, ${background.state}` : ''}`, duration, inOffice: true };
+      const duration = this.getPeriodString(background.startDate, background.endDate);
+      return { name: StringUtil.getPoliticalPosition(background), duration, inOffice: true };
     },
     quarterData() {
       return ValidatorUtil.isDefined(this.politician) && this.page === 'accomplishments' ? this.parseQuarterlyData(this.politician.accomplishments) : {};

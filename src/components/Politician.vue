@@ -70,6 +70,7 @@
 
 <script>
 import { mapActions } from 'vuex';
+import StringUtil from '@/helpers/stringUtil';
 
 export default {
   name: 'politician',
@@ -91,7 +92,7 @@ export default {
       if (this.politician.politicalBackground.length > 0) {
         const background = this.politician.politicalBackground.find(x => x.inOffice);
         if (!background) { return 'Not in Office'; }
-        return `${background.position}, ${background.institution}`;
+        return StringUtil.getPoliticalPosition(background);
       }
       return 'N/A';
     },
