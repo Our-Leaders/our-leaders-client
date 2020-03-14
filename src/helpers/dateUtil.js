@@ -16,6 +16,9 @@ class DateUtil {
   }
 
   static getPeriodString(startDate, endDate) {
+    if (!endDate && !startDate) {
+      return '-';
+    }
     return `${(new Date(startDate)).getFullYear()} - ${(new Date(endDate)).getFullYear()}`;
   }
 }

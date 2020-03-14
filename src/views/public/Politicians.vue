@@ -155,7 +155,7 @@ export default {
         page: 0,
         politicalPartyId: null,
         state: null,
-        status: 'current',
+        status: this.$route.query.status || 'current',
       },
       loading: true,
       mainTabs: [{ label: 'Current Leaders', value: 'current' }, { label: 'Aspirants', value: 'upcoming' }, { label: 'Past Leaders', value: 'past' }],
@@ -173,6 +173,10 @@ export default {
   created() {
     this.getPoliticians();
     this.getPoliticalParties();
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.setPrimary(to.query.status || 'current');
+    next();
   },
   methods: {
     ...mapActions([

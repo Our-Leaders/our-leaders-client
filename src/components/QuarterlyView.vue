@@ -58,7 +58,7 @@
               <div class="relative flex justify-between items-center">
                 <span class="font-semibold capitalize font-circular">{{accomplishment.title}}</span>
                 <span class="flex">
-                  <span class="text-xs text-gray-96 font-circular mr-2">Published {{accomplishment.createdOn}}</span>
+                  <span class="text-xs text-gray-96 font-circular mr-2">Published {{accomplishment.createdOn | our-date}}</span>
                   <img src="@/assets/img/chevron-down.svg" alt="chevron-down">
                 </span>
               </div>
@@ -100,7 +100,7 @@
               <div class="relative flex justify-between items-center">
                 <span class="font-semibold capitalize font-circular">{{accomplishment.data.title}}</span>
                 <span class="flex">
-                  <span class="text-xs text-gray-96 font-circular mr-2">Published {{accomplishment.data.createdOn}}</span>
+                  <span class="text-xs text-gray-96 font-circular mr-2">Published {{accomplishment.data.createdOn | our-date}}</span>
                   <img src="@/assets/img/chevron-down.svg" alt="chevron-down">
                 </span>
               </div>

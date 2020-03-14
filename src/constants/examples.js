@@ -6,7 +6,7 @@ export const educationalBackground = [{
 
 export const politicalBackground = [{
   position: 'president',
-  institution: 'the republic of Nigeria',
+  region: 'the republic of Nigeria',
   inOffice: true,
   state: 'all',
   startDate: '10/12/1980',

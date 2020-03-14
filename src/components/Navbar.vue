@@ -21,14 +21,14 @@
           <a class="block mt-4 hidden xl:inline-block xl:mt-0 xl:mr-4">
             <our-dropdown class="xl:mr-4 xl:visible" width="w-40" heading="Leaders" alignRight showOnHover listClass="leaders-dropdown-list">
               <our-dropdown-item isLink :to="{ name: 'politicians' }" @click.native="closeNav">Current leaders</our-dropdown-item>
-              <our-dropdown-item isLink :to="{ name: '' }" @click.native="closeNav">Upcoming leaders</our-dropdown-item>
-              <our-dropdown-item isLink :to="{ name: '' }" @click.native="closeNav">Past leaders</our-dropdown-item>
+              <our-dropdown-item isLink :to="{ name: 'politicians', query: { status: 'upcoming' } }" @click.native="closeNav">Upcoming leaders</our-dropdown-item>
+              <our-dropdown-item isLink :to="{ name: 'politicians', query: { status: 'past' } }" @click.native="closeNav">Past leaders</our-dropdown-item>
             </our-dropdown>
           </a>
           <div class="xl:hidden mobile-nav-divider">
             <router-link :to="{ name: 'politicians' }" @click.native="closeNav" class="block mt-4 xl:inline-block xl:mt-0 xl:mr-4">Current leaders</router-link>
-            <router-link :to="{ name: '' }" @click.native="closeNav" class="block mt-4 xl:inline-block xl:mt-0 xl:mr-4">Upcoming leaders</router-link>
-            <router-link :to="{ name: '' }" @click.native="closeNav" class="block mt-4 xl:inline-block xl:mt-0 xl:mr-4">Past leaders</router-link>
+            <router-link :to="{ name: 'politicians', query: { status: 'upcoming' } }" @click.native="closeNav" class="block mt-4 xl:inline-block xl:mt-0 xl:mr-4">Upcoming leaders</router-link>
+            <router-link :to="{ name: 'politicians', query: { status: 'past' } }" @click.native="closeNav" class="block mt-4 xl:inline-block xl:mt-0 xl:mr-4">Past leaders</router-link>
           </div>
           <router-link :to="{ name: 'political-parties' }" @click.native="closeNav" class="block mt-4 xl:inline-block xl:mt-0 xl:mr-4 mobile-nav-divider">Political parties</router-link>
         </div>

@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import StringUtil from '@/helpers/stringUtil';
+
 export default {
   name: 'politician',
   props: {
@@ -52,7 +54,7 @@ export default {
       }
 
       const background = politician.politicalBackground.find(x => x.inOffice);
-      return `${background.position}, ${background.institution}`;
+      return StringUtil.getPoliticalPosition(background);
     },
     scrollTo(element, scrollPixels, duration) {
       const scrollPos = element.scrollLeft;
