@@ -13,7 +13,7 @@ module.exports = {
   },
   overrides: [{
     files: ["*.vue"],
-    rules: {  'max-len': 'off' },
+    rules: {  'max-len': 'off', 'no-underscore-dangle': 'off' },
   }],
   parserOptions: {
     parser: 'babel-eslint',

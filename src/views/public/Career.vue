@@ -93,7 +93,7 @@
               v-model="application.strengths"
               placeholder="Enter response here"
               required></textarea>
-            <button class="bg-primary text-white leading py-3 px-10 mb-10 w-full lg:w-auto xl:w-auto" type="submit">Submit Application</button>
+            <button class="bg-primary text-white leading py-3 px-10 mb-10 w-full lg:w-auto xl:w-auto" :class="{'btn-loading': processing}" :disabled="processing" type="submit">Submit Application</button>
           </form>
         </div>
       </transition-group>
@@ -120,10 +120,12 @@ export default {
         'job',
       ]),
       application: {},
+      careersServices: this.$serviceFactory.careers,
       data: null,
       labels: labels.types,
       loading: false,
       page: 'overview',
+      processing: false,
       secondaryTabs: [{ label: 'Overview', value: 'overview' }, { label: 'Application', value: 'application' }],
     };
   },
@@ -132,12 +134,24 @@ export default {
       'displayError',
       'displaySuccess',
     ]),
+    async proceed() {
+      try {
+        this.processing = true;
+        await this.careersServices.applyForJob(this.data._id, this.application);
+
+        this.processing = false;
+        this.displaySuccess({
+          message: 'Application sent successfully',
+        });
+        this.application = {};
+      } catch (error) {
+        this.processing = false;
+        this.displayError(error);
+      }
+    },
     getDisplayType(value) {
       const index = this.labels.findIndex(x => x.value === value);
       return this.labels[index].label;
-    },
-    proceed() {
-      // TODO: Send the application
     },
     setSecondary(value) {
       this.page = value;

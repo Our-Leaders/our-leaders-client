@@ -119,7 +119,7 @@ export default {
       displayMenu: false,
       filters: {
         query: null,
-        type: 'current',
+        type: null,
       },
       testing: 0,
       jobs: [],
