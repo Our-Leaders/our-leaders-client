@@ -128,12 +128,12 @@
             <span class="inline-block">You can also send your donations to the following <br class="hidden lg:visible xl:visible"/>bank accounts</span>
           </div>
           <div class="w-full pt-12">
-            <div class="w-full lg:w-1/2 xl:w-1/2 inline-block bg-transparent border-2 border-gray-300 px-3 py-4 mb-8 mr-5">
+            <div class="w-full lg:w-1/2 inline-block bg-transparent border-2 border-gray-300 px-3 py-4 mb-8 mr-5">
               <img class="h-12 float-left text-black inline-block mr-4 lg:mr-8 xl:mr-8"
                 src="@/assets/img/first-bank.png"/>
               <span class="inline-block lg:mr-16 xl:mr-16">Our Leaders Africa<br/>3056112345</span>
             </div>
-            <div class="w-full lg:w-1/2 xl:w-1/2 inline-block bg-transparent border-2 border-gray-300 px-3 py-4 mb-8">
+            <div class="w-full lg:w-1/2 inline-block bg-transparent border-2 border-gray-300 px-3 py-4 mb-8">
               <img class="h-12 float-left text-black inline-block mr-4 lg:mr-8 xl:mr-8"
                 src="@/assets/img/access-bank.svg"/>
               <span class="inline-block lg:mr-16 xl:mr-16">Our Leaders Africa<br/>3056112345</span>

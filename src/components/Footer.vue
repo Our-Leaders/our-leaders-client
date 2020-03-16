@@ -17,7 +17,7 @@
        <div class="footer-col">
          <h3>Help</h3>
          <router-link :to="{ name: 'contact-us' }"><a href="#">Contact us</a></router-link>
-         <a href="#">FAQs</a>
+         <router-link :to="{ name: 'faqs' }"><a href="#">FAQs</a></router-link>
        </div>
        <div class="footer-col">
          <h3>Links</h3>
@@ -61,7 +61,7 @@
          <div class="footer-col">
            <h3>Help</h3>
            <router-link :to="{ name: 'contact-us' }"><a href="#">Contact us</a></router-link>
-           <a href="#">FAQs</a>
+           <router-link :to="{ name: 'faqs' }"><a href="#">FAQs</a></router-link>
          </div>
          <div class="footer-col">
            <h3>Socials</h3>
