@@ -31,9 +31,13 @@
         </div>
         <div class="flex md:hidden w-full justify-between px-3">
           <div id="votes" class="inline-block pr-5" v-if="politician.vote">
-            <img class="inline-block mr-2 md:mr-2 h-4 md:h-4" src="@/assets/img/thumbs-up.svg"/>
+            <img class="inline-block mr-2 md:mr-2 h-4 md:h-4 cursor-pointer"
+              :src="hasVoted && isUpvote ? require('@/assets/img/thumbs-up-active.svg') : require('@/assets/img/thumbs-up.svg')"
+              @click="voteForPolitician(true)"/>
             <span class="inline-block mr-3 md:mr-4 h-4 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.up}}</span>
-            <img class="inline-block mr-2 mt-2 md:mr-2 h-4 md:h-4" src="@/assets/img/thumbs-down.svg"/>
+            <img class="inline-block mr-2 mt-2 md:mr-2 h-4 md:h-4 cursor-pointer"
+              :src="hasVoted && !isUpvote ? require('@/assets/img/thumbs-down-active.svg') : require('@/assets/img/thumbs-down.svg')"
+              @click="voteForPolitician(false)"/>
             <span class="inline-block mr-2 md:mr-2 h-4 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.down}}</span>
           </div>
           <div id="share" class="inline-block">
@@ -76,13 +80,17 @@
         </button>
         <div class="hidden md:block pr-2 w-full mb-4">
           <div id="votes" class="inline-block pr-5 border-r-2 border-gray-300">
-            <img class="inline-block mr-1 md:mr-2 h-3 md:h-4" src="@/assets/img/thumbs-up.svg"/>
+            <img class="inline-block mr-1 md:mr-2 h-3 md:h-4 cursor-pointer"
+              :src="hasVoted && isUpvote ? require('@/assets/img/thumbs-up-active.svg') : require('@/assets/img/thumbs-up.svg')"
+              @click="voteForPolitician(true)"/>
             <span class="inline-block mr-2 md:mr-4 h-3 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.up}}</span>
-            <img class="inline-block mr-1 mt-2 md:mr-2 h-3 md:h-4" src="@/assets/img/thumbs-down.svg"/>
+            <img class="inline-block mr-1 mt-2 md:mr-2 h-3 md:h-4 cursor-pointer"
+              :src="hasVoted && !isUpvote ? require('@/assets/img/thumbs-down-active.svg') : require('@/assets/img/thumbs-down.svg')"
+              @click="voteForPolitician(false)"/>
             <span class="inline-block mr-1 md:mr-2 h-3 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.down}}</span>
           </div>
           <div id="share" class="inline-block pl-5">
-            <span id="testing" class="cursor-pointer text-xs mr-6">Share Profile</span>
+            <span id="testing" class="text-xs mr-6">Share Profile</span>
               <a v-if="politician.socials.facebook" class="relative" target="_blank" :href="`https://facebook.com/${politician.socials.facebook}`">
                 <div class="absolute opacity-0 h-full w-full top-0 left-0">
                   <ShareFacebook title="Politician Test" :url="`https://ourleaders.africa/politicians/${politician.socials.facebook}`"></ShareFacebook>
@@ -253,6 +261,7 @@ export default {
     ...mapGetters([
       'isLoggedIn',
       'subscription',
+      'user',
       'viewedPoliticians',
     ]),
     feedsData() {
@@ -260,6 +269,9 @@ export default {
     },
     hasSubscribed() {
       return this.subscribed === true;
+    },
+    hasVoted() {
+      return ValidatorUtil.isDefined(this.politician.voters) ? (this.politician.voters.findIndex(x => x.id === this.user.id) > -1) : false;
     },
     lastName() {
       return ValidatorUtil.isDefined(this.politician.name) ? this.politician.name.split(' ')[1] : '';
@@ -285,6 +297,7 @@ export default {
       feeds: [],
       feedsKeys: [],
       feedsServices: this.$serviceFactory.feeds,
+      isUpvote: false,
       loading: true,
       mainTabs: tabsList.politician,
       page: 'background',
@@ -358,6 +371,10 @@ export default {
         if (!this.politician.politicalParty) {
           this.politician.politicalParty = {};
         }
+        if (this.politician.voters) {
+          const vote = this.politician.voters.find(x => x.id === this.user.id);
+          this.isUpvote = vote.isUpvote;
+        }
         this.loading = false;
       } catch (error) {
         this.loading = false;
@@ -374,6 +391,19 @@ export default {
         this.processing = false;
       } catch (error) {
         this.subscribed = false;
+        this.processing = false;
+        this.displayError(error);
+      }
+    },
+    async voteForPolitician(isUpvote) {
+      try {
+        this.processing = true;
+        const response = await this.politiciansServices.voteForPolitician(this.politicianId, { isUpvote });
+        this.politician = response.data.politician;
+        this.$store.commit('addToViewedPoliticians', this.politician);
+        this.isUpvote = isUpvote;
+        this.processing = false;
+      } catch (error) {
         this.processing = false;
         this.displayError(error);
       }
