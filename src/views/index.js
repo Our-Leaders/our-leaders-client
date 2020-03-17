@@ -7,6 +7,7 @@ import Career from './public/Career.vue';
 import Careers from './public/Careers.vue';
 import ContactUs from './public/static/ContactUs.vue';
 import Donate from './public/static/Donate.vue';
+import Faqs from './public/Faqs.vue';
 import Home from './public/Home.vue';
 import PoliticalParty from './public/PoliticalParty.vue';
 import PoliticalParties from './public/PoliticalParties.vue';
@@ -25,6 +26,7 @@ export default {
   Careers,
   ContactUs,
   Donate,
+  Faqs,
   Home,
   PoliticalParty,
   PoliticalParties,

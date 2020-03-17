@@ -1,12 +1,14 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
+import AccountRoutes from './accountRoutes';
 import Pages from '../views/index';
 import Store from '../store/index';
 
 Vue.use(VueRouter);
 
 const routes = [
+  AccountRoutes,
   {
     path: '/',
     name: 'home',
@@ -59,28 +61,9 @@ const routes = [
     component: Pages.Donate,
   },
   {
-    path: '/accounts',
-    component: Pages.AccountsDefault,
-    meta: {
-      requiresAuth: true,
-      layout: 'no-footer',
-    },
-    children: [{
-      path: 'basic',
-      name: 'account-home',
-      component: Pages.AccountsBasic,
-    }, {
-      path: 'subscriptions',
-      name: 'account-subscriptions',
-      component: Pages.AccountsSubscription,
-    }, {
-      path: 'votes',
-      name: 'account-votes',
-      component: Pages.AccountsVotes,
-    }, {
-      path: '*',
-      redirect: { name: 'account-home' },
-    }],
+    path: '/faqs',
+    name: 'faqs',
+    component: Pages.Faqs,
   },
   {
     path: '/politicians/:politicianId',

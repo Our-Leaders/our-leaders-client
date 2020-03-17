@@ -1,0 +1,26 @@
+{
+  "general": [{
+    "question": "What is OurLeaders.Africa (OL.A)?",
+    "answer": "OurLeaders.Africa is an online platform where you can monitor the progress and performance of political leaders in Nigeria."
+  }, {
+    "question": "How Does the OL.A platform Work?",
+    "answer": "OL.A runs on an information network. We garner data from an information pool, which is then passed on to our inhouse journalists who vet the data, then pass it on to our publishers who are responsible for publishing the data on our platform."
+  }, {
+    "question": "How Does OL.A Make Money?",
+    "answer": "As a nonprofit, OL.A is funded by a variety of donors and grantmakers."
+  }, {
+    "question": "How can I support OL.A?",
+    "answer": "Please visit our Donate page here to support the work we are doing."
+  }],
+  "leaders": [{
+    "question": "Do Leaders have access to their profiles?",
+    "answer": "All profiles are managed by the in-house team at OurLeaders.Africa."
+  }, {
+    "question": "How does OL.A define an Accomplishment in a Leader’s profile?",
+    "answer": "An accomplishment is any task or project that has been completed *successfully*. Eg. Abandoned projects are not considered to be accomplishments, neither are any projects that have no value to the people under the leadership of said leader."
+  }],
+  "political-parties": [{
+    "question": "Is OL.A Partisan or affiliated with a political party?",
+    "answer": "OurLeaders.Africa is nonpartisan nor affiliated with any political party."
+  }]
+}

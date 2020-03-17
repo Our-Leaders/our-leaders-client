@@ -10,14 +10,14 @@
        <div class="footer-col">
          <h3>Company</h3>
          <router-link :to="{ name: 'about-us' }"><a href="#">About us</a></router-link>
-         <a href="#">Blog</a>
+         <a href="https://medium.com/@ourleaders.a" target="_blank">Blog</a>
          <router-link :to="{ name: 'careers' }"><a href="#">Careers</a></router-link>
          <router-link :to="{ name: 'donate' }"><a href="#">Donate</a></router-link>
        </div>
        <div class="footer-col">
          <h3>Help</h3>
          <router-link :to="{ name: 'contact-us' }"><a href="#">Contact us</a></router-link>
-         <a href="#">FAQs</a>
+         <router-link :to="{ name: 'faqs' }"><a href="#">FAQs</a></router-link>
        </div>
        <div class="footer-col">
          <h3>Links</h3>
@@ -27,10 +27,9 @@
        <div class="footer-col">
          <h3>Socials</h3>
            <div class="footer-social-elements">
-             <a href="#"><img class="social-icon" src="@/assets/img/facebook-white.svg"/></a>
-             <a href="#"><img class="social-icon" src="@/assets/img/twitter-white.svg"/></a>
-             <a href="#"><img class="social-icon" src="@/assets/img/linkedin-white.svg"/></a>
-             <a href="#"><img class="social-icon" src="@/assets/img/instagram-white.svg"/></a>
+             <a href="https://facebook.com/OurLeaders.A" target="_blank"><img class="social-icon" src="@/assets/img/facebook-white.svg"/></a>
+             <a href="https://twitter.com/OurLeaders_A" target="_blank"><img class="social-icon" src="@/assets/img/twitter-white.svg"/></a>
+             <a href="https://instagram.com/OurLeaders.A" target="_blank"><img class="social-icon" src="@/assets/img/instagram-white.svg"/></a>
            </div>
        </div>
      </div>
@@ -47,7 +46,7 @@
          <div class="footer-col">
            <h3>Company</h3>
            <router-link :to="{ name: 'about-us' }"><a href="#">About us</a></router-link>
-           <a href="#">Blog</a>
+           <a href="https://medium.com/@ourleaders.a" target="_blank">Blog</a>
            <router-link :to="{ name: 'careers' }"><a href="#">Careers</a></router-link>
            <router-link :to="{ name: 'donate' }"><a href="#">Donate</a></router-link>
          </div>
@@ -61,15 +60,14 @@
          <div class="footer-col">
            <h3>Help</h3>
            <router-link :to="{ name: 'contact-us' }"><a href="#">Contact us</a></router-link>
-           <a href="#">FAQs</a>
+           <router-link :to="{ name: 'faqs' }"><a href="#">FAQs</a></router-link>
          </div>
          <div class="footer-col">
            <h3>Socials</h3>
            <div class="footer-social-elements">
-             <a href="#"><img class="social-icon" src="@/assets/img/facebook-white.svg"/></a>
-             <a href="#"><img class="social-icon" src="@/assets/img/twitter-white.svg"/></a>
-             <a href="#"><img class="social-icon" src="@/assets/img/linkedin-white.svg"/></a>
-             <a href="#"><img class="social-icon" src="@/assets/img/instagram-white.svg"/></a>
+             <a href="https://facebook.com/OurLeaders.A" target="_blank"><img class="social-icon" src="@/assets/img/facebook-white.svg"/></a>
+             <a href="https://twitter.com/OurLeaders_A" target="_blank"><img class="social-icon" src="@/assets/img/twitter-white.svg"/></a>
+             <a href="https://instagram.com/OurLeaders.A" target="_blank"><img class="social-icon" src="@/assets/img/instagram-white.svg"/></a>
            </div>
          </div>
        </div>
