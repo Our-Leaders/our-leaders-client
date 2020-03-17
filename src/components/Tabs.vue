@@ -46,6 +46,9 @@ export default {
     setTab(tab) {
       this.currentTab = tab;
     },
+    updateActiveTab(activeTab) {
+      this.currentTab = activeTab;
+    },
   },
 };
 </script>
