@@ -4,6 +4,7 @@ import VuexPersist from 'vuex-persist';
 
 import { authGetters, authMutations } from './authStore';
 import { jobGetters, jobMutations } from './jobStore';
+import { navActions, navGetters, navMutations } from './navStore';
 import { notificationActions, notificationGetters, notificationMutations } from './notificationStore';
 import { subscriptionGetters, subscriptionMutations } from './subscriptionStore';
 import { userGetters, userMutations } from './userStore';
@@ -32,13 +33,15 @@ export default new Vuex.Store({
     jwtToken: '',
     notifications: [],
     politicalParty: null,
+    shrinkMode: false,
     subscription: null,
     viewedPoliticians: [],
   },
-  actions: Object.assign({}, politicalPartyActions, notificationActions),
+  actions: Object.assign({}, politicalPartyActions, navActions, notificationActions),
   getters: Object.assign({},
     authGetters,
     jobGetters,
+    navGetters,
     notificationGetters,
     subscriptionGetters,
     politicalPartyGetters,
@@ -47,6 +50,7 @@ export default new Vuex.Store({
   mutations: Object.assign({},
     authMutations,
     jobMutations,
+    navMutations,
     notificationMutations,
     subscriptionMutations,
     politicalPartyMutations,

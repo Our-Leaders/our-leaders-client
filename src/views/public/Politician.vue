@@ -69,7 +69,7 @@
         </div>
       </div>
       <div class="w-full md:w-2/3 pl-2 md:px-10 py-1 md:py-4 md:max-h-screen md:overflow-y-scroll relative" sticky-container>
-        <h3 class="hidden md:block pr-2 text-6xl mt-8">{{politician.name}}</h3>
+        <h3 class="hidden md:block pr-2 text-6xl mt-8 sticky" v-sticky sticky-side="top" sticky-offset="{top: 10, bottom: 20}" :on-stick="testing">{{politician.name}}</h3>
         <button class="hidden btn-subscribe md:block absolute top-0 right-0 px-4 py-2 my-1 md:my-5 mr-17"
           :class="{ 'active': hasSubscribed }"
           @click="toggleSubscription">
@@ -112,7 +112,7 @@
         <div class="hidden md:block pr-2 w-full" v-else>
           <span class="block text-base capitalize">Not in Office</span>
         </div>
-        <div v-sticky sticky-offset="offset" sticky-side="top" ref="stickyTop">
+        <div>
           <div class="w-full md:w-9/12 overflow-x-scroll mt-6 md:pr-4">
             <our-tabs class="mb-1 pr-2" v-on:change="setPage" :tabs='mainTabs' :tab-type="'secondary'"></our-tabs>
           </div>
@@ -494,6 +494,9 @@ export default {
     },
     subscribe(subscribed) {
       this.subscribed = subscribed;
+    },
+    testing() {
+      console.log('Stuck');
     },
     toggleSubscription() {
       if (this.processing) { return; }

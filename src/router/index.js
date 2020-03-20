@@ -13,6 +13,9 @@ const routes = [
     path: '/',
     name: 'home',
     component: Pages.Home,
+    meta: {
+      shrinkMode: true,
+    },
   },
   {
     path: '/auth/sign-in',
@@ -103,6 +106,12 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  if (to.meta.shrinkMode) {
+    Store.dispatch('setShrinkMode', to.meta.shrinkMode);
+  } else {
+    Store.dispatch('setShrinkMode', false);
+  }
+
   if (to.meta.isAuth && Store.getters.isLoggedIn) {
     next(from.path);
   } else if (to.matched.some(m => m.meta.requiresAuth) && !Store.getters.isLoggedIn) {

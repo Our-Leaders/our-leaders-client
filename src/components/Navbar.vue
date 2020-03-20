@@ -135,6 +135,8 @@ export default {
     };
   },
   created() {
+    this.shrinkIcon = !this.shrinkMode;
+
     window.addEventListener('scroll', this.handleScroll, { passive: true });
     if (this.isLoggedIn) {
       this.getNotifications();
@@ -198,10 +200,12 @@ export default {
       this.closeNav();
     },
     handleScroll() {
-      const distanceY = window.scrollY;
-      const shouldShrink = distanceY >= 20;
-      if (this.shrinkIcon !== shouldShrink) {
-        this.shrinkIcon = shouldShrink;
+      if (this.shrinkMode) {
+        const distanceY = window.scrollY;
+        const shouldShrink = distanceY >= 20;
+        if (this.shrinkIcon !== shouldShrink) {
+          this.shrinkIcon = shouldShrink;
+        }
       }
     },
   },
@@ -209,6 +213,7 @@ export default {
     ...mapGetters([
       'isLoggedIn',
       'notifications',
+      'shrinkMode',
       'user',
     ]),
     hasNotifications() {
@@ -242,6 +247,11 @@ export default {
     },
     totalNotifications() {
       return this.notifications.filter(notification => !notification.read).length;
+    },
+  },
+  watch: {
+    shrinkMode(val) {
+      this.shrinkIcon = !val;
     },
   },
 };
