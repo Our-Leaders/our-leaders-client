@@ -584,6 +584,6 @@ export default {
     position: sticky;
     top: 5px;
     transform: translateY(-10px);
-    z-index: 70;
+    z-index: 30;
   }
 </style>
