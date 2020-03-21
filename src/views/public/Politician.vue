@@ -546,9 +546,7 @@ export default {
       return parsedData;
     },
     scrollTo(id) {
-      this.$scrollTo(`#${id}`, 2000, {
-        container: '#main-holder',
-      });
+      this.$scrollTo(`#${id}`, 2000, this.options);
     },
     setPage(page, index) {
       this.page = page;
