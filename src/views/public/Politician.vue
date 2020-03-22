@@ -29,12 +29,68 @@
         <div class="passport-wrapper mb-3 md:max-w-passport">
           <img class="object-cover" :src="politician.profileImage"/>
         </div>
+        <div class="hidden md:flex flex-wrap" v-if="stuck">
+          <div class="w-7/12">
+            <h5 class="hidden md:block pr-2 text-xl font-bold overflow-ellipse">{{politician.name}}</h5>
+          </div>
+          <div class="w-5/12">
+            <div id="votes" class="inline-block float-right" v-if="politician.vote">
+              <img class="inline-block mr-1 h-4 md:h-4 cursor-pointer"
+                :src="hasVoted && isUpvote ? require('@/assets/img/thumbs-up-active.svg') : require('@/assets/img/thumbs-up.svg')"
+                @click="voteForPolitician(true)"/>
+              <span class="inline-block mr-1 h-4 align-middle text-xs">{{politician.vote.up}}</span>
+              <img class="inline-block mr-1 mt-2 h-4 md:h-4 cursor-pointer"
+                :src="hasVoted && !isUpvote ? require('@/assets/img/thumbs-down-active.svg') : require('@/assets/img/thumbs-down.svg')"
+                @click="voteForPolitician(false)"/>
+              <span class="inline-block mr-1 h-4 align-middle text-xs">{{politician.vote.down}}</span>
+            </div>
+          </div>
+          <div class="w-full mt-2">
+            <div class="hidden md:block pr-2 w-full" v-if="position.inOffice">
+              <span class="block text-base capitalize">{{position.name}}</span>
+            </div>
+            <div class="hidden md:block pr-2 w-full" v-else>
+              <span class="block text-base capitalize">Not in Office</span>
+            </div>
+          </div>
+          <div class="w-full my-4">
+            <div class="inline-block pr-10 border-r">
+              <span class="block text-xs w-full">Follow {{firstName}}</span>
+              <div id="share" class="inline-block">
+                <a v-if="politician.socials.facebook" target="_blank" :href="`https://facebook.com/${politician.socials.facebook}`"><img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/></a>
+                <a v-if="politician.socials.twitter" target="_blank" :href="`https://twitter.com/${politician.socials.twitter}`"><img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/twitter-gray.svg"/></a>
+                <a v-if="politician.socials.instagram" target="_blank" :href="`https://instagram.com/${politician.socials.instagram}`"><img class="cursor-pointer inline-block h-4" src="@/assets/img/instagram-gray.svg"/></a>
+              </div>
+            </div>
+            <div class="inline-block pl-10">
+              <span class="block text-xs w-full">Share Profile</span>
+              <div id="share" class="inline-block">
+                <a v-if="politician.socials.facebook" class="relative" target="_blank" :href="`https://facebook.com/${politician.socials.facebook}`">
+                  <div class="absolute opacity-0 h-full w-full top-0 left-0">
+                    <ShareFacebook title="Politician Test" :url="`https://ourleaders.africa/politicians/${politician.socials.facebook}`"></ShareFacebook>
+                  </div>
+                  <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/>
+                </a>
+                <a v-if="politician.socials.twitter" class="relative" href="#">
+                  <div class="absolute opacity-0 h-full w-full top-0 left-0">
+                    <ShareTwitter :title="`Click to read more about ${politician.name}`" :url="`https://ourleaders.africa/politicians/${politician.socials.twitter}`"></ShareTwitter>
+                  </div>
+                  <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/twitter-gray.svg"/>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="flex md:hidden w-full justify-between px-3">
           <div id="votes" class="inline-block pr-5" v-if="politician.vote">
-            <img class="inline-block mr-2 md:mr-2 h-4 md:h-4" src="@/assets/img/thumbs-up.svg"/>
-            <span class="inline-block mr-3 md:mr-4 h-4 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.up}}</span>
-            <img class="inline-block mr-2 mt-2 md:mr-2 h-4 md:h-4" src="@/assets/img/thumbs-down.svg"/>
-            <span class="inline-block mr-2 md:mr-2 h-4 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.down}}</span>
+            <img class="inline-block mr-2 md:mr-2 h-4 cursor-pointer"
+              :src="hasVoted && isUpvote ? require('@/assets/img/thumbs-up-active.svg') : require('@/assets/img/thumbs-up.svg')"
+              @click="voteForPolitician(true)"/>
+            <span class="inline-block mr-3 md:mr-4 h-4 align-middle text-xs md:text-sm">{{politician.vote.up}}</span>
+            <img class="inline-block mr-2 mt-2 md:mr-2 h-4 cursor-pointer"
+              :src="hasVoted && !isUpvote ? require('@/assets/img/thumbs-down-active.svg') : require('@/assets/img/thumbs-down.svg')"
+              @click="voteForPolitician(false)"/>
+            <span class="inline-block mr-2 md:mr-2 h-4 align-middle text-xs md:text-sm">{{politician.vote.down}}</span>
           </div>
           <div id="share" class="inline-block">
             <a v-if="politician.socials.facebook" target="_blank" :href="`https://facebook.com/${politician.socials.facebook}`"><img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/></a>
@@ -42,7 +98,7 @@
             <a v-if="politician.socials.instagram" target="_blank" :href="`https://instagram.com/${politician.socials.instagram}`"><img class="cursor-pointer inline-block h-4" src="@/assets/img/instagram-gray.svg"/></a>
           </div>
         </div>
-        <div class="hidden md:block mb-10">
+        <div class="hidden md:block mb-10" v-if="!stuck">
           <a v-if="politician.socials.facebook" target="_blank" :href="`https://facebook.com/${politician.socials.facebook}`"><img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/></a>
           <a v-if="politician.socials.twitter" target="_blank" :href="`https://twitter.com/${politician.socials.twitter}`"><img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/twitter-gray.svg"/></a>
           <a v-if="politician.socials.instagram" target="_blank" :href="`https://instagram.com/${politician.socials.instagram}`"><img class="cursor-pointer inline-block h-4" src="@/assets/img/instagram-gray.svg"/></a>
@@ -64,9 +120,9 @@
           </div>
         </div>
       </div>
-      <div class="w-full md:w-2/3 pl-2 md:px-10 py-1 md:py-4 md:max-h-screen md:overflow-y-scroll relative" sticky-container>
-        <h3 class="hidden md:block pr-2 text-6xl mt-8">{{politician.name}}</h3>
-        <button class="hidden btn-subscribe md:block absolute top-0 right-0 px-4 py-2 my-1 md:my-5 mr-17"
+      <div ref="main" class="w-full md:w-2/3 pl-2 md:px-10 py-1 md:pb-4 md:max-h-screen md:overflow-y-scroll relative">
+        <h3 class="hidden md:block pr-2 text-6xl mt-10">{{politician.name}}</h3>
+        <button v-view="handleChange" class="hidden btn-subscribe md:block absolute top-0 right-0 px-4 py-2 my-1 md:my-5 mr-17"
           :class="{ 'active': hasSubscribed }"
           @click="toggleSubscription">
           <span class="align-middle loading sm" v-if="processing"></span>
@@ -76,13 +132,17 @@
         </button>
         <div class="hidden md:block pr-2 w-full mb-4">
           <div id="votes" class="inline-block pr-5 border-r-2 border-gray-300">
-            <img class="inline-block mr-1 md:mr-2 h-3 md:h-4" src="@/assets/img/thumbs-up.svg"/>
+            <img class="inline-block mr-1 md:mr-2 h-3 md:h-4 cursor-pointer"
+              :src="hasVoted && isUpvote ? require('@/assets/img/thumbs-up-active.svg') : require('@/assets/img/thumbs-up.svg')"
+              @click="voteForPolitician(true)"/>
             <span class="inline-block mr-2 md:mr-4 h-3 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.up}}</span>
-            <img class="inline-block mr-1 mt-2 md:mr-2 h-3 md:h-4" src="@/assets/img/thumbs-down.svg"/>
+            <img class="inline-block mr-1 mt-2 md:mr-2 h-3 md:h-4 cursor-pointer"
+              :src="hasVoted && !isUpvote ? require('@/assets/img/thumbs-down-active.svg') : require('@/assets/img/thumbs-down.svg')"
+              @click="voteForPolitician(false)"/>
             <span class="inline-block mr-1 md:mr-2 h-3 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.down}}</span>
           </div>
           <div id="share" class="inline-block pl-5">
-            <span id="testing" class="cursor-pointer text-xs mr-6">Share Profile</span>
+            <span class="text-xs mr-6">Share Profile</span>
               <a v-if="politician.socials.facebook" class="relative" target="_blank" :href="`https://facebook.com/${politician.socials.facebook}`">
                 <div class="absolute opacity-0 h-full w-full top-0 left-0">
                   <ShareFacebook title="Politician Test" :url="`https://ourleaders.africa/politicians/${politician.socials.facebook}`"></ShareFacebook>
@@ -104,18 +164,18 @@
         <div class="hidden md:block pr-2 w-full" v-else>
           <span class="block text-base capitalize">Not in Office</span>
         </div>
-        <div v-sticky sticky-offset="offset" sticky-side="top" ref="stickyTop">
+        <div id="secondaryTab" ref="secondaryTab">
           <div class="w-full md:w-9/12 overflow-x-scroll mt-6 md:pr-4">
             <our-tabs class="mb-1 pr-2" v-on:change="setPage" :tabs='mainTabs' :tab-type="'secondary'"></our-tabs>
           </div>
         </div>
-        <div class="flex flex-wrap lg:flex-row xl:flex-row">
-          <div class="w-full lg:w-9/12 xl:w-9/12 align-top block min-h-screen lg:inline-block xl:inline-block relative">
+        <div class="flex flex-wrap lg:flex-row xl:flex-row max-h-screen overflow-y-hidden">
+          <div id="main-holder" class="w-full lg:w-9/12 xl:w-9/12 align-top block max-h-screen overflow-y-scroll lg:inline-block xl:inline-block relative">
             <transition-group name="fade" mode="out-in">
 
               <!-- Background -->
               <div class="relative top-0 left-0 w-full" key="background" v-show="isPage('background')">
-                <div class="w-full py-2 pr-2">
+                <div class="w-full py-3 pr-2">
                   <h3 class="font-bold mb-3 text-xl">Personal background</h3>
                   <div class="flex flex-wrap mb-4">
                     <span class="w-1/3 my-1 inline-block">Political Party</span>
@@ -211,7 +271,7 @@
               <!-- <div class="absolute top-0 left-0" v-for="tab of mainTabs" :key="tab.value" v-show="isPage(tab.value)">{{tab.label + ' is here'}}</div> -->
             </transition-group>
           </div>
-          <div class="w-full lg:w-3/12 xl:w-3/12 block md:inline-block">
+          <div class="w-full lg:w-3/12 xl:w-3/12 block md:inline-block relative">
             <!-- For Now -->
             <our-side-scroll :options="sideTabs" v-on:scroll="scrollTo"></our-side-scroll>
           </div>
@@ -223,12 +283,13 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+
 import { politiciansMock } from '@/constants/examples';
 import monthsList from '@/assets/json/months.json';
-import tabsList from '@/assets/json/tabsList.json';
 import DataUtil from '@/helpers/dataUtil';
 import DateUtil from '@/helpers/dateUtil';
 import StringUtil from '@/helpers/stringUtil';
+import tabsList from '@/assets/json/tabsList.json';
 import ValidatorUtil from '@/helpers/validatorUtil';
 
 export default {
@@ -253,13 +314,20 @@ export default {
     ...mapGetters([
       'isLoggedIn',
       'subscription',
+      'user',
       'viewedPoliticians',
     ]),
     feedsData() {
       return ValidatorUtil.isDefined(this.feeds) && this.page === 'recent' ? this.parseUpdates(this.feeds) : {};
     },
+    firstName() {
+      return this.politician.name.split(' ')[0];
+    },
     hasSubscribed() {
       return this.subscribed === true;
+    },
+    hasVoted() {
+      return ValidatorUtil.isDefined(this.politician.voters) ? (this.politician.voters.findIndex(x => x.id === this.user.id) > -1) : false;
     },
     lastName() {
       return ValidatorUtil.isDefined(this.politician.name) ? this.politician.name.split(' ')[1] : '';
@@ -285,8 +353,17 @@ export default {
       feeds: [],
       feedsKeys: [],
       feedsServices: this.$serviceFactory.feeds,
+      isUpvote: false,
       loading: true,
       mainTabs: tabsList.politician,
+      options: {
+        container: '#main-holder',
+        duration: 2000,
+        easing: 'ease',
+        offset: 0,
+        force: true,
+        cancelable: true,
+      },
       page: 'background',
       // For now
       politician: politiciansMock[0],
@@ -294,6 +371,7 @@ export default {
       previousTabs: null,
       processing: false,
       sideTabs: tabsList.politician[0].side,
+      stuck: false,
       subscribed: false,
       subscriptionsServices: this.$serviceFactory.subscriptions,
     };
@@ -358,6 +436,10 @@ export default {
         if (!this.politician.politicalParty) {
           this.politician.politicalParty = {};
         }
+        if (this.politician.voters) {
+          const vote = this.politician.voters.find(x => x.id === this.user.id);
+          this.isUpvote = vote.isUpvote;
+        }
         this.loading = false;
       } catch (error) {
         this.loading = false;
@@ -378,12 +460,28 @@ export default {
         this.displayError(error);
       }
     },
+    async voteForPolitician(isUpvote) {
+      try {
+        this.processing = true;
+        const response = await this.politiciansServices.voteForPolitician(this.politicianId, { isUpvote });
+        this.politician = response.data.politician;
+        this.$store.commit('addToViewedPoliticians', this.politician);
+        this.isUpvote = isUpvote;
+        this.processing = false;
+      } catch (error) {
+        this.processing = false;
+        this.displayError(error);
+      }
+    },
     getBirthString(dob) {
       const dobDate = new Date(dob);
       return `${dobDate.toLocaleDateString()} (${DateUtil.getAge(dob)})`;
     },
     getPeriodString(startDate, endDate) {
       return DateUtil.getPeriodString(startDate, endDate);
+    },
+    handleChange(e) {
+      this.stuck = e.percentInView <= 0;
     },
     isPage(page) {
       return this.page === page;
@@ -448,7 +546,7 @@ export default {
       return parsedData;
     },
     scrollTo(id) {
-      this.$scrollTo(`#${id}`);
+      this.$scrollTo(`#${id}`, 2000, this.options);
     },
     setPage(page, index) {
       this.page = page;
@@ -479,4 +577,11 @@ export default {
 </script>
 
 <style lang="scss">
+  #secondaryTab {
+    background: white;
+    position: sticky;
+    top: 5px;
+    transform: translateY(-10px);
+    z-index: 30;
+  }
 </style>
