@@ -283,6 +283,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import moment from 'moment';
 
 import { politiciansMock } from '@/constants/examples';
 import monthsList from '@/assets/json/months.json';
@@ -491,18 +492,20 @@ export default {
       const keys = [];
 
       data.forEach((x) => {
-        if (keys.findIndex(z => z.label === x.year) === -1) {
-          keys.push({ label: x.year, value: x.year });
+        const year = moment(x.date).year();
+
+        if (keys.findIndex(z => z.label === year) === -1) {
+          keys.push({ label: year, value: year });
         }
 
-        if (!parsedData[x.year]) {
-          parsedData[x.year] = {};
+        if (!parsedData[year]) {
+          parsedData[year] = {};
         }
 
-        if (!parsedData[x.year][x.quarter]) {
-          parsedData[x.year][x.quarter] = [];
+        if (!parsedData[year][x.quarter]) {
+          parsedData[year][x.quarter] = [];
         }
-        parsedData[x.year][x.quarter].push(x);
+        parsedData[year][x.quarter].push(x);
       });
 
       this.sideTabs = DataUtil.sortArray(keys, true, 'label');
