@@ -17,10 +17,10 @@
       </div>
       <div class="w-full lg:w-1/2 xl:w-1/2">
         <div class="avatar mx-auto lg:mx-0 xl:mx-0 xl:float-right lg:float-right">
-          <img src="@/assets/img/no-image.svg"/>
+          <img :src="user.profileImage ? user.profileImage : require('@/assets/img/no-image.svg')"/>
           <!-- Will work on this in another card -->
           <div class="avatar-hover">
-            <button class="text-white mx-auto border-2 border-gray-500 w-16 px-4">Edit</button>
+            <button class="text-white mx-auto border-2 border-gray-500 w-16 px-4" @click="toggleModal">Edit</button>
           </div>
         </div>
       </div>
@@ -41,6 +41,15 @@
         </button>
       </div>
     </div>
+
+    <our-modal :show="showModal" v-on:dismiss="toggleModal">
+      <template v-slot:header>
+        <h3 class="font-bold text-lg font-circular mb-6">Profile Picture Change</h3>
+      </template>
+      <template v-slot:body>
+        <our-image-upload v-on:complete="toggleModal" v-on:cancel="toggleModal"></our-image-upload>
+      </template>
+    </our-modal>
   </div>
 </template>
 
@@ -54,11 +63,23 @@ export default {
       'user',
     ]),
   },
+  mounted() {
+    console.log(this.user);
+  },
+  data() {
+    return {
+      showModal: false,
+    };
+  },
   methods: {
     signOut() {
       this.$store.commit('clearCurrentUser');
       this.$store.commit('clearJWT');
       this.$router.push('home');
+      window.location.reload();
+    },
+    toggleModal() {
+      this.showModal = !this.showModal;
     },
   },
 };
@@ -66,6 +87,7 @@ export default {
 
 <style lang="scss">
   .avatar {
+    border: 1px solid lightgray;
     border-radius: 60px;
     display: block;
     height: 120px;
