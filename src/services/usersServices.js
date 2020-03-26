@@ -19,4 +19,7 @@ export default {
       };
     });
   },
+  updateUser(id, data) {
+    return instance.put(`${resource}/${id}`, data);
+  },
 };

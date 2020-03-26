@@ -98,7 +98,7 @@
               <p class="text-gray-300 text-center" @click="clearNotifications">Clear Notifications</p>
             </our-dropdown-item>
           </our-dropdown>
-          <our-dropdown class="ml-1 xl:ml-0 xl:mr-3 xl:visible" width="w-56" listClass="profile-dropdown" :imageSrc="require('@/assets/img/user-primary.svg')">
+          <our-dropdown class="ml-1 xl:ml-0 xl:mr-3 xl:visible" width="w-56" listClass="profile-dropdown" :imageSrc="user.profileImage ? user.profileImage : require('@/assets/img/user-primary.svg')">
             <our-dropdown-item>
               <p>Signed in as {{ user.email }}</p>
               <p v-if="user.joinedBy" class="text-gray-500 text-xs pt-2">via {{ user.joinedBy }}</p>
@@ -198,6 +198,7 @@ export default {
       this.$store.commit('clearJWT');
       this.$store.commit('clearCurrentUser');
       this.closeNav();
+      window.location.reload();
     },
     handleScroll() {
       if (this.shrinkMode) {
