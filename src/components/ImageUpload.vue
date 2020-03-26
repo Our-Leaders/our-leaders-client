@@ -65,7 +65,7 @@ export default {
           } catch (error) {
             this.uploading = false;
             this.displayError({
-              message: 'An error occured while updating your picture. Please try again later',
+              message: err.response.data,
             });
           }
         },

@@ -63,9 +63,6 @@ export default {
       'user',
     ]),
   },
-  mounted() {
-    console.log(this.user);
-  },
   data() {
     return {
       showModal: false,
