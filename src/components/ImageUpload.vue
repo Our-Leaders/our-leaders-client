@@ -62,11 +62,13 @@ export default {
             });
             this.uploading = false;
             this.$emit('complete');
-          } catch (error) {
+          } catch (err) {
             this.uploading = false;
-            this.displayError({
-              message: err.response.data,
-            });
+            let message = 'An error occured while updating your picture. Please try again later';
+            if (err.response) {
+              message = err.response.data;
+            }
+            this.displayError({ message });
           }
         },
         'image/*',
