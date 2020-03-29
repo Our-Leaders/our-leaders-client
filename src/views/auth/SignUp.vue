@@ -86,7 +86,7 @@
           <div class="mt-20 lg:mt-0 mx-auto w-10/12 lg:w-6/12" v-if="page === 1">
             <span class="block text-5xl mb-4">Welcome!</span>
             <p class="mb-10">
-              Hello CreativeChimdi, we're glad to have you.
+              Hello {{data.email}}, we're glad to have you.
               <br/>
               Because we want to keep fake accounts off our platform,
               <br/>
