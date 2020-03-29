@@ -12,7 +12,7 @@
 
     <!-- Right Side -->
     <div class="w-full lg:w-2/3 xl:w-2/3 flex flex-col justify-center">
-      <div class="mt-20 lg:mt-0 xl:mt-0 mx-auto w-10/12 lg:w-6/12 xl:w-6/12">
+      <div class="mt-20 lg:mt-0 xl:mt-0 mx-auto w-10/12 lg:w-6/12 xl:w-6/12" v-if="page === 0">
         <span class="block text-5xl mb-10">Log in</span>
         <form @submit.prevent="proceed">
           <div class="mb-6">
@@ -28,11 +28,12 @@
           <div class="mb-6">
             <label class="block" for="password">
               <span class="font-semibold">Password</span>
-              <span
+              <a
                 class="block cursor-pointer font-regular text-sm
-                text-gray-500 float-right align-middle">
+                text-gray-500 float-right align-middle"
+                @click="goToPage(1)">
                 Forgot Password?
-              </span>
+              </a>
             </label>
             <div class="input-fields">
               <input class="w-11/12 py-2"
@@ -69,6 +70,33 @@
           </router-link>
         </p>
       </div>
+      <div class="mt-20 lg:mt-0 xl:mt-0 mx-auto w-10/12 lg:w-6/12 xl:w-6/12" v-if="page === 1">
+        <span class="block text-5xl mb-10">Forgot your password?</span>
+        <form @submit.prevent="requestPasswordReset">
+          <div class="mb-6">
+            <label class="block font-semibold mb-4" for="email">Enter the email associated with your account and we'll send you a reset link.</label>
+            <input class="field w-full py-2"
+              type="text"
+              id="email"
+              name="email"
+              v-model="resetEmail"
+              placeholder="Enter email"
+              required/>
+          </div>
+          <button
+            :class="{
+              'btn-primary w-full mb-8': true,
+              'loading': loading,
+            }"
+            :disabled="loading || !resetEmail">
+            Send Reset Link
+          </button>
+          <p>
+            I remember my password!
+            <a class="cursor-pointer text-primary font-semibold" @click="goToPage(0)">log me in</a>
+          </p>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -85,6 +113,7 @@ export default {
         email: null,
         password: null,
       },
+      resetEmail: null,
       displayInfo: false,
       displayPassword: false,
       info: {
@@ -93,6 +122,7 @@ export default {
         type: 'info',
       },
       loading: false,
+      page: 0,
     };
   },
   methods: {
@@ -120,6 +150,21 @@ export default {
         this.showError('Email or password is incorrect.');
       }
     },
+    async requestPasswordReset() {
+      try {
+        this.loading = true;
+        await this.authServices.requestPasswordReset({
+          email: this.resetEmail,
+        });
+
+        this.showSuccess('Please check the email associated with your account for further instructions. If you do not receive this email, please contact admin.');
+
+        this.loading = false;
+      } catch (err) {
+        this.loading = false;
+        this.showError(err);
+      }
+    },
     persistSocialLogin(data) {
       this.data = data;
       this.proceed();
@@ -132,6 +177,9 @@ export default {
     },
     togglePassword() {
       this.displayPassword = !this.displayPassword;
+    },
+    goToPage(page) {
+      this.page = page;
     },
   },
 };

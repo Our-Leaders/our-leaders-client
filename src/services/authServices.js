@@ -15,4 +15,7 @@ export default {
   verifyNumber(data) {
     return instance.post(`${resource}/verify`, data);
   },
+  requestPasswordReset(data) {
+    return instance.post(`${resource}/request-reset`, data);
+  },
 };
