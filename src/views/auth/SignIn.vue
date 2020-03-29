@@ -1,19 +1,17 @@
 <template>
-  <div class="flex flex-wrap h-1/2 lg:h-screen xl:h-screen">
-    <div class="w-full lg:w-1/3 xl:w-1/3 bg-primary bg-overlay relative">
-      <router-link :to="{ name: 'home' }"><img class="h-16 my-6 mx-auto lg:mx-12 xl:mx-12 relative lg:absolute xl:absolute" src="@/assets/img/logo-w.svg"/></router-link>
-      <div class="flex flex-col justify-center lg:h-full xl:h-full px-12">
-        <span class="text-white text-xl md:text-2xl lg:text-4xl xl:text-4xl mb-6 text-center lg:text-left xl:text-left">
-          Get live data on the performance and activities of cuttent African Leaders.
-        </span>
-        <hr class="mx-auto mb-2 lg:mx-0 lg:mb-0 xl:mx-0 xl:mb-0 text-white w-20"/>
-      </div>
-    </div>
-
-    <!-- Right Side -->
-    <div class="w-full lg:w-2/3 xl:w-2/3 flex flex-col justify-center">
-      <div class="mt-20 lg:mt-0 xl:mt-0 mx-auto w-10/12 lg:w-6/12 xl:w-6/12" v-if="page === 0">
-        <span class="block text-5xl mb-10">Log in</span>
+  <auth-layout>
+    <template v-slot:left-caption>
+      <span class="text-white text-xl md:text-2xl lg:text-4xl xl:text-4xl mb-6 text-center lg:text-left xl:text-left">
+        Get live data on the performance and activities of cuttent African Leaders.
+      </span>
+      <hr class="mx-auto mb-2 lg:mx-0 lg:mb-0 xl:mx-0 xl:mb-0 text-white w-20"/>
+    </template>
+    <template v-slot:header>
+      <span v-if="page === 0">Log in</span>
+      <span v-if="page === 1">Forgot your password?</span>
+    </template>
+    <template v-slot:body>
+      <div v-if="page === 0">
         <form @submit.prevent="proceed">
           <div class="mb-6">
             <label class="block font-semibold" for="email">Email</label>
@@ -70,8 +68,7 @@
           </router-link>
         </p>
       </div>
-      <div class="mt-20 lg:mt-0 xl:mt-0 mx-auto w-10/12 lg:w-6/12 xl:w-6/12" v-if="page === 1">
-        <span class="block text-5xl mb-10">Forgot your password?</span>
+      <div v-if="page === 1">
         <form @submit.prevent="requestPasswordReset">
           <div class="mb-6">
             <label class="block font-semibold mb-4" for="email">Enter the email associated with your account and we'll send you a reset link.</label>
@@ -91,14 +88,14 @@
             :disabled="loading || !resetEmail">
             Send Reset Link
           </button>
-          <p>
-            I remember my password!
-            <a class="cursor-pointer text-primary font-semibold" @click="goToPage(0)">log me in</a>
-          </p>
         </form>
+        <p>
+          I remember my password!
+          <a class="cursor-pointer text-primary font-semibold" @click="goToPage(0)">log me in</a>
+        </p>
       </div>
-    </div>
-  </div>
+    </template>
+  </auth-layout>
 </template>
 
 <script>
@@ -114,13 +111,7 @@ export default {
         password: null,
       },
       resetEmail: null,
-      displayInfo: false,
       displayPassword: false,
-      info: {
-        header: null,
-        details: null,
-        type: 'info',
-      },
       loading: false,
       page: 0,
     };

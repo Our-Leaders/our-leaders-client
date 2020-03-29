@@ -358,7 +358,7 @@ export default {
         this.verify();
       }
     },
-    showSocialError(header, msg) {
+    showSocialError(msg) {
       this.displayError({
         message: msg,
       });
