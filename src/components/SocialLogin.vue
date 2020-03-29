@@ -54,7 +54,7 @@ export default {
         this.$emit('successful', data);
       }, (error) => {
         this.loading[option] = false;
-        this.$emit('error', 'Uh Oh', error.message, 'error');
+        this.$emit('error', error.message);
       });
     },
   },

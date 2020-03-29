@@ -1,9 +1,5 @@
 <template>
   <div class="flex flex-wrap h-1/2 lg:h-screen xl:h-screen">
-    <our-alert :alert-type="info.type" :display="displayInfo">
-      <p class="font-bold">{{info.header}}</p>
-      <p class="text-sm">{{info.details}}</p>
-    </our-alert>
     <div class="w-full lg:w-1/3 xl:w-1/3 bg-primary bg-overlay relative">
       <router-link :to="{ name: 'home' }"><img class="h-16 my-6 mx-auto lg:mx-12 xl:mx-12 relative lg:absolute xl:absolute" src="@/assets/img/logo-w.svg"/></router-link>
       <div class="flex flex-col justify-center lg:h-full xl:h-full px-12">
@@ -65,7 +61,7 @@
         <div class="w-full mb-8 horizontal-divide">
           <span>OR</span>
         </div>
-        <our-social-login @successful="persistSocialLogin" @error="showInfo"></our-social-login>
+        <our-social-login @successful="persistSocialLogin" @error="showError"></our-social-login>
         <p>
           Don't have an account?
           <router-link to="/auth/sign-up">
@@ -78,6 +74,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'SignIn',
   data() {
@@ -98,13 +96,17 @@ export default {
     };
   },
   methods: {
+    ...mapActions([
+      'displayError',
+      'displaySuccess',
+    ]),
     async proceed() {
       try {
         this.loading = true;
         this.hasError = false;
         const response = await this.authServices.login(this.data);
 
-        this.showInfo('Success', 'Welcome back! Find everything just as you left it.', 'success');
+        this.showSuccess('Welcome back! Find everything just as you left it.');
         this.$store.commit('setCurrentUser', response.data.user);
         this.$store.commit('setJWT', response.data.token);
 
@@ -115,19 +117,18 @@ export default {
         }
       } catch (err) {
         this.loading = false;
-        this.showInfo('Uh Oh', 'Email or password is incorrect.', 'error');
+        this.showError('Email or password is incorrect.');
       }
     },
     persistSocialLogin(data) {
       this.data = data;
       this.proceed();
     },
-    showInfo(header, msg, type) {
-      this.info.header = header;
-      this.info.details = msg;
-      this.info.type = type;
-      this.displayInfo = true;
-      setTimeout(() => { this.displayInfo = false; }, 3000);
+    showError(message) {
+      this.displayError(message);
+    },
+    showSuccess(message) {
+      this.displaySuccess({ message });
     },
     togglePassword() {
       this.displayPassword = !this.displayPassword;

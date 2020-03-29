@@ -12,6 +12,10 @@ export const notificationActions = {
     context.commit('showInfo', data);
     setTimeout(() => context.commit('hideMessage'), 3000);
   },
+  displayCustomInfo(context, data) {
+    context.commit('showCustomInfo', data);
+    setTimeout(() => context.commit('hideMessage'), 3000);
+  },
   displaySignUp(context) {
     context.commit('showSignUp');
   },
@@ -55,24 +59,33 @@ export const notificationMutations = {
     state.info.displaySignUp = false;
   },
   showError(state, data) {
-    state.info.header = 'Uh Oh!';
-    state.info.details = StringUtil.getErrorText(data);
-    state.info.type = 'error';
-    state.info.display = true;
+    notificationMutations.showCustomInfo(state, {
+      header: 'Uh Oh!',
+      message: StringUtil.getErrorText(data),
+      type: 'error',
+    });
   },
   showInfo(state, data) {
-    state.info.header = 'Attention!';
-    state.info.details = data.message;
-    state.info.type = 'info';
-    state.info.display = true;
+    notificationMutations.showCustomInfo(state, {
+      header: 'Attention!',
+      message: data.message,
+      type: 'info',
+    });
   },
   showSignUp(state) {
     state.info.displaySignUp = true;
   },
   showSuccess(state, data) {
-    state.info.header = 'Success!';
+    notificationMutations.showCustomInfo(state, {
+      header: 'Success!',
+      message: data.message,
+      type: 'success',
+    });
+  },
+  showCustomInfo(state, data) {
+    state.info.header = data.header;
     state.info.details = data.message;
-    state.info.type = 'success';
+    state.info.type = data.type;
     state.info.display = true;
   },
   updateNotification(state, index) {
