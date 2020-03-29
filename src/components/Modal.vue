@@ -1,6 +1,6 @@
 <template>
   <transition name="fade" mode="out-in">
-    <div class="fixed top-0 left-0 bg-modal h-screen w-screen z-40" v-if="show">
+    <div class="fixed top-0 left-0 bg-modal h-screen w-screen" v-if="show">
       <div class="container mx-auto">
         <button
           @click="$emit('dismiss')">
@@ -33,6 +33,7 @@ export default {
   .bg-modal {
     background: rgba($color: #FFFFFF, $alpha: 0.7);
     backdrop-filter: blur(10px);
+    z-index: 200;
 
     .container {
       background: #FFFFFF;
