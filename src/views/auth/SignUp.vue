@@ -179,9 +179,6 @@ export default {
     ...mapGetters([
       'user',
     ]),
-    placeholder() {
-      return '&#183;&#183;&#183;';
-    },
   },
   methods: {
     ...mapActions([
