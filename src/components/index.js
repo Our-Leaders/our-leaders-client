@@ -1,5 +1,6 @@
 import Vue from 'vue';
 
+import '@/components/Auth/index';
 import '@/components/Dropdown/index';
 import '@/components/Home/index';
 import Alert from '@/components/Alert.vue';

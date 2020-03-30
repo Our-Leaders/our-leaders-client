@@ -2,7 +2,7 @@
   <auth-layout :isPrimary="false">
     <template v-slot:left-caption>
       <span class="text-primary text-xl md:text-2xl lg:text-4xl mb-6 text-center lg:text-left" v-if="page === 0">
-        Get live data on the performance and activities of cuttent African Leaders.
+        Get live data on the performance and activities of current African Leaders.
       </span>
       <span class="text-primary text-xl md:text-2xl lg:text-4xl mb-6 text-center lg:text-left" v-if="page === 1">
         Now, you can join the league of responsible citizens to hold your leaders accountable.
@@ -14,13 +14,9 @@
       <span v-if="page === 1">Welcome!</span>
     </template>
     <template v-slot:body>
-      <div v-if="page === 0">
-        <our-sign-up-form :goToVerify="() => goToPage(1)" :goToSignIn="goToSignIn"/>
-      </div>
-      <div v-if="page === 1">
-        <!-- Welcome Page -->
-        <our-verify-form/>
-      </div>
+      <our-sign-up-form v-if="page === 0" :goToVerify="() => goToPage(1)" :goToSignIn="goToSignIn"/>
+      <!-- Welcome Page -->
+      <our-verify-form v-if="page === 1"/>
     </template>
   </auth-layout>
 </template>
