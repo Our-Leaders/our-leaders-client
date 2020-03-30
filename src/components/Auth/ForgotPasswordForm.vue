@@ -36,7 +36,7 @@ export default {
     goToSignIn: {
       type: Function,
       required: true,
-    }
+    },
   },
   data() {
     return {

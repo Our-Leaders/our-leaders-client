@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- Welcome Page -->
     <p class="mb-10">
       Hello {{data.email}}, we're glad to have you.
       <br/>
@@ -91,14 +90,11 @@ export default {
     };
   },
   created() {
-    if (this.$route.query && this.$route.query.signedIn === 'true') {
-      if (this.user) {
-        this.data.phone = this.user.phoneNumber;
-        this.data.email = this.user.email;
-        this.data.phone = this.user.phoneNumber;
-      }
-      setTimeout(() => this.$refs.phone.focus(), 1000);
+    if (this.user) {
+      this.data.phone = this.user.phoneNumber;
+      this.data.email = this.user.email;
     }
+    setTimeout(() => this.$refs.phone.focus(), 1000);
   },
   computed: {
     ...mapGetters([

@@ -51,7 +51,7 @@
     <our-social-login isSignUp @successful="persistSocialLogin" @error="showError"></our-social-login>
     <p>
       Have an account already?
-      <a @click="goToSignInForm" class="cursor-pointer text-primary font-semibold">log in</a>
+      <a @click="goToSignIn" class="cursor-pointer text-primary font-semibold">log in</a>
     </p>
   </div>
 </template>
@@ -62,7 +62,11 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'our-sign-up-form',
   props: {
-    goToSignInForm: {
+    goToSignIn: {
+      type: Function,
+      required: true,
+    },
+    goToVerify: {
       type: Function,
       required: true,
     },
@@ -73,8 +77,6 @@ export default {
       data: {
         email: null,
         password: null,
-        phone: null,
-        verificationCode: null,
         subscribe: true,
       },
       displayPassword: false,
@@ -100,7 +102,7 @@ export default {
         this.$store.commit('setCurrentUser', response.data.user);
         this.$store.commit('setJWT', response.data.token);
         this.showSuccess('Welcome! We are glad to have you join us.');
-        this.page = 1;
+        this.goToVerify();
       } catch (err) {
         this.loading = false;
         this.showError(err.response.data.message);

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="proceed">
+    <form @submit.prevent="signIn">
       <div class="mb-6">
         <label class="block font-semibold" for="email">Email</label>
         <input class="field w-full py-2"
@@ -51,7 +51,7 @@
     <our-social-login @successful="persistSocialLogin" @error="showError"></our-social-login>
     <p>
       Don't have an account?
-      <a @click="goToSignUpForm" class="cursor-pointer text-primary font-semibold">sign up</a>
+      <a @click="goToSignUp" class="cursor-pointer text-primary font-semibold">sign up</a>
     </p>
   </div>
 </template>
@@ -66,7 +66,7 @@ export default {
       type: Function,
       required: true,
     },
-    goToSignUpForm: {
+    goToSignUp: {
       type: Function,
       required: true,
     },
@@ -87,7 +87,7 @@ export default {
       'displayError',
       'displaySuccess',
     ]),
-    async proceed() {
+    async signIn() {
       try {
         this.loading = true;
         const response = await this.authServices.login(this.data);
@@ -108,7 +108,7 @@ export default {
     },
     persistSocialLogin(data) {
       this.data = data;
-      this.proceed();
+      this.signIn();
     },
     showError(message) {
       this.displayError(message);
