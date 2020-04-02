@@ -2,7 +2,7 @@
   <div>
     <form @submit.prevent="requestPasswordReset">
       <div class="mb-6">
-        <label class="block font-semibold mb-4" for="email">Enter the email associated with your account and we'll send you an email with your reset link.</label>
+        <label class="block font-semibold mb-4" for="email">Enter the email associated with your account and we'll send you reset instructions.</label>
         <input class="field w-full py-2"
           type="text"
           id="email"
@@ -17,7 +17,7 @@
           'loading': loading,
         }"
         :disabled="loading || !resetEmail">
-        Send Reset Link
+        Send Password Reset Email
       </button>
     </form>
     <p>

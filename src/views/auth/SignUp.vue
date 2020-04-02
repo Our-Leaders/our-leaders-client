@@ -16,7 +16,7 @@
     <template v-slot:body>
       <our-sign-up-form v-if="page === 0" :goToVerify="() => goToPage(1)" :goToSignIn="goToSignIn"/>
       <!-- Welcome Page -->
-      <our-verify-form v-if="page === 1"/>
+      <our-verify-form v-if="page === 1" :goToHome="goToHome"/>
     </template>
   </auth-layout>
 </template>
@@ -40,6 +40,9 @@ export default {
     },
     goToSignIn() {
       this.$router.push('/auth/sign-in');
+    },
+    goToHome() {
+      this.$router.push('/');
     },
   },
 };

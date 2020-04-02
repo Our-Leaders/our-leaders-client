@@ -76,6 +76,12 @@ import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'our-verify-form',
+  props: {
+    goToHome: {
+      type: Function,
+      required: true,
+    },
+  },
   data() {
     return {
       authServices: this.$serviceFactory.auth,
@@ -132,7 +138,7 @@ export default {
 
         this.showSuccess('Phone number verified.');
         this.$store.commit('setCurrentUser', response.data.user);
-        this.$router.push('/');
+        this.goToHome();
       } catch (err) {
         this.showError('Phone number not verified.');
       }

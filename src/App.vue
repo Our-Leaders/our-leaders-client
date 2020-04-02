@@ -45,7 +45,7 @@ export default {
   name: 'App',
   data() {
     return {
-      header: 'signup',
+      header: 'signin',
     };
   },
   computed: {

@@ -70,6 +70,14 @@ export default {
       type: Function,
       required: true,
     },
+    goToHome: {
+      type: Function,
+      required: true,
+    },
+    goToVerify: {
+      type: Function,
+      required: true,
+    },
   },
   data() {
     return {
@@ -97,9 +105,9 @@ export default {
         this.$store.commit('setJWT', response.data.token);
 
         if (response.data.user.isPhoneVerified) {
-          this.$router.push('/');
+          this.goToHome();
         } else {
-          this.$router.push('/auth/sign-up?signedIn=true');
+          this.goToVerify();
         }
       } catch (err) {
         this.loading = false;

@@ -11,7 +11,13 @@
       <span v-if="page === 1">Forgot your password?</span>
     </template>
     <template v-slot:body>
-      <our-sign-in-form v-if="page === 0" :goToForgotPassword="() => goToPage(1)" :goToSignUp="goToSignUp"/>
+      <our-sign-in-form
+        v-if="page === 0"
+        :goToForgotPassword="() => goToPage(1)"
+        :goToSignUp="goToSignUp"
+        :goToHome="goToHome"
+        :goToVerify="goToVerify"
+      />
       <our-forgot-password-form v-if="page === 1" :goToSignIn="() => goToPage(0)"/>
     </template>
   </auth-layout>
@@ -31,6 +37,12 @@ export default {
     },
     goToSignUp() {
       this.$router.push('/auth/sign-up');
+    },
+    goToHome() {
+      this.$router.push('/');
+    },
+    goToVerify() {
+      this.$router.push('/auth/sign-up?signedIn=true');
     },
   },
 };
