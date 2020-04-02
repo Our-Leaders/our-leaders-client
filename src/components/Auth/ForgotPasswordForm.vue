@@ -60,6 +60,7 @@ export default {
         this.showSuccess('Please check the email associated with your account for further instructions. If you do not receive this email, please contact admin.');
 
         this.loading = false;
+        this.goToSignIn();
       } catch (err) {
         this.loading = false;
         this.showError(err);
