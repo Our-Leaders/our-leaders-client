@@ -1,31 +1,26 @@
 <template>
-  <form @submit.prevent="proceed">
-    <div class="mb-6">
-      <label class="block" for="password">Current Password</label>
-      <input class="w-11/12 py-2"
-        type="password"
-        name="password"
-        v-model="data.password"
-        placeholder="Enter current password"
-        required/>
+  <form @submit.prevent="resetPassword">
+    <div class="mb-8">
+      <label class="block font-semibold" for="password">New Password</label>
+      <div class="input-fields">
+        <input class="w-full py-2"
+          type="password"
+          name="password"
+          v-model="data.password"
+          placeholder="Enter new password"
+          required/>
+      </div>
     </div>
-    <div class="mb-6">
-      <label class="block" for="password">New Password</label>
-      <input class="w-11/12 py-2"
-        type="password"
-        name="password"
-        v-model="data.newPassword"
-        placeholder="Enter new password"
-        required/>
-    </div>
-    <div class="mb-6">
-      <label class="block" for="password">Confirm New Password</label>
-      <input class="w-11/12 py-2"
-        type="password"
-        name="password"
-        v-model="data.newPasswordConfirm"
-        placeholder="Re-enter new password"
-        required/>
+    <div class="mb-8">
+      <label class="block font-semibold" for="password">Confirm Password</label>
+      <div class="input-fields">
+        <input class="w-full py-2"
+          type="password"
+          name="password"
+          v-model="data.confirmPassword"
+          placeholder="Re-enter new password"
+          required/>
+      </div>
     </div>
     <button
       :class="{
@@ -43,38 +38,50 @@ import { mapActions } from 'vuex';
 
 export default {
   name: 'our-password-reset-form',
+  props: {
+    goToSignIn: {
+      type: Function,
+      required: true,
+    },
+  },
   data() {
     return {
       authServices: this.$serviceFactory.auth,
       data: {
+        confirmPassword: null,
         password: null,
-        newPassword: null,
+        token: null,
       },
-      newPasswordConfirm: null,
       loading: false,
     };
+  },
+  created() {
+    this.data.token = this.$route.query.token;
+    if (!this.data.token) {
+      this.goToSignIn();
+    }
   },
   methods: {
     ...mapActions([
       'displayError',
       'displaySuccess',
     ]),
-    async changePassword() {
-      if (this.newPassword !== this.newPasswordConfirm) {
-        return this.displayError('Your new password must match the confirmation password');
-      }
-      try {
-        this.loading = true;
-        await this.authServices.changePassword(this.data);
+    async resetPassword() {
+      if (this.data.password !== this.data.confirmPassword) {
+        this.displayError('Your new password must match the confirmation password');
+      } else {
+        try {
+          this.loading = true;
+          await this.authServices.resetPassword(this.data);
 
-        this.displaySuccess({ message: 'Your password has been updated successfully' });
+          this.displaySuccess({ message: 'Your password has been updated successfully' });
 
-        this.$router.push('/auth/sign-in');
-      } catch (err) {
-        this.loading = false;
-        this.displayError(err);
+          this.goToSignIn();
+        } catch (err) {
+          this.loading = false;
+          this.displayError(err);
+        }
       }
-      return null;
     },
   },
 };

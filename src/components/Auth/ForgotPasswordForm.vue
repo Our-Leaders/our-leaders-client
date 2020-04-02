@@ -2,7 +2,7 @@
   <div>
     <form @submit.prevent="requestPasswordReset">
       <div class="mb-6">
-        <label class="block font-semibold mb-4" for="email">Enter the email associated with your account and we'll send you a reset link.</label>
+        <label class="block font-semibold mb-4" for="email">Enter the email associated with your account and we'll send you an email with your reset link.</label>
         <input class="field w-full py-2"
           type="text"
           id="email"
@@ -57,10 +57,10 @@ export default {
           email: this.resetEmail,
         });
 
-        this.showSuccess('Please check the email associated with your account for further instructions. If you do not receive this email, please contact admin.');
+        this.showSuccess(`An email has been sent to ${this.resetEmail} with further instructions.`);
 
         this.loading = false;
-        this.goToSignIn();
+        this.resetEmail = null;
       } catch (err) {
         this.loading = false;
         this.showError(err);

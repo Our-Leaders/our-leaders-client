@@ -18,4 +18,7 @@ export default {
   requestPasswordReset(data) {
     return instance.post(`${resource}/request-reset`, data);
   },
+  resetPassword(data) {
+    return instance.post(`${resource}/reset-password`, data);
+  },
 };
