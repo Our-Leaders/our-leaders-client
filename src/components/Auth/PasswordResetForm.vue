@@ -57,6 +57,7 @@ export default {
   },
   created() {
     this.data.token = this.$route.query.token;
+    this.hideSignUp();
     if (!this.data.token) {
       this.goToSignIn();
     }
@@ -65,6 +66,7 @@ export default {
     ...mapActions([
       'displayError',
       'displaySuccess',
+      'hideSignUp',
     ]),
     async resetPassword() {
       if (this.data.password !== this.data.confirmPassword) {
@@ -73,14 +75,12 @@ export default {
         try {
           this.loading = true;
           await this.authServices.resetPassword(this.data);
-
           this.displaySuccess({ message: 'Your password has been updated successfully' });
-
-          this.goToSignIn();
         } catch (err) {
           this.loading = false;
           this.displayError(err);
         }
+        this.goToSignIn();
       }
     },
   },
