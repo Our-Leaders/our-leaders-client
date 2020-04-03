@@ -13,6 +13,7 @@ import PoliticalParty from './public/PoliticalParty.vue';
 import PoliticalParties from './public/PoliticalParties.vue';
 import Politician from './public/Politician.vue';
 import Politicians from './public/Politicians.vue';
+import ResetPassword from './auth/ResetPassword.vue';
 import SignIn from './auth/SignIn.vue';
 import SignUp from './auth/SignUp.vue';
 
@@ -32,6 +33,7 @@ export default {
   PoliticalParties,
   Politician,
   Politicians,
+  ResetPassword,
   SignIn,
   SignUp,
 };

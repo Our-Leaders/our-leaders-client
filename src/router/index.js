@@ -36,6 +36,15 @@ const routes = [
     },
   },
   {
+    path: '/auth/reset-password',
+    name: 'reset-password',
+    component: Pages.ResetPassword,
+    meta: {
+      isAuth: true,
+      layout: 'no-navbar',
+    },
+  },
+  {
     path: '/about-us',
     name: 'about-us',
     component: Pages.AboutUs,
