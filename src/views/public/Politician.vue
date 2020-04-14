@@ -121,15 +121,19 @@
         </div>
       </div>
       <div ref="main" class="w-full md:w-2/3 pl-2 md:px-10 py-1 md:pb-4 md:max-h-screen md:overflow-y-scroll relative">
-        <h3 class="hidden md:block pr-2 text-6xl mt-10">{{politician.name}}</h3>
-        <button v-view="handleChange" class="hidden btn-subscribe md:block absolute top-0 right-0 px-4 py-2 my-1 md:my-5 mr-17"
-          :class="{ 'active': hasSubscribed }"
-          @click="toggleSubscription">
-          <span class="align-middle loading sm" v-if="processing"></span>
-          <span class="align-middle" v-if="!hasSubscribed && !processing">Subscribe to {{lastName}}</span>
-          <span class="align-middle" v-if="hasSubscribed && !processing">Subscribed</span>
-          <img class="ml-2" v-if="hasSubscribed && !processing" src="@/assets/img/green-tick.svg"/>
-        </button>
+        <div class="flex justify-between">
+          <h3 class="hidden md:block pr-2 text-6xl mt-10">{{politician.name}}</h3>
+          <div class="flex flex-col justify-end mb-3">
+            <button class="btn-subscribe px-4 py-2 my-3"
+              :class="{ 'active': hasSubscribed }"
+              @click="toggleSubscription">
+                <span class="align-middle loading sm" v-if="processing"></span>
+                <span class="align-middle" v-if="!hasSubscribed && !processing">Subscribe to {{lastName}}</span>
+                <span class="align-middle" v-if="hasSubscribed && !processing">Subscribed</span>
+                <img class="ml-2" v-if="hasSubscribed && !processing" src="@/assets/img/green-tick.svg"/>
+            </button>
+          </div>
+        </div>
         <div class="hidden md:block pr-2 w-full mb-4">
           <div id="votes" class="inline-block pr-5 border-r-2 border-gray-300">
             <img class="inline-block mr-1 md:mr-2 h-3 md:h-4 cursor-pointer"
