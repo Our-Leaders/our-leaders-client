@@ -6,13 +6,19 @@
       <img class="ml-2" src="@/assets/img/chevron-down.svg"/>
     </div>
     <transition name="fade" mode="out-in">
-      <div class="fixed xl:absolute w-full xl:w-64 country-list p-3 xl:px-4 right-0 bg-white -mt-3" v-if="countryListOpen">
+      <div class="fixed xl:absolute w-full xl:w-64 country-list p-3 right-0 bg-white -mt-3" v-if="countryListOpen">
         <div class="xl:hidden mb-4 border-gray-200 border-b sticky w-full top-0 bg-white z-10 flex justify-center items-center">
           <p class="py-5 uppercase font-circular text-sm">Choose country</p>
           <img @click="toggleCountryList" class="absolute right-0" src="@/assets/img/close.svg"/>
         </div>
         <ul>
-          <li v-for="(countryObject, key) in countryList" :key="key" class="flex relative py-1 items-center" :class="selectedCountryClass(key)" @click="countrySelect(key)">
+          <li
+            v-for="(countryObject, key) in countryList"
+            :key="key"
+            class="flex relative py-2 px-1 items-center"
+            :class="selectedCountryClass(key, countryObject)"
+            @click="countrySelect(key, countryObject)"
+          >
             <input type="radio" name="country" :value="key" :v-model="value" class="absolute invisible">
             <div class="flag-container mr-3">
               <img :src="countryFlag(countryObject.flag)"/>
@@ -43,9 +49,11 @@ export default {
     };
   },
   methods: {
-    countrySelect(country) {
-      this.$emit('input', country);
-      this.closeCountryList();
+    countrySelect(country, countryObject) {
+      if (countryObject.enabled) {
+        this.$emit('input', country);
+        this.closeCountryList();
+      }
     },
     countryFlag(flag) {
       const images = require.context('@/assets/img/flags', false, /\.svg$/);
@@ -57,9 +65,10 @@ export default {
     closeCountryList() {
       this.countryListOpen = false;
     },
-    selectedCountryClass(country) {
+    selectedCountryClass(country, countryObject) {
       if (country === this.value) return 'country-selected';
-      return '';
+      if (!countryObject.enabled) return 'country-disabled';
+      return 'cursor-pointer hover:opacity-75';
     },
   },
   computed: {
@@ -71,10 +80,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .selector-container {
-    cursor: pointer;
-  }
-
   .country-list {
     top: 0;
     height: calc(100vh + 0.75rem);
@@ -82,7 +87,7 @@ export default {
     overflow-y: scroll;
 
     ul li:not(:last-child) {
-      @apply mb-3;
+      @apply mb-1;
     }
 
     @screen xl {
@@ -93,7 +98,11 @@ export default {
   }
 
   .country-selected {
-    @apply bg-gray-100;
+    @apply bg-gray-100 cursor-pointer;
+  }
+
+  .country-disabled {
+    @apply opacity-25 cursor-not-allowed;
   }
 
   .flag-container {

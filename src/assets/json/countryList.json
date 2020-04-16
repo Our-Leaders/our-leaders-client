@@ -2,7 +2,8 @@
   "ngr": {
     "name": "Nigeria",
     "acronym": "Ngr",
-    "flag": "nigeria.svg"
+    "flag": "nigeria.svg",
+    "enabled": "true"
   },
   "sa": {
     "name": "South Africa",
