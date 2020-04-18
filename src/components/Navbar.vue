@@ -110,7 +110,7 @@
             <our-dropdown-item isLink :to="{ name: '' }" @click.native="signOut">Sign out</our-dropdown-item>
           </our-dropdown>
         </li>
-        <li class="xl:visible -mb-4 xl:mb-0 xl:mt-0" :class="navToggleClass">
+        <li class="xl:visible -mb-4 xl:mb-0 xl:mt-0 xl:-mr-4" :class="navToggleClass">
           <our-country-selector v-model="country" />
         </li>
       </ul>
