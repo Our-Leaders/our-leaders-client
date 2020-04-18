@@ -10,7 +10,7 @@
     </div>
   </div>
   <div v-if="tabType === 'secondary'" class="secondary-tabs flex w-full border-b border-primary">
-    <div class="secondary-tab py-4 text-center relative cursor-pointer"
+    <div class="secondary-tab py-5 text-center relative cursor-pointer"
       v-for="(tab, i) in tabs"
       :key="i"
       @click="setTab(tab.value);$emit('change', tab.value, i);">
