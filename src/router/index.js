@@ -82,6 +82,9 @@ const routes = [
     name: 'politician',
     component: Pages.Politician,
     props: true,
+    meta: {
+      layout: 'no-footer',
+    },
   },
   {
     path: '/politicians',
