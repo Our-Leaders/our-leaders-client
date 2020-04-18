@@ -16,7 +16,7 @@
 
     <!-- Sign In -->
     <div class="flex flex-col justify-center" v-if="!isSignUp">
-      <div class="mt-20 lg:mt-0 xl:mt-0 w-full" v-if="page === 0">
+      <div class="mt-2 lg:mt-0 xl:mt-0 w-full" v-if="page === 0">
         <our-sign-in-form
           :goToForgotPassword="() => goToPage(1)"
           :goToSignUp="togglePage"
@@ -24,7 +24,7 @@
           :goToVerify="goToVerify"
         />
       </div>
-      <div class="mt-20 lg:mt-0 xl:mt-0 w-full" v-if="page === 1">
+      <div class="mt-2 lg:mt-0 xl:mt-0 w-full" v-if="page === 1">
         <span class="block text-4xl mb-4">Forgot your password?</span>
         <our-forgot-password-form :goToSignIn="() => goToPage(0)"/>
       </div>
