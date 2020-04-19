@@ -41,6 +41,8 @@ export default {
       left: 0;
       margin: auto;
       max-width: 480px;
+      max-height: 100%;
+      overflow: scroll;
       padding-bottom: 40px;
       padding-left: 40px;
       padding-right: 40px;

@@ -44,6 +44,9 @@ module.exports = {
         '37': '8.8rem',
         '38': '9rem',
       },
+      padding: {
+        '17': '4.25rem',
+      },
       maxWidth: {
         '1/4': '25%',
         '1/2': '50%',

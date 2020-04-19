@@ -6,8 +6,8 @@
         <span>Loading Details...</span>
       </div>
     </div>
-    <div class="flex flex-wrap pb-2" v-if="!loading">
-      <div class="w-full lg:w-1/3 py-2 md:py-8 px-2 lg:px-16 xl:px-16 lg:border-r-2 xl:border-r-2 border-gray-200">
+    <div class="flex flex-wrap pb-2">
+      <div class="left-section md:fixed py-2 md:py-8 px-2 lg:px-17 xl:px-17 lg:border-r-2 xl:border-r-2 border-gray-200" v-if="!loading">
         <div class="md:hidden">
           <h3 class="text-5xl leading-tight mb-3">{{politician.name}}</h3>
           <div class="w-full" v-if="position.inOffice">
@@ -120,10 +120,10 @@
           </div>
         </div>
       </div>
-      <div ref="main" class="w-full md:w-2/3 pl-2 md:px-10 py-1 md:pb-4 md:max-h-screen md:overflow-y-scroll relative">
-        <div class="flex justify-between">
-          <h3 class="hidden md:block pr-2 text-6xl mt-10">{{politician.name}}</h3>
-          <div class="flex flex-col justify-end mb-3">
+      <div ref="main" class="right-section pl-2 md:pl-10 md:pr-17 py-3 md:pb-4 md:max-h-screen md:overflow-y-scroll relative">
+        <div class="hidden md:flex justify-between align-top" v-if="!loading">
+          <h3 class="pr-2 text-6xl mt-12">{{politician.name}}</h3>
+          <div class="subscribe-btn flex flex-col justify-end hidden md:inline-block mb-3 fixed">
             <button class="btn-subscribe px-4 py-2 my-3"
               :class="{ 'active': hasSubscribed }"
               @click="toggleSubscription">
@@ -134,150 +134,152 @@
             </button>
           </div>
         </div>
-        <div class="hidden md:block pr-2 w-full mb-4">
-          <div id="votes" class="inline-block pr-5 border-r-2 border-gray-300">
-            <img class="inline-block mr-1 md:mr-2 h-3 md:h-4 cursor-pointer"
-              :src="hasVoted && isUpvote ? require('@/assets/img/thumbs-up-active.svg') : require('@/assets/img/thumbs-up.svg')"
-              @click="voteForPolitician(true)"/>
-            <span class="inline-block mr-2 md:mr-4 h-3 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.up}}</span>
-            <img class="inline-block mr-1 mt-2 md:mr-2 h-3 md:h-4 cursor-pointer"
-              :src="hasVoted && !isUpvote ? require('@/assets/img/thumbs-down-active.svg') : require('@/assets/img/thumbs-down.svg')"
-              @click="voteForPolitician(false)"/>
-            <span class="inline-block mr-1 md:mr-2 h-3 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.down}}</span>
+        <div v-if="!loading">
+          <div class="hidden md:block pr-2 w-full mb-4">
+            <div id="votes" class="inline-block pr-5 border-r-2 border-gray-300">
+              <img class="inline-block mr-1 md:mr-2 h-3 md:h-4 cursor-pointer"
+                :src="hasVoted && isUpvote ? require('@/assets/img/thumbs-up-active.svg') : require('@/assets/img/thumbs-up.svg')"
+                @click="voteForPolitician(true)"/>
+              <span class="inline-block mr-2 md:mr-4 h-3 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.up}}</span>
+              <img class="inline-block mr-1 mt-2 md:mr-2 h-3 md:h-4 cursor-pointer"
+                :src="hasVoted && !isUpvote ? require('@/assets/img/thumbs-down-active.svg') : require('@/assets/img/thumbs-down.svg')"
+                @click="voteForPolitician(false)"/>
+              <span class="inline-block mr-1 md:mr-2 h-3 md:h-4 align-middle text-xs md:text-sm">{{politician.vote.down}}</span>
+            </div>
+            <div id="share" class="inline-block pl-5">
+              <span class="text-xs mr-6">Share Profile</span>
+                <a v-if="politician.socials.facebook" class="relative" target="_blank" :href="`https://facebook.com/${politician.socials.facebook}`">
+                  <div class="absolute opacity-0 h-full w-full top-0 left-0">
+                    <ShareFacebook title="Politician Test" :url="`https://ourleaders.africa/politicians/${politician.socials.facebook}`"></ShareFacebook>
+                  </div>
+                  <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/>
+                </a>
+                <a v-if="politician.socials.twitter" class="relative" href="#">
+                  <div class="absolute opacity-0 h-full w-full top-0 left-0">
+                    <ShareTwitter :title="`Click to read more about ${politician.name}`" :url="`https://ourleaders.africa/politicians/${politician.socials.twitter}`"></ShareTwitter>
+                  </div>
+                  <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/twitter-gray.svg"/>
+                </a>
+            </div>
           </div>
-          <div id="share" class="inline-block pl-5">
-            <span class="text-xs mr-6">Share Profile</span>
-              <a v-if="politician.socials.facebook" class="relative" target="_blank" :href="`https://facebook.com/${politician.socials.facebook}`">
-                <div class="absolute opacity-0 h-full w-full top-0 left-0">
-                  <ShareFacebook title="Politician Test" :url="`https://ourleaders.africa/politicians/${politician.socials.facebook}`"></ShareFacebook>
+          <div class="hidden md:block pr-2 w-full" v-if="position.inOffice">
+            <span class="block text-base capitalize">{{position.name}}</span>
+            <span class="block text-base">{{position.duration}}</span>
+          </div>
+          <div class="hidden md:block pr-2 w-full" v-else>
+            <span class="block text-base capitalize">Not in Office</span>
+          </div>
+          <div class="flex flex-wrap lg:flex-row xl:flex-row max-h-screen">
+            <div ref="mainHolder" id="main-holder" class="w-full lg:w-10/12 align-top block max-h-screen overflow-visible lg:inline-block xl:inline-block relative">
+              <div id="secondaryTab" :class="secondaryTabClass">
+                <div class="w-full mt-6 overflow-x-scroll md:pr-4">
+                  <our-tabs class="mb-1 pr-2" v-on:change="setPage" :tabs='mainTabs' :tab-type="'secondary'"></our-tabs>
                 </div>
-                <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/>
-              </a>
-              <a v-if="politician.socials.twitter" class="relative" href="#">
-                <div class="absolute opacity-0 h-full w-full top-0 left-0">
-                  <ShareTwitter :title="`Click to read more about ${politician.name}`" :url="`https://ourleaders.africa/politicians/${politician.socials.twitter}`"></ShareTwitter>
+                <div class="side-scroll w-full lg:w-3/12 block md:inline-block relative md:absolute">
+                  <!-- For Now -->
+                  <our-side-scroll :options="sideTabs" v-on:scroll="scrollTo"></our-side-scroll>
                 </div>
-                <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/twitter-gray.svg"/>
-              </a>
-          </div>
-        </div>
-        <div class="hidden md:block pr-2 w-full" v-if="position.inOffice">
-          <span class="block text-base capitalize">{{position.name}}</span>
-          <span class="block text-base">{{position.duration}}</span>
-        </div>
-        <div class="hidden md:block pr-2 w-full" v-else>
-          <span class="block text-base capitalize">Not in Office</span>
-        </div>
-        <div id="secondaryTab" ref="secondaryTab">
-          <div class="w-full md:w-9/12 overflow-x-scroll mt-6 md:pr-4">
-            <our-tabs class="mb-1 pr-2" v-on:change="setPage" :tabs='mainTabs' :tab-type="'secondary'"></our-tabs>
-          </div>
-        </div>
-        <div class="flex flex-wrap lg:flex-row xl:flex-row max-h-screen overflow-y-hidden">
-          <div id="main-holder" class="w-full lg:w-9/12 xl:w-9/12 align-top block max-h-screen overflow-y-scroll lg:inline-block xl:inline-block relative">
-            <transition-group name="fade" mode="out-in">
+              </div>
+              <transition-group name="fade" mode="out-in">
 
-              <!-- Background -->
-              <div class="relative top-0 left-0 w-full" key="background" v-show="isPage('background')">
-                <div class="w-full py-3 pr-2">
-                  <h3 class="font-bold mb-3 text-xl">Personal background</h3>
-                  <div class="flex flex-wrap mb-4">
-                    <span class="w-1/3 my-1 inline-block">Political Party</span>
-                    <span class="w-2/3 my-1 inline-block">{{politician.politicalParty.name}}</span>
-                    <span class="w-1/3 my-1 inline-block">DOB (Age)</span>
-                    <span class="w-2/3 my-1 inline-block">{{getBirthString(politician.dob)}}</span>
-                    <span class="w-1/3 my-1 inline-block">State of origin</span>
-                    <span class="w-2/3 my-1 inline-block">{{politician.stateOfOrigin}}</span>
-                  </div>
+                <!-- Background -->
+                <div class="relative top-0 left-0 w-full" key="background" v-show="isPage('background')">
+                  <div class="w-full py-3 pr-2">
+                    <h3 class="font-bold mb-3 text-xl">Personal background</h3>
+                    <div class="flex flex-wrap mb-4">
+                      <span class="w-1/3 my-1 inline-block">Political Party</span>
+                      <span class="w-2/3 my-1 inline-block">{{politician.politicalParty.name}}</span>
+                      <span class="w-1/3 my-1 inline-block">DOB (Age)</span>
+                      <span class="w-2/3 my-1 inline-block">{{getBirthString(politician.dob)}}</span>
+                      <span class="w-1/3 my-1 inline-block">State of origin</span>
+                      <span class="w-2/3 my-1 inline-block">{{politician.stateOfOrigin}}</span>
+                    </div>
 
-                  <h3 class="font-bold mb-3 text-xl">Political background</h3>
-                  <div v-if="politician.politicalBackground.length === 0" class="mb-4">
-                    <span>No current political background.</span>
-                  </div>
-                  <div class="flex flex-wrap mb-4" v-for="(pBackground, index) of politician.politicalBackground" :key="`pBackground_${index}`">
-                    <span class="w-1/3 my-1 inline-block capitalize">{{pBackground.position}}</span>
-                    <span class="w-2/3 my-1 inline-block">
-                      <span class="block capitalize">{{pBackground.region}}</span>
-                      <span class="block">{{getPeriodString(pBackground.startDate, pBackground.endDate)}}</span>
-                    </span>
-                  </div>
+                    <h3 class="font-bold mb-3 text-xl">Political background</h3>
+                    <div v-if="politician.politicalBackground.length === 0" class="mb-4">
+                      <span>No current political background.</span>
+                    </div>
+                    <div class="flex flex-wrap mb-4" v-for="(pBackground, index) of politician.politicalBackground" :key="`pBackground_${index}`">
+                      <span class="w-1/3 my-1 inline-block capitalize">{{pBackground.position}}</span>
+                      <span class="w-2/3 my-1 inline-block">
+                        <span class="block capitalize">{{pBackground.region}}</span>
+                        <span class="block">{{getPeriodString(pBackground.startDate, pBackground.endDate)}}</span>
+                      </span>
+                    </div>
 
-                  <h3 class="font-bold mb-3 text-xl">Educational background</h3>
-                  <div v-if="politician.educationalBackground.length === 0" class="mb-4">
-                    <span>No current educational background.</span>
-                  </div>
-                  <div class="flex flex-wrap mb-4" v-for="(eduBackground, index) of politician.educationalBackground" :key="`eduBackground_${index}`">
-                    <span class="w-1/3 my-1 inline-block capitalize">{{eduBackground.degree}}</span>
-                    <span class="w-2/3 my-1 inline-block">
-                      <span class="capitalize">{{`${eduBackground.institution}. ${(new Date(eduBackground.startDate)).getFullYear()}`}}</span>
-                    </span>
-                  </div>
+                    <h3 class="font-bold mb-3 text-xl">Educational background</h3>
+                    <div v-if="politician.educationalBackground.length === 0" class="mb-4">
+                      <span>No current educational background.</span>
+                    </div>
+                    <div class="flex flex-wrap mb-4" v-for="(eduBackground, index) of politician.educationalBackground" :key="`eduBackground_${index}`">
+                      <span class="w-1/3 my-1 inline-block capitalize">{{eduBackground.degree}}</span>
+                      <span class="w-2/3 my-1 inline-block">
+                        <span class="capitalize">{{`${eduBackground.institution}. ${(new Date(eduBackground.startDate)).getFullYear()}`}}</span>
+                      </span>
+                    </div>
 
-                  <h3 class="font-bold mb-3 text-xl">Professional background</h3>
-                  <div v-if="politician.professionalBackground.length === 0" class="mb-4">
-                    <span>No current professional background.</span>
-                  </div>
-                  <div class="flex flex-wrap mb-4" v-for="(proBackground, index) of politician.professionalBackground" :key="`proBackground_${index}`">
-                    <span class="w-1/3 my-1 inline-block capitalize">{{proBackground.title}}</span>
-                    <span class="w-2/3 my-1 inline-block">
-                      <span class="block capitalize">{{proBackground.description}}</span>
-                      <span class="block">{{getPeriodString(proBackground.startDate, proBackground.endDate)}}</span>
-                    </span>
-                  </div>
+                    <h3 class="font-bold mb-3 text-xl">Professional background</h3>
+                    <div v-if="politician.professionalBackground.length === 0" class="mb-4">
+                      <span>No current professional background.</span>
+                    </div>
+                    <div class="flex flex-wrap mb-4" v-for="(proBackground, index) of politician.professionalBackground" :key="`proBackground_${index}`">
+                      <span class="w-1/3 my-1 inline-block capitalize">{{proBackground.title}}</span>
+                      <span class="w-2/3 my-1 inline-block">
+                        <span class="block capitalize">{{proBackground.description}}</span>
+                        <span class="block">{{getPeriodString(proBackground.startDate, proBackground.endDate)}}</span>
+                      </span>
+                    </div>
 
-                  <div class="block md:hidden w-full border-t-2 border-gray-200 mb-4 pt-10" v-if="politician.socials.twitter">
-                    <div class="w-full border-b-1 border-gray-400">
-                      <!-- <span class="text-2xl mr-2">Tweets</span>
-                      <span class="text-base mr-1">by</span>
-                      <span class="cursor-pointer twitter-link text-base">{{twitterHandle}}</span>
-                      <button class="float-right align-middle font-semibold twitter-button px-2 rounded-full">Follow</button> -->
+                    <div class="block md:hidden w-full border-t-2 border-gray-200 mb-4 pt-10" v-if="politician.socials.twitter">
+                      <div class="w-full border-b-1 border-gray-400">
+                        <!-- <span class="text-2xl mr-2">Tweets</span>
+                        <span class="text-base mr-1">by</span>
+                        <span class="cursor-pointer twitter-link text-base">{{twitterHandle}}</span>
+                        <button class="float-right align-middle font-semibold twitter-button px-2 rounded-full">Follow</button> -->
 
-                      <!-- Twitter -->
-                      <div class="timeline-wrapper">
-                        <twitter>
-                          <div slot="loading">loading .....</div>
-                          <a class="twitter-timeline" :href="`https://twitter.com/${politician.socials.twitter}?ref_src=twsrc%5Etfw`"></a>
-                        </twitter>
+                        <!-- Twitter -->
+                        <div class="timeline-wrapper">
+                          <twitter>
+                            <div slot="loading">loading .....</div>
+                            <a class="twitter-timeline" :href="`https://twitter.com/${politician.socials.twitter}?ref_src=twsrc%5Etfw`"></a>
+                          </twitter>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <!-- Accomplishments -->
-              <div class="relative top-0 left-0"  key="accomplishments" v-show="isPage('accomplishments')">
-                <div v-if="politician.accomplishments.length === 0" class="text-center my-6">
-                  <span>No current accomplishments background.</span>
+                <!-- Accomplishments -->
+                <div class="relative top-0 left-0"  key="accomplishments" v-show="isPage('accomplishments')">
+                  <div v-if="politician.accomplishments.length === 0" class="text-center my-6">
+                    <span>No current accomplishments background.</span>
+                  </div>
+                  <our-quarterly-view :data="quarterData" :keys="sideTabs" @setSideTabs="setSideTabs"></our-quarterly-view>
                 </div>
-                <our-quarterly-view :data="quarterData" :keys="sideTabs" @setSideTabs="setSideTabs"></our-quarterly-view>
-              </div>
 
-              <!-- Manifesto -->
-              <div class="relative top-0 left-0"  key="manifesto" v-show="isPage('manifesto')">
-                <h3 class="font-bold mb-3 text-xl">Manifesto</h3>
-                <div class="mb-6" v-if="politician.manifesto.summary" v-html="politician.manifesto.summary"></div>
-                <div class="w-full text-center mt-4 mb-8" v-else>
-                  <span>Sorry, there are no politicians matching your search.</span>
+                <!-- Manifesto -->
+                <div class="relative top-0 left-0"  key="manifesto" v-show="isPage('manifesto')">
+                  <h3 class="font-bold mb-3 text-xl">Manifesto</h3>
+                  <div class="mb-6" v-if="politician.manifesto.summary" v-html="politician.manifesto.summary"></div>
+                  <div class="w-full text-center mt-4 mb-8" v-else>
+                    <span>Sorry, there are no politicians matching your search.</span>
+                  </div>
+                  <div v-if="politician.manifesto.url">
+                    <a target="_blank" :href="politician.manifesto.url" class="text-xs block text-gray-500">View full manifesto</a>
+                  </div>
                 </div>
-                <div v-if="politician.manifesto.url">
-                  <a target="_blank" :href="politician.manifesto.url" class="text-xs block text-gray-500">View full manifesto</a>
-                </div>
-              </div>
 
-              <!-- Recent Updates -->
-              <div class="relative top-0 left-0"  key="recent" v-show="isPage('recent')">
-                <div v-if="feeds.length === 0" class="text-center my-6">
-                  <span>No recent updates.</span>
+                <!-- Recent Updates -->
+                <div class="relative top-0 left-0"  key="recent" v-show="isPage('recent')">
+                  <div v-if="feeds.length === 0" class="text-center my-6">
+                    <span>No recent updates.</span>
+                  </div>
+                  <our-feeds :data="feedsData" :keys="feedsKeys"></our-feeds>
                 </div>
-                <our-feeds :data="feedsData" :keys="feedsKeys"></our-feeds>
-              </div>
 
-              <!-- <div class="absolute top-0 left-0" v-for="tab of mainTabs" :key="tab.value" v-show="isPage(tab.value)">{{tab.label + ' is here'}}</div> -->
-            </transition-group>
-          </div>
-          <div class="w-full lg:w-3/12 xl:w-3/12 block md:inline-block relative">
-            <!-- For Now -->
-            <our-side-scroll :options="sideTabs" v-on:scroll="scrollTo"></our-side-scroll>
+                <!-- <div class="absolute top-0 left-0" v-for="tab of mainTabs" :key="tab.value" v-show="isPage(tab.value)">{{tab.label + ' is here'}}</div> -->
+              </transition-group>
+            </div>
           </div>
         </div>
       </div>
@@ -315,6 +317,12 @@ export default {
       this.$router.back();
     }
   },
+  mounted() {
+    this.$refs.main.addEventListener('scroll', this.handleScroll, { passive: true });
+  },
+  unmounted() {
+    this.$refs.main.removeEventListener('scroll', this.handleScroll);
+  },
   computed: {
     ...mapGetters([
       'isLoggedIn',
@@ -351,6 +359,10 @@ export default {
     },
     twitterHandle() {
       return /^@+\w+/.test(this.politician.socials.twitter) ? this.politician.socials.twitter : `@${this.politician.socials.twitter}`;
+    },
+    secondaryTabClass() {
+      if (this.stuck) return 'sticky-tab';
+      return '';
     },
   },
   data() {
@@ -485,8 +497,14 @@ export default {
     getPeriodString(startDate, endDate) {
       return DateUtil.getPeriodString(startDate, endDate);
     },
-    handleChange(e) {
-      this.stuck = e.percentInView <= 0;
+    handleScroll() {
+      if (this.$refs.mainHolder) {
+        const { top } = this.$refs.mainHolder.getBoundingClientRect();
+        const shouldStick = top < 60;
+        if (this.stuck !== shouldStick) {
+          this.stuck = shouldStick;
+        }
+      }
     },
     isPage(page) {
       return this.page === page;
@@ -586,9 +604,40 @@ export default {
 <style lang="scss">
   #secondaryTab {
     background: white;
-    position: sticky;
-    top: 5px;
-    transform: translateY(-10px);
     z-index: 30;
+  }
+
+  .left-section {
+    width: 100%;
+
+    @screen md {
+      width: 32.5rem;
+    }
+  }
+
+  .right-section {
+    width: 100%;
+
+    @screen md {
+      height: calc(100vh - 60px);
+      margin-left: 32.5rem;
+      width: calc(100% - 32.5rem);
+    }
+  }
+
+  .subscribe-btn {
+    right: 4.25rem;
+    z-index: 40;
+  }
+
+  .sticky-tab {
+    position: sticky;
+    top: 0;
+    width: 100%;
+  }
+
+  .side-scroll {
+    margin-top: 2rem;
+    right: -25%;
   }
 </style>

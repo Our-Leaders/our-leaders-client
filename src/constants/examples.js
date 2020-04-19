@@ -23,7 +23,7 @@ export const professionalBackground = [{
 export const socials = {
   facebook: 'buhari',
   instagram: '@buhari',
-  twitter: '@buhari',
+  twitter: '@MBuhari',
 };
 
 export const socialsPoliticalParty = {
