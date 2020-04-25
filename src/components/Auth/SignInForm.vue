@@ -39,7 +39,7 @@
       <button
         :class="{
           'btn-primary w-full mb-8': true,
-          'loading': loading,
+          'btn-loading': loading,
         }"
         :disabled="loading">
         Log In
