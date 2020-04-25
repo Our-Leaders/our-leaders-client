@@ -124,9 +124,7 @@ router.beforeEach((to, from, next) => {
     Store.dispatch('setShrinkMode', false);
   }
 
-  if (to.meta.isAuth && Store.getters.isLoggedIn) {
-    next(from.path);
-  } else if (to.matched.some(m => m.meta.requiresAuth) && !Store.getters.isLoggedIn) {
+  if (to.matched.some(m => m.meta.requiresAuth) && !Store.getters.isLoggedIn) {
     next('home');
   } else {
     next();
