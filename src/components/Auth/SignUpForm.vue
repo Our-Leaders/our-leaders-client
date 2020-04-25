@@ -16,7 +16,7 @@
           <span class="font-semibold">Password</span>
         </label>
         <div class="input-fields">
-          <input class="w-11/12 py-2"
+          <input class="field w-11/12 py-2"
             :type="!displayPassword ? 'password' : 'text'"
             id="password"
             name="password"
@@ -39,7 +39,7 @@
       <button
         :class="{
           'btn-primary w-full mb-8': true,
-          'loading': loading,
+          'btn-loading': loading,
         }"
         :disabled="loading">
         Sign Up
