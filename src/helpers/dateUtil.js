@@ -1,3 +1,4 @@
+import moment from 'moment';
 import ValidatorUtil from './validatorUtil';
 
 class DateUtil {
@@ -15,10 +16,15 @@ class DateUtil {
     return age;
   }
 
-  static getPeriodString(startDate, endDate) {
+  static getPeriodString(startDate, endDate, long) {
     if (!endDate && !startDate) {
       return '-';
     }
+
+    if (long) {
+      return `${moment(startDate).format('MMM DD YYYY')} - ${moment(endDate).format('MMM DD YYYY')}`;
+    }
+
     return `${(new Date(startDate)).getFullYear()} - ${(new Date(endDate)).getFullYear()}`;
   }
 }
