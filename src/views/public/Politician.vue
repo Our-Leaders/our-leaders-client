@@ -202,8 +202,8 @@
                     <div class="flex flex-wrap mb-4" v-for="(pBackground, index) of politician.politicalBackground" :key="`pBackground_${index}`">
                       <span class="w-1/3 my-1 inline-block capitalize">{{pBackground.position}}</span>
                       <span class="w-2/3 my-1 inline-block">
-                        <span class="block capitalize">{{pBackground.region}}</span>
-                        <span class="block">{{getPeriodString(pBackground.startDate, pBackground.endDate)}}</span>
+                        <span class="block capitalize">{{pBackground.description}}</span>
+                        <span class="block">{{getPeriodString(pBackground.startDate, pBackground.endDate, true)}}</span>
                       </span>
                     </div>
 
@@ -226,7 +226,7 @@
                       <span class="w-1/3 my-1 inline-block capitalize">{{proBackground.title}}</span>
                       <span class="w-2/3 my-1 inline-block">
                         <span class="block capitalize">{{proBackground.description}}</span>
-                        <span class="block">{{getPeriodString(proBackground.startDate, proBackground.endDate)}}</span>
+                        <span class="block">{{getPeriodString(proBackground.startDate, proBackground.endDate, true)}}</span>
                       </span>
                     </div>
 
@@ -351,7 +351,7 @@ export default {
         return { inOffice: false };
       }
 
-      const duration = this.getPeriodString(background.startDate, background.endDate);
+      const duration = this.getPeriodString(background.startDate, background.endDate, false);
       return { name: StringUtil.getPoliticalPosition(background), duration, inOffice: true };
     },
     quarterData() {
@@ -494,8 +494,8 @@ export default {
       const dobDate = new Date(dob);
       return `${dobDate.toLocaleDateString()} (${DateUtil.getAge(dob)})`;
     },
-    getPeriodString(startDate, endDate) {
-      return DateUtil.getPeriodString(startDate, endDate);
+    getPeriodString(startDate, endDate, long) {
+      return DateUtil.getPeriodString(startDate, endDate, long);
     },
     handleScroll() {
       if (this.$refs.mainHolder) {
