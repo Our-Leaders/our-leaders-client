@@ -13,10 +13,11 @@
     <div class="w-full lg:w-2/3 xl:w-2/3 pl-10 pr-10 lg:pr-64 xl:pr-64 mb-6">
       <h3 class="text-4xl mt-8 mb-6">Contact details</h3>
       <div class="block border-b-2 border-gray-200">
-        <span class="block font-semibold mb-1">Address</span>
-        <span class="block mb-6 mb-10 w-64">{{page.contact.address}}</span>
-        <span class="block font-semibold mb-1">Phone</span>
-        <span class="block mb-6 mb-10 w-64">{{page.contact.phoneNumber}}</span>
+        <!-- Hide for now until Nosa Changes His Mind -->
+        <span v-if="page.contact.address" class="block font-semibold mb-1">Address</span>
+        <span v-if="page.contact.address" class="block mb-6 mb-10 w-64">{{page.contact.address}}</span>
+        <span v-if="page.contact.phoneNumber" class="block font-semibold mb-1">Phone</span>
+        <span v-if="page.contact.phoneNumber" class="block mb-6 mb-10 w-64">{{page.contact.phoneNumber}}</span>
         <span class="block font-semibold mb-1">Email</span>
         <span class="block mb-6 mb-10 w-64">{{page.contact.email}}</span>
       </div>
