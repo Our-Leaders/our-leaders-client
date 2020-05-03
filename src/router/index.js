@@ -126,6 +126,8 @@ router.beforeEach((to, from, next) => {
 
   if (to.matched.some(m => m.meta.requiresAuth) && !Store.getters.isLoggedIn) {
     next('home');
+  } else if (Store.getters.isLoggedIn && !to.meta.isAuth && !Store.getters.user.isPhoneVerified) {
+    next('/auth/sign-up?signedIn=true');
   } else {
     next();
   }
