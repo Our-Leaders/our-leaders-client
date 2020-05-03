@@ -22,7 +22,16 @@
         <span class="block mb-6 mb-10 w-64">{{page.contact.email}}</span>
       </div>
       <h3 class="text-4xl mt-8 mb-6">Have a message?</h3>
-      <textarea class="w-full bg-gray-100 border-b border-gray-300 resize-none outline-none p-3" rows="6"></textarea>
+      <textarea
+        class="w-full bg-gray-100 border-b border-gray-300 resize-none outline-none mb-2 p-3"
+        v-model="message"
+        rows="6"></textarea>
+      <button
+        class="bg-primary text-white leading py-3 mb-10 w-full md:w-1/3"
+        :class="{'btn-loading': processing}"
+        :disabled="processing"
+        @click="sendMessage"
+        type="button">Send</button>
     </div>
   </div>
 </template>
@@ -38,15 +47,19 @@ export default {
   data() {
     return {
       loading: true,
+      message: '',
       page: {
         contact: {},
       },
+      processing: false,
       pagesServices: this.$serviceFactory.pages,
+      supportServices: this.$serviceFactory.support,
     };
   },
   methods: {
     ...mapActions([
       'displayError',
+      'displaySuccess',
     ]),
     async getPages() {
       try {
@@ -55,6 +68,20 @@ export default {
         this.loading = false;
       } catch (error) {
         this.loading = false;
+        this.displayError(error);
+      }
+    },
+    async sendMessage() {
+      try {
+        if (this.message.length > 3) {
+          this.processing = true;
+          const response = await this.supportServices.sendContactUsMessage({ message: this.message });
+          this.message = '';
+          this.displaySuccess({ message: response.data.message });
+          this.processing = false;
+        }
+      } catch (error) {
+        this.processing = false;
         this.displayError(error);
       }
     },

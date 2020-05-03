@@ -7,6 +7,7 @@ import pagesServices from './pagesServices';
 import politiciansServices from './politiciansServices';
 import politicalPartiesServices from './politicalPartiesServices';
 import subscriptionsServices from './subscriptionsServices';
+import supportServices from './supportServices';
 import usersServices from './usersServices';
 
 const services = {
@@ -19,6 +20,7 @@ const services = {
   politicalParties: politicalPartiesServices,
   politicians: politiciansServices,
   subscriptions: subscriptionsServices,
+  support: supportServices,
   users: usersServices,
 };
 
