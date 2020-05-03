@@ -97,7 +97,7 @@ export default {
   },
   created() {
     if (this.user) {
-      this.data.phone = this.user.phoneNumber;
+      this.data.phone = this.formatNumber(this.user.phoneNumber);
       this.data.email = this.user.email;
     }
     setTimeout(() => this.$refs.phone.focus(), 1000);
@@ -140,11 +140,15 @@ export default {
         this.$store.commit('setCurrentUser', response.data.user);
         this.goToHome();
       } catch (err) {
+        this.loading = false;
         this.showError('Phone number not verified.');
       }
     },
     editNumber() {
       this.codeSent = false;
+    },
+    formatNumber(number) {
+      return number ? number.replace('+234', '') : number;
     },
     showError(message) {
       this.displayError(message);
