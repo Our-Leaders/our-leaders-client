@@ -97,6 +97,7 @@ export default {
       try {
         this.loading = true;
         this.hasError = false;
+        this.data.email = this.data.email.toLowerCase();
         const response = await this.authServices.signUp(this.data);
 
         this.$store.commit('setCurrentUser', response.data.user);
