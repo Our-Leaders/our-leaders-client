@@ -2,7 +2,7 @@
   <div class="pr-4">
     <div v-for="(item, i) in keys" :key="i" class="mt-4">
       <div v-for="(month, ind) in item.months" :key="ind" class="mb-10">
-        <div class="flex justify-between items-center mb-1" :id="`feeds${month}${item.year}`">
+        <div class="flex justify-between items-center mb-1" :id="`scroll_feeds_${month}${item.year}`">
           <p class="font-circular text-xl font-semibold capitalize">{{monthsList[month]}} {{item.year}}</p>
         </div>
         <div v-for="(details, index) of data[item.year][month]" :key="index" class="quarter-view-accomplishment border-t border-gray-db relative block">

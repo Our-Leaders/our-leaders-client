@@ -9,7 +9,7 @@
         @click="sortByTags(tag)">
         {{tag}}
       </button>
-      <div v-for="year in keys" :key="year.value" class="mb-4 relative">
+      <div v-for="year in keys" :key="year.value" :id="`scroll_${year.value}`" class="mb-4 relative">
         <span class="absolute right-0 top-0 text-xs mt-2 mr-4">{{yearInfo.total}} accomplishments</span>
         <h3 class="my-2">
           <span class="font-label text-xl font-semibold">{{year.label}}</span>
@@ -46,7 +46,7 @@
         </button>
       </div>
 
-      <div v-for="(quarter, i) in selectedQuarters.keys" :key="i" class="mb-6">
+      <div v-for="(quarter, i) in selectedQuarters.keys" :key="i" :id="`scroll_${quarter}_${selectedQuarters.year}`" class="mb-6">
         <div class="flex justify-between items-center mb-1">
           <p class="font-circular text-xl font-semibold capitalize">{{quarter}} {{selectedQuarters.year}}</p>
           <span class="text-xs font-circular">{{selectedQuarters.data[quarter].length}} accomplishment{{selectedQuarters.data[quarter].length > 1 ? 's' : ''}}</span>
