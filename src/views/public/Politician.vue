@@ -120,7 +120,7 @@
           </div>
         </div>
       </div>
-      <div ref="main" class="right-section pl-2 md:pl-10 md:pr-17 py-3 md:pb-4 md:max-h-screen md:overflow-y-scroll relative">
+      <div ref="main" id="main" class="right-section pl-2 md:pl-10 md:pr-17 py-3 md:pb-4 md:max-h-screen md:overflow-y-scroll relative">
         <div class="hidden md:flex justify-between align-top" v-if="!loading">
           <h3 class="pr-2 text-6xl mt-12">{{politician.name}}</h3>
           <div class="subscribe-btn flex flex-col justify-end hidden md:inline-block mb-3 fixed">
@@ -134,7 +134,7 @@
             </button>
           </div>
         </div>
-        <div v-if="!loading">
+        <div>
           <div class="hidden md:block pr-2 w-full mb-4">
             <div id="votes" class="inline-block pr-5 border-r-2 border-gray-300">
               <img class="inline-block mr-1 md:mr-2 h-3 md:h-4 cursor-pointer"
@@ -170,14 +170,14 @@
             <span class="block text-base capitalize">Not in Office</span>
           </div>
           <div class="flex flex-wrap lg:flex-row xl:flex-row max-h-screen">
-            <div ref="mainHolder" id="main-holder" class="w-full lg:w-10/12 align-top block max-h-screen overflow-visible lg:inline-block xl:inline-block relative">
-              <div id="secondaryTab" :class="secondaryTabClass">
+            <div ref="mainHolder" id="main-holder" class="w-full lg:w-10/12 align-top block min-h-screen overflow-visible lg:inline-block xl:inline-block relative">
+              <div ref="secondaryTab" id="secondary-tab">
                 <div class="w-full mt-6 overflow-x-scroll md:pr-4">
                   <our-tabs class="mb-1 pr-2" v-on:change="setPage" :tabs='mainTabs' :tab-type="'secondary'"></our-tabs>
                 </div>
                 <div class="side-scroll w-full lg:w-3/12 block md:inline-block relative md:absolute">
                   <!-- For Now -->
-                  <our-side-scroll :options="sideTabs" v-on:scroll="scrollTo"></our-side-scroll>
+                  <our-side-scroll :options="sideTabs" v-on:scroll="scrollTo" :currentSection="scrollSection"></our-side-scroll>
                 </div>
               </div>
               <transition-group name="fade" mode="out-in">
@@ -185,49 +185,57 @@
                 <!-- Background -->
                 <div class="relative top-0 left-0 w-full" key="background" v-show="isPage('background')">
                   <div class="w-full py-3 pr-2">
-                    <h3 class="font-bold mb-3 text-xl">Personal background</h3>
-                    <div class="flex flex-wrap mb-4">
-                      <span class="w-1/3 my-1 inline-block">Political Party</span>
-                      <span class="w-2/3 my-1 inline-block">{{politician.politicalParty.name}}</span>
-                      <span class="w-1/3 my-1 inline-block">DOB (Age)</span>
-                      <span class="w-2/3 my-1 inline-block">{{getBirthString(politician.dob)}}</span>
-                      <span class="w-1/3 my-1 inline-block">State of origin</span>
-                      <span class="w-2/3 my-1 inline-block">{{politician.stateOfOrigin}}</span>
+                    <div id="scroll_personalBackground">
+                      <h3 class="font-bold mb-3 text-xl">Personal background</h3>
+                      <div class="flex flex-wrap mb-4">
+                        <span class="w-1/3 my-1 inline-block">Political Party</span>
+                        <span class="w-2/3 my-1 inline-block">{{politician.politicalParty.name}}</span>
+                        <span class="w-1/3 my-1 inline-block">DOB (Age)</span>
+                        <span class="w-2/3 my-1 inline-block">{{getBirthString(politician.dob)}}</span>
+                        <span class="w-1/3 my-1 inline-block">State of origin</span>
+                        <span class="w-2/3 my-1 inline-block">{{politician.stateOfOrigin}}</span>
+                      </div>
                     </div>
 
-                    <h3 class="font-bold mb-3 text-xl">Political background</h3>
-                    <div v-if="politician.politicalBackground.length === 0" class="mb-4">
-                      <span>No current political background.</span>
-                    </div>
-                    <div class="flex flex-wrap mb-4" v-for="(pBackground, index) of politician.politicalBackground" :key="`pBackground_${index}`">
-                      <span class="w-1/3 my-1 inline-block capitalize">{{pBackground.position}}</span>
-                      <span class="w-2/3 my-1 inline-block">
-                        <span class="block capitalize">{{pBackground.description}}</span>
-                        <span class="block">{{getPeriodString(pBackground.startDate, pBackground.endDate, true)}}</span>
-                      </span>
-                    </div>
-
-                    <h3 class="font-bold mb-3 text-xl">Educational background</h3>
-                    <div v-if="politician.educationalBackground.length === 0" class="mb-4">
-                      <span>No current educational background.</span>
-                    </div>
-                    <div class="flex flex-wrap mb-4" v-for="(eduBackground, index) of politician.educationalBackground" :key="`eduBackground_${index}`">
-                      <span class="w-1/3 my-1 inline-block capitalize">{{eduBackground.degree}}</span>
-                      <span class="w-2/3 my-1 inline-block">
-                        <span class="capitalize">{{`${eduBackground.institution}. ${(new Date(eduBackground.startDate)).getFullYear()}`}}</span>
-                      </span>
+                    <div id="scroll_politicalBackground">
+                      <h3 class="font-bold mb-3 text-xl">Political background</h3>
+                      <div v-if="politician.politicalBackground.length === 0" class="mb-4">
+                        <span>No current political background.</span>
+                      </div>
+                      <div class="flex flex-wrap mb-4" v-for="(pBackground, index) of politician.politicalBackground" :key="`pBackground_${index}`">
+                        <span class="w-1/3 my-1 inline-block capitalize">{{pBackground.position}}</span>
+                        <span class="w-2/3 my-1 inline-block">
+                          <span class="block capitalize">{{pBackground.description}}</span>
+                          <span class="block">{{getPeriodString(pBackground.startDate, pBackground.endDate, true)}}</span>
+                        </span>
+                      </div>
                     </div>
 
-                    <h3 class="font-bold mb-3 text-xl">Professional background</h3>
-                    <div v-if="politician.professionalBackground.length === 0" class="mb-4">
-                      <span>No current professional background.</span>
+                    <div id="scroll_educationalBackground">
+                      <h3 class="font-bold mb-3 text-xl">Educational background</h3>
+                      <div v-if="politician.educationalBackground.length === 0" class="mb-4">
+                        <span>No current educational background.</span>
+                      </div>
+                      <div class="flex flex-wrap mb-4" v-for="(eduBackground, index) of politician.educationalBackground" :key="`eduBackground_${index}`">
+                        <span class="w-1/3 my-1 inline-block capitalize">{{eduBackground.degree}}</span>
+                        <span class="w-2/3 my-1 inline-block">
+                          <span class="capitalize">{{`${eduBackground.institution}. ${(new Date(eduBackground.startDate)).getFullYear()}`}}</span>
+                        </span>
+                      </div>
                     </div>
-                    <div class="flex flex-wrap mb-4" v-for="(proBackground, index) of politician.professionalBackground" :key="`proBackground_${index}`">
-                      <span class="w-1/3 my-1 inline-block capitalize">{{proBackground.title}}</span>
-                      <span class="w-2/3 my-1 inline-block">
-                        <span class="block capitalize">{{proBackground.description}}</span>
-                        <span class="block">{{getPeriodString(proBackground.startDate, proBackground.endDate, true)}}</span>
-                      </span>
+
+                    <div id="scroll_professionalBackground">
+                      <h3 class="font-bold mb-3 text-xl">Professional background</h3>
+                      <div v-if="politician.professionalBackground.length === 0" class="mb-4">
+                        <span>No current professional background.</span>
+                      </div>
+                      <div class="flex flex-wrap mb-4" v-for="(proBackground, index) of politician.professionalBackground" :key="`proBackground_${index}`">
+                        <span class="w-1/3 my-1 inline-block capitalize">{{proBackground.title}}</span>
+                        <span class="w-2/3 my-1 inline-block">
+                          <span class="block capitalize">{{proBackground.description}}</span>
+                          <span class="block">{{getPeriodString(proBackground.startDate, proBackground.endDate, true)}}</span>
+                        </span>
+                      </div>
                     </div>
 
                     <div class="block md:hidden w-full border-t-2 border-gray-200 mb-4 pt-10" v-if="politician.socials.twitter">
@@ -254,12 +262,12 @@
                   <div v-if="politician.accomplishments.length === 0" class="text-center my-6">
                     <span>No current accomplishments background.</span>
                   </div>
-                  <our-quarterly-view :data="quarterData" :keys="sideTabs" @setSideTabs="setSideTabs"></our-quarterly-view>
+                  <our-quarterly-view v-else :data="quarterData" :keys="sideTabs" @setSideTabs="setSideTabs"></our-quarterly-view>
                 </div>
 
                 <!-- Manifesto -->
                 <div class="relative top-0 left-0"  key="manifesto" v-show="isPage('manifesto')">
-                  <h3 class="font-bold mb-3 text-xl">Manifesto</h3>
+                  <h3 class="font-bold my-3 text-xl" v-if="politician.manifesto.summary">Manifesto</h3>
                   <div class="mb-6" v-if="politician.manifesto.summary" v-html="politician.manifesto.summary"></div>
                   <div class="w-full text-center mt-4 mb-8" v-else>
                     <span>Sorry, there are no politicians matching your search.</span>
@@ -290,6 +298,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import moment from 'moment';
+import stickybits from 'stickybits';
 
 import { politiciansMock } from '@/constants/examples';
 import monthsList from '@/assets/json/months.json';
@@ -318,6 +327,7 @@ export default {
     }
   },
   mounted() {
+    stickybits(this.$refs.secondaryTab);
     this.$refs.main.addEventListener('scroll', this.handleScroll, { passive: true });
   },
   unmounted() {
@@ -360,10 +370,6 @@ export default {
     twitterHandle() {
       return /^@+\w+/.test(this.politician.socials.twitter) ? this.politician.socials.twitter : `@${this.politician.socials.twitter}`;
     },
-    secondaryTabClass() {
-      if (this.stuck) return 'sticky-tab';
-      return '';
-    },
   },
   data() {
     return {
@@ -374,14 +380,19 @@ export default {
       loading: true,
       mainTabs: tabsList.politician,
       options: {
-        container: '#main-holder',
+        container: '#main',
         duration: 2000,
         easing: 'ease',
-        offset: 0,
+        offset: -90,
         force: true,
         cancelable: true,
+        onDone: (el) => {
+          const id = el.id.split('scroll_')[1];
+          this.scrollSection = id;
+        },
       },
       page: 'background',
+      scrollSection: '',
       // For now
       politician: politiciansMock[0],
       politiciansServices: this.$serviceFactory.politicians,
@@ -504,6 +515,20 @@ export default {
         if (this.stuck !== shouldStick) {
           this.stuck = shouldStick;
         }
+
+        // control side scroll according to where section is
+        this.sideTabs.forEach((tab) => {
+          const tabSectionId = tab.value;
+          const section = document.getElementById(`scroll_${tabSectionId}`);
+          if (section) {
+            const { top: sectionTop, height: sectionHeight } = section.getBoundingClientRect();
+            const { top: secondaryTabTop, height: secondaryTabHeight } = this.$refs.secondaryTab.getBoundingClientRect();
+            const scrollPos = secondaryTabTop + secondaryTabHeight;
+            if (sectionTop <= scrollPos && sectionTop > scrollPos - sectionHeight && this.scrollSection !== tab.value) {
+              this.scrollSection = tab.value;
+            }
+          }
+        });
       }
     },
     isPage(page) {
@@ -517,7 +542,7 @@ export default {
         const year = moment(x.date).year();
 
         if (keys.findIndex(z => z.label === year) === -1) {
-          keys.push({ label: year, value: year });
+          keys.push({ label: year, value: `year_${year}` });
         }
 
         if (!parsedData[year]) {
@@ -553,7 +578,7 @@ export default {
           parsedData[fullYear][month] = [x];
           keys.push({
             label: `${monthsList[month]} ${fullYear}`,
-            value: `feeds${month}${fullYear}`,
+            value: `feeds_${month}${fullYear}`,
           });
         }
       });
@@ -602,7 +627,7 @@ export default {
 </script>
 
 <style lang="scss">
-  #secondaryTab {
+  #secondary-tab {
     background: white;
     z-index: 30;
   }
@@ -612,6 +637,7 @@ export default {
 
     @screen md {
       width: 32.5rem;
+      min-height: 100%;
     }
   }
 
@@ -628,12 +654,6 @@ export default {
   .subscribe-btn {
     right: 4.25rem;
     z-index: 40;
-  }
-
-  .sticky-tab {
-    position: sticky;
-    top: 0;
-    width: 100%;
   }
 
   .side-scroll {

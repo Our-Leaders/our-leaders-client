@@ -5,7 +5,7 @@
         <span class="text-xs font-label cursor-pointer capitalize"
           v-for="(option, i) of options" :key="i"
           :class="{ 'text-gray-500' : !isPage(i)}"
-          @click="$emit('scroll', option.value);setPage(i)">{{option.label}}</span>
+          @click="$emit('scroll', `scroll_${option.value}`);setPage(i)">{{option.label}}</span>
       </div>
       <div class="thumb" :style="customStyle"></div>
     </div>
@@ -26,6 +26,9 @@ export default {
     options: {
       type: Array,
       required: true,
+    },
+    currentSection: {
+      type: String,
     },
   },
   computed: {
@@ -56,6 +59,13 @@ export default {
   watch: {
     options() {
       this.page = 0;
+      this.setPage(0);
+    },
+    currentSection() {
+      const page = this.options.findIndex(option => option.value === this.currentSection);
+      if (!this.isPage(page)) {
+        this.setPage(page);
+      }
     },
   },
 };
