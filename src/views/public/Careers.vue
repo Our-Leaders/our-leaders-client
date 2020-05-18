@@ -23,7 +23,8 @@
           <h3 class="w-full font-circular font-bold text-2xl capitalize mb-1">{{category}}</h3>
           <div class="w-1/2 lg:w-1/3 xl:w-1/3 jobs" v-for="(job, index) in jobs[category]" :key="index">
             <div class="image-holder cursor-pointer" @click="setJob(category, index, job)">
-              <img :src="job.image.url"/>
+              <img v-if="job.image" :src="job.image.url"/>
+              <img v-else src="@/assets/img/career2.png"/>
             </div>
             <h3 class="text-xl font-circular font-bold cursor-pointer" @click="setJob(category, index, job)">{{job.title}}</h3>
             <span class="capitalize mr-4 cursor-pointer" @click="setJob(category, index, job)">{{job.location}}</span>
