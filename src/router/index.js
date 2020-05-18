@@ -63,9 +63,6 @@ const routes = [
     path: '/contact-us',
     name: 'contact-us',
     component: Pages.ContactUs,
-    meta: {
-      layout: 'no-footer',
-    },
   },
   {
     path: '/donate',
