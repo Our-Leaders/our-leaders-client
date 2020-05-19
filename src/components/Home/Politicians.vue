@@ -7,7 +7,7 @@
     <div class="politician flex-none w-7/8 md:w-2/6 md:mb-12" v-for="(politician, i) in politicians" :key="i">
       <router-link :to="{name: 'politician', params: { politicianId: politician.id }}" class="block relative lg:hover:shadow-shallow cursor-pointer bg-gray-fa">
         <div class="w-full overflow-hidden md:h-40 lg:h-48" :class="isCard ? 'h-56' : 'h-48'">
-          <img :src="politician.profileImage" class="w-full object-cover"/>
+          <img :src="politician.profileImage" class="w-full h-full object-cover"/>
         </div>
         <div :class="isCard ? 'p-4' : 'py-4'">
           <div class="w-full mb-4">
