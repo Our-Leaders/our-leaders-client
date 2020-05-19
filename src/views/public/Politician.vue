@@ -122,9 +122,9 @@
       </div>
       <div ref="main" id="main" class="right-section pl-2 md:pl-10 md:pr-17 py-3 md:pb-4 md:max-h-screen md:overflow-y-scroll relative">
         <div class="hidden md:flex justify-between align-top" v-if="!loading">
-          <h3 class="pr-2 text-6xl mt-12">{{politician.name}}</h3>
-          <div class="subscribe-btn flex flex-col justify-end hidden md:inline-block mb-3 fixed">
-            <button class="btn-subscribe px-4 py-2 my-3"
+          <div class="mt-12 w-full flex justify-between items-center">
+            <span class="inline-block pr-2 text-6xl">{{politician.name}}</span>
+            <button class="btn-subscribe px-4 h-12"
               :class="{ 'active': hasSubscribed }"
               @click="toggleSubscription">
                 <span class="align-middle loading sm" v-if="processing"></span>
@@ -300,7 +300,6 @@ import { mapActions, mapGetters } from 'vuex';
 import moment from 'moment';
 import stickybits from 'stickybits';
 
-import { politiciansMock } from '@/constants/examples';
 import monthsList from '@/assets/json/months.json';
 import DataUtil from '@/helpers/dataUtil';
 import DateUtil from '@/helpers/dateUtil';
@@ -393,8 +392,12 @@ export default {
       },
       page: 'background',
       scrollSection: '',
-      // For now
-      politician: politiciansMock[0],
+      politician: {
+        politicalBackground: [],
+        politicalParty: {},
+        socials: {},
+        vote: {},
+      },
       politiciansServices: this.$serviceFactory.politicians,
       previousTabs: null,
       processing: false,
@@ -464,9 +467,9 @@ export default {
         if (!this.politician.politicalParty) {
           this.politician.politicalParty = {};
         }
-        if (this.politician.voters) {
+        if (ValidatorUtil.isDefined(this.politician.voters)) {
           const vote = this.politician.voters.find(x => x.id === this.user.id);
-          this.isUpvote = vote.isUpvote;
+          this.isUpvote = vote ? vote.isUpvote : false;
         }
         this.loading = false;
       } catch (error) {
