@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="w-full overflow-hidden h-20 md:h-32 lg:h-40">
-    <img :src="party.logo" class="w-full object-cover"/>
+    <img :src="party.logo" class="w-full h-full object-cover"/>
   </div>
   <div class="w-full my-1 md:my-2" v-if="party.vote">
     <img class="inline-block mr-1 md:mr-2 h-3 md:h-4" src="../assets/img/thumbs-up.svg"/>
