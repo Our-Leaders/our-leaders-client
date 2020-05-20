@@ -51,30 +51,11 @@
       </template>
     </our-modal>
     <our-modal :show="showModal && modalPage === 2" v-on:dismiss="toggleModal">
+      <template v-slot:header>
+        <h3 class="text-xl font-semibold mb-4">Are you sure you want to delete this account?</h3>
+      </template>
       <template v-slot:body>
-        <h3 class="text-xl font-semibold mb-4">Are you sure you want to delete your account?</h3>
-        <form @submit.prevent="deleteAccount">
-          <div class="mb-8">
-            <p>To verify, please enter your password</p>
-            <div class="input-fields mt-3">
-              <input class="w-full py-2"
-                type="password"
-                name="password"
-                v-model="password"
-                placeholder="Enter your password"
-                required
-              />
-            </div>
-          </div>
-          <div class="flex flex-wrap mt-5 mb-6">
-            <button :disabled="!password" type="submit" class="bg-red-600 text-white hover:opacity-75 w-full py-2 mb-4 lg:w-1/2 xl:w-1/2">
-              Yes, delete my account
-            </button>
-            <button type="button" class="bg-gray-300 hover:opacity-75 w-full py-2 mb-4 lg:w-1/2 xl:w-1/2" @click="toggleModal(2)">
-              Cancel
-            </button>
-          </div>
-        </form>
+        <our-delete-account-form v-on:complete="signOut" v-on:cancel="toggleModal"></our-delete-account-form>
       </template>
     </our-modal>
   </div>
@@ -92,7 +73,6 @@ export default {
   },
   data() {
     return {
-      password: null,
       showModal: false,
       modalPage: null,
     };
@@ -103,8 +83,6 @@ export default {
       this.$store.commit('clearJWT');
       this.$router.push('home');
       window.location.reload();
-    },
-    deleteAccount() {
     },
     toggleModal(page) {
       this.modalPage = page;
