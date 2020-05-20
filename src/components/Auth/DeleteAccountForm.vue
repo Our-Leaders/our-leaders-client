@@ -16,7 +16,7 @@
       <button :disabled="!data.password" type="submit" class="bg-red-600 text-white hover:opacity-90 w-full py-2 mb-4 lg:w-1/2 xl:w-1/2">
         Yes, delete my account
       </button>
-      <button type="button" class="bg-gray-300 hover:opacity-75 w-full py-2 mb-4 lg:w-1/2 xl:w-1/2" @click="$emit('cancel')">
+      <button type="button" class="btn-cancel hover:opacity-75 w-full py-2 mb-4 lg:w-1/2 xl:w-1/2" @click="$emit('cancel')">
         Cancel
       </button>
     </div>
@@ -68,5 +68,9 @@ export default {
     &:hover {
       opacity: 0.7;
     }
+  }
+
+  .btn-cancel {
+    background: #F3F3F3;
   }
 </style>
