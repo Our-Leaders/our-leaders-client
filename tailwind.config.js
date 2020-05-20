@@ -84,6 +84,7 @@ module.exports = {
       zIndex: {
         '100': 100,
         '200': 200,
+        '300': 300,
       },
       screens: {
         'xxl': '1920px',

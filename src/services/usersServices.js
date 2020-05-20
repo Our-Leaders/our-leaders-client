@@ -22,4 +22,7 @@ export default {
   updateUser(id, data) {
     return instance.put(`${resource}/${id}`, data);
   },
+  deleteAccount(id, data) {
+    return instance.put(`${resource}/${id}/delete-my-account`, data);
+  },
 };
