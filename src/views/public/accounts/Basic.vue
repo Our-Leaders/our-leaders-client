@@ -20,7 +20,7 @@
           <img :src="user.profileImage ? user.profileImage : require('@/assets/img/no-image.svg')"/>
           <!-- Will work on this in another card -->
           <div class="avatar-hover">
-            <button class="text-white mx-auto border-2 border-gray-500 w-16 px-4" @click="toggleModal">Edit</button>
+            <button class="text-white mx-auto border-2 border-gray-500 w-16 px-4" @click="toggleModal(1)">Edit</button>
           </div>
         </div>
       </div>
@@ -36,18 +36,45 @@
         </button>
       </div>
       <div class="w-full mb-4 lg:w-1/2 xl:w-1/2">
-        <button class="w-full py-1">
+        <button class="w-full py-1 hover:text-red-600" @click="toggleModal(2)">
           Delete Account
         </button>
       </div>
     </div>
 
-    <our-modal :show="showModal" v-on:dismiss="toggleModal">
+    <our-modal :show="showModal && modalPage === 1" v-on:dismiss="toggleModal">
       <template v-slot:header>
         <h3 class="font-bold text-lg font-circular mb-6">Profile Picture Change</h3>
       </template>
       <template v-slot:body>
         <our-image-upload v-on:complete="toggleModal" v-on:cancel="toggleModal"></our-image-upload>
+      </template>
+    </our-modal>
+    <our-modal :show="showModal && modalPage === 2" v-on:dismiss="toggleModal">
+      <template v-slot:body>
+        <h3 class="text-xl font-semibold mb-4">Are you sure you want to delete your account?</h3>
+        <form @submit.prevent="deleteAccount">
+          <div class="mb-8">
+            <p>To verify, please enter your password</p>
+            <div class="input-fields mt-3">
+              <input class="w-full py-2"
+                type="password"
+                name="password"
+                v-model="password"
+                placeholder="Enter your password"
+                required
+              />
+            </div>
+          </div>
+          <div class="flex flex-wrap mt-5 mb-6">
+            <button :disabled="!password" type="submit" class="bg-red-600 text-white hover:opacity-75 w-full py-2 mb-4 lg:w-1/2 xl:w-1/2">
+              Yes, delete my account
+            </button>
+            <button type="button" class="bg-gray-300 hover:opacity-75 w-full py-2 mb-4 lg:w-1/2 xl:w-1/2" @click="toggleModal(2)">
+              Cancel
+            </button>
+          </div>
+        </form>
       </template>
     </our-modal>
   </div>
@@ -65,7 +92,9 @@ export default {
   },
   data() {
     return {
+      password: null,
       showModal: false,
+      modalPage: null,
     };
   },
   methods: {
@@ -75,7 +104,10 @@ export default {
       this.$router.push('home');
       window.location.reload();
     },
-    toggleModal() {
+    deleteAccount() {
+    },
+    toggleModal(page) {
+      this.modalPage = page;
       this.showModal = !this.showModal;
     },
   },
