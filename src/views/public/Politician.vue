@@ -219,7 +219,7 @@
                       <div class="flex flex-wrap mb-4" v-for="(eduBackground, index) of politician.educationalBackground" :key="`eduBackground_${index}`">
                         <span class="w-1/3 my-1 inline-block capitalize">{{eduBackground.degree}}</span>
                         <span class="w-2/3 my-1 inline-block">
-                          <span class="capitalize">{{`${eduBackground.institution}. ${(new Date(eduBackground.startDate)).getFullYear()}`}}</span>
+                          <span class="capitalize">{{`${eduBackground.institution}. ${eduBackground.graduationYear}`}}</span>
                         </span>
                       </div>
                     </div>
@@ -233,7 +233,7 @@
                         <span class="w-1/3 my-1 inline-block capitalize">{{proBackground.title}}</span>
                         <span class="w-2/3 my-1 inline-block">
                           <span class="block capitalize">{{proBackground.description}}</span>
-                          <span class="block">{{getPeriodString(proBackground.startDate, proBackground.endDate, true)}}</span>
+                          <span class="block">{{getPeriodString(proBackground.startYear, proBackground.endYear, true)}}</span>
                         </span>
                       </div>
                     </div>
@@ -393,6 +393,9 @@ export default {
       page: 'background',
       scrollSection: '',
       politician: {
+        accomplishments: [],
+        educationalBackground: [],
+        professionalBackground: [],
         politicalBackground: [],
         politicalParty: {},
         socials: {},
@@ -455,15 +458,9 @@ export default {
     async getPolitician(id) {
       try {
         this.loading = true;
-        const cachedPolitician = this.viewedPoliticians[id];
-
-        if (cachedPolitician) {
-          this.politician = cachedPolitician;
-        } else {
-          const response = await this.politiciansServices.getPolitician(id);
-          this.politician = response.data.politician;
-          this.$store.commit('addToViewedPoliticians', this.politician);
-        }
+        const response = await this.politiciansServices.getPolitician(id);
+        this.politician = response.data.politician;
+        this.$store.commit('addToViewedPoliticians', this.politician);
         if (!this.politician.politicalParty) {
           this.politician.politicalParty = {};
         }
@@ -509,7 +506,15 @@ export default {
       return `${dobDate.toLocaleDateString()} (${DateUtil.getAge(dob)})`;
     },
     getPeriodString(startDate, endDate, long) {
-      return DateUtil.getPeriodString(startDate, endDate, long);
+      if (!endDate) {
+        return startDate;
+      }
+
+      if (typeof startDate === 'string' && typeof endDate === 'string') {
+        return DateUtil.getPeriodString(startDate, endDate, long);
+      }
+
+      return `${startDate} - ${endDate}`;
     },
     handleScroll() {
       if (this.$refs.mainHolder) {
