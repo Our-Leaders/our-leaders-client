@@ -5,7 +5,6 @@ export default {
   component: Pages.AccountsDefault,
   meta: {
     requiresAuth: true,
-    layout: 'no-footer',
   },
   children: [{
     path: 'basic',
