@@ -5,6 +5,9 @@ export const userMutations = {
   setCurrentUser(state, user) {
     state.currentUser = user;
   },
+  updateCurrentUser(state, args) {
+    state.currentUser[args.key] = args.value;
+  },
 };
 
 export const userGetters = {
