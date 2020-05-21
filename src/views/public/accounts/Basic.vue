@@ -5,7 +5,8 @@
       <div class="w-full lg:w-1/2 xl:w-1/2">
         <p class="mb-4">
           <span class="text-base font-bold mr-16">Name</span>
-          <span class="text-base block lg:inline-block xl:inline-block">{{`${this.user.firstName} ${this.user.lastName}`}}</span>
+          <span class="text-base block lg:inline-block xl:inline-block">{{`${this.user.firstName || ''} ${this.user.lastName || ''}`}}</span>
+          <button class="text-sm text-black border-2 border-black ml-2 hover:text-white hover:bg-black hover:border-black w-16 px-4" @click="toggleModal(3)">Edit</button>
         </p>
         <p>
           <span class="text-base font-bold mr-16">Email</span>
@@ -56,6 +57,14 @@
       </template>
       <template v-slot:body>
         <our-delete-account-form v-on:complete="signOut" v-on:cancel="toggleModal"></our-delete-account-form>
+      </template>
+    </our-modal>
+    <our-modal :show="showModal && modalPage === 3" v-on:dismiss="toggleModal">
+      <template v-slot:header>
+        <h3 class="font-bold text-lg font-circular mb-6">Edit Personal Info</h3>
+      </template>
+      <template v-slot:body>
+        <our-edit--personal-details-form v-on:complete="toggleModal" v-on:cancel="toggleModal"></our-edit--personal-details-form>
       </template>
     </our-modal>
   </div>

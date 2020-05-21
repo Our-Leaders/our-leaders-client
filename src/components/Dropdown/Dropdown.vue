@@ -10,7 +10,7 @@
     <div v-if="imageSrc" @click="!showOnHover && toggleDropdown()" class="relative z-20 block h-10 w-10 bg-gray-200 rounded-full overflow-hidden">
       <img class="h-full w-full object-cover" :src="imageSrc" alt="avatar">
     </div>
-    <div v-if="!imageSrc" @click="!showOnHover && toggleDropdown()" :class="`relative block xl:${padding}`">
+    <div v-if="!imageSrc" @click="!showOnHover && toggleDropdown()" :class="`relative mx-auto block xl:${padding}`">
       <span class="h-full w-full object-cover font-pt">{{ heading }}</span>
       <img v-if="showIcon" class="side-arrow" src="../../assets/img/angle-arrow-down.svg"/>
     </div>

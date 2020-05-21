@@ -83,11 +83,10 @@
         </li>
         <li v-if="isLoggedIn && !search" :class="profileShowClass" class="profile-wrapper xl:top-0 xl:relative right-0 w-auto pl-4 h-14 flex items-center font-circular">
           <our-dropdown
-            class="notification bg-gray-200 rounded-full text-xs flex xl:visible justify-center mr-5 relative leading-tight"
+            class="notification flex-col bg-gray-200 rounded-full text-xs flex xl:visible justify-center mr-5 relative leading-tight"
             :class="{'active': hasNotifications}"
             :heading="`${totalNotifications}`"
-            padding="py-0"
-            alignRight>
+            padding="py-0">
             <our-dropdown-item v-if="!hasNotifications">
               <p class="text-center">No new notifications.</p>
             </our-dropdown-item>
