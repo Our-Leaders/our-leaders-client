@@ -67,6 +67,16 @@
         :disabled="loading || !codeSent">
         Verify
       </button>
+      <button
+        :class="{
+          'btn w-full mb-8': true,
+          'loading': loading,
+        }"
+        type="button"
+        @click="signOut"
+        :disabled="loading">
+        Sign Out
+      </button>
     </form>
   </div>
 </template>
@@ -155,6 +165,12 @@ export default {
     },
     showSuccess(message) {
       this.displaySuccess({ message });
+    },
+    signOut() {
+      this.$store.commit('clearCurrentUser');
+      this.$store.commit('clearJWT');
+      this.$router.push('home');
+      window.location.reload();
     },
     isValidPhoneNumber() {
       const pattern = /^\d+$/;
