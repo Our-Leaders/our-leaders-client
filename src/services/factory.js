@@ -9,6 +9,7 @@ import politicalPartiesServices from './politicalPartiesServices';
 import subscriptionsServices from './subscriptionsServices';
 import supportServices from './supportServices';
 import usersServices from './usersServices';
+import statisticsService from './statisticsService';
 
 const services = {
   auth: authServices,
@@ -22,6 +23,7 @@ const services = {
   subscriptions: subscriptionsServices,
   support: supportServices,
   users: usersServices,
+  statistics: statisticsService,
 };
 
 export default services;

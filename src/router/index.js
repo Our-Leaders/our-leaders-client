@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import AccountRoutes from './accountRoutes';
 import Pages from '../views/index';
 import Store from '../store/index';
+import ServiceFactory from '../services/factory';
 
 Vue.use(VueRouter);
 
@@ -112,6 +113,14 @@ const router = new VueRouter({
   scrollBehavior() {
     return { x: 0, y: 0 };
   },
+});
+
+router.beforeResolve(async (to, from, next) => {
+  try {
+    await ServiceFactory.statistics.recordVisit({ referrer: from.path, url: to.path });
+  } finally {
+    next();
+  }
 });
 
 router.beforeEach((to, from, next) => {
