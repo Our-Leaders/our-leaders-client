@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div class="relative mb-20">
     <div class="flex flex-col justify-center min-h-screen mb-4" v-if="loading">
       <div class="w-full text-center">
         <span class="loading lg mx-auto mb-2"></span>
@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="flex flex-wrap pb-2">
-      <div class="left-section md:fixed py-2 md:py-8 px-2 lg:px-17 xl:px-17 lg:border-r-2 xl:border-r-2 border-gray-200" v-if="!loading">
+      <div class="left-section md:absolute md:max-h-screen py-2 md:py-8 px-2 lg:px-17 xl:px-17 lg:border-r-2 xl:border-r-2 border-gray-200" v-if="!loading">
         <div class="md:hidden">
           <h3 class="text-5xl leading-tight mb-3">{{politician.name}}</h3>
           <div class="w-full" v-if="position.inOffice">
@@ -105,12 +105,6 @@
         </div>
         <div class="hidden md:flex flex-wrap" v-if="politician.socials.twitter">
           <div class="w-full border-b-1 border-gray-400">
-            <!-- <span class="text-2xl mr-2">Tweets</span>
-            <span class="text-base mr-1">by</span>
-            <span class="cursor-pointer twitter-link text-base">{{twitterHandle}}</span>
-            <button class="float-right align-middle font-semibold twitter-button px-2 rounded-full">Follow</button>
-            <hr class="mt-2"/> -->
-            <!-- Twitter -->
             <div class="timeline-wrapper">
               <twitter>
                 <div slot="loading">loading .....</div>
@@ -395,6 +389,7 @@ export default {
       politician: {
         accomplishments: [],
         educationalBackground: [],
+        manifesto: {},
         professionalBackground: [],
         politicalBackground: [],
         politicalParty: {},
