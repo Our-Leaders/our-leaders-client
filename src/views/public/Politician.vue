@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="flex flex-wrap pb-2">
-      <div class="left-section md:absolute md:max-h-screen py-2 md:py-8 px-2 lg:px-17 xl:px-17 lg:border-r-2 xl:border-r-2 border-gray-200" v-if="!loading">
+      <div class="left-section md:absolute md:max-h-screen py-2 md:py-8 px-2 lg:px-17 xl:px-17 lg:border-r-2 xl:border-r-2 border-gray-200 md:overflow-y-scroll" v-if="!loading">
         <div class="md:hidden">
           <h3 class="text-5xl leading-tight mb-3">{{politician.name}}</h3>
           <div class="w-full" v-if="position.inOffice">
@@ -114,7 +114,7 @@
           </div>
         </div>
       </div>
-      <div ref="main" id="main" class="right-section pl-2 md:pl-10 md:pr-17 py-3 md:pb-4 md:max-h-screen md:overflow-y-scroll relative">
+      <div ref="main" id="main" class="right-section pl-2 md:pl-10 md:pr-17 py-3 md:pb-4 md:max-h-screen overflow-y-scroll relative">
         <div class="hidden md:flex justify-between align-top" v-if="!loading">
           <div class="mt-12 w-full flex justify-between items-center">
             <span class="inline-block pr-2 text-6xl">{{politician.name}}</span>
@@ -501,7 +501,6 @@ export default {
       return `${dobDate.toLocaleDateString()} (${DateUtil.getAge(dob)})`;
     },
     getPeriodString(startDate, endDate, long) {
-      console.log('Start Date: ', startDate);
       if (!startDate) {
         return '';
       }
