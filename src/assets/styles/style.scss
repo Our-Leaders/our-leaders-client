@@ -284,6 +284,43 @@ input:-internal-autofill-previewed {
   }
 }
 
+.our-list {
+  .item {
+    margin-bottom: 30px;
+
+    .header {
+      display: block;
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+
+      &::after {
+        border-bottom: 1px solid theme('colors.primary');
+        content: '';
+        display: block;
+        width: 10%;
+      }
+    }
+
+    .content {
+      line-height: 1.5rem;
+
+      &::first-letter {
+        color: theme('colors.primary');
+        font-size: 1.7rem;
+      }
+
+      .inner-list {
+        margin-bottom: 10px;
+
+        li {
+          line-height: 1.9rem;
+        }
+      }
+    }
+  }
+}
+
 .overflow-ellipse {
   text-overflow: ellipsis;
   overflow: hidden;
