@@ -76,6 +76,16 @@ const routes = [
     component: Pages.Faqs,
   },
   {
+    path: '/privacy',
+    name: 'privacy',
+    component: Pages.Privacy,
+  },
+  {
+    path: '/terms',
+    name: 'terms',
+    component: Pages.Terms,
+  },
+  {
     path: '/politicians/:politicianId',
     name: 'politician',
     component: Pages.Politician,
