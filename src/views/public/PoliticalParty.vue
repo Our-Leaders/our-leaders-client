@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="flex flex-wrap pb-2" v-if="!loading">
-      <div class="w-full lg:w-1/3 md:py-8 py-2 px-2 lg:px-16 md:border-r-2 border-gray-200">
+      <div class="w-full lg:w-1/3 md:py-8 py-2 px-2 lg:px-16 md:border-r-2 border-gray-200 overflow-y-scroll">
         <h3 class="lg:hidden text-5xl leading-tight mb-3">{{politicalParty.name}} ({{politicalParty.acronym}})</h3>
         <div class="passport-wrapper mb-3">
           <img class="object-cover" :src="politicalParty.logo"/>
@@ -49,7 +49,7 @@
         </div>
       </div>
       <!-- <div class="w-2/3 px-10 py-4 relative"> -->
-      <div class="w-full lg:w-2/3 pl-2 md:px-10 py-1 md:py-4 md:max-h-screen md:overflow-y-scroll relative" sticky-container>
+      <div class="w-full lg:w-2/3 pl-2 md:px-10 py-1 md:py-4 md:max-h-screen overflow-y-scroll relative" sticky-container>
         <h3 class="hidden lg:block text-6xl mt-8">{{politicalParty.name}} ({{politicalParty.acronym}})</h3>
         <div class="hidden lg:block pr-2 w-full mb-4">
           <div id="votes" class="inline-block pr-5 border-r-2 border-gray-300">
