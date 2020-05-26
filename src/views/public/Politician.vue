@@ -213,7 +213,7 @@
                       <div class="flex flex-wrap mb-4" v-for="(eduBackground, index) of politician.educationalBackground" :key="`eduBackground_${index}`">
                         <span class="w-1/3 my-1 inline-block capitalize">{{eduBackground.degree}}</span>
                         <span class="w-2/3 my-1 inline-block">
-                          <span class="capitalize">{{`${eduBackground.institution}. ${eduBackground.graduationYear}`}}</span>
+                          <span class="capitalize">{{`${eduBackground.institution}. ${getPeriodString(eduBackground.graduationYear)}`}}</span>
                         </span>
                       </div>
                     </div>
@@ -501,6 +501,11 @@ export default {
       return `${dobDate.toLocaleDateString()} (${DateUtil.getAge(dob)})`;
     },
     getPeriodString(startDate, endDate, long) {
+      console.log('Start Date: ', startDate);
+      if (!startDate) {
+        return '';
+      }
+
       if (!endDate) {
         return startDate;
       }
