@@ -34,34 +34,34 @@
       </div>
     </div>
 
-    <div class="absolute w-full h-full top-0 left-0 hidden-overflow-transparent">
+    <div class="absolute w-full h-full top-0 left-0">
       <div class="inner w-full h-full text-right">
-        <our-dropdown class="border border-black inline-block px-4 ml-2 mt-6 bg-white xl:mr-4" list-margin="-mt-8" padding="py-1" width="w-64" heading="Leaders" alignRight leaveOpen listClass="leaders-dropdown-list">
+        <our-dropdown class="inline-block mt-5 bg-white font-circular" list-margin="-mt-6" padding="py-1" width="w-64" headingFont="font-circular" leaveOpen listClass="leaders-dropdown-list">
+          <template v-slot:heading>
+            <button class="btn-subscribe px-4 py-1" :class="{ 'active': subscribed }">
+              <span class="align-middle" v-if="!subscribed">Subscribe</span>
+              <span class="align-middle" v-if="subscribed">Subscribed</span>
+              <span class="align-middle loading inline sm ml-2" v-if="processing"></span>
+              <img class="ml-2 align-baseline" v-else-if="subscribed" src="@/assets/img/green-tick.svg"/>
+            </button>
+          </template>
           <our-dropdown-item>
-            <label class="flex justify-between text-xs">
+            <label class="flex justify-between text-xs items-center">
               Be notified on this platform
-              <our-checkbox></our-checkbox>
+              <our-checkbox :model="subscription.feeds" v-on:change="changeSubscription('feeds', $event)"></our-checkbox>
             </label>
           </our-dropdown-item>
           <our-dropdown-item>
-            <label class="flex justify-between text-xs">
+            <label class="flex justify-between text-xs items-center">
               Receive email notifications
-              <our-checkbox></our-checkbox>
+              <our-checkbox :model="subscription.email" v-on:change="changeSubscription('email', $event)"></our-checkbox>
             </label>
           </our-dropdown-item>
-          <our-dropdown-divider/>
+          <our-dropdown-divider v-show="subscribed"/>
           <our-dropdown-item>
-            <span class="text-xs text-gray-300 w-full">Unsubscribe from this leader</span>
+            <a v-show="subscribed" @click="removeSubscription" class="text-xs text-gray-400 w-full" :class="unsubscribeLinkClass">Unsubscribe from this leader</a>
           </our-dropdown-item>
         </our-dropdown>
-        <button class="btn-grey-outline inline-block px-4 py-1 ml-2 mt-6"
-          v-show="!this.subscribed"
-          :disabled="processing"
-          @click="addSubscription">Subscribe</button>
-        <button class="btn-grey-outline inline-block px-4 py-1 ml-2 mt-6"
-          v-show="this.subscribed"
-          :disabled="processing"
-          @click="removeSubscription">Unsubscribe</button>
       </div>
     </div>
   </div>
@@ -78,13 +78,12 @@ export default {
     politician: {
       type: Object,
     },
-    subscribed: {
-      type: Boolean,
-      default: false,
-    },
     viewType: {
       type: String,
       default: 'primary',
+    },
+    subscriptions: {
+      type: Array,
     },
   },
   computed: {
@@ -96,10 +95,23 @@ export default {
       }
       return 'N/A';
     },
+    unsubscribeLinkClass() {
+      if (this.processing) {
+        return 'cursor-not-allowed text-gray-300';
+      }
+      return '';
+    },
+    subscribed() {
+      return this.subscription.feeds || this.subscription.email;
+    },
   },
   data() {
     return {
       processing: false,
+      subscription: {
+        feeds: !!this.getSubscriptionIdByType('feeds'),
+        email: !!this.getSubscriptionIdByType('email'),
+      },
       subscriptionsServices: this.$serviceFactory.subscriptions,
     };
   },
@@ -107,35 +119,45 @@ export default {
     ...mapActions([
       'displayError',
     ]),
-    async addSubscription() {
+    async addSubscription(type) {
       try {
         this.processing = true;
         await this.subscriptionsServices.addSubscription({
           politicianId: this.politician.id,
+          type,
         });
-        this.subscribed = true;
+        this.subscription[type] = true;
         this.processing = false;
       } catch (error) {
-        this.subscribed = false;
+        this.subscription[type] = false;
         this.processing = false;
         this.displayError(error);
       }
     },
-    async removeSubscription() {
+    async removeSubscription(type) {
       try {
         this.processing = true;
-        this.subscribed = true;
-        await this.subscriptionsServices.removeSubscription({
-          politicianId: this.politician.id,
-        });
+        this.subscription[type] = true;
+        await this.subscriptionsServices.removeSubscription(this.getSubscriptionIdByType(type));
 
-        this.subscribed = false;
+        this.subscription[type] = false;
         this.processing = false;
       } catch (error) {
-        this.subscribed = true;
+        this.subscription[type] = true;
         this.processing = false;
         this.displayError(error);
       }
+    },
+    async changeSubscription(type, isSubscribed) {
+      if (isSubscribed) {
+        this.addSubscription(type);
+      } else {
+        this.removeSubscription(type);
+      }
+    },
+    getSubscriptionIdByType(type) {
+      const subscription = this.subscriptions.find(sub => sub.type === type);
+      return subscription ? subscription.id : null;
     },
   },
 };
