@@ -59,7 +59,7 @@
           </our-dropdown-item>
           <our-dropdown-divider v-show="subscribed"/>
           <our-dropdown-item>
-            <a v-show="subscribed" @click="removeSubscription" class="text-xs text-gray-400 w-full" :class="unsubscribeLinkClass">Unsubscribe from this leader</a>
+            <a v-show="subscribed" @click="removeSubscription()" class="text-xs text-gray-400 w-full" :class="unsubscribeLinkClass">Unsubscribe from this leader</a>
           </our-dropdown-item>
         </our-dropdown>
       </div>
@@ -138,9 +138,15 @@ export default {
       try {
         this.processing = true;
         this.subscription[type] = true;
-        await this.subscriptionsServices.removeSubscription(this.getSubscriptionIdByType(type));
+        if (type) {
+          await this.subscriptionsServices.removeSubscription(this.getSubscriptionIdByType(type));
+          this.subscription[type] = false;
+        } else {
+          await this.subscriptionsServices.removePoliticianSubscriptions(this.politician.id);
+          this.subscription.feeds = false;
+          this.subscription.email = false;
+        }
 
-        this.subscription[type] = false;
         this.processing = false;
       } catch (error) {
         this.subscription[type] = true;

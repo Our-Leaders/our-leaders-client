@@ -34,6 +34,11 @@ export default {
       value: this.model,
     };
   },
+  watch: {
+    model(newValue) {
+      this.value = newValue;
+    },
+  },
 };
 </script>
 
