@@ -48,13 +48,13 @@
           <our-dropdown-item>
             <label class="flex justify-between text-xs items-center">
               Be notified on this platform
-              <our-checkbox :model="subscription.feeds" v-on:change="changeSubscription('feeds', $event)"></our-checkbox>
+              <our-checkbox :model="subscription.feeds" :disabled="processing" v-on:change="changeSubscription('feeds', $event)"></our-checkbox>
             </label>
           </our-dropdown-item>
           <our-dropdown-item>
             <label class="flex justify-between text-xs items-center">
               Receive email notifications
-              <our-checkbox :model="subscription.email" v-on:change="changeSubscription('email', $event)"></our-checkbox>
+              <our-checkbox :model="subscription.email" :disabled="processing" v-on:change="changeSubscription('email', $event)"></our-checkbox>
             </label>
           </our-dropdown-item>
           <our-dropdown-divider v-show="subscribed"/>

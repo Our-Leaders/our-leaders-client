@@ -3,7 +3,7 @@
     <span v-if="!left">{{label}}</span>
     <span class="checkbox mt-1" :class="{'mr-2': left}">
       <img class="z-30" src="@/assets/img/checked.svg"/>
-      <input class="absolute z-20" type="checkbox" v-model="value" @change="$emit('change', value)"/>
+      <input class="absolute z-20" type="checkbox" v-model="value" @change="$emit('change', value)" :disabled="disabled"/>
     </span>
     <span v-if="left">{{label}}</span>
   </label>
@@ -23,6 +23,10 @@ export default {
     model: {
       type: Boolean,
       required: true,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
