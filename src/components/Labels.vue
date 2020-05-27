@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-wrap">
-    <span class="inline-block label border border-nav mr-2 mb-2 px-2 py-1"
+    <span class="inline-block label border border-nav mr-2 mb-2 px-2 py-1 font-circular"
       v-for="(option, i) of options"
       :class="{'active': isLabel(option.value)}"
       @click="setLabel(option.value);$emit('changed', option.value)"
