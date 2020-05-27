@@ -11,7 +11,7 @@
       <img class="h-full w-full object-cover" :src="imageSrc" alt="avatar">
     </div>
     <div v-if="!imageSrc" @click="!showOnHover && toggleDropdown()" :class="`relative mx-auto block xl:${padding}`">
-      <span class="h-full w-full object-cover font-pt">{{ heading }}</span>
+      <span class="h-full w-full object-cover" :class="headingFont">{{ heading }}</span>
       <img v-if="showIcon" class="side-arrow" src="../../assets/img/angle-arrow-down.svg"/>
     </div>
     <transition name="fade" mode="out-in">
@@ -76,6 +76,10 @@ export default {
     fillScreenOnMobile: {
       default: false,
       type: Boolean,
+    },
+    headingFont: {
+      type: String,
+      default: 'font-pt',
     },
   },
   data() {
