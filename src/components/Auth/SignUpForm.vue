@@ -75,12 +75,11 @@ export default {
     return {
       authServices: this.$serviceFactory.auth,
       data: {
-        email: null,
-        password: null,
         subscribe: true,
       },
       displayPassword: false,
       loading: false,
+      hasError: false,
     };
   },
   computed: {
@@ -97,7 +96,10 @@ export default {
       try {
         this.loading = true;
         this.hasError = false;
-        this.data.email = this.data.email.toLowerCase();
+        if (this.data.email) {
+          this.data.email = this.data.email.toLowerCase();
+        }
+
         const response = await this.authServices.signUp(this.data);
 
         this.$store.commit('setCurrentUser', response.data.user);
