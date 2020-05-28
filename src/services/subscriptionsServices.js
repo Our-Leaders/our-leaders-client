@@ -16,4 +16,7 @@ export default {
   removeSubscription(id) {
     return instance.delete(`${resource}/${id}`);
   },
+  removePoliticianSubscriptions(politicianId) {
+    return instance.delete(`${resource}/politicians/${politicianId}`);
+  },
 };

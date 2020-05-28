@@ -11,8 +11,8 @@
       <img class="h-full w-full object-cover" :src="imageSrc" alt="avatar">
     </div>
     <div v-if="!imageSrc" @click="!showOnHover && toggleDropdown()" :class="`relative mx-auto block xl:${padding}`">
-      <span class="h-full w-full object-cover font-pt">{{ heading }}</span>
-      <img v-if="showIcon" class="side-arrow" src="../../assets/img/angle-arrow-down.svg"/>
+      <span v-if="heading" class="h-full w-full object-cover font-pt">{{ heading }}</span>
+      <slot name="heading"></slot>
     </div>
     <transition name="fade" mode="out-in">
       <div class="p-3 xl:px-4 right-0 bg-white" :class="`${width || 'w-64'} ${alignClass} ${listClass} ${dropdownListClass} ${listMargin}`" v-if="isOpen">
@@ -34,10 +34,6 @@ import { mixin as clickout } from 'vue-clickout';
 export default {
   mixins: [clickout],
   props: {
-    showIcon: {
-      default: false,
-      type: Boolean,
-    },
     leaveOpen: {
       default: false,
       type: Boolean,
@@ -77,6 +73,10 @@ export default {
       default: false,
       type: Boolean,
     },
+    forceClose: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -93,6 +93,13 @@ export default {
     this.$once('hook:beforeDestroy', () => {
       document.removeEventListener('keydown', handleEscape);
     });
+  },
+  watch: {
+    forceClose(newValue, oldValue) {
+      if (oldValue !== newValue && newValue) {
+        this.closeDropdown();
+      }
+    },
   },
   methods: {
     toggleDropdown() {

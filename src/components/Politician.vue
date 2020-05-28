@@ -33,43 +33,14 @@
         <span class="block text-sm capitalize">{{position}}</span>
       </div>
     </div>
-
     <div class="absolute w-full h-full top-0 left-0 hidden-overflow-transparent">
-      <div class="inner w-full h-full text-right">
-        <our-dropdown class="border border-black inline-block px-4 ml-2 mt-6 bg-white xl:mr-4" list-margin="-mt-8" padding="py-1" width="w-64" heading="Leaders" alignRight leaveOpen listClass="leaders-dropdown-list">
-          <our-dropdown-item>
-            <label class="flex justify-between text-xs">
-              Be notified on this platform
-              <our-checkbox></our-checkbox>
-            </label>
-          </our-dropdown-item>
-          <our-dropdown-item>
-            <label class="flex justify-between text-xs">
-              Receive email notifications
-              <our-checkbox></our-checkbox>
-            </label>
-          </our-dropdown-item>
-          <our-dropdown-divider/>
-          <our-dropdown-item>
-            <span class="text-xs text-gray-300 w-full">Unsubscribe from this leader</span>
-          </our-dropdown-item>
-        </our-dropdown>
-        <button class="btn-grey-outline inline-block px-4 py-1 ml-2 mt-6"
-          v-show="!this.subscribed"
-          :disabled="processing"
-          @click="addSubscription">Subscribe</button>
-        <button class="btn-grey-outline inline-block px-4 py-1 ml-2 mt-6"
-          v-show="this.subscribed"
-          :disabled="processing"
-          @click="removeSubscription">Unsubscribe</button>
-      </div>
+      <our-politician-subscription :politicianSubscriptions="subscriptions" :politician="politician"></our-politician-subscription>
     </div>
   </div>
 </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 import StringUtil from '@/helpers/stringUtil';
 
 export default {
@@ -78,13 +49,13 @@ export default {
     politician: {
       type: Object,
     },
-    subscribed: {
-      type: Boolean,
-      default: false,
-    },
     viewType: {
       type: String,
       default: 'primary',
+    },
+    subscriptions: {
+      type: Array,
+      default: () => ([]),
     },
   },
   computed: {
@@ -95,47 +66,6 @@ export default {
         return StringUtil.getPoliticalPosition(background);
       }
       return 'N/A';
-    },
-  },
-  data() {
-    return {
-      processing: false,
-      subscriptionsServices: this.$serviceFactory.subscriptions,
-    };
-  },
-  methods: {
-    ...mapActions([
-      'displayError',
-    ]),
-    async addSubscription() {
-      try {
-        this.processing = true;
-        await this.subscriptionsServices.addSubscription({
-          politicianId: this.politician.id,
-        });
-        this.subscribed = true;
-        this.processing = false;
-      } catch (error) {
-        this.subscribed = false;
-        this.processing = false;
-        this.displayError(error);
-      }
-    },
-    async removeSubscription() {
-      try {
-        this.processing = true;
-        this.subscribed = true;
-        await this.subscriptionsServices.removeSubscription({
-          politicianId: this.politician.id,
-        });
-
-        this.subscribed = false;
-        this.processing = false;
-      } catch (error) {
-        this.subscribed = true;
-        this.processing = false;
-        this.displayError(error);
-      }
     },
   },
 };

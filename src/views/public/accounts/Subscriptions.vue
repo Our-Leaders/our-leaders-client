@@ -11,10 +11,11 @@
     </div>
 
     <div v-if="!loading">
-      <div class="w-full" v-for="(subscription, i) in subscriptions" :key="i">
-        <our-politician :politician="subscription.politician"
+      <div class="w-full" v-for="(politician, i) in uniquePoliticians" :key="i">
+        <our-politician :politician="politician"
           view-type="secondary"
-          :subscribed="isSubscribed(subscription.politician.id)"></our-politician>
+          :subscriptions="politicianSubscriptions(politician.id)">
+        </our-politician>
       </div>
     </div>
 
@@ -36,6 +37,19 @@ export default {
   computed: {
     isEmpty() {
       return !this.loading && this.subscriptions.length === 0;
+    },
+    uniquePoliticians() {
+      const subscriptionSet = new Set();
+      const subscriptions = [];
+
+      this.subscriptions.forEach((subscription) => {
+        if (!subscriptionSet.has(subscription.politician.id)) {
+          subscriptionSet.add(subscription.politician.id);
+          subscriptions.push(subscription.politician);
+        }
+      });
+
+      return subscriptions;
     },
   },
   data() {
@@ -66,8 +80,8 @@ export default {
         this.displayError(error);
       }
     },
-    isSubscribed(id) {
-      return this.subscriptions.findIndex(x => x.politician.id === id) > -1;
+    politicianSubscriptions(id) {
+      return this.subscriptions.filter(x => x.politician.id === id);
     },
     setFilter(value) {
       this.filter.position = value;

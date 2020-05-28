@@ -17,14 +17,7 @@
           <div class="w-full mb-2" v-else>
             <span class="block text-base capitalize">Not in Office</span>
           </div>
-          <button class="btn-subscribe px-4 py-2 my-3"
-            :class="{ 'active': hasSubscribed }"
-            @click="toggleSubscription">
-            <span class="align-middle loading sm" v-if="processing"></span>
-            <span class="align-middle" v-if="!hasSubscribed && !processing">Subscribe to {{lastName}}</span>
-            <span class="align-middle" v-if="hasSubscribed && !processing">Subscribed</span>
-            <img class="ml-2" v-if="hasSubscribed && !processing" src="@/assets/img/green-tick.svg"/>
-          </button>
+          <our-politician-subscription :politician="politician" :subscribeText="`Subscribe to ${lastName}`"></our-politician-subscription>
         </div>
         <div class="passport-wrapper mb-3 md:max-w-passport">
           <img class="object-cover" :src="politician.profileImage"/>
@@ -118,14 +111,7 @@
         <div class="hidden md:flex justify-between align-top" v-if="!loading">
           <div class="mt-12 w-full flex justify-between items-center">
             <span class="inline-block pr-2 text-6xl">{{politician.name}}</span>
-            <button class="btn-subscribe px-4 h-12"
-              :class="{ 'active': hasSubscribed }"
-              @click="toggleSubscription">
-                <span class="align-middle loading sm" v-if="processing"></span>
-                <span class="align-middle" v-if="!hasSubscribed && !processing">Subscribe to {{lastName}}</span>
-                <span class="align-middle" v-if="hasSubscribed && !processing">Subscribed</span>
-                <img class="ml-2" v-if="hasSubscribed && !processing" src="@/assets/img/green-tick.svg"/>
-            </button>
+            <our-politician-subscription :politician="politician" :subscribeText="`Subscribe to ${lastName}`"></our-politician-subscription>
           </div>
         </div>
         <div>

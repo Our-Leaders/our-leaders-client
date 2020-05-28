@@ -282,6 +282,10 @@ input:-internal-autofill-previewed {
     height: 60px;
     width: 60px;
   }
+
+  &.inline {
+    display: inline-block;
+  }
 }
 
 .our-list {
