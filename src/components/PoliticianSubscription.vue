@@ -1,22 +1,22 @@
 <template>
   <div class="inner w-full h-full text-right">
-    <our-dropdown class="inline-block mt-5 bg-white font-circular" list-margin="-mt-6" padding="py-1" width="w-64" headingFont="font-circular" leaveOpen listClass="leaders-dropdown-list">
+    <our-dropdown v-if="hasFetchedSubscriptions" class="inline-block mt-5 bg-white font-circular" list-margin="-mt-6" padding="py-1" width="w-64" headingFont="font-circular" leaveOpen listClass="leaders-dropdown-list">
       <template v-slot:heading>
         <button class="btn-subscribe px-4 py-1" :class="{ 'active': subscribed }">
-          <span class="align-middle" v-if="!subscribed">Subscribe</span>
+          <span class="align-middle" v-if="!subscribed">{{ subscribeText }}</span>
           <span class="align-middle" v-if="subscribed">Subscribed</span>
           <span class="align-middle loading inline sm ml-2" v-if="processing"></span>
           <img class="ml-2 align-baseline" v-else-if="subscribed" src="@/assets/img/green-tick.svg"/>
         </button>
       </template>
       <our-dropdown-item>
-        <label class="flex justify-between text-xs items-center">
+        <label class="flex justify-between text-xs items-center cursor-pointer">
           Be notified on this platform
           <our-checkbox :model="subscription.feeds" :disabled="processing" v-on:change="changeSubscription('feeds', $event)"></our-checkbox>
         </label>
       </our-dropdown-item>
       <our-dropdown-item>
-        <label class="flex justify-between text-xs items-center">
+        <label class="flex justify-between text-xs items-center cursor-pointer">
           Receive email notifications
           <our-checkbox :model="subscription.email" :disabled="processing" v-on:change="changeSubscription('email', $event)"></our-checkbox>
         </label>
@@ -41,6 +41,10 @@ export default {
     politician: {
       type: Object,
     },
+    subscribeText: {
+      type: String,
+      default: 'Subscribe',
+    },
     politicianSubscriptions: {
       type: Array,
       default: () => ([]),
@@ -61,6 +65,7 @@ export default {
     return {
       processing: false,
       subscriptions: [],
+      hasFetchedSubscriptions: false,
       filter: {
         position: null,
       },
@@ -86,6 +91,7 @@ export default {
           // Temporary till we can add type query to subscriptions
           this.subscriptions = response.data.subscriptions.filter(sub => sub.type !== 'newsletter' && sub.politician.id === this.politician.id);
         }
+        this.hasFetchedSubscriptions = true;
         this.subscription = {
           feeds: !!this.getSubscriptionIdByType('feeds'),
           email: !!this.getSubscriptionIdByType('email'),
