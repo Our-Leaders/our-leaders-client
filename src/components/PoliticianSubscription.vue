@@ -1,6 +1,16 @@
 <template>
   <div class="inner w-full h-full text-right">
-    <our-dropdown v-if="hasFetchedSubscriptions" class="inline-block mt-5 bg-white font-circular" list-margin="-mt-6" padding="py-1" width="w-64" headingFont="font-circular" leaveOpen listClass="leaders-dropdown-list">
+    <our-dropdown
+      v-if="hasFetchedSubscriptions"
+      class="inline-block mt-5 bg-white font-circular"
+      list-margin="-mt-6"
+      padding="py-1"
+      width="w-64"
+      headingFont="font-circular"
+      :forceClose="closeDropdown"
+      leaveOpen
+      listClass="leaders-dropdown-list"
+    >
       <template v-slot:heading>
         <button class="btn-subscribe px-4 py-1" :class="{ 'active': subscribed }">
           <span class="align-middle" v-if="!subscribed">{{ subscribeText }}</span>
@@ -66,6 +76,7 @@ export default {
       processing: false,
       subscriptions: [],
       hasFetchedSubscriptions: false,
+      closeDropdown: false,
       filter: {
         position: null,
       },
@@ -126,6 +137,7 @@ export default {
           this.subscription[type] = false;
         } else {
           await this.subscriptionsServices.removePoliticianSubscriptions(this.politician.id);
+          this.closeDropdown = true;
           this.subscription.feeds = false;
           this.subscription.email = false;
         }

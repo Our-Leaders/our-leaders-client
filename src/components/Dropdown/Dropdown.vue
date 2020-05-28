@@ -73,6 +73,10 @@ export default {
       default: false,
       type: Boolean,
     },
+    forceClose: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -89,6 +93,13 @@ export default {
     this.$once('hook:beforeDestroy', () => {
       document.removeEventListener('keydown', handleEscape);
     });
+  },
+  watch: {
+    forceClose(newValue, oldValue) {
+      if (oldValue !== newValue && newValue) {
+        this.closeDropdown();
+      }
+    },
   },
   methods: {
     toggleDropdown() {
