@@ -23,6 +23,7 @@ export default {
     model: {
       type: Boolean,
       required: true,
+      default: false,
     },
     disabled: {
       type: Boolean,
