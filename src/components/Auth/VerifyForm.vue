@@ -68,10 +68,7 @@
         Verify
       </button>
       <button
-        :class="{
-          'btn w-full mb-8': true,
-          'loading': loading,
-        }"
+        class="btn w-full mb-8"
         type="button"
         @click="signOut"
         :disabled="loading">
