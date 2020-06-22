@@ -19,6 +19,22 @@ const routes = [
     },
   },
   {
+    path: '/',
+    name: 'home',
+    component: Pages.Home,
+    meta: {
+      shrinkMode: true,
+    },
+  },
+  {
+    path: '/coming-soon',
+    name: 'coming-soon',
+    component: Pages.Politician,
+    meta: {
+      layout: 'coming-soon',
+    },
+  },
+  {
     path: '/auth/sign-in',
     name: 'sign-in',
     component: Pages.SignIn,
@@ -137,7 +153,9 @@ router.beforeEach((to, from, next) => {
     Store.dispatch('setShrinkMode', false);
   }
 
-  if (to.matched.some(m => m.meta.requiresAuth) && !Store.getters.isLoggedIn) {
+  if (process.env.VUE_APP_COMING_SOON === 'true' && to.name !== 'coming-soon') {
+    next('coming-soon');
+  } else if (to.matched.some(m => m.meta.requiresAuth) && !Store.getters.isLoggedIn) {
     next('home');
   } else if (Store.getters.isLoggedIn && !to.meta.isAuth && !Store.getters.user.isPhoneVerified) {
     next('/auth/sign-up?signedIn=true');

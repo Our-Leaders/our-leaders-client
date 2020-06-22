@@ -8,7 +8,7 @@
     </div>
     <div class="flex flex-wrap pb-2">
       <div class="left-section md:absolute md:max-h-screen py-2 md:py-8 px-2 lg:px-17 xl:px-17 lg:border-r-2 xl:border-r-2 border-gray-200 md:overflow-y-scroll" v-if="!loading">
-        <div class="md:hidden">
+        <div class="md:hidden mb-4">
           <h3 class="text-5xl leading-tight mb-3">{{politician.name}}</h3>
           <div class="w-full" v-if="position.inOffice">
             <span class="block text-base capitalize">{{position.name}}</span>
@@ -280,6 +280,7 @@ import { mapActions, mapGetters } from 'vuex';
 import moment from 'moment';
 import stickybits from 'stickybits';
 
+import { feedsMock, politiciansMock } from '@/constants/examples';
 import monthsList from '@/assets/json/months.json';
 import DataUtil from '@/helpers/dataUtil';
 import DateUtil from '@/helpers/dateUtil';
@@ -301,6 +302,8 @@ export default {
       if (this.isLoggedIn) {
         this.checkSubscriptions();
       }
+    } else if (this.$router.history.current.name === 'coming-soon') {
+      this.loadMockPolitician();
     } else {
       this.$router.back();
     }
@@ -526,6 +529,14 @@ export default {
     },
     isPage(page) {
       return this.page === page;
+    },
+    loadMockPolitician() {
+      this.politician = politiciansMock.pop();
+      if (!this.politician.politicalParty) {
+        this.politician.politicalParty = {};
+      }
+      this.feeds = feedsMock;
+      this.loading = false;
     },
     parseQuarterlyData(data) {
       const parsedData = {};
