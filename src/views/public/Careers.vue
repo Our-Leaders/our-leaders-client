@@ -1,27 +1,28 @@
 <template>
-  <div class="min-h-screen">
+  <div class="min-h-screen overflow-hidden">
     <!-- Header -->
-    <div class="flex flex-wrap flex-col-reverse lg:flex-row xl:flex-row px-32">
-      <div class="w-full lg:w-1/2 mt-64 lg:mt-0 xl:mt-0 xl:w-1/2 py-24">
-        <h3 class="text-6xl mb-6">Careers</h3>
+    <div class="flex flex-wrap flex-col-reverse lg:flex-row xl:flex-row px-8 md:px-32">
+      <div class="w-full lg:w-1/2 mt-56 md:mt-64 lg:mt-0 xl:mt-0 xl:w-1/2 py-24">
+        <h3 class="hidden md:block text-6xl mb-6">Careers</h3>
         <span class="leading-loose">
           We also aim to create a platform where the Leaders can learn directly from The People. Their perspectives, opinions, and ideas, and utilize this information when making decisions on behalf of The People.
           We understand thst the  growth of this work depends on the team that acrries it, so we also aim to create a platform where the Leaders can learn directly from The People. Their perspectives, opinions, and ideas, and utilize this information when making decisions on behalf of The People.
         </span>
       </div>
       <div class="w-full lg:w-1/2 xl:w-1/2 relative">
-        <img class="career-1 absolute top-0 left-0 right-0 mx-auto mt-16" src="@/assets/img/career1.png"/>
-        <img class="career-2 absolute top-0 right-0 left-0 mx-auto mt-8" src="@/assets/img/career2.png"/>
+        <h3 class="md:hidden text-6xl mb-6">Careers</h3>
+        <img class="career-1 absolute top-0 left-0 md:right-0 md:mx-auto mt-32 md:mt-16" src="@/assets/img/career1.png"/>
+        <img class="career-2 absolute top-0 right-0 md:left-0 md:mx-auto mt-32 md:mt-8" src="@/assets/img/career2.png"/>
       </div>
     </div>
 
     <!-- Body -->
-    <div class="flex flex-wrap flex-col-reverse lg:flex-row xl:flex-row px-32 mb-64">
+    <div class="flex flex-wrap flex-col-reverse lg:flex-row xl:flex-row px-8 md:px-32 mb-64">
       <div class="w-full lg:w-2/3 xl:w-2/3">
         <h3 class="text-4xl mb-6" ref="opening">Current Openings</h3>
         <div class="flex flex-wrap mb-8 lg:mb-12 xl:mb-12" v-for="(category, i) in categories" :key="i">
           <h3 class="w-full font-circular font-bold text-2xl capitalize mb-1">{{category}}</h3>
-          <div class="w-1/2 lg:w-1/3 xl:w-1/3 jobs" v-for="(job, index) in jobs[category]" :key="index">
+          <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/3 jobs" v-for="(job, index) in jobs[category]" :key="index">
             <div class="image-holder cursor-pointer" @click="setJob(category, index, job)">
               <img v-if="job.image" :src="job.image.url"/>
               <img v-else src="@/assets/img/career2.png"/>
@@ -64,8 +65,8 @@
           <span class="align-middle">Filter</span>
         </button>
         <transition name="fade" mode="out-in">
-          <div class="hidden lg:flex xl:flex flex-wrap mt-3"
-            :class="{ 'flex md:flex': displayMenu }">
+          <div class="lg:flex xl:flex flex-wrap mt-3"
+            :class="{ 'hidden md:hidden': !displayMenu }">
             <div class="w-9/12 inline-block">
                 <input class="field w-full mt-1 py-2 pl-2"
                   :class="{ 'inactive': isEmpty(filters.query) }"
@@ -196,11 +197,20 @@ export default {
 
 <style lang="scss">
 .career-1 {
-  transform: translateX(-45%);
+  height: 256px;
+
+  @screen md {
+    height: 300px;
+    transform: translateX(-45%);
+  }
 }
 
 .career-2 {
-  transform: translateX(45%);
+  transform: translateX(55%);
+
+  @screen md {
+    transform: translateX(45%);
+  }
 }
 
 .jobs {
