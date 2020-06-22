@@ -45,7 +45,7 @@
             </li>
             <li class="xl:absolute border-r xl:ml-4 h-12 right-0 mt-4 xl:mt-0 hidden xl:inline-block">
               <div class="search-wrapper h-full relative mr-2 xl:mr-8">
-                <input v-model="searchQuery" type="text" ref="search" class="search-input h-full w-full xl:w-6 xl:opacity-0 pr-6 xl:pl-0 pl-4 py-2" placeholder="Search" />
+                <input v-model="searchQuery" type="text" ref="search" class="search-input h-full w-full xl:w-6 xl:opacity-0 pr-6 xl:pl-0 pl-4 py-2" @keyup.enter="searchPoliticians" placeholder="Search" />
                 <img class="search-img" src="@/assets/img/search.svg"/>
                 <img @click="clearSearch" class="search-clear" src="@/assets/img/close.svg"/>
               </div>
@@ -70,7 +70,7 @@
       <ul class="w-full xl:w-auto flex items-center order-0 xl:order-1" :class="openNav ? 'h-auto justify-center' : 'h-0 justify-end'">
         <li :class="profileShowClass" class="profile-wrapper xl:top-0 xl:relative right-0 w-auto h-14 flex items-center font-circular xl:hidden">
           <div class="search-wrapper h-full relative xl:mr-8">
-            <input v-model="searchQuery" type="text" ref="search" :class="searchClass" class="search-input mobile-search h-full w-full xl:w-6 xl:opacity-0 pr-6 xl:pl-0 pl-4 py-2" placeholder="Search" />
+            <input v-model="searchQuery" type="text" ref="search" :class="searchClass" class="search-input mobile-search h-full w-full xl:w-6 xl:opacity-0 pr-6 xl:pl-0 pl-4 py-2"  @keyup.enter="searchPoliticians" placeholder="Search" />
             <img v-if="!search" @click="expandSearch" class="search-img z-10" src="@/assets/img/search.svg"/>
             <img v-else @click="clearSearch" class="search-clear" src="@/assets/img/close.svg"/>
           </div>
@@ -192,6 +192,9 @@ export default {
     },
     getUrl(notification) {
       return notification.entityType === 'politician' ? `/politicians/${notification.entityId}` : `/political-parties/${notification.entityId}`;
+    },
+    searchPoliticians() {
+      this.$router.push(`/politicians?search=${this.searchQuery}`);
     },
     signOut() {
       this.$store.commit('clearJWT');

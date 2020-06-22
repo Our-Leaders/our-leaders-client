@@ -171,6 +171,10 @@ export default {
     };
   },
   created() {
+    if (this.$route.query.search) {
+      this.filter.name = this.$route.query.search;
+    }
+
     this.getPoliticians();
     this.getPoliticalParties();
   },
