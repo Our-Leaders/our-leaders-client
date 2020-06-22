@@ -1,12 +1,12 @@
 <template>
   <div class="w-full lg:w-10/12 lg:mx-auto">
     <div class="flex flex-wrap">
-      <div class="w-1/2 p-20">
+      <div class="w-full md:w-1/2 p-20">
         <h3 class="text-6xl mb-6">FAQs</h3>
         <p class="text-base">If you need help getting around, you can search here to get assistance. Start by typing into the search bar.</p>
       </div>
-      <div class="w-1/2 relative">
-        <div id="faq-input" class="absolute bottom-0 w-11/12 flex flex-row bg-white py-8 px-8 z-30 shadow-2xl">
+      <div class="w-full md:w-1/2 relative">
+        <div id="faq-input" class="absolute bottom-0 w-full md:w-11/12 flex flex-row bg-white py-8 px-8 z-30 shadow-2xl">
           <input class="w-8/12 lg:w-10/12 xl:w-10/12 bg-transparent field mr-5"
             type="text"
             id="query"
@@ -27,14 +27,14 @@
             </div>
           </div>
         </div>
-        <div class="block w-28 h-28 mx-auto absolute top-0 right-0 left-0 z-20">
+        <div class="hidden md:block w-28 h-28 mx-auto absolute top-0 right-0 left-0 z-20">
           <span class="inline-block h-1 w-1 mx-2 bg-primary" v-for="index in 20" :key="index"></span>
         </div>
         <img id="faq-img" class="absolute right-0 bottom-0 z-10" src="@/assets/img/faq.png"/>
       </div>
     </div>
     <hr/>
-    <div class="w-7/12 py-8 mx-auto">
+    <div class="w-11/12 md:w-7/12 py-8 mx-auto">
       <our-tabs class="mb-6" ref="faqTabs" v-on:change="setMain" :tabs='mainTabs' :tab-type="'secondary'"></our-tabs>
        <div v-for="(faq, index) of faqsList[page]" :key="`top_${page}_${index}`" class="faq-question border-b border-gray-db relative block">
         <input type="checkbox" :name="`${page}_${index}`" :ref="`${page}_${index}`" :id="`${page}_${index}`" class="invisible absolute">
@@ -119,9 +119,14 @@ export default {
 
 <style lang="scss">
   #faq-img {
+    display: none;
     height: 281px;
     transform: translateX(24%);
     width: 389px;
+
+    @screen md {
+      display: block;
+    }
   }
 
   #faq-input {
