@@ -91,6 +91,23 @@
             <a v-if="politician.socials.instagram" target="_blank" :href="`https://instagram.com/${politician.socials.instagram}`"><img class="cursor-pointer inline-block h-4" src="@/assets/img/instagram-gray.svg"/></a>
           </div>
         </div>
+        <div class="w-full block md:hidden px-3 my-4">
+          <span class="block text-xs w-full">Share Profile</span>
+          <div id="share" class="inline-block">
+            <a v-if="politician.socials.facebook" class="relative" target="_blank" :href="`https://facebook.com/${politician.socials.facebook}`">
+              <div class="absolute opacity-0 h-full w-full top-0 left-0">
+                <ShareFacebook title="Politician Test" :url="`https://ourleaders.africa/politicians/${politician.socials.facebook}`"></ShareFacebook>
+              </div>
+              <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/>
+            </a>
+            <a v-if="politician.socials.twitter" class="relative" href="#">
+              <div class="absolute opacity-0 h-full w-full top-0 left-0">
+                <ShareTwitter :title="`Click to read more about ${politician.name}`" :url="`https://ourleaders.africa/politicians/${politician.socials.twitter}`"></ShareTwitter>
+              </div>
+              <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/twitter-gray.svg"/>
+            </a>
+          </div>
+        </div>
         <div class="hidden md:block mb-10" v-if="!stuck">
           <a v-if="politician.socials.facebook" target="_blank" :href="`https://facebook.com/${politician.socials.facebook}`"><img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/></a>
           <a v-if="politician.socials.twitter" target="_blank" :href="`https://twitter.com/${politician.socials.twitter}`"><img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/twitter-gray.svg"/></a>
