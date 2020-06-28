@@ -49,7 +49,7 @@
       <span>OR</span>
     </div>
     <our-social-login @successful="persistSocialLogin" @error="showError"></our-social-login>
-    <p>
+    <p class="mb-12">
       Don't have an account?
       <a @click="goToSignUp" class="cursor-pointer text-primary font-semibold">sign up</a>
     </p>
