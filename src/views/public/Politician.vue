@@ -1,6 +1,6 @@
 <template>
   <div class="relative mb-20">
-    <div class="flex flex-col justify-center min-h-screen mb-4" v-if="loading">
+    <div class="flex flex-col justify-center min-h-screen mb-4 overflow-y-scroll md:overflow-y-auto" v-if="loading">
       <div class="w-full text-center">
         <span class="loading lg mx-auto mb-2"></span>
         <span>Loading Details...</span>
@@ -124,7 +124,7 @@
           </div>
         </div>
       </div>
-      <div ref="main" id="main" class="right-section pl-2 md:pl-10 md:pr-17 py-3 md:pb-4 md:max-h-screen overflow-y-scroll relative">
+      <div ref="main" id="main" class="right-section pl-2 md:pl-10 md:pr-17 py-3 md:pb-4 md:max-h-screen md:overflow-y-scroll relative">
         <div class="hidden md:flex justify-between align-top" v-if="!loading">
           <div class="mt-12 w-full flex justify-between items-center">
             <span class="inline-block pr-2 text-6xl">{{politician.name}}</span>
