@@ -29,17 +29,17 @@
             </div>
             <h3 class="text-xl font-circular font-bold cursor-pointer" @click="setJob(category, index, job)">{{job.title}}</h3>
             <span class="capitalize mr-4 cursor-pointer" @click="setJob(category, index, job)">{{job.location}}</span>
-            <span class="inline font-circular cursor-pointer capitalize text-xs border border-nav px-1" @click="setJob(category, index, job)">{{getDisplayType(job.type)}}</span>
+            <span class="inline-block md:inline font-circular cursor-pointer capitalize text-xs border border-nav py-1 px-2" @click="setJob(category, index, job)">{{getDisplayType(job.type)}}</span>
             <transition-group name="fade">
-              <div class="z-20 secondary-tab text-center relative mt-6 lg:mt-3 xl:mt-3" v-if="isSelected(category, index)"  key="job-triangle">
+              <div class="z-20 secondary-tab text-center relative mt-6 lg:mt-3 xl:mt-3 px-4 md:px-0" v-if="isSelected(category, index)"  key="job-triangle">
                 <span class="bottom-triangle"></span>
               </div>
-              <div class="z-10 w-job-sm lg:w-job xl:w-job bg-white absolute left-0 ml-32 py-8 border-t border-primary"
+              <div class="z-10 w-11/12 mx-auto lg:w-job xl:w-job bg-white absolute left-0 right-0 md:mr-0 md:ml-32 py-8 px-4 md:px-0 border-t border-primary"
                 v-if="isSelected(category, index)" key="job-body">
                 <img class="float-right h-6 w-6 cursor-pointer" @click="clearJob" src="@/assets/img/close.svg"/>
                 <p class="mb-5">
                   <span class="text-lg font-circular font-bold mr-4">{{current.job.title}}</span>
-                  <span class="inline font-circular capitalize text-xs border border-nav px-1">{{getDisplayType(current.job.type)}}</span>
+                  <span class="inline-block md:inline font-circular capitalize text-xs border border-nav py-1 px-2">{{getDisplayType(current.job.type)}}</span>
                   <span class="block capitalize mr-4">{{current.job.location}}</span>
                 </p>
                 <p class="mb-5">
@@ -60,40 +60,33 @@
         </div>
       </div>
       <div class="w-full lg:w-1/3 xl:w-1/3 pl-0 lg:pl-6 xl:pl-6 relative">
-        <button class="lg:hidden xl:hidden py-1 px-2" @click="toggleMenu">
-          <img class="h-4 inline-block mr-1" src="../../assets/img/filter.svg"/>
-          <span class="align-middle">Filter</span>
-        </button>
-        <transition name="fade" mode="out-in">
-          <div class="lg:flex xl:flex flex-wrap mt-3"
-            :class="{ 'hidden md:hidden': !displayMenu }">
-            <div class="w-9/12 inline-block">
-                <input class="field w-full mt-1 py-2 pl-2"
-                  :class="{ 'inactive': isEmpty(filters.query) }"
-                  type="text"
-                  id="query"
-                  name="query"
-                  placeholder="Job title"
-                  v-model="filters.query"/>
-            </div>
-            <div class="w-3/12 inline-block pl-4">
-              <button
-                class="btn-grey-outline py-2 lg:py-0 xl:py-0 w-full h-full"
-                :disabled="loading || isEmpty(filters.query)"
-                @click="getCareers">
-                Search
-              </button>
-            </div>
-            <div class="w-full my-10">
-              <div class="w-full horizontal-divide">
-                <span>Or search by</span>
-              </div>
-            </div>
-            <div class="w-full mb-5 relative">
-              <our-labels :options="labels" @changed="setFilter"></our-labels>
+        <div class="lg:flex xl:flex flex-wrap mt-3">
+          <div class="w-9/12 inline-block">
+              <input class="field w-full mt-1 py-2 pl-2"
+                :class="{ 'inactive': isEmpty(filters.query) }"
+                type="text"
+                id="query"
+                name="query"
+                placeholder="Job title"
+                v-model="filters.query"/>
+          </div>
+          <div class="w-3/12 inline-block pl-4">
+            <button
+              class="btn-grey-outline py-2 lg:py-0 xl:py-0 w-full h-full"
+              :disabled="loading || isEmpty(filters.query)"
+              @click="getCareers">
+              Search
+            </button>
+          </div>
+          <div class="w-full my-10">
+            <div class="w-full horizontal-divide">
+              <span>Or search by</span>
             </div>
           </div>
-        </transition>
+          <div class="w-full mb-5 relative">
+            <our-labels :options="labels" @changed="setFilter"></our-labels>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -118,7 +111,6 @@ export default {
         index: null,
         job: null,
       },
-      displayMenu: false,
       filters: {
         query: null,
         type: null,
@@ -187,9 +179,6 @@ export default {
       this.current.category = category;
       this.current.index = index;
       this.current.job = job;
-    },
-    toggleMenu() {
-      this.displayMenu = !this.displayMenu;
     },
   },
 };
