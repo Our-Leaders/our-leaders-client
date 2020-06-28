@@ -55,7 +55,7 @@ export default {
       try {
         this.processing = true;
         await this.subscriptionsServices.addSubscription({
-          email: this.email.toLowerCase(),
+          email: this.email.trim().toLowerCase(),
           type: 'newsletter',
         });
         this.email = null;
