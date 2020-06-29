@@ -22,7 +22,6 @@
        <div class="footer-col">
          <h3>Links</h3>
          <router-link :to="{ name: 'privacy' }"><a href="#">Privacy Policy</a></router-link>
-         <a href="#">Sitemap</a>
          <router-link :to="{ name: 'terms' }"><a href="#">Terms &amp; Conditions</a></router-link>
        </div>
        <div class="footer-col">
@@ -54,7 +53,6 @@
          <div class="footer-col">
            <h3>Links</h3>
            <router-link :to="{ name: 'privacy' }"><a href="#">Privacy Policy</a></router-link>
-           <a href="#">Sitemap</a>
            <router-link :to="{ name: 'terms' }"><a href="#">Terms &amp; Conditions</a></router-link>
          </div>
        </div>

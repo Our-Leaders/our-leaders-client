@@ -6,7 +6,7 @@
         <p class="text-base">If you need help getting around, you can search here to get assistance. Start by typing into the search bar.</p>
       </div>
       <div class="w-full md:w-1/2 relative">
-        <div id="faq-input" class="absolute bottom-0 w-full md:w-11/12 flex flex-row bg-white py-8 px-8 z-30 shadow-2xl">
+        <div id="faq-input" class="absolute bottom-0 w-full md:w-11/12 flex flex-row bg-white py-8 px-8 z-30 md:shadow-2xl">
           <input class="w-8/12 lg:w-10/12 xl:w-10/12 bg-transparent field mr-5"
             type="text"
             id="query"

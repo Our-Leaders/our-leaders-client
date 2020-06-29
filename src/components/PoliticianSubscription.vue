@@ -110,6 +110,7 @@ export default {
         this.loading = false;
       } catch (error) {
         this.loading = false;
+        this.hasFetchedSubscriptions = true;
         // TODO: This fires twice everytime the page is reloaded on the politicians page, should probably revisit.
         // this.displayError(error);
       }

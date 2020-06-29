@@ -1,6 +1,6 @@
 <template>
   <div class="relative mb-20">
-    <div class="flex flex-col justify-center min-h-screen mb-4" v-if="loading">
+    <div class="flex flex-col justify-center min-h-screen mb-4 overflow-y-scroll md:overflow-y-auto" v-if="loading">
       <div class="w-full text-center">
         <span class="loading lg mx-auto mb-2"></span>
         <span>Loading Details...</span>
@@ -76,19 +76,36 @@
         </div>
         <div class="flex md:hidden w-full justify-between px-3">
           <div id="votes" class="inline-block pr-5" v-if="politician.vote">
-            <img class="inline-block mr-2 md:mr-2 h-4 cursor-pointer"
+            <img class="inline-block mr-2 md:mr-2 h-5 cursor-pointer"
               :src="hasVoted && isUpvote ? require('@/assets/img/thumbs-up-active.svg') : require('@/assets/img/thumbs-up.svg')"
               @click="voteForPolitician(true)"/>
-            <span class="inline-block mr-3 md:mr-4 h-4 align-middle text-xs md:text-sm">{{politician.vote.up}}</span>
-            <img class="inline-block mr-2 mt-2 md:mr-2 h-4 cursor-pointer"
+            <span class="inline-block mr-3 md:mr-4 h-5 align-middle text-sm md:text-sm">{{politician.vote.up}}</span>
+            <img class="inline-block mr-2 mt-2 md:mr-2 h-5 cursor-pointer"
               :src="hasVoted && !isUpvote ? require('@/assets/img/thumbs-down-active.svg') : require('@/assets/img/thumbs-down.svg')"
               @click="voteForPolitician(false)"/>
-            <span class="inline-block mr-2 md:mr-2 h-4 align-middle text-xs md:text-sm">{{politician.vote.down}}</span>
+            <span class="inline-block mr-2 md:mr-2 h-5 align-middle text-sm md:text-sm">{{politician.vote.down}}</span>
           </div>
           <div id="share" class="inline-block">
-            <a v-if="politician.socials.facebook" target="_blank" :href="`https://facebook.com/${politician.socials.facebook}`"><img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/></a>
-            <a v-if="politician.socials.twitter" target="_blank" :href="`https://twitter.com/${politician.socials.twitter}`"><img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/twitter-gray.svg"/></a>
-            <a v-if="politician.socials.instagram" target="_blank" :href="`https://instagram.com/${politician.socials.instagram}`"><img class="cursor-pointer inline-block h-4" src="@/assets/img/instagram-gray.svg"/></a>
+            <a v-if="politician.socials.facebook" target="_blank" :href="`https://facebook.com/${politician.socials.facebook}`"><img class="cursor-pointer inline-block h-5 mr-6" src="@/assets/img/facebook-gray.svg"/></a>
+            <a v-if="politician.socials.twitter" target="_blank" :href="`https://twitter.com/${politician.socials.twitter}`"><img class="cursor-pointer inline-block h-5 mr-6" src="@/assets/img/twitter-gray.svg"/></a>
+            <a v-if="politician.socials.instagram" target="_blank" :href="`https://instagram.com/${politician.socials.instagram}`"><img class="cursor-pointer inline-block h-5" src="@/assets/img/instagram-gray.svg"/></a>
+          </div>
+        </div>
+        <div class="w-full block md:hidden px-3 my-4">
+          <span class="block text-xs w-full">Share Profile</span>
+          <div id="share" class="inline-block">
+            <a v-if="politician.socials.facebook" class="relative" target="_blank" :href="`https://facebook.com/${politician.socials.facebook}`">
+              <div class="absolute opacity-0 h-full w-full top-0 left-0">
+                <ShareFacebook title="Politician Test" :url="`https://ourleaders.africa/politicians/${politician.socials.facebook}`"></ShareFacebook>
+              </div>
+              <img class="cursor-pointer inline-block h-5 mr-6" src="@/assets/img/facebook-gray.svg"/>
+            </a>
+            <a v-if="politician.socials.twitter" class="relative" href="#">
+              <div class="absolute opacity-0 h-full w-full top-0 left-0">
+                <ShareTwitter :title="`Click to read more about ${politician.name}`" :url="`https://ourleaders.africa/politicians/${politician.socials.twitter}`"></ShareTwitter>
+              </div>
+              <img class="cursor-pointer inline-block h-5 mr-6" src="@/assets/img/twitter-gray.svg"/>
+            </a>
           </div>
         </div>
         <div class="hidden md:block mb-10" v-if="!stuck">
@@ -107,7 +124,7 @@
           </div>
         </div>
       </div>
-      <div ref="main" id="main" class="right-section pl-2 md:pl-10 md:pr-17 py-3 md:pb-4 md:max-h-screen overflow-y-scroll relative">
+      <div ref="main" id="main" class="right-section pl-2 md:pl-10 md:pr-17 py-3 md:pb-4 md:max-h-screen md:overflow-y-scroll relative">
         <div class="hidden md:flex justify-between align-top" v-if="!loading">
           <div class="mt-12 w-full flex justify-between items-center">
             <span class="inline-block pr-2 text-6xl">{{politician.name}}</span>
