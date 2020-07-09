@@ -1,5 +1,5 @@
 <template>
-  <div class="relative mb-20">
+  <div class="relative mb-2">
     <div class="flex flex-col justify-center min-h-screen mb-4 overflow-y-scroll md:overflow-y-auto" v-if="loading">
       <div class="w-full text-center">
         <span class="loading lg mx-auto mb-2"></span>
@@ -91,7 +91,7 @@
             <a v-if="politician.socials.instagram" target="_blank" :href="`https://instagram.com/${politician.socials.instagram}`"><img class="cursor-pointer inline-block h-5" src="@/assets/img/instagram-gray.svg"/></a>
           </div>
         </div>
-        <div class="w-full block md:hidden px-3 my-4">
+        <div class="w-full block md:hidden px-3 mt-4">
           <span class="block text-xs w-full">Share Profile</span>
           <div id="share" class="inline-block">
             <a v-if="politician.socials.facebook" class="relative" target="_blank" :href="`https://facebook.com/${politician.socials.facebook}`">
@@ -124,7 +124,7 @@
           </div>
         </div>
       </div>
-      <div ref="main" id="main" class="right-section pl-2 md:pl-10 md:pr-17 py-3 md:pb-4 md:max-h-screen md:overflow-y-scroll relative">
+      <div ref="main" id="main" class="bg-white right-section pl-2 md:pl-10 md:pr-17 pb-3 md:pb-4 md:max-h-screen md:overflow-y-scroll relative">
         <div class="hidden md:flex justify-between align-top" v-if="!loading">
           <div class="mt-12 w-full flex justify-between items-center">
             <span class="inline-block pr-2 text-6xl">{{politician.name}}</span>
@@ -166,7 +166,7 @@
           <div class="hidden md:block pr-2 w-full" v-else>
             <span class="block text-base capitalize">Not in Office</span>
           </div>
-          <div class="flex flex-wrap lg:flex-row xl:flex-row max-h-screen">
+          <div class="flex flex-wrap lg:flex-row xl:flex-row">
             <div ref="mainHolder" id="main-holder" class="w-full lg:w-10/12 align-top block min-h-screen overflow-visible lg:inline-block xl:inline-block relative">
               <div ref="secondaryTab" id="secondary-tab">
                 <div class="w-full mt-6 overflow-x-scroll md:pr-4">
@@ -180,7 +180,7 @@
               <transition-group name="fade" mode="out-in">
 
                 <!-- Background -->
-                <div class="relative top-0 left-0 w-full" key="background" v-show="isPage('background')">
+                <div class="relative top-0 left-0 w-full h-full" key="background" v-show="isPage('background')">
                   <div class="w-full py-3 pr-2">
                     <div id="scroll_personalBackground">
                       <h3 class="font-bold mb-3 text-xl">Personal background</h3>
