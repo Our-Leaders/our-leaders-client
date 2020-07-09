@@ -12,7 +12,7 @@
       listClass="leaders-dropdown-list"
     >
       <template v-slot:heading>
-        <button class="btn-subscribe px-4 py-1" :class="{ 'active': subscribed }">
+        <button class="btn-subscribe px-4 py-1" :class="{ 'active': subscribed }" @click="loginCheck">
           <span class="align-middle" v-if="!subscribed">{{ subscribeText }}</span>
           <span class="align-middle" v-if="subscribed">Subscribed</span>
           <span class="align-middle loading inline sm ml-2" v-if="processing"></span>
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'politician',
@@ -61,6 +61,9 @@ export default {
     },
   },
   computed: {
+    ...mapGetters([
+      'isLoggedIn',
+    ]),
     unsubscribeLinkClass() {
       if (this.processing) {
         return 'cursor-not-allowed text-gray-300';
@@ -90,6 +93,7 @@ export default {
   methods: {
     ...mapActions([
       'displayError',
+      'displaySignUp',
     ]),
     async getSubscriptions() {
       try {
@@ -161,6 +165,11 @@ export default {
     getSubscriptionIdByType(type) {
       const subscription = this.subscriptions.find(sub => sub.type === type);
       return subscription ? subscription.id : null;
+    },
+    loginCheck() {
+      if (!this.isLoggedIn) {
+        this.displaySignUp();
+      }
     },
   },
 };
