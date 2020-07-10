@@ -54,7 +54,7 @@ export default {
       try {
         this.loading = true;
         await this.authServices.requestPasswordReset({
-          email: this.resetEmail,
+          email: this.resetEmail.toLowerCase().trim(),
         });
 
         this.showSuccess(`An email has been sent to ${this.resetEmail} with further instructions.`);

@@ -98,7 +98,7 @@ export default {
     async signIn() {
       try {
         this.loading = true;
-        this.data.email = this.data.email.toLowerCase();
+        this.data.email = this.data.emailtoLowerCase().trim();
         const response = await this.authServices.login(this.data);
 
         this.showSuccess('Welcome back! Find everything just as you left it.');
