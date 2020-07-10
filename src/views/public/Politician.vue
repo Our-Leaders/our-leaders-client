@@ -453,7 +453,6 @@ export default {
         this.feeds = response.data.feeds;
       } catch (error) {
         this.loading = false;
-        this.displayError(error);
       }
     },
     async getPolitician(id) {
@@ -499,7 +498,6 @@ export default {
         this.processing = false;
       } catch (error) {
         this.processing = false;
-        this.displayError(error);
       }
     },
     getBirthString(dob) {
