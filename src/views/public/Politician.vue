@@ -1,5 +1,5 @@
 <template>
-  <div class="relative mb-2">
+  <div class="relative mb-10">
     <div class="flex flex-col justify-center min-h-screen mb-4 overflow-y-scroll md:overflow-y-auto" v-if="loading">
       <div class="w-full text-center">
         <span class="loading lg mx-auto mb-2"></span>

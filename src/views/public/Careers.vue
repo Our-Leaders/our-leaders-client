@@ -22,12 +22,12 @@
         <h3 class="text-4xl mb-6" ref="opening">Current Openings</h3>
         <div class="flex flex-wrap mb-8 lg:mb-12 xl:mb-12" v-for="(category, i) in categories" :key="i">
           <h3 class="w-full font-circular font-bold text-2xl capitalize mb-1">{{category}}</h3>
-          <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/3 jobs" v-for="(job, index) in jobs[category]" :key="index">
+          <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/3 jobs mb-8" v-for="(job, index) in jobs[category]" :key="index">
             <div class="image-holder cursor-pointer" @click="setJob(category, index, job)">
               <img v-if="job.image" :src="job.image.url"/>
               <img v-else src="@/assets/img/career2.png"/>
             </div>
-            <h3 class="text-xl font-circular font-bold cursor-pointer" @click="setJob(category, index, job)">{{job.title}}</h3>
+            <h3 class="text-xl font-circular font-bold cursor-pointer mb-1" @click="setJob(category, index, job)">{{job.title}}</h3>
             <span class="capitalize mr-4 cursor-pointer" @click="setJob(category, index, job)">{{job.location}}</span>
             <span class="inline-block md:inline font-circular cursor-pointer capitalize text-xs border border-nav py-1 px-2" @click="setJob(category, index, job)">{{getDisplayType(job.type)}}</span>
             <transition-group name="fade">

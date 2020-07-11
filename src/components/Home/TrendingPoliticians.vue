@@ -1,23 +1,23 @@
 <template>
-<div class="block relative">
+<div class="block relative" v-if="total > 0">
   <div class="hidden trending-slide lg:block">
     <p class="text-2xl -mt-3 mb-4">Trending today</p>
     <div class="relative w-full h-20 md:h-40">
-      <a @click="toggle(-1)" class="toggle-arrow toggle-arrow-left">
+      <a @click="toggle(-1)" class="toggle-arrow toggle-arrow-left" v-if="total > 1">
         <img src="@/assets/img/chevron-left.svg"/>
       </a>
       <div class="relative">
         <router-link :to="{name: 'politician', params: { politicianId: selectedPolitician.id }}" class="trending-image-overlay" :key="1">
           <img :src="profileImage(selectedPolitician)" class="trending-image"/>
         </router-link>
-        <div class="trending-image-overlay" :key="2">
+        <div class="trending-image-overlay" :key="2" v-if="total > 1">
           <img :src="profileImage(politicians[getNextPoliticianIndex(1)])" class="trending-image"/>
         </div>
-        <div class="trending-image-overlay" :key="3">
+        <div class="trending-image-overlay" :key="3" v-if="total > 2">
           <img :src="profileImage(politicians[getNextPoliticianIndex(2)])" class="trending-image"/>
         </div>
       </div>
-      <a @click="toggle(1)" class="toggle-arrow toggle-arrow-right">
+      <a @click="toggle(1)" class="toggle-arrow toggle-arrow-right" v-if="total > 1">
         <img src="@/assets/img/chevron-right.svg"/>
       </a>
       <div class="trending-likes">
@@ -46,6 +46,7 @@ export default {
   data() {
     return {
       selectedPoliticianIndex: 0,
+      total: this.politicians.length,
     };
   },
   props: {

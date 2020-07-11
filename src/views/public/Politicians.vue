@@ -16,7 +16,7 @@
             <p class="text-left px-6" v-if="filter.status === 'past'">These are leaders who currently hold a political position in this government. The leaders in this category also have extensive experience in politics.</p>
           </div>
         </div>
-        <our-tabs class="mb-6" v-on:change="setPrimary" :tabs='mainTabs' :tab-type="'primary'"></our-tabs>
+        <our-tabs class="mb-6" :default-value="filter.status" v-on:change="setPrimary" :tabs='mainTabs' :tab-type="'primary'"></our-tabs>
       </div>
     </div>
 
