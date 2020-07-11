@@ -5,7 +5,7 @@
         <div class="relative w-full mx-auto h-auto">
           <div class="flex justify-between flex-col lg:flex-row bg-gray-fa px-6 py-6 lg:px-12 md:py-16">
             <div class="header-left-section pr-6 md:pr-0">
-              <span class="text-primary">Monitor</span> the progress and performance of <router-link :to="{ name: 'politicians' }" class="border-b-4 border-primary">{{ totalPoliticians }}</router-link> African <span>{{ totalPoliticians > 1 ? 'leaders' : 'leader'}}</span>
+              <span class="text-primary">Monitor</span> the progress and performance of <router-link :to="{ name: 'politicians' }" class="border-b-4 border-primary">{{ totalPoliticians }}</router-link> Political <span>{{ totalPoliticians > 1 ? 'leaders' : 'leader'}}</span> in Africa
             </div>
             <div v-if="trendingPoliticians.length > 0" class="lg:mx-12">
               <our-trending-politicians :politicians="trendingPoliticians"></our-trending-politicians>
@@ -54,19 +54,19 @@
               <div class="what-to-do-right-section w-full xl:ml-16 relative">
                 <div class="what-to-do-right-container">
                   <div class="what-to-do-right-content what-to-do-subscribe flex justify-between items-center bg-white relative lg:absolute">
-                    <p class="what-to-do-subscribe-text md:text-2xl py-4 md:py-6">Subscribe to your favourite leaders</p>
+                    <p class="what-to-do-subscribe-text md:text-2xl py-4 md:py-6">Subscribe and get real-time updates on your favourite leaders.</p>
                     <div class="relative subscribe-hand">
                       <span class="absolute"><img src="@/assets/img/subscribe-hand.svg"/></span>
                     </div>
                   </div>
                   <div class="what-to-do-right-content what-to-do-vote flex justify-between items-center bg-white relative lg:absolute">
-                    <p class="what-to-do-vote-text md:text-2xl py-4 md:py-6">Upvote or downvote leaders on the platform</p>
+                    <p class="what-to-do-vote-text md:text-2xl py-4 md:py-6">Upvote or downvote leaders</p>
                     <div class="relative vote-thumb">
                       <span class="absolute"><img src="@/assets/img/thumbs-up-with-shards.svg"/></span>
                     </div>
                   </div>
                   <div class="what-to-do-right-content what-to-do-view flex justify-between items-center bg-white relative lg:absolute">
-                    <p class="what-to-do-view-text md:text-2xl py-4 md:py-6">See up-to-date accomplishments of leaders</p>
+                    <p class="what-to-do-view-text md:text-2xl py-4 md:py-6">View periodic accomplishments of political leaders</p>
                     <div class="relative view-note">
                       <span class="absolute"><img src="@/assets/img/note.svg"/></span>
                     </div>
@@ -106,8 +106,8 @@
               </div>
               <div class="quote-section">
                 <div class="quote-content">
-                  <h1>Our Children may learn about heroes of the past. Our task is to make ourselves architects of the future</h1>
-                  <span class="mt-4 px-4 py-2 lg:mt-0">- Jomo Kenyatta -</span>
+                  <h1>You can start changing our world for the better daily, no matter how small the action</h1>
+                  <span class="mt-4 px-4 py-2 lg:mt-0">- Nelson Mandela -</span>
                 </div>
               </div>
               <div class="collage-shape right">
@@ -130,9 +130,9 @@
           </div>
         </div>
         <div class="mt-32 flex justify-center text-center">
-          <our-subscription>
-            <p class="subscribe-text mb-4"><span class="text-primary">Subscribe</span> to our newsletter</p>
-            <p class="font-circular hidden md:block">Be the first to get updates on your favorite leaders.</p>
+          <our-subscription :text="'Join Now'">
+            <p class="subscribe-text mb-4"><span class="text-primary">Stay up to date</span> with everything we're working on</p>
+            <p class="font-circular hidden md:block">Join the Mailing List and we'll send you and email once a month to update you on new developments.</p>
           </our-subscription>
         </div>
       </div>
@@ -158,7 +158,7 @@ export default {
       politiciansServices: this.$serviceFactory.politicians,
       secondaryTabs: [
         { label: 'Current Leaders', value: 'current' },
-        { label: 'Upcoming Leaders', value: 'upcoming' },
+        { label: 'Aspirants', value: 'upcoming' },
         { label: 'Past Leaders', value: 'past' },
       ],
     };
@@ -346,7 +346,7 @@ export default {
               width: 8rem;
 
                @screen md {
-                width: 12rem;
+                width: 15rem;
               }
             }
 
@@ -371,7 +371,7 @@ export default {
               float: none;
               margin-top: 0;
               right: -2.5rem;
-              top: 13rem;
+              top: 16.4rem;
             }
 
             @screen xl {
@@ -382,7 +382,7 @@ export default {
               width: 11rem;
 
               @screen md {
-                width: 15.8125rem;
+                width: 19.8125rem;
               }
             }
 
@@ -415,7 +415,7 @@ export default {
               width: 11rem;
 
               @screen md {
-                width: 19rem;
+                width: 20.5rem;
               }
             }
 
