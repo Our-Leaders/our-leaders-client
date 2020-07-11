@@ -25,6 +25,9 @@
 export default {
   name: 'tabs',
   props: {
+    defaultValue: {
+      type: String,
+    },
     tabs: {
       type: Array,
       required: true,
@@ -36,7 +39,7 @@ export default {
   },
   data() {
     return {
-      currentTab: this.tabs[0].value,
+      currentTab: this.defaultValue || this.tabs[0].value,
     };
   },
   methods: {
