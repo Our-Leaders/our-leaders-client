@@ -203,8 +203,6 @@ export default {
         const response = await this.politiciansServices.getTrendingPoliticians();
 
         this.trendingPoliticians = response.data.trendingPoliticians;
-        // For now
-        this.trendingPoliticians = this.trendingPoliticians.concat(politiciansMock);
       } catch (error) {
         this.displayError(error);
       }
