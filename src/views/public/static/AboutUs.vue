@@ -69,7 +69,7 @@
         </div>
       </div>
       <div class="absolute text-center h-full w-full flex flex-col justify-center mt-19">
-        <p class="text-2xl md:text-4xl">OurLeaders.Africa is built <br class="md:hidden"/> for<br class="hidden md:block"/>The People &amp; The Leaders, <br class="md:hidden"/> for The<br class="hidden md:block"/>People &amp; The <br class="md:hidden"/> Leaders, by The People &amp; <br class="md:hidden"/> The Leaders.</p>
+        <p class="text-2xl md:text-4xl">OurLeaders.Africa is built <br class="md:hidden"/> for<br class="hidden md:block"/>The People &amp; The Leaders, by The <br class="hidden lg:block"/> People &amp; The Leaders.</p>
       </div>
     </div>
   </div>
