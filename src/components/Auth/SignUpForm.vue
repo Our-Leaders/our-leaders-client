@@ -97,7 +97,7 @@ export default {
         this.loading = true;
         this.hasError = false;
         if (this.data.email) {
-          this.data.email = this.data.email.toLowerCase();
+          this.data.email = this.data.email.toLowerCase().trim();
         }
 
         const response = await this.authServices.signUp(this.data);
