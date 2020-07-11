@@ -5,7 +5,7 @@
         <div class="relative w-full mx-auto h-auto">
           <div class="flex justify-between flex-col lg:flex-row bg-gray-fa px-6 py-6 lg:px-12 md:py-16">
             <div class="header-left-section pr-6 md:pr-0">
-              <span class="text-primary">Monitor</span> the progress and performance of <router-link :to="{ name: 'politicians' }" class="border-b-4 border-primary">{{ totalPoliticians }}</router-link> African leaders
+              <span class="text-primary">Monitor</span> the progress and performance of <router-link :to="{ name: 'politicians' }" class="border-b-4 border-primary">{{ totalPoliticians }}</router-link> African <span>{{ totalPoliticians > 1 ? 'leaders' : 'leader'}}</span>
             </div>
             <div v-if="trendingPoliticians.length > 0" class="lg:mx-12">
               <our-trending-politicians :politicians="trendingPoliticians"></our-trending-politicians>
@@ -30,6 +30,9 @@
               </div>
               <div v-if="!loading" class="-mr-6 md:mr-0">
                 <our-home-politicians :politicians="highestVotedPoliticians[filter.status]" :isCard="true" :key="filter.status"></our-home-politicians>
+              </div>
+              <div v-if="highestVotedPoliticians[filter.status] && highestVotedPoliticians[filter.status].length === 0" class="-mr-6 md:mr-0">
+                <p>There is currently no politician matching this status.</p>
               </div>
               <div class="md:hidden mt-8 py-2 border border-gray-96 md:inline-block w-full text-center">
                 <router-link :to="{ name: 'politicians' }">View all leaders</router-link>
@@ -139,7 +142,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import { politiciansMock } from '@/constants/examples';
+// import { politiciansMock } from '@/constants/examples';
 
 export default {
   name: 'home',
@@ -175,7 +178,7 @@ export default {
         this.allPoliticians = response.data.politicians;
 
         // For now
-        this.allPoliticians.oliticians = this.allPoliticians.concat(politiciansMock);
+        // this.allPoliticians.oliticians = this.allPoliticians.concat(politiciansMock);
       } catch (error) {
         // Do nothing for now
       }
@@ -188,9 +191,9 @@ export default {
         this.highestVotedPoliticians = response.data;
 
         // For now
-        this.highestVotedPoliticians.current = this.highestVotedPoliticians.current.concat(politiciansMock);
-        this.highestVotedPoliticians.upcoming = this.highestVotedPoliticians.upcoming.concat(politiciansMock);
-        this.highestVotedPoliticians.past = this.highestVotedPoliticians.past.concat(politiciansMock);
+        // this.highestVotedPoliticians.current = this.highestVotedPoliticians.current.concat(politiciansMock);
+        // this.highestVotedPoliticians.upcoming = this.highestVotedPoliticians.upcoming.concat(politiciansMock);
+        // this.highestVotedPoliticians.past = this.highestVotedPoliticians.past.concat(politiciansMock);
 
         this.loading = false;
       } catch (error) {
@@ -203,6 +206,9 @@ export default {
         const response = await this.politiciansServices.getTrendingPoliticians();
 
         this.trendingPoliticians = response.data.trendingPoliticians;
+
+        // For now
+        // this.trendingPoliticians = this.trendingPoliticians.concat(politiciansMock);
       } catch (error) {
         this.displayError(error);
       }
