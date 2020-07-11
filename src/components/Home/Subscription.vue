@@ -79,7 +79,7 @@ export default {
     line-height: 3.875rem;
 
     @screen lg {
-      font-size: 3.75rem;
+      font-size: 2.75rem;
     }
   }
 
