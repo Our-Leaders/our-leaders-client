@@ -2,7 +2,7 @@
   <auth-layout :isPrimary="false">
     <template v-slot:left-caption>
       <span class="text-primary text-xl md:text-2xl lg:text-4xl mb-6 text-center lg:text-left" v-if="page === 0">
-        Get live data on the performance and activities of current African Leaders.
+        Monitor the progress and performance of political leaders across Africa.
       </span>
       <span class="text-primary text-xl md:text-2xl lg:text-4xl mb-6 text-center lg:text-left" v-if="page === 1">
         Now, you can join the league of responsible citizens to hold your leaders accountable.
