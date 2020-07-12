@@ -3,10 +3,9 @@
     <!-- Header -->
     <div class="flex flex-wrap flex-col-reverse lg:flex-row xl:flex-row px-8 md:px-32">
       <div class="w-full lg:w-1/2 mt-56 md:mt-64 lg:mt-0 xl:mt-0 xl:w-1/2 py-24">
-        <h3 class="hidden md:block text-6xl mb-6">Careers</h3>
+        <h3 class="hidden md:block text-6xl mb-6">Work With Us</h3>
         <span class="leading-loose">
-          We also aim to create a platform where the Leaders can learn directly from The People. Their perspectives, opinions, and ideas, and utilize this information when making decisions on behalf of The People.
-          We understand thst the  growth of this work depends on the team that acrries it, so we also aim to create a platform where the Leaders can learn directly from The People. Their perspectives, opinions, and ideas, and utilize this information when making decisions on behalf of The People.
+          Are you interested in joining a vibrant team, working towards an audacious &amp; impactful goal? Then apply below.
         </span>
       </div>
       <div class="w-full lg:w-1/2 xl:w-1/2 relative">
