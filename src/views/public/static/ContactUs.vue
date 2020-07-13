@@ -11,7 +11,8 @@
       </div>
     </div>
     <div class="w-full lg:w-2/3 xl:w-2/3 pl-10 pr-10 lg:pr-64 xl:pr-64 mb-6">
-      <h3 class="text-4xl mt-8 mb-6">Contact details</h3>
+      <h3 class="text-4xl mt-8">We would love to hear from you!</h3>
+      <p class="mb-6">Need some clarification on anything? <router-link :to="{ name: 'faqs' }"><a class="text-primary" href="#">Here</a></router-link> are some Frequently Asked Questions about OL.A.</p>
       <div class="block border-b-2 border-gray-200">
         <!-- Hide for now until Nosa Changes His Mind -->
         <span v-if="page.contact.address" class="block font-semibold mb-1">Address</span>
@@ -21,7 +22,8 @@
         <span class="block font-semibold mb-1">Email</span>
         <span class="block mb-6 mb-10 w-64">{{page.contact.email}}</span>
       </div>
-      <h3 class="text-4xl mt-8 mb-6">Have a message?</h3>
+      <h3 class="text-4xl mt-8 mb-6">Drop a message</h3>
+      <h5></h5>
       <textarea
         class="w-full bg-gray-100 border-b border-gray-300 resize-none outline-none mb-2 p-3"
         v-model="message"

@@ -3,9 +3,9 @@
     <p class="mb-10">
       Hello {{data.email}}, we're glad to have you.
       <br/>
-      Because we want to keep fake accounts off our platform,
+      Why do we need this?,
       <br/>
-      we'll need to verify your phone number.
+      In order to keep suspicious accounts and activities off the platform, we require more information for verification purposes. Thank you for understanding!
     </p>
     <form @submit.prevent="verify">
       <div class="mb-6">

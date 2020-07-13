@@ -4,7 +4,7 @@
     <slot/>
     <form class="relative w-full subscribe-form px-6">
       <input class="subscribe-input placeholder-gray-96 md:placeholder-transparent font-circular" placeholder="Enter email" type="text" v-model="email" :disabled="processing"/>
-      <button class="bg-primary border border-primary py-2 px-12 outline-none text-white h-full w-full md:w-auto" type="submit" @click.prevent="subscribe" :disabled="!email || processing">Subscribe</button>
+      <button class="bg-primary border border-primary py-2 px-12 outline-none text-white h-full w-full md:w-auto" type="submit" @click.prevent="subscribe" :disabled="!email || processing">{{ text ? text : 'Subscribe'}}</button>
     </form>
   </div>
   <div v-if="full">
@@ -21,7 +21,7 @@
         class="btn-primary py-2 lg:py-0 xl:py-0 w-full h-full"
         @click.prevent="subscribe"
         :disabled="processing">
-        Subscribe
+        {{ text ? text : 'Subscribe'}}
       </button>
     </form>
   </div>
@@ -37,6 +37,9 @@ export default {
     full: {
       type: Boolean,
       default: false,
+    },
+    text: {
+      type: String,
     },
   },
   data() {
@@ -76,7 +79,7 @@ export default {
     line-height: 3.875rem;
 
     @screen lg {
-      font-size: 3.75rem;
+      font-size: 2.75rem;
     }
   }
 

@@ -9,14 +9,14 @@
        </div>
        <div class="footer-col">
          <h3>Company</h3>
-         <router-link :to="{ name: 'about-us' }"><a href="#">About us</a></router-link>
+         <router-link :to="{ name: 'about-us' }"><a href="#">About Us</a></router-link>
          <a href="https://medium.com/@ourleaders.a" target="_blank">Blog</a>
          <router-link :to="{ name: 'careers' }"><a href="#">Careers</a></router-link>
          <router-link :to="{ name: 'donate' }"><a href="#">Donate</a></router-link>
        </div>
        <div class="footer-col">
          <h3>Help</h3>
-         <router-link :to="{ name: 'contact-us' }"><a href="#">Contact us</a></router-link>
+         <router-link :to="{ name: 'contact-us' }"><a href="#">Contact Us</a></router-link>
          <router-link :to="{ name: 'faqs' }"><a href="#">FAQs</a></router-link>
        </div>
        <div class="footer-col">
@@ -25,7 +25,7 @@
          <router-link :to="{ name: 'terms' }"><a href="#">Terms &amp; Conditions</a></router-link>
        </div>
        <div class="footer-col">
-         <h3>Socials</h3>
+         <h3>We're Social</h3>
            <div class="footer-social-elements">
              <a href="https://facebook.com/OurLeaders.A" target="_blank"><img class="social-icon" src="@/assets/img/facebook-white.svg"/></a>
              <a href="https://twitter.com/OurLeaders_A" target="_blank"><img class="social-icon" src="@/assets/img/twitter-white.svg"/></a>
@@ -34,6 +34,7 @@
        </div>
      </div>
       <hr class="text-white w-9/12 mt-5 mb-10 mx-auto"/>
+      <div class="footer-copy text-sm text-white mt-8">Kingdom Principles</div>
       <div class="footer-copy text-white">&copy; Olubrain leadership Foundation, 2019</div>
    </div>
 
@@ -45,7 +46,7 @@
        <div class="footer-group">
          <div class="footer-col">
            <h3>Company</h3>
-           <router-link :to="{ name: 'about-us' }"><a href="#">About us</a></router-link>
+           <router-link :to="{ name: 'about-us' }"><a href="#">About Us</a></router-link>
            <a href="https://medium.com/@ourleaders.a" target="_blank">Blog</a>
            <router-link :to="{ name: 'careers' }"><a href="#">Careers</a></router-link>
            <router-link :to="{ name: 'donate' }"><a href="#">Donate</a></router-link>
@@ -59,11 +60,11 @@
        <div class="footer-group">
          <div class="footer-col">
            <h3>Help</h3>
-           <router-link :to="{ name: 'contact-us' }"><a href="#">Contact us</a></router-link>
+           <router-link :to="{ name: 'contact-us' }"><a href="#">Contact Us</a></router-link>
            <router-link :to="{ name: 'faqs' }"><a href="#">FAQs</a></router-link>
          </div>
          <div class="footer-col">
-           <h3>Socials</h3>
+           <h3>We're Social</h3>
            <div class="footer-social-elements">
              <a href="https://facebook.com/OurLeaders.A" target="_blank"><img class="social-icon" src="@/assets/img/facebook-white.svg"/></a>
              <a href="https://twitter.com/OurLeaders_A" target="_blank"><img class="social-icon" src="@/assets/img/twitter-white.svg"/></a>
@@ -72,6 +73,7 @@
          </div>
        </div>
      </div>
+     <div class="footer-copy text-sm text-white mt-8">Kingdom Principles</div>
      <div class="footer-copy">&copy; Olubrain leadership Foundation, 2019</div>
    </div>
  </div>
@@ -141,7 +143,6 @@ export default {
   .footer-copy {
     text-align: center;
     font-size: 14px;
-    margin-top: 15px;
   }
 
   .sm-footer {

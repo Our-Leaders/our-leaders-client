@@ -21,24 +21,24 @@
           <a class="block mt-4 hidden xl:inline-block xl:mt-0 xl:mr-4">
             <our-dropdown class="xl:mr-4 xl:visible" width="w-40" heading="Leaders" alignRight showOnHover listClass="leaders-dropdown-list">
               <our-dropdown-item isLink :to="{ name: 'politicians' }" @click.native="closeNav">Current leaders</our-dropdown-item>
-              <our-dropdown-item isLink :to="{ name: 'politicians', query: { status: 'upcoming' } }" @click.native="closeNav">Upcoming leaders</our-dropdown-item>
+              <our-dropdown-item isLink :to="{ name: 'politicians', query: { status: 'upcoming' } }" @click.native="closeNav">Aspirants</our-dropdown-item>
               <our-dropdown-item isLink :to="{ name: 'politicians', query: { status: 'past' } }" @click.native="closeNav">Past leaders</our-dropdown-item>
             </our-dropdown>
           </a>
           <div class="xl:hidden mobile-nav-divider">
             <router-link :to="{ name: 'politicians' }" @click.native="closeNav" class="block mt-4 xl:inline-block xl:mt-0 xl:mr-4">Current leaders</router-link>
-            <router-link :to="{ name: 'politicians', query: { status: 'upcoming' } }" @click.native="closeNav" class="block mt-4 xl:inline-block xl:mt-0 xl:mr-4">Upcoming leaders</router-link>
+            <router-link :to="{ name: 'politicians', query: { status: 'upcoming' } }" @click.native="closeNav" class="block mt-4 xl:inline-block xl:mt-0 xl:mr-4">Aspirants</router-link>
             <router-link :to="{ name: 'politicians', query: { status: 'past' } }" @click.native="closeNav" class="block mt-4 xl:inline-block xl:mt-0 xl:mr-4">Past leaders</router-link>
           </div>
-          <router-link :to="{ name: 'political-parties' }" @click.native="closeNav" class="block mt-4 xl:inline-block xl:mt-0 xl:mr-4 mobile-nav-divider">Political parties</router-link>
+          <router-link :to="{ name: 'political-parties' }" @click.native="closeNav" class="block mt-4 xl:inline-block xl:mt-0 xl:mr-4 mobile-nav-divider">Political Parties</router-link>
         </div>
         <div>
           <ul class="relative xl:inline-flex xl:items-center">
             <li>
-              <router-link :to="{ name: 'about-us' }" @click.native="closeNav" class="block xl:px-4 xl:py-2 xl:border-b border-transparent hover:border-primary mt-4 xl:mt-0">About</router-link>
+              <router-link :to="{ name: 'about-us' }" @click.native="closeNav" class="block xl:px-4 xl:py-2 xl:border-b border-transparent hover:border-primary mt-4 xl:mt-0">About Us</router-link>
             </li>
             <li class="mobile-nav-divider">
-              <router-link :to="{ name: 'contact-us' }" @click.native="closeNav" class="block xl:px-4 xl:py-2 xl:border-b border-transparent hover:border-primary mt-4 xl:mt-0">Contact</router-link>
+              <router-link :to="{ name: 'contact-us' }" @click.native="closeNav" class="block xl:px-4 xl:py-2 xl:border-b border-transparent hover:border-primary mt-4 xl:mt-0">Contact Us</router-link>
             </li>
             <li class="donate-wrapper hidden">
               <router-link :to="{ name: 'donate' }" @click.native="closeNav" class="px-4 py-2 mt-4 xl:ml-4 xl:mt-0 btn-primary-outline btn-sm block leading-tight">Donate</router-link>

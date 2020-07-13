@@ -10,10 +10,9 @@
             <span class="text-6xl" v-if="filter.status === 'past'">Past Leaders</span>
           </div>
           <div class="w-full md:w-1/2 lg:w-1/2 xl:w-1/2">
-            <p class="text-left px-6" v-if="filter.status === 'current'">These are leaders who currently hold a political position in this government.
-              The leaders in this category also have extensive experience in politics.</p>
-            <p class="text-left px-6" v-if="filter.status === 'upcoming'">These are leaders who currently hold a political position in this government. The leaders in this category also have extensive experience in politics.</p>
-            <p class="text-left px-6" v-if="filter.status === 'past'">These are leaders who currently hold a political position in this government. The leaders in this category also have extensive experience in politics.</p>
+            <p class="text-left px-6" v-if="filter.status === 'current'">This section covers every leader who currently holds a political position, whether by appointment or election.</p>
+            <p class="text-left px-6" v-if="filter.status === 'upcoming'">This section covers every political aspirant who is currently contesting for a leadership position.</p>
+            <p class="text-left px-6" v-if="filter.status === 'past'">This section covers every leader who once held a political position, whether by appointment or election since January 2020.</p>
           </div>
         </div>
         <our-tabs class="mb-6" :default-value="filter.status" v-on:change="setPrimary" :tabs='mainTabs' :tab-type="'primary'"></our-tabs>
@@ -118,9 +117,9 @@
                 <span class="inline-block h-1 w-1 mx-2 bg-primary" v-for="index in 20" :key="index"></span>
               </div>
               <div class="flex flex-wrap relative bg-gray-100 py-10 px-6 mb-10 z-20">
-                <our-subscription :full="true">
-                  <p class="subscribe-text text-5xl leading-none">Be the <span class="text-primary">first</span><br/>to know</p>
-                  <p class="text-base leading-none my-6">Get instant updates on your favourite<br/>African leaders.</p>
+                <our-subscription :full="true" :text="'Join'">
+                  <p class="subscribe-text text-4xl leading-none"><span class="text-primary">Stay up to date</span><br/> with everything we're working on</p>
+                  <p class="text-base leading my-6">Join the Mailing List and we’ll send you an email once a month to update you on new developments.</p>
                 </our-subscription>
               </div>
             </div>
@@ -130,9 +129,9 @@
     </div>
     <div class="block lg:hidden xl:hidden w-full mb-16 mt-6">
       <div class="w-full bg-gray-100 py-10 px-6">
-        <our-subscription :full="true">
-          <p class="subscribe-text text-5xl leading-none">Be the <span class="text-primary">first</span><br/>to know</p>
-          <p class="text-base leading-none my-6">Get instant updates on your favourite<br/>African leaders.</p>
+        <our-subscription :full="true" :text="'Join'">
+          <p class="subscribe-text text-4xl leading-none"><span class="text-primary">Stay up to date</span><br/>with everything we're working on</p>
+          <p class="text-base leading my-6">Join the Mailing List and we’ll send you an email once a month to update you on new developments.</p>
         </our-subscription>
       </div>
     </div>

@@ -2,7 +2,7 @@
   <auth-layout>
     <template v-slot:left-caption>
       <span class="text-white text-xl md:text-2xl lg:text-4xl xl:text-4xl mb-6 text-center lg:text-left xl:text-left">
-        Get live data on the performance and activities of current African Leaders.
+        Monitor the progress and performance of political leaders across Africa.
       </span>
       <hr class="mx-auto mb-2 lg:mx-0 lg:mb-0 xl:mx-0 xl:mb-0 text-white w-20"/>
     </template>
