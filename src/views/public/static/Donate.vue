@@ -116,12 +116,11 @@ transparency in governance. Join us in building transparent and accountable lead
                 src="@/assets/img/zenith-bank.png"/>
               <span class="inline-block lg:mr-16 xl:mr-16">Olubrain Leadership Foundation<br/>1016694030</span>
             </div>
-            <!-- Remove when he confirms USD account -->
-            <!-- <div class="w-full lg:w-1/2 inline-block bg-transparent border-2 border-gray-300 px-3 py-4 mb-8">
+            <div class="w-full lg:w-1/2 inline-block bg-transparent border-2 border-gray-300 px-3 py-4 mb-8">
               <img class="h-12 float-left text-black inline-block mr-4 lg:mr-8 xl:mr-8"
-                src="@/assets/img/access-bank.svg"/>
-              <span class="inline-block lg:mr-16 xl:mr-16">Our Leaders Africa<br/>3056112345</span>
-            </div> -->
+                src="@/assets/img/zenith-bank.png"/>
+              <span class="inline-block lg:mr-16 xl:mr-16">Olubrain Leadership Foundation<br/>5071277360<br/>USSD</span>
+            </div>
           </div>
         </div>
       </div>
