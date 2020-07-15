@@ -11,10 +11,10 @@
       </div>
       <div class="w-full relative block md:hidden">
         <div class="about-us-1 sm">
-          <img src="@/assets/img/about-us-1.png"/>
+          <img src="@/assets/img/about-us-1.jpg"/>
         </div>
         <div class="about-us-2 sm">
-          <img src="@/assets/img/about-us-2.svg"/>
+          <img src="@/assets/img/about-us-2.jpg"/>
         </div>
       </div>
     </div>
@@ -25,10 +25,10 @@
           <div class="w-full md:w-1/2 px-6 md:px-0 leading-relaxed text-base text-justify md:text-left" v-html="page.aboutUs"></div>
           <div class="w-1/2 relative hidden md:block">
             <div class="about-us-1">
-              <img src="@/assets/img/about-us-1.png"/>
+              <img src="@/assets/img/about-us-1.jpg"/>
             </div>
             <div class="about-us-2 md">
-              <img src="@/assets/img/about-us-2.svg"/>
+              <img src="@/assets/img/about-us-2.jpg"/>
             </div>
           </div>
         </div>
@@ -112,7 +112,7 @@ export default {
 
 <style lang="scss">
   .about-us-1 {
-    bottom: 60%;
+    top: -240px;
     height: 315px;
     left: 4%;
     overflow: hidden;
@@ -120,13 +120,23 @@ export default {
     width: 260px;
     z-index: 3;
 
+    img {
+      height: 100%;
+      object-fit: cover;
+    }
+
     &.sm {
       bottom: 0;
       height: 240px;
       left: 20%;
-      overflow-x: hidden;
+      overflow: hidden;
       transform: translateY(18%);
       width: 198px;
+
+      img {
+        height: 100%;
+        object-fit: cover;
+      }
     }
   }
 
@@ -142,7 +152,7 @@ export default {
     &.sm {
       bottom: 0;
       height: 240px;
-      overflow-x: hidden;
+      overflow: hidden;
       right: 0;
       transform: translateY(18%);
       width: 198px;
