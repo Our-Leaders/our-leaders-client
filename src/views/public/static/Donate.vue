@@ -4,7 +4,7 @@
     <div class="w-full lg:w-10/12 xl:w-10/12 mx-auto flex flex-wrap lg:px-6 xl:px-6 mb-20">
       <div class="flex flex-wrap w-full lg:hidden xl:hidden">
         <h3 class="w-full text-5xl mb-8 px-6"><span class="text-primary">Help</span> us do<br/>more</h3>
-        <img class="block h-64 mx-auto mb-16" src="@/assets/img/donate-1.png"/>
+        <img class="block h-64 mx-auto mb-16" src="@/assets/img/donate-0.png"/>
         <p class="px-6">
           OurLeaders.Africa is a nonprofit organization that focuses on driving accountability and
 transparency in governance. Join us in building transparent and accountable leadership across the African continent by making a donation today.
@@ -20,13 +20,13 @@ transparency in governance. Join us in building transparent and accountable lead
         </p>
       </div>
       <div class="w-1/2 relative hidden lg:block xl:block">
-        <img class="h-84 absolute bottom-0 left-0 right-0 mx-auto" src="@/assets/img/donate-1.png"/>
+        <img class="h-84 absolute bottom-0 left-0 right-0 mx-auto" src="@/assets/img/donate-0.png"/>
       </div>
     </div>
 
     <!-- How We Spend The Money -->
     <div class="w-full lg:w-10/12 xl:w-10/12 lg:mx-auto xl:mx-auto px-2 lg:px-6 xl:px-6 mb-20">
-      <h3 class="text-4xl">How We Spend Your Money</h3>
+      <h3 class="text-4xl">Where Your Money Goes</h3>
       <hr class="border-primary my-5"/>
       <div class="flex flex-wrap">
         <div class="w-full lg:w-1/3 xl:w-1/3 lg:pr-4 xl:pr-4 py-2 flex">
@@ -75,10 +75,10 @@ transparency in governance. Join us in building transparent and accountable lead
         <div class="flex flex-wrap bg-gray-100 px-6 py-12 mb-10">
           <div class="w-full lg:w-1/2 xl:w-1/2">
             <hr class="border-primary border-2 w-5/12 lg:w-2/12 xl:w-2/12 mb-4"/>
-            <h3 class="text-4xl mb-6">Make a Donation</h3>
-            <p>We use donations to pay for our domain, servers and <br class="hidden lg:visible xl:visible"/>other things that keep the platform running</p>
+            <h3 class="text-4xl mb-2 lg:mb-6">Make a Donation</h3>
+            <!-- <p>We use donations to pay for our domain, servers and <br class="hidden lg:visible xl:visible"/>other things that keep the platform running</p> -->
           </div>
-          <div class="w-full lg:w-1/2 xl:w-1/2 pt-12 lg:pl-8 xl:pl-8 lg:pr-32 xl:pr-32">
+          <div class="w-full lg:w-1/2 xl:w-1/2 pt-4 lg:pt-12 lg:pl-8 xl:pl-8 lg:pr-32 xl:pr-32">
             <label class="block" for="password">
               <span class="font-semibold">Enter the amount</span>
             </label>
@@ -110,16 +110,16 @@ transparency in governance. Join us in building transparent and accountable lead
             <h3 class="inline-block text-4xl lg:mr-10 xl:mr-10">We also accept <br class="hidden lg:visible xl:visible"/>bank deposits</h3>
             <span class="inline-block">You can also send your donations to the following <br class="hidden lg:visible xl:visible"/>bank accounts</span>
           </div>
-          <div class="w-full pt-12">
-            <div class="w-full lg:w-1/2 inline-block bg-transparent border-2 border-gray-300 px-3 py-4 mb-8 mr-5">
+          <div class="flex flex-wrap lg:flex-no-wrap w-full pt-12">
+            <div class="w-full lg:w-1/2 inline-block bg-transparent border-2 border-gray-300 px-3 py-4 mb-8 lg:mr-5">
               <img class="h-12 float-left text-black inline-block mr-4 lg:mr-8 xl:mr-8"
                 src="@/assets/img/zenith-bank.png"/>
-              <span class="inline-block lg:mr-16 xl:mr-16">Olubrain Leadership Foundation<br/>1016694030</span>
+              <span class="inline-block lg:mr-16 xl:mr-16">Olubrain Leadership Foundation<br/>1016694030<br/>NGN</span>
             </div>
             <div class="w-full lg:w-1/2 inline-block bg-transparent border-2 border-gray-300 px-3 py-4 mb-8">
               <img class="h-12 float-left text-black inline-block mr-4 lg:mr-8 xl:mr-8"
                 src="@/assets/img/zenith-bank.png"/>
-              <span class="inline-block lg:mr-16 xl:mr-16">Olubrain Leadership Foundation<br/>5071277360<br/>USSD</span>
+              <span class="inline-block lg:mr-16 xl:mr-16">Olubrain Leadership Foundation<br/>5071277360<br/>USD</span>
             </div>
           </div>
         </div>
