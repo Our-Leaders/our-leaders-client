@@ -4,7 +4,7 @@
     <div class="w-full lg:w-10/12 xl:w-10/12 mx-auto flex flex-wrap lg:px-6 xl:px-6 mb-20">
       <div class="flex flex-wrap w-full lg:hidden xl:hidden">
         <h3 class="w-full text-5xl mb-8 px-6"><span class="text-primary">Help</span> us do<br/>more</h3>
-        <img class="block h-64 mx-auto mb-16" src="@/assets/img/donate-1.png"/>
+        <img class="block h-64 mx-auto mb-16" src="@/assets/img/donate-0.png"/>
         <p class="px-6">
           OurLeaders.Africa is a nonprofit organization that focuses on driving accountability and
 transparency in governance. Join us in building transparent and accountable leadership across the African continent by making a donation today.
@@ -20,7 +20,7 @@ transparency in governance. Join us in building transparent and accountable lead
         </p>
       </div>
       <div class="w-1/2 relative hidden lg:block xl:block">
-        <img class="h-84 absolute bottom-0 left-0 right-0 mx-auto" src="@/assets/img/donate-1.png"/>
+        <img class="h-84 absolute bottom-0 left-0 right-0 mx-auto" src="@/assets/img/donate-0.png"/>
       </div>
     </div>
 
