@@ -1,0 +1,41 @@
+{
+  "politician": [
+    { 
+      "label": "Background",
+      "value": "background",
+      "side": [
+        {
+          "label": "Personal Background",
+          "value": "personalBackground"
+        },
+        {
+          "label": "Political Background",
+          "value": "politicalBackground"
+        },
+        {
+          "label": "Educational Background",
+          "value": "educationalBackground"
+        },
+        {
+          "label": "Professional Background",
+          "value": "professionalBackground"
+        }
+      ]
+    },
+    { 
+      "label": "Accomplishments",
+      "value": "accomplishments",
+      "side": []
+    },
+    { 
+      "label": "Manifesto",
+      "value": "manifesto",
+      "side": []
+    },
+    { 
+      "label": "Recent Updates",
+      "value": "recent",
+      "side": []
+    }
+  ]
+}

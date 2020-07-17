@@ -1,9 +1,30 @@
+.DS_Store
+/dist
+
 # Logs
 logs
 *.log
+
+# dotenv environment variables file
+.env
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
 # Runtime data
 pids
@@ -53,9 +74,6 @@ typings/
 
 # Yarn Integrity file
 .yarn-integrity
-
-# dotenv environment variables file
-.env
 
 # next.js build output
 .next
