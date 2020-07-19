@@ -17,7 +17,7 @@
           <div class="w-full mb-2" v-else>
             <span class="block text-base capitalize">Not in Office</span>
           </div>
-          <our-politician-subscription v-if="!comingSoon" :politician="politician" :subscribeText="`Subscribe to ${lastName}`"></our-politician-subscription>
+          <our-politician-subscription :disabled="comingSoon" :politician="politician" :subscribeText="`Subscribe to ${lastName}`"></our-politician-subscription>
         </div>
         <div class="passport-wrapper mb-3 md:max-w-passport">
           <img class="object-cover" :src="politician.profileImage"/>
@@ -128,7 +128,7 @@
         <div class="hidden md:flex justify-between align-top" v-if="!loading">
           <div class="mt-12 w-full flex justify-between items-center">
             <span class="inline-block pr-2 text-6xl">{{politician.name}}</span>
-            <our-politician-subscription v-if="!comingSoon" :politician="politician" :subscribeText="`Subscribe to ${lastName}`"></our-politician-subscription>
+            <our-politician-subscription :disabled="comingSoon" :politician="politician" :subscribeText="`Subscribe to ${lastName}`"></our-politician-subscription>
           </div>
         </div>
         <div>
@@ -313,15 +313,15 @@ export default {
     },
   },
   created() {
-    if (this.politicianId) {
+    if (this.$router.history.current.name === 'coming-soon') {
+      this.comingSoon = true;
+      this.loadMockPolitician();
+    } else if (this.politicianId) {
       this.getPolitician(this.politicianId);
       this.getUpdates(this.politicianId);
       if (this.isLoggedIn) {
         this.checkSubscriptions();
       }
-    } else if (this.$router.history.current.name === 'coming-soon') {
-      this.comingSoon = true;
-      this.loadMockPolitician();
     } else {
       this.$router.back();
     }
