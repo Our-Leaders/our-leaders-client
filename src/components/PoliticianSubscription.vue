@@ -48,6 +48,10 @@ export default {
     this.getSubscriptions();
   },
   props: {
+    disabled: {
+      type: Boolean,
+      default: () => false,
+    },
     politician: {
       type: Object,
     },
@@ -121,6 +125,11 @@ export default {
     },
     async addSubscription(type) {
       try {
+        // TODO: Remove after coming soon page is removed
+        if (this.disabled) {
+          return;
+        }
+
         this.processing = true;
         await this.subscriptionsServices.addSubscription({
           politicianId: this.politician.id,
@@ -136,6 +145,11 @@ export default {
     },
     async removeSubscription(type) {
       try {
+        // TODO: Remove after coming soon page is removed
+        if (this.disabled) {
+          return;
+        }
+
         this.processing = true;
         this.subscription[type] = true;
         if (type) {
@@ -156,6 +170,11 @@ export default {
       }
     },
     async changeSubscription(type, isSubscribed) {
+      // TODO: Remove after coming soon page is removed
+      if (this.disabled) {
+        return;
+      }
+
       if (isSubscribed) {
         this.addSubscription(type);
       } else {
@@ -167,6 +186,11 @@ export default {
       return subscription ? subscription.id : null;
     },
     loginCheck() {
+      // TODO: Remove after coming soon page is removed
+      if (this.disabled) {
+        return;
+      }
+
       if (!this.isLoggedIn) {
         this.displaySignUp();
       }
