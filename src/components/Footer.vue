@@ -27,9 +27,9 @@
        <div class="footer-col">
          <h3>We're Social</h3>
            <div class="footer-social-elements">
-             <a href="https://facebook.com/OurLeaders.A" target="_blank"><img class="social-icon" src="@/assets/img/facebook-white.svg"/></a>
+             <a href="https://facebook.com/ourleaders.africa" target="_blank"><img class="social-icon" src="@/assets/img/facebook-white.svg"/></a>
              <a href="https://twitter.com/OurLeaders_A" target="_blank"><img class="social-icon" src="@/assets/img/twitter-white.svg"/></a>
-             <a href="https://instagram.com/OurLeaders.A" target="_blank"><img class="social-icon" src="@/assets/img/instagram-white.svg"/></a>
+             <a href="https://instagram.com/ourleaders.africa" target="_blank"><img class="social-icon" src="@/assets/img/instagram-white.svg"/></a>
            </div>
        </div>
      </div>
@@ -66,9 +66,9 @@
          <div class="footer-col">
            <h3>We're Social</h3>
            <div class="footer-social-elements">
-             <a href="https://facebook.com/OurLeaders.A" target="_blank"><img class="social-icon" src="@/assets/img/facebook-white.svg"/></a>
+             <a href="https://facebook.com/ourleaders.africa" target="_blank"><img class="social-icon" src="@/assets/img/facebook-white.svg"/></a>
              <a href="https://twitter.com/OurLeaders_A" target="_blank"><img class="social-icon" src="@/assets/img/twitter-white.svg"/></a>
-             <a href="https://instagram.com/OurLeaders.A" target="_blank"><img class="social-icon" src="@/assets/img/instagram-white.svg"/></a>
+             <a href="https://instagram.com/ourleaders.africa" target="_blank"><img class="social-icon" src="@/assets/img/instagram-white.svg"/></a>
            </div>
          </div>
        </div>

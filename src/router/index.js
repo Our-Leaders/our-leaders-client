@@ -140,7 +140,8 @@ const router = new VueRouter({
 
 router.beforeResolve(async (to, from, next) => {
   try {
-    await ServiceFactory.statistics.recordVisit({ referrer: from.path, url: to.path });
+    await ServiceFactory.statistics
+      .recordVisit({ referrer: from.path, url: to.path, title: to.name });
   } finally {
     next();
   }
