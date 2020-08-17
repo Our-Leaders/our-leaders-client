@@ -4,10 +4,9 @@
       <h4 class="text-5xl md:text-6xl mt-8 md:mt-56 md:mb-12"><span class="md:text-primary">Contact</span> us</h4>
       <span class="text-base font-bold mb-2 block">Visit us on</span>
       <div class="block mb-6">
-        <img class="cursor-pointer inline-block h-4 mr-8" src="@/assets/img/facebook-gray.svg"/>
-        <img class="cursor-pointer inline-block h-4 mr-8" src="@/assets/img/twitter-gray.svg"/>
-        <img class="cursor-pointer inline-block h-4 mr-8" src="@/assets/img/linkedIn-gray.svg"/>
-        <img class="cursor-pointer inline-block h-4" src="@/assets/img/instagram-gray.svg"/>
+        <a href="https://facebook.com/ourleaders.africa" target="_blank"><img class="cursor-pointer inline-block h-4 mr-8" src="@/assets/img/facebook-gray.svg"/></a>
+        <a href="https://twitter.com/OurLeaders_A" target="_blank"><img class="cursor-pointer inline-block h-4 mr-8" src="@/assets/img/twitter-gray.svg"/></a>
+        <a href="https://instagram.com/ourleaders.africa" target="_blank"><img class="cursor-pointer inline-block h-4" src="@/assets/img/instagram-gray.svg"/></a>
       </div>
     </div>
     <div class="w-full lg:w-2/3 xl:w-2/3 pl-10 pr-10 lg:pr-64 xl:pr-64 mb-6">

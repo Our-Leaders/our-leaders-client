@@ -15,7 +15,7 @@
             <p class="text-left px-6" v-if="filter.status === 'past'">This section covers every leader who once held a political position, whether by appointment or election since January 2020.</p>
           </div>
         </div>
-        <our-tabs class="mb-6" :default-value="filter.status" v-on:change="setPrimary" :tabs='mainTabs' :tab-type="'primary'"></our-tabs>
+        <our-tabs class="mb-6" ref="primaryTab" :default-value="filter.status" v-on:change="setPrimary" :tabs='mainTabs' :tab-type="'primary'"></our-tabs>
       </div>
     </div>
 
@@ -179,6 +179,7 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     this.setPrimary(to.query.status || 'current');
+    this.$refs.primaryTab.setTab(to.query.status || 'current');
     next();
   },
   methods: {
