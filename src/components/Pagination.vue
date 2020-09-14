@@ -60,7 +60,7 @@ export default {
       return this.current === 0;
     },
     atEnd() {
-      return this.current === this.totalPages - 1;
+      return this.current === (this.totalPages - 1);
     },
     pages() {
       const pages = [this.current];
@@ -74,6 +74,9 @@ export default {
       if (nextPage <= this.totalPages && nextPage !== this.current) {
         pages.push(nextPage);
       }
+
+      console.log(this.totalPages)
+      console.log(pages.sort((a, b) => a - b))
 
       return pages.sort((a, b) => a - b);
     },
