@@ -42,7 +42,7 @@
               v-on:next="nextPage"
               v-on:previous="previousPage"
               :total="total"
-              :current="filter.page"></our-pagination>
+              :current="filter.skip"></our-pagination>
             </div>
           </div>
           <div class="w-full lg:w-1/3 relative">
@@ -102,7 +102,7 @@ export default {
       displayMenu: false,
       filter: {
         name: null,
-        page: 0,
+        skip: 0,
         limit: 10,
       },
       loading: true,
@@ -133,7 +133,7 @@ export default {
       }
     },
     changePage(page) {
-      this.filter.page = page;
+      this.filter.skip = page;
       this.getPoliticalParties();
     },
     isEmpty(value) {
@@ -144,11 +144,11 @@ export default {
       this.$router.push(`/political-parties/${party.id}`);
     },
     nextPage() {
-      this.filter.page += 1;
+      this.filter.skip += 1;
       this.getPoliticalParties();
     },
     previousPage() {
-      this.filter.page -= 1;
+      this.filter.skip -= 1;
       this.getPoliticalParties();
     },
     toggleMenu() {

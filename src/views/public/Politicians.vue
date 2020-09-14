@@ -202,8 +202,7 @@ export default {
       try {
         const response = await this.politicalPartiesServices.getPoliticalParties({});
 
-        this.politicalParties = response.data.politicalParties;
-        this.politicalParties = politicalPartiesMock.map(option => Object({
+        this.politicalParties = response.data.politicalParties.map(option => Object({
           label: option.name,
           value: option.id,
           name: option.name,
