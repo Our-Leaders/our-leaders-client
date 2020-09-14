@@ -165,7 +165,7 @@ export default {
       politiciansServices: this.$serviceFactory.politicians,
       processing: false,
       states: states.states,
-      secondaryTabs: [{ label: 'All', value: null }, { label: 'Governors', value: 'governors' }, { label: 'Presidents', value: 'presidents' }],
+      secondaryTabs: [{ label: 'All', value: null }, { label: 'Governors', value: 'governor' }, { label: 'Presidents', value: 'president' }],
       subscribeEmail: null,
       tab: 'current',
     };

@@ -71,7 +71,7 @@ export default {
         pages.push(prev);
       }
 
-      if (nextPage < this.totalPages && nextPage !== this.current) {
+      if (nextPage <= this.totalPages && nextPage !== this.current) {
         pages.push(nextPage);
       }
 
