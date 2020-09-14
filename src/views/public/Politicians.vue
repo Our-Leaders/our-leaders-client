@@ -48,6 +48,7 @@
               v-on:change="changePage"
               v-on:next="nextPage"
               v-on:previous="previousPage"
+              :limit="filter.limit"
               :total="total"
               :current="filter.skip"></our-pagination>
             </div>

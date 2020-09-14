@@ -512,7 +512,7 @@ export default {
       }
 
       if (!endDate) {
-        return startDate;
+        return moment(startDate).format('MMM DD YYYY');
       }
 
       if (typeof startDate === 'string' && typeof endDate === 'string') {
