@@ -49,7 +49,7 @@
               v-on:next="nextPage"
               v-on:previous="previousPage"
               :total="total"
-              :current="filter.page"></our-pagination>
+              :current="filter.skip"></our-pagination>
             </div>
           </div>
 
@@ -149,9 +149,9 @@ export default {
     return {
       displayMenu: false,
       filter: {
-        limit: 10,
+        limit: 12,
         name: null,
-        page: 0,
+        skip: 0,
         politicalPartyId: null,
         state: null,
         status: this.$route.query.status || 'current',
@@ -203,17 +203,20 @@ export default {
         const response = await this.politicalPartiesServices.getPoliticalParties({});
 
         this.politicalParties = response.data.politicalParties;
-        // For now
-        // this.politicalParties = politicalPartiesMock.map(option => Object({
-        //   label: option.name,
-        //   value: option.id,
-        // }));
+        this.politicalParties = politicalPartiesMock.map(option => Object({
+          label: option.name,
+          value: option.id,
+          name: option.name,
+          acronym: option.acronym,
+          country: option.country,
+          createdAt: option.createdAt,
+        }));
       } catch (error) {
         this.politicalParties = [];
       }
     },
     changePage(page) {
-      this.filter.page = page;
+      this.filter.skip = page;
       this.getPoliticians();
     },
     isEmpty(value) {
@@ -223,11 +226,11 @@ export default {
       this.$router.push(`/politicians/${id}`);
     },
     nextPage() {
-      this.filter.page += 1;
+      this.filter.skip += 1;
       this.getPoliticians();
     },
     previousPage() {
-      this.filter.page -= 1;
+      this.filter.skip -= 1;
       this.getPoliticians();
     },
     setFilter(key, value) {
