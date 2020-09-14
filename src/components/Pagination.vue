@@ -60,7 +60,7 @@ export default {
       return this.current === 0;
     },
     atEnd() {
-      return this.current === this.total - 1;
+      return this.current === this.totalPages - 1;
     },
     pages() {
       const pages = [this.current];
