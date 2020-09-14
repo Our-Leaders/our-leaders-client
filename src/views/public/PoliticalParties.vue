@@ -111,6 +111,7 @@ export default {
       politicalPartiesServices: this.$serviceFactory.politicalParties,
       processing: false,
       subscribeEmail: null,
+      total: 0,
     };
   },
   created() {
@@ -127,6 +128,7 @@ export default {
         const response = await this.politicalPartiesServices.getPoliticalParties(this.filter);
 
         this.politicalParties = response.data.politicalParties;
+        this.total = response.data.total;
         this.loading = false;
       } catch (error) {
         this.loading = false;
@@ -159,9 +161,6 @@ export default {
   computed: {
     noMatch() {
       return !this.loading && this.total === 0;
-    },
-    total() {
-      return this.politicalParties.length;
     },
   },
 };

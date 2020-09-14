@@ -168,6 +168,7 @@ export default {
       secondaryTabs: [{ label: 'All', value: null }, { label: 'Governors', value: 'governor' }, { label: 'Presidents', value: 'president' }],
       subscribeEmail: null,
       tab: 'current',
+      total: 0,
     };
   },
   created() {
@@ -193,6 +194,7 @@ export default {
         const response = await this.politiciansServices.getPoliticians(this.filter);
 
         this.politicians = response.data.politicians;
+        this.total = response.data.total;
         this.loading = false;
       } catch (error) {
         this.loading = false;
@@ -251,9 +253,6 @@ export default {
   computed: {
     noMatch() {
       return !this.loading && this.total === 0;
-    },
-    total() {
-      return this.politicians.length;
     },
   },
 };
