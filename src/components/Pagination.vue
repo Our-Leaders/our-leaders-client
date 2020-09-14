@@ -40,6 +40,10 @@ export default {
       type: Number,
       required: true,
     },
+    limit: {
+      type: Number,
+      default: 10,
+    },
     total: {
       type: Number,
       required: true,
@@ -48,7 +52,7 @@ export default {
   data() {
     return {
       page: this.current,
-      number: [1, 2, 3, 4, 5],
+      totalPages: Math.round(this.total / this.limit),
     };
   },
   computed: {
@@ -59,15 +63,19 @@ export default {
       return this.current === this.total - 1;
     },
     pages() {
-      if (this.current < 2) {
-        return [0, 1, 2];
+      const pages = [this.current];
+      const nextPage = this.current + 1;
+      const prev = this.current - 1;
+
+      if (prev >= 0 && prev !== this.current) {
+        pages.push(prev);
       }
 
-      if (this.current === this.total - 1) {
-        return [this.total - 3, this.total - 2, this.total - 1];
+      if (nextPage < this.totalPages && nextPage !== this.current) {
+        pages.push(nextPage);
       }
 
-      return [this.current - 1, this.current, this.current + 1];
+      return pages.sort((a, b) => a - b);
     },
   },
   methods: {
