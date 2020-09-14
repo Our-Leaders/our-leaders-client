@@ -71,12 +71,9 @@ export default {
         pages.push(prev);
       }
 
-      if (nextPage <= this.totalPages && nextPage !== this.current) {
+      if (nextPage < this.totalPages && nextPage !== this.current) {
         pages.push(nextPage);
       }
-
-      console.log(this.totalPages)
-      console.log(pages.sort((a, b) => a - b))
 
       return pages.sort((a, b) => a - b);
     },

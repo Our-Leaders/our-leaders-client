@@ -43,7 +43,7 @@
               <span>Sorry, there are no politicians matching your search.</span>
             </div>
             <!-- Pagination -->
-            <div class="block mb-2" v-if="!loading">
+            <div class="block mb-2" v-if="!loading && total > 0">
               <our-pagination
               v-on:change="changePage"
               v-on:next="nextPage"
@@ -240,11 +240,11 @@ export default {
     },
     setPrimary(value) {
       this.filter.status = value;
-      this.getPoliticians();
+      this.changePage(0);
     },
     setSecondary(value) {
       this.filter.politicalPosition = value;
-      this.getPoliticians();
+      this.changePage(0);
     },
     toggleMenu() {
       this.displayMenu = !this.displayMenu;
