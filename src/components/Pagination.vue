@@ -52,7 +52,7 @@ export default {
   data() {
     return {
       page: this.current,
-      totalPages: Math.round(total/limit)
+      totalPages: Math.round(this.total / this.limit),
     };
   },
   computed: {
@@ -63,15 +63,15 @@ export default {
       return this.current === this.total - 1;
     },
     pages() {
-      let pages = [this.current];
-      let nextPage = this.current + 1;
-      let prev = this.current - 1;
+      const pages = [this.current];
+      const nextPage = this.current + 1;
+      const prev = this.current - 1;
 
       if (prev >= 0 && prev !== this.current) {
         pages.push(prev);
       }
 
-      if (nextPage < total && nextPage !== this.current) {
+      if (nextPage < this.totalPages && nextPage !== this.current) {
         pages.push(nextPage);
       }
 
