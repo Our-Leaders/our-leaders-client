@@ -52,7 +52,7 @@ export default {
   data() {
     return {
       page: this.current,
-      totalPages: Math.round(this.total / this.limit),
+      totalPages: Math.ceil(this.total / this.limit),
     };
   },
   computed: {
