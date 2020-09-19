@@ -161,6 +161,7 @@ export default {
         { label: 'Aspirants', value: 'upcoming' },
         { label: 'Past Leaders', value: 'past' },
       ],
+      totalPoliticians: 0,
     };
   },
   created() {
@@ -176,6 +177,7 @@ export default {
       try {
         const response = await this.politiciansServices.getPoliticians();
         this.allPoliticians = response.data.politicians;
+        this.totalPoliticians = response.data.total;
 
         // For now
         // this.allPoliticians.oliticians = this.allPoliticians.concat(politiciansMock);
@@ -215,11 +217,6 @@ export default {
     },
     setSecondary(value) {
       this.filter.status = value;
-    },
-  },
-  computed: {
-    totalPoliticians() {
-      return this.allPoliticians.length;
     },
   },
 };
