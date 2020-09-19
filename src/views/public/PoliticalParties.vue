@@ -28,7 +28,7 @@
             <!-- Main div -->
             <!-- Might turn this into a component later -->
             <div class="flex flex-wrap mb-4 min-h-64" v-if="!loading">
-              <div class="w-1/2 md:w-2/6 my-6 px-2" v-for="(politicalParty, i) in politicalParties" :key="i">
+              <div class="w-1/2 md:w-2/6 my-6 px-2" v-for="(politicalParty, i) in politicalParties" :key="i" @click="navigateTo(politicalParty)">
                 <our-political-party :party="politicalParty" @click="navigateTo"></our-political-party>
               </div>
             </div>
@@ -137,6 +137,7 @@ export default {
     },
     changePage(page) {
       this.filter.skip = page;
+      this.scrollToTop();
       this.getPoliticalParties();
     },
     isEmpty(value) {
@@ -148,11 +149,16 @@ export default {
     },
     nextPage() {
       this.filter.skip += 1;
+      this.scrollToTop();
       this.getPoliticalParties();
     },
     previousPage() {
       this.filter.skip -= 1;
+      this.scrollToTop();
       this.getPoliticalParties();
+    },
+    scrollToTop() {
+      window.scroll({ top: 0, left: 0, behavior: 'smooth' });
     },
     toggleMenu() {
       this.displayMenu = !this.displayMenu;
