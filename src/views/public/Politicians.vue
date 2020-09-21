@@ -45,11 +45,11 @@
             <!-- Pagination -->
             <div class="block mb-2" v-if="!loading && total > 0">
               <our-pagination
-              v-on:change="changePage"
-              v-on:next="nextPage"
-              v-on:previous="previousPage"
-              :limit="filter.limit"
-              :total="total"
+                v-on:change="changePage"
+                v-on:next="nextPage"
+                v-on:previous="previousPage"
+                :limit="filter.limit"
+                :total="total"
               :current="filter.skip"></our-pagination>
             </div>
           </div>

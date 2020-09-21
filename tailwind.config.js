@@ -29,6 +29,7 @@ module.exports = {
         '30': '7.5rem',
         '72': '18rem',
         '84': '20rem',
+        '92': '22rem',
       },
       lineHeight: {
         'letter-lg': '40px',

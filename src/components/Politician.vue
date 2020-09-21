@@ -10,7 +10,7 @@
           </button>
         </div>
       </div>
-      <div class="w-full overflow-hidden h-30 md:h-40 lg:h-40 xl:h-40">
+      <div class="w-full overflow-hidden h-48 md:h-56 lg:h-56 xl:h-56">
         <img :src="politician.profileImage" class="w-full h-full object-cover"/>
       </div>
       <div class="w-full my-1 md:my-2">
