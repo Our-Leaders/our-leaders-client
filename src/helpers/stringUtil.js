@@ -50,6 +50,10 @@ class StringUtil {
   }
 
   static getPoliticalPosition(background) {
+    if (!background || !background.position) {
+      return 'Not in Office';
+    }
+
     let { position } = background;
     if (background.region) {
       position += `, ${background.region}`;
