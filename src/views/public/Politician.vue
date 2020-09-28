@@ -60,13 +60,13 @@
               <div id="share" class="inline-block">
                 <a v-if="politician.socials.facebook" class="relative" target="_blank" :href="`https://facebook.com/${politician.socials.facebook}`">
                   <div class="absolute opacity-0 h-full w-full top-0 left-0">
-                    <ShareFacebook :title="getShareText(politician.name, position)" :url="`https://ourleaders.africa/politicians/${politician.socials.facebook}`"></ShareFacebook>
+                    <ShareFacebook :title="getShareText(politician.name, position)" :url="`https://ourleaders.africa/leaders/${politician.socials.facebook}`"></ShareFacebook>
                   </div>
                   <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/>
                 </a>
                 <a v-if="politician.socials.twitter" class="relative" href="#">
                   <div class="absolute opacity-0 h-full w-full top-0 left-0">
-                    <ShareTwitter :title="getShareText(politician.name, position)" :url="`https://ourleaders.africa/politicians/${politician.socials.twitter}`"></ShareTwitter>
+                    <ShareTwitter :title="getShareText(politician.name, position)" :url="`https://ourleaders.africa/leaders/${politician.socials.twitter}`"></ShareTwitter>
                   </div>
                   <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/twitter-gray.svg"/>
                 </a>
@@ -96,13 +96,13 @@
           <div id="share" class="inline-block">
             <a v-if="politician.socials.facebook" class="relative" target="_blank" :href="`https://facebook.com/${politician.socials.facebook}`">
               <div class="absolute opacity-0 h-full w-full top-0 left-0">
-                <ShareFacebook :title="getShareText(politician.name, position)" :url="`https://ourleaders.africa/politicians/${politician.socials.facebook}`"></ShareFacebook>
+                <ShareFacebook :title="getShareText(politician.name, position)" :url="`https://ourleaders.africa/leaders/${politician.socials.facebook}`"></ShareFacebook>
               </div>
               <img class="cursor-pointer inline-block h-5 mr-6" src="@/assets/img/facebook-gray.svg"/>
             </a>
             <a v-if="politician.socials.twitter" class="relative" href="#">
               <div class="absolute opacity-0 h-full w-full top-0 left-0">
-                <ShareTwitter :title="getShareText(politician.name, position)" :url="`https://ourleaders.africa/politicians/${politician.socials.twitter}`"></ShareTwitter>
+                <ShareTwitter :title="getShareText(politician.name, position)" :url="`https://ourleaders.africa/leaders/${politician.socials.twitter}`"></ShareTwitter>
               </div>
               <img class="cursor-pointer inline-block h-5 mr-6" src="@/assets/img/twitter-gray.svg"/>
             </a>
@@ -147,13 +147,13 @@
               <span class="text-xs mr-6">Share Profile</span>
                 <a v-if="politician.socials.facebook" class="relative" target="_blank" :href="`https://facebook.com/${politician.socials.facebook}`">
                   <div class="absolute opacity-0 h-full w-full top-0 left-0">
-                    <ShareFacebook :title="getShareText(politician.name, position)" :url="`https://ourleaders.africa/politicians/${politician.socials.facebook}`"></ShareFacebook>
+                    <ShareFacebook :title="getShareText(politician.name, position)" :url="`https://ourleaders.africa/leaders/${politician.socials.facebook}`"></ShareFacebook>
                   </div>
                   <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/facebook-gray.svg"/>
                 </a>
                 <a v-if="politician.socials.twitter" class="relative" href="#">
                   <div class="absolute opacity-0 h-full w-full top-0 left-0">
-                    <ShareTwitter :title="getShareText(politician.name, position)" :url="`https://ourleaders.africa/politicians/${politician.socials.twitter}`"></ShareTwitter>
+                    <ShareTwitter :title="getShareText(politician.name, position)" :url="`https://ourleaders.africa/leaders/${politician.socials.twitter}`"></ShareTwitter>
                   </div>
                   <img class="cursor-pointer inline-block h-4 mr-6" src="@/assets/img/twitter-gray.svg"/>
                 </a>
