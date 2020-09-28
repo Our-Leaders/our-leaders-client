@@ -102,13 +102,13 @@ const routes = [
     component: Pages.Terms,
   },
   {
-    path: '/politicians/:politicianId',
+    path: '/leaders/:politicianId',
     name: 'politician',
     component: Pages.Politician,
     props: true,
   },
   {
-    path: '/politicians',
+    path: '/leaders',
     name: 'politicians',
     component: Pages.Politicians,
   },
