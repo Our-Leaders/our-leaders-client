@@ -191,10 +191,10 @@ export default {
       this.$refs.search.focus();
     },
     getUrl(notification) {
-      return notification.entityType === 'politician' ? `/politicians/${notification.entityId}` : `/political-parties/${notification.entityId}`;
+      return notification.entityType === 'politician' ? `/leaders/${notification.entityId}` : `/political-parties/${notification.entityId}`;
     },
     searchPoliticians() {
-      this.$router.push(`/politicians?search=${this.searchQuery}`);
+      this.$router.push(`/leaders?search=${this.searchQuery}`);
     },
     signOut() {
       this.$store.commit('clearJWT');

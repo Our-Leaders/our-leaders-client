@@ -226,7 +226,7 @@ export default {
       return !ValidatorUtil.isDefined(value);
     },
     navigateTo(id) {
-      this.$router.push(`/politicians/${id}`);
+      this.$router.push(`/leaders/${id}`);
     },
     nextPage() {
       this.filter.skip += 1;
