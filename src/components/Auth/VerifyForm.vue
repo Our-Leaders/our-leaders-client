@@ -8,15 +8,20 @@
       In order to keep suspicious accounts and activities off the platform, we require more information for verification purposes. Thank you for understanding!
     </p>
     <form @submit.prevent="verify">
-      <div class="mb-6">
+      <div class="mb-6 w-full">
         <label class="block" for="phone">
           <span class="font-semibold">Phone number</span>
         </label>
-        <div class="input-fields">
-          <span class="inline-block w-1/12">
-            +234
+        <div class="w-full input-fields">
+          <span class="inline-block w-3/16">
+              <select class="outline-none overflow-ellipse appearance-none" @change="setPrefix">
+                <option v-for="(option, index) in phoneCodes" :key="index" :value="option.dial_code">
+                  {{`${option.code} ${option.dial_code}`}}
+                </option>
+              </select>
           </span>
-          <input class="w-9/12 py-2 mb-1 pl-2"
+          <input
+            class="'w-9/16 py-2 mb-1 pl-2 ml-1'"
             @blur="generateVerificationCode"
             type="tel"
             id="phone"
@@ -26,10 +31,10 @@
             ref="phone"
             placeholder="Enter your number here"
             required>
-          <div class="w-2/12 inline-block" v-if="sending">
+          <div class="w-2/16 inline-block" v-if="sending">
             <span class="loading float-right"></span>
           </div>
-          <button class="w-2/12 border-2 border-gray-600 cursor-pointer"
+          <button class="w-2/16 border-2 border-gray-600 cursor-pointer"
             v-if="codeSent"
             @click="editNumber">
             Edit
@@ -80,6 +85,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import phoneCodesList from '@/assets/json/phoneCodesList.json';
 
 export default {
   name: 'our-verify-form',
@@ -99,7 +105,10 @@ export default {
         verificationCode: null,
       },
       loading: false,
+      phoneCodes: phoneCodesList.phoneCodes,
       sending: false,
+      prefix: phoneCodesList.phoneCodes[0].dial_code,
+      selectedPhoneCode: {},
     };
   },
   created() {
@@ -120,17 +129,16 @@ export default {
       'displaySuccess',
     ]),
     async generateVerificationCode() {
+      if (!this.data.phone) {
+        return;
+      }
+
       try {
-        if (this.isValidPhoneNumber()) {
-          this.sending = true;
-          await this.authServices.sendVerificationCode(this.data.phone);
-          this.showSuccess('Verification code was successfully sent.');
-          this.sending = false;
-          this.codeSent = true;
-        } else {
-          this.sending = false;
-          this.showError('Invalid phone number, code was not sent.');
-        }
+        this.sending = true;
+        await this.authServices.sendVerificationCode(`${this.prefix}${this.data.phone}`);
+        this.showSuccess('Verification code was successfully sent to your phone and email.');
+        this.sending = false;
+        this.codeSent = true;
       } catch (err) {
         this.sending = false;
         this.showError('An error occured while sending you a pin.');
@@ -169,15 +177,9 @@ export default {
       this.$router.push('home');
       window.location.reload();
     },
-    isValidPhoneNumber() {
-      const pattern = /^\d+$/;
-      let valid = true;
-
-      if (this.data.phone && this.data.phone.length === 10) {
-        valid = this.data.phone.charAt(0) !== '0';
-      }
-
-      return pattern.test(this.data.phone) && [10, 11].includes(this.data.phone.length) && valid;
+    setPrefix(event) {
+      this.prefix = event.target.value;
+      this.selectedPhoneCode = this.phoneCodes.find(x => x.value === this.prefix);
     },
   },
 };
