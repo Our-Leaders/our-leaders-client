@@ -6,8 +6,8 @@ export default {
   login(data) {
     return instance.post(`${resource}/login`, data);
   },
-  sendVerificationCode(phoneNumber) {
-    return instance.get(`${resource}/verify?phoneNumber=${phoneNumber}`);
+  sendVerificationCode() {
+    return instance.post(`${resource}/resend-verification`);
   },
   signUp(data) {
     return instance.post(`${resource}/signup`, data);

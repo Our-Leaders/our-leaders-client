@@ -105,7 +105,7 @@ export default {
         this.$store.commit('setCurrentUser', response.data.user);
         this.$store.commit('setJWT', response.data.token);
 
-        if (response.data.user.isPhoneVerified) {
+        if (response.data.user.isEmailVerified) {
           this.goToHome();
         } else {
           this.goToVerify();

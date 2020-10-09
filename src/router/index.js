@@ -158,7 +158,7 @@ router.beforeEach((to, from, next) => {
     next('coming-soon');
   } else if (to.matched.some(m => m.meta.requiresAuth) && !Store.getters.isLoggedIn) {
     next('home');
-  } else if (Store.getters.isLoggedIn && !to.meta.isAuth && !Store.getters.user.isPhoneVerified) {
+  } else if (Store.getters.isLoggedIn && !to.meta.isAuth && !Store.getters.user.isEmailVerified) {
     next('/auth/sign-up?signedIn=true');
   } else {
     next();
