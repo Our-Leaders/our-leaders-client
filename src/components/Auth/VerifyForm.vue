@@ -124,8 +124,7 @@ export default {
     signOut() {
       this.$store.commit('clearCurrentUser');
       this.$store.commit('clearJWT');
-      this.$router.push('home');
-      window.location.reload();
+      this.$router.push('/');
     },
   },
 };
