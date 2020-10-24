@@ -35,7 +35,7 @@
           'btn-primary w-full mb-8': true,
           'loading': loading,
         }"
-        :disabled="loading || !codeSent">
+        :disabled="loading">
         Verify
       </button>
       <button
@@ -63,7 +63,6 @@ export default {
   data() {
     return {
       authServices: this.$serviceFactory.auth,
-      codeSent: false,
       data: {
         email: null,
         verificationCode: null,
@@ -94,7 +93,6 @@ export default {
         await this.authServices.sendVerificationCode();
         this.showSuccess('Verification code was successfully sent to your email.');
         this.sending = false;
-        this.codeSent = true;
       } catch (err) {
         this.sending = false;
         this.showError('An error occured while sending you a pin.');
