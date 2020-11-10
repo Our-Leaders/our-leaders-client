@@ -214,6 +214,7 @@ export default {
         // For now
         // this.trendingPoliticians = this.trendingPoliticians.concat(politiciansMock);
       } catch (error) {
+        console.log(error);
         this.displayError(error);
       }
     },
