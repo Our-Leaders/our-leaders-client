@@ -14,7 +14,7 @@ import 'vue-croppa/dist/vue-croppa.css';
 
 Vue.use(Cloudinary, {
   configuration: {
-    cloudName: 'saintlawal',
+    cloudName: process.env.VUE_APP_CLOUDINARY_NAME,
     components: {
       CldImage,
       CldTransformation,
