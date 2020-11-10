@@ -190,6 +190,7 @@ export default {
         this.loading = true;
 
         const response = await this.politiciansServices.getHighestVotedPoliticians();
+        console.log(response);
         this.highestVotedPoliticians = response.data;
 
         // For now
