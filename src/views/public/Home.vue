@@ -200,6 +200,7 @@ export default {
 
         this.loading = false;
       } catch (error) {
+        console.log(error);
         this.loading = false;
         this.displayError('An error occurred while getting highest voted leaders');
       }
