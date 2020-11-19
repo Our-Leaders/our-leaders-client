@@ -14,7 +14,7 @@
       <span v-if="page === 1">Welcome!</span>
     </template>
     <template v-slot:body>
-      <our-sign-up-form v-if="page === 0" :goToVerify="() => goToPage(1)" :goToSignIn="goToSignIn"/>
+      <our-sign-up-form v-if="page === 0" :goToVerify="() => goToPage(1)" :goToSignIn="goToSignIn" :goToHome="goToHome"/>
       <!-- Welcome Page -->
       <our-verify-form v-if="page === 1" :goToHome="goToHome"/>
     </template>
