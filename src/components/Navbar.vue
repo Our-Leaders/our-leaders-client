@@ -206,7 +206,6 @@ export default {
             window.location.reload();
           });
         });
-        console.log('Yeah Yeah');
       } else {
         this.$store.commit('clearJWT');
         this.$store.commit('clearCurrentUser');
