@@ -5,14 +5,14 @@
       <div class="w-full lg:w-1/2 xl:w-1/2">
         <p class="mb-4">
           <span class="text-base font-bold mr-16">Name</span>
-          <span class="text-base block lg:inline-block xl:inline-block">{{`${this.user.firstName || ''} ${this.user.lastName || ''}`}}</span>
+          <span class="text-base block lg:inline-block xl:inline-block">{{`${user.firstName || ''} ${user.lastName || ''}`}}</span>
           <button class="text-sm text-black border-2 border-black ml-2 hover:text-white hover:bg-black hover:border-black w-16 px-4" @click="toggleModal(3)">Edit</button>
         </p>
         <p>
           <span class="text-base font-bold mr-16">Email</span>
           <span class="text-base block lg:inline-block xl:inline-block align-top">
-            {{this.user.email}}
-            <Small class="text-xs text-gray-600 block break mt-2">Signed in via Email</Small>
+            {{user.email}}
+            <Small class="text-xs text-gray-600 block break mt-2">Signed in via {{user.joinedBy}}</Small>
           </span>
         </p>
       </div>

@@ -182,7 +182,7 @@ export default {
         // For now
         // this.allPoliticians.oliticians = this.allPoliticians.concat(politiciansMock);
       } catch (error) {
-        // Do nothing for now
+        this.$sentry.captureException(error, { tag: 'HomePage - GetPoliticians' });
       }
     },
     async getHighestVotedPoliticians() {
@@ -190,7 +190,6 @@ export default {
         this.loading = true;
 
         const response = await this.politiciansServices.getHighestVotedPoliticians();
-        console.log(response);
         this.highestVotedPoliticians = response.data;
 
         // For now
@@ -200,9 +199,9 @@ export default {
 
         this.loading = false;
       } catch (error) {
-        console.log(error);
         this.loading = false;
         this.displayError('An error occurred while getting highest voted leaders');
+        this.$sentry.captureException(error, { tag: 'HomePage - GetHighestVotedPoliticians' });
       }
     },
     async getTrendingPoliticians() {
@@ -214,8 +213,8 @@ export default {
         // For now
         // this.trendingPoliticians = this.trendingPoliticians.concat(politiciansMock);
       } catch (error) {
-        console.log(error);
         this.displayError(error);
+        this.$sentry.captureException(error, { tag: 'HomePage - GetTrendingPoliticians' });
       }
     },
     setSecondary(value) {

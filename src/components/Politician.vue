@@ -11,7 +11,10 @@
         </div>
       </div>
       <div class="w-full overflow-hidden h-48 md:h-56 lg:h-56 xl:h-56">
-        <img :src="politician.profileImage" class="w-full h-full object-cover"/>
+        <img v-if="!politician.profileImageId" :src="politician.profileImage" class="w-full h-full object-cover"/>
+        <cld-image v-else :publicId="politician.profileImageId" secure="true">
+          <cld-transformation loading="lazy" width="352" height="352" gravity="face" crop="fill" />
+        </cld-image>
       </div>
       <div class="w-full my-1 md:my-2">
         <img class="inline-block mr-1 md:mr-2 h-3 md:h-4" src="../assets/img/thumbs-up.svg"/>

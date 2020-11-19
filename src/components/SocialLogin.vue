@@ -55,6 +55,7 @@ export default {
       }, (error) => {
         this.loading[option] = false;
         this.$emit('error', error.message);
+        this.$sentry.captureException(error, { tag: `Social Login - ${option}` });
       });
     },
   },
