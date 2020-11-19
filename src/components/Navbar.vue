@@ -197,10 +197,22 @@ export default {
       this.$router.push(`/leaders?search=${this.searchQuery}`);
     },
     signOut() {
-      this.$store.commit('clearJWT');
-      this.$store.commit('clearCurrentUser');
-      this.closeNav();
-      window.location.reload();
+      if (this.user.joinedBy === 'google' || this.user.joinedBy === 'facebook') {
+        this.$firebase.auth().signOut().then(() => {
+          this.$firebase.auth().onAuthStateChanged(() => {
+            this.$store.commit('clearJWT');
+            this.$store.commit('clearCurrentUser');
+            this.closeNav();
+            window.location.reload();
+          });
+        });
+        console.log('Yeah Yeah');
+      } else {
+        this.$store.commit('clearJWT');
+        this.$store.commit('clearCurrentUser');
+        this.closeNav();
+        window.location.reload();
+      }
     },
     handleScroll() {
       if (this.shrinkMode) {

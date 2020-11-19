@@ -66,6 +66,10 @@ export default {
       type: Function,
       required: true,
     },
+    goToHome: {
+      type: Function,
+      required: true,
+    },
     goToVerify: {
       type: Function,
       required: true,
@@ -105,7 +109,11 @@ export default {
         this.$store.commit('setCurrentUser', response.data.user);
         this.$store.commit('setJWT', response.data.token);
         this.showSuccess('Welcome! We are glad to have you join us.');
-        this.goToVerify();
+        if (response.data.user.isEmailVerified) {
+          this.goToHome();
+        } else {
+          this.goToVerify();
+        }
       } catch (err) {
         this.loading = false;
         this.showError(err.response.data.message);
