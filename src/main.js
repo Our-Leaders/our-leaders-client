@@ -1,3 +1,6 @@
+import * as Sentry from '@sentry/browser';
+import { Vue as VueIntegration } from '@sentry/integrations';
+import { Integrations } from '@sentry/tracing';
 import firebase from 'firebase';
 import Vue from 'vue';
 import App from './App.vue';
@@ -24,10 +27,27 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+Sentry.init({
+  dsn: process.env.VUE_APP_SENTRY_DSN,
+  environment: process.env.VUE_APP_SENTRY_ENVIRONMENT ? process.env.VUE_APP_SENTRY_ENVIRONMENT : 'development',
+  integrations: [
+    new VueIntegration({
+      Vue,
+      tracing: true,
+    }),
+    new Integrations.BrowserTracing(),
+  ],
+
+  // We recommend adjusting this value in production, or using tracesSampler
+  // for finer control
+  tracesSampleRate: 1.0,
+});
+
 Vue.config.productionTip = false;
 
 Vue.prototype.$firebase = firebase;
 Vue.prototype.$serviceFactory = serviceFactory;
+Vue.prototype.$sentry = Sentry;
 
 new Vue({
   router,
