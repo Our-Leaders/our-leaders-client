@@ -267,7 +267,7 @@
                   <h3 class="font-bold my-3 text-xl" v-if="politician.manifesto.summary">Manifesto</h3>
                   <div class="mb-6" v-if="politician.manifesto.summary" v-html="politician.manifesto.summary"></div>
                   <div class="w-full text-center mt-4 mb-8" v-else>
-                    <span>Sorry, there are no politicians matching your search.</span>
+                    <span>Sorry, there is currently no manifesto under this leader.</span>
                   </div>
                   <div v-if="politician.manifesto.url">
                     <a target="_blank" :href="politician.manifesto.url" class="text-xs block text-gray-500">View full manifesto</a>
