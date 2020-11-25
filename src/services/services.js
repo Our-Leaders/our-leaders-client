@@ -23,7 +23,9 @@ instance.interceptors.request.use((req) => {
 });
 
 instance.interceptors.response.use(response => response, (error) => {
-  const reroute = (error.response.status && error.response.status === 401) || (error.response.data && error.response.data.message === 'jwt expired') && error.config.method !== 'get';
+  console.log(error);
+  console.log(error.response);
+  const reroute = ((error.response.status && error.response.status === 401) || (error.response.data && error.response.data.message === 'jwt expired')) && error.config.method !== 'get';
 
   // Reroute to reauthentication from here if we choose to have a reauthentication endpoint
 

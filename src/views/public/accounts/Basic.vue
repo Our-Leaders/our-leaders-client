@@ -90,7 +90,7 @@ export default {
     signOut() {
       this.$store.commit('clearCurrentUser');
       this.$store.commit('clearJWT');
-      this.$router.push('home');
+      // this.$router.push('home');
       window.location.reload();
     },
     toggleModal(page) {
