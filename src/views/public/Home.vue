@@ -15,7 +15,7 @@
       </div>
 
       <div class="flex mb-16 lg:mb-24">
-        <div class="relative w-full mx-auto h-auto">
+        <div class="relative w-full mx-auto h-auto min-h-highest-politicians">
           <div class="flex flex-wrap flex-col-reverse lg:flex-row mx-6 lg:mx-0">
             <div class="w-full">
               <our-tabs class="mb-6 whitespace-pre overflow-y-hidden -mr-6 md:mr-0" v-on:change="setSecondary" :tabs='secondaryTabs' :tab-type="'secondary'"></our-tabs>
@@ -28,11 +28,11 @@
                   <span class="loading lg mx-auto"></span>
                 </div>
               </div>
-              <div v-if="!loading && highestVotedPoliticians[filter.status] && highestVotedPoliticians[filter.status].length === 0" class="my-4 text-center">
+              <div v-if="!loading && highestVotedPoliticians && highestVotedPoliticians.length === 0" class="my-4 text-center">
                 <p>There is currently no politician matching this status.</p>
               </div>
               <div v-if="!loading" class="-mr-6 md:mr-0">
-                <our-home-politicians :politicians="highestVotedPoliticians[filter.status]" :isCard="true" :key="filter.status"></our-home-politicians>
+                <our-home-politicians :politicians="highestVotedPoliticians" :isCard="true" :key="filter.status"></our-home-politicians>
               </div>
               <div class="md:hidden mt-8 py-2 border border-gray-96 md:inline-block w-full text-center">
                 <router-link :to="{ name: 'politicians' }">View all leaders</router-link>
@@ -189,13 +189,8 @@ export default {
       try {
         this.loading = true;
 
-        const response = await this.politiciansServices.getHighestVotedPoliticians();
-        this.highestVotedPoliticians = response.data;
-
-        // For now
-        // this.highestVotedPoliticians.current = this.highestVotedPoliticians.current.concat(politiciansMock);
-        // this.highestVotedPoliticians.upcoming = this.highestVotedPoliticians.upcoming.concat(politiciansMock);
-        // this.highestVotedPoliticians.past = this.highestVotedPoliticians.past.concat(politiciansMock);
+        const response = await this.politiciansServices.getHighestVotedPoliticians({ status: this.filter.status });
+        this.highestVotedPoliticians = response.data.politicians;
 
         this.loading = false;
       } catch (error) {
@@ -219,6 +214,7 @@ export default {
     },
     setSecondary(value) {
       this.filter.status = value;
+      this.getHighestVotedPoliticians();
     },
   },
 };

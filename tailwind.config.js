@@ -55,6 +55,9 @@ module.exports = {
         '3/4': '75%',
         'passport': '384px'
       },
+      minHeight: {
+        'highest-politicians': '550px'
+      },
       opacity: {
         '90': '0.9'
       },       
