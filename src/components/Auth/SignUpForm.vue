@@ -114,9 +114,10 @@ export default {
         } else {
           this.goToVerify();
         }
-      } catch (err) {
+      } catch (error) {
         this.loading = false;
-        this.showError(err.response.data.message);
+        this.showError(error.response.data.message);
+        this.$sentry.captureException(error, { tag: 'Sign Up' });
       }
     },
     persistSocialLogin(data) {
