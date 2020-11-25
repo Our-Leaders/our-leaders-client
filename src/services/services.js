@@ -8,7 +8,7 @@ dotenv.config();
 
 const instance = axios.create({
   baseURL: process.env.VUE_APP_API_URL,
-  timeout: 5000,
+  timeout: 20000,
 });
 
 instance.interceptors.request.use((req) => {
