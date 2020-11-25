@@ -180,8 +180,10 @@ export default {
     this.getPoliticalParties();
   },
   beforeRouteUpdate(to, from, next) {
-    this.setPrimary(to.query.status || 'current');
-    this.$refs.primaryTab.setTab(to.query.status || 'current');
+    if (to.query.status) {
+      this.setPrimary(to.query.status);
+      this.$refs.primaryTab.setTab(to.query.status);
+    }
     next();
   },
   methods: {
